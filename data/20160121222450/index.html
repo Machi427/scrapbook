@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>Gitの基礎を学ぼう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    はじめてのGit 1章<small class="ng-binding">〜Gitの基礎を学ぼう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ストーンヘンジは、ロンドンから西に約200kmに位置しているストーンサークルです。現在のイギリス人がイギリスの地を訪れた時には、すでに存在していたと言われています。建造の目的は謎に包まれていますが、その神秘的な佇まいはなにか霊的なものを想起させます。<a class="ng-binding" href="https://www.flickr.com/photos/neilsingapore/8456110916/" target="_top">Michal Kosacky - Stonehenge</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<h3 class="ng-scope">基本的なGitの利用法を習得する</h3>
+
+<p class="ng-scope">Gitを利用してファイル共有したり、大人数での開発ができるようになるために、Gitの基本的な使い方を学びましょう。</p>
+
+<h1 id="2" class="ng-scope">Gitの基本</h1>
+
+<p class="ng-scope">バージョン管理システムGitの基本について学びましょう。</p>
+
+<h2 id="3" class="ng-scope"><strong>Gitをインストールしよう</strong></h2>
+
+<h3 class="ng-scope"><strong>はじめに</strong></h3>
+
+<p class="ng-scope">何かコードを書いたり、文章を編集している時に、ファイルを編集前の状態に戻したいことがあると思います。</p>
+
+<p class="ng-scope">しかし、折を見てファイルをコピーし保存しておくのも、保存したコピーに名前をつけて保管するのも面倒です。</p>
+
+<p class="ng-scope">また、dropboxなどを使いチームでファイルを共有している場合、二人で同じファイルを編集していて、先に編集した人の内容が後の人の上書き保存により消えてしまうということもあり得ます。(下図参照)</p>
+
+<p class="ng-scope"><img src="039.png" alt="投稿画面"></p>
+
+<p class="ng-scope">Gitを使えば上の2点のような問題を解決できます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_438"></i> Git</h3>
+
+<p class="ng-scope">Gitは、<strong>「これまでのファイルの状態を保存する」という作業をディレクトリ(フォルダ)単位で簡単に行うことができるツールです。</strong>あるディレクトリの中身の状況を全て、任意のタイミングで保存でき、またいつでもその状態に戻すことが可能です。</p>
+
+<p class="ng-scope"><img src="040.png" alt="投稿画面"></p>
+
+<p class="ng-scope">また、複数人で共有するファイルを編集する場合は上書きする際に警告がでるので、知らないうちに他人の編集内容を上書きするという失敗は起こりません。</p>
+
+<p class="ng-scope">では、この便利ツールGitをインストールしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>Gitをインストールしましょう。ターミナルで下記のようにコマンドを実行してください。</h3>
+
+<p class="ng-scope">まずは、GitをインストールするためのツールであるHomebrewがインストールされているか確認しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>brew -v
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">バージョン情報が出た場合は、Homebrewはインストールされています。</p>
+
+<p class="ng-scope">もし上のコマンドを打っても以下のようになる場合は、学習を中断しメンターにご連絡ください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">$</span> <span class="n">command</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">homebrewがインストールされている場合は、以下のコマンドを実行してください。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>brew install git
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">特に問題なくGitがインストールされたと思います。</p>
+
+<p class="ng-scope">試しにターミナルから以下のコマンドを入力してみてください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>git --version
+  <span class="c"># Gitのバージョンを確認</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">続いて以下のようにgitのバージョンが表示されれば、Gitは問題なくインストールされています。(バージョンは全く同じである必要はありません)</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>git version 1.8.5.2 <span class="o">(</span>Apple Git-48<span class="o">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">もしもエラーが出た場合は、学習を中断しメンターに報告してください。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="470" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-652" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-652" name="check-652" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gitをインストールすることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="471" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-653" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-653" name="check-653" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gitを使えば、万が一に備えてこれまでのコードを保存することができる。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-654" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-654" name="check-654" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Git --versionコマンドは、gitのバージョンを確認できる。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="4" class="ng-scope"><strong>Githubの会員登録をしよう</strong></h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_439"></i> Github</h3>
+
+<p class="ng-scope">Githubとは、Gitを利用してディレクトリの変更履歴を共有できるサービスです。</p>
+
+<p class="ng-scope">Githubのアカウントを取得すると、複数人でのファイルの変更履歴の共有ができるようになります。先にGithubの会員登録をしておきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下のリンクよりGithubの会員登録を行ってください。</h3>
+
+<p class="ng-scope"><a href="https://github.com/">https://github.com/</a></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>会員登録の際にはメールによる認証が必要となります。こちらを必ず行ってください。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="472" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-655" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-655" name="check-655" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Githubの会員登録ができた。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2223" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2223" name="check-2223" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">会員登録のあとに、メール認証を完了した。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="473" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-656" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-656" name="check-656" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Githubは、Gitを利用してフォルダの変更履歴を共有できるサービスである。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope"><strong>SourceTreeのインストールをしよう</strong></h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_440"></i> SourceTree</h3>
+
+<p class="ng-scope">Gitは本来ターミナルでコマンドを打ち込んで使います。</p>
+
+<p class="ng-scope">SourceTreeはそれをグラフィカルで簡単に使えるようにしてくれるアプリケーションです。</p>
+
+<p class="ng-scope">今回はコマンドではなくSourceTreeを使うので、SourceTreeをインストールしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、SourceTreeをインストールしてください。</h3>
+
+<p class="ng-scope"><strong>①以下のリンクより、SourceTreeをダウンロードしてください。</strong></p>
+
+<p class="ng-scope"><a href="http://sourcetreeapp.com/">http://sourcetreeapp.com/</a></p>
+
+<p class="ng-scope">ダウンロードすると以下のような画面が出ますが、特に何もせずに大丈夫です。</p>
+
+<p class="ng-scope"><img src="002.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>②ダウンロードしたディレクトリをダブルクリックし、表示されたアイコンをドラッグしてアプリケーションディレクトリに入れてください。</strong></p>
+
+<p class="ng-scope"><img src="003.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>③アプリケーションディレクトリから、SourceTreeを起動してください。</strong></p>
+
+<p class="ng-scope">以下のような画面が表示されるので、利用規約の方にチェックを入れましょう。下はチェックしなくても構いません。</p>
+
+<p class="ng-scope"><img src="004.png" alt="投稿画面"></p>
+
+<p class="ng-scope">終わったら「続ける」を押してください。</p>
+
+<p class="ng-scope"><strong>④Githubのアカウントを登録してください。</strong></p>
+
+<p class="ng-scope">続いて以下のような画面が表示されるので、先ほど登録したGithubのアカウントを入力しましょう。</p>
+
+<p class="ng-scope"><img src="005.png" alt="投稿画面"></p>
+
+<p class="ng-scope">以上でSourceTreeのインストールは完了です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="474" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-657" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-657" name="check-657" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">SourceTreeのインストールができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="475" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-658" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-658" name="check-658" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">SourceTreeは、Gitをグラフィカルに使うことのできるアプリケーションである。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope"><strong>バージョン履歴を保存する入れ物(リポジトリ)を作ろう</strong></h2>
+
+<p class="ng-scope">次は、実際にGitを使ってファイルのバージョン履歴を記録していきましょう。</p>
+
+<p class="ng-scope">まずは、バージョン履歴を残したいディレクトリにバージョン履歴を保存する入れ物を作ります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_441"></i> リポジトリ</h3>
+
+<p class="ng-scope">リポジトリは、バージョン履歴を保管しておく場所です。</p>
+
+<p class="ng-scope">バージョン履歴を管理したいディレクトリにリポジトリを持たせることで、バージョン履歴を貯めていくことができます。</p>
+
+<p class="ng-scope"><img src="041.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_442"></i> ローカル環境</h3>
+
+<p class="ng-scope">ローカル環境とは、端的に言えば皆さん自身のパソコンのことです。</p>
+
+<p class="ng-scope">ネットワークに接続されていない状態においての個人のパソコン、という意味でも使われることがあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_443"></i> ローカルリポジトリ</h3>
+
+<p class="ng-scope">ローカル環境にあるディレクトリのリポジトリのことです。</p>
+
+<p class="ng-scope"><strong>バージョンを管理するためには、管理したいディレクトリにリポジトリを作成する必要があります。</strong></p>
+
+<p class="ng-scope">今回は試しに、こちらで用意したディレクトリにリポジトリを作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下のリンクからsample.zipをダウンロードし、解凍してください。</h3>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/filedownload/11" target="_top">sample.zip</a></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ダウンロードしたsample.zipを解凍して、中身が以下のようになっているか確認してください。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> sample
+    <ul>
+      <li class="t-folder"> site
+        <ul>
+          <li class="t-file"> test.html
+          </li>
+          <li class="t-file"> style.css
+          </li>
+        </ul>
+      </li>
+      <li class="t-file"> sample.rb
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">今解凍したsampleディレクトリを、Desktopに移動しましょう。</p>
+
+<p class="ng-scope">終わったら、下のコマンドで、Desktopの中にsampleがあるか確認してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> sampleディレクトリをDesktopに移動した後、ターミナルで以下のコマンドを実行してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~/Desktop/sample
+  <span class="c"># sampleディレクトリに移動</span>
+  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「/~/Desktop/sample」であることを確認</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">続いて、sampleディレクトリのコミットを保存するリポジトリを作成します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、sampleディレクトリのローカルリポジトリを作成してください。</h3>
+
+<p class="ng-scope"><strong>①SourceTreeを起動し、上部バーにある「新規リポジトリ」をクリックするとメニューが表示されるので「ローカルリポジトリを作成」をクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="006.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>②/Desktop/sampleを選択し、「作成」をクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="007.png" alt="投稿画面"></p>
+
+<p class="ng-scope">これでsampleディレクトリのローカルリポジトリを作成することができました。</p>
+
+<p class="ng-scope">以下のsampleと表示されている部分をダブルクリックしてください。</p>
+
+<p class="ng-scope"><img src="008.png" alt="投稿画面"></p>
+
+<p class="ng-scope">以下のような画面になっていれば成功です。</p>
+
+<p class="ng-scope"><img src="009.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="476" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-659" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-659" name="check-659" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">sampleのローカルリポジトリを作ることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="477" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-660" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-660" name="check-660" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">バージョン管理のためには、アプリケーションのディレクトリにリポジトリを作成する必要がある。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope"><strong>コミットをしてみよう</strong></h2>
+
+<p class="ng-scope">今はまだリポジトリの中は空ですね。</p>
+
+<p class="ng-scope">続いて、現在のディレクトリの状況をバージョン履歴として保存してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_444"></i> コミット</h3>
+
+<p class="ng-scope">これまでバージョン履歴と呼んできたものがコミットです。</p>
+
+<p class="ng-scope">開発をゲームに例えるなら、コミットはセーブポイントです。</p>
+
+<p class="ng-scope">任意の段階で現在のディレクトリの状況をコミットし(保存し)、あとでそのコミットまでディレクトリの中身を元通りにすることができます。</p>
+
+<p class="ng-scope">また、コミットは何個でも持つことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_445"></i> ワークツリー</h3>
+
+<p class="ng-scope">Gitでは、コミットを記録するディレクトリのことをワークツリーと呼びます。</p>
+
+<p class="ng-scope">ワークツリーに変更があった場合、つまりディレクトリ内のファイルを書き換え保存した場合、</p>
+
+<p class="ng-scope">以下の図に示した作業コピーという部分に数字が表示されます。これは、最後のコミット以降に書き換え保存されたファイルの数です。</p>
+
+<p class="ng-scope"><img src="010.png" alt="投稿画面"></p>
+
+<p class="ng-scope">現在はまだコミットが無いため、作業コピー欄の数字はディレクトリ内のファイルの数になっています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_446"></i> インデックス</h3>
+
+<p class="ng-scope">ワークツリーでの変更はいきなりコミットとしてリポジトリに保存されるわけではありません。</p>
+
+<p class="ng-scope">まずは手動で、変更したファイルを選択し、それをインデックスと呼ばれる場所に一度登録した後、</p>
+
+<p class="ng-scope">「コミット」ボタンを押すことでコミットを確定します。</p>
+
+<p class="ng-scope">インデックスを間に挟むことで、ワークツリー内の必要無い変更を含めずにコミットを行ったり、ファイルの一部の変更だけをインデックスに登録してコミットすることができたりなど、より柔軟にコミットを行うことができます。</p>
+
+<p class="ng-scope"><img src="011.png" alt="投稿画面"></p>
+
+<p class="ng-scope">Aの部分には、変更を加えたワークツリーのファイルが表示されます。右側では、どこをどのように変更したのかがわかります。</p>
+
+<p class="ng-scope">Bの部分には、作業ツリーからインデックスに移したファイルが表示されます。</p>
+
+<p class="ng-scope">Aの部分にある変更記録をドラッグ＆ドロップしてBの部分に移すことで、インデックスに移せます。</p>
+
+<p class="ng-scope">逆に、Bの部分にあるインデックスに移したものをAの部分にドラッグ＆ドロップすると、その変更をインデックスから外すことができます。</p>
+
+<p class="ng-scope">それでは、最初のコミットをしてみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、最初のコミットをしましょう。</h3>
+
+<p class="ng-scope"><strong>①左のメニューバーにある「作業コピー」をクリックしてください。</strong></p>
+
+<p class="ng-scope"><strong>②「作業ツリーのファイル」にチェックを入れ、インデックスに入れてください。</strong></p>
+
+<p class="ng-scope">ファイルの変更を一括してインデックスに登録することができます。</p>
+
+<p class="ng-scope"><img src="012.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>③コミットメッセージ欄に「初コミット」と書き、「コミット」ボタンを押してください。</strong></p>
+
+<p class="ng-scope">コミットには必ずコミットメッセージが必要です。</p>
+
+<p class="ng-scope">コミットメッセージには通常、どのような変更を行ったかをわかりやすく書きます。</p>
+
+<p class="ng-scope"><img src="013.png" alt="投稿画面"></p>
+
+<p class="ng-scope">これで、現在のディレクトリの状況がコミットされました。</p>
+
+<p class="ng-scope">同時に、左メニューの「ブランチ」という項目に、「master」というものが出現したことを確認してください。</p>
+
+<p class="ng-scope"><img src="014.png" alt="投稿画面"></p>
+
+<p class="ng-scope">ブランチに関しては、後ほど詳しく説明します。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="478" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-661" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-661" name="check-661" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">sampleのローカルリポジトリにコミットを保存できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="479" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-662" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-662" name="check-662" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コミットをするには、一度インデックスに変更を登録し、コミットボタンを押す。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="8" class="ng-scope">Gitによる多人数開発の手法</h1>
+
+<p class="ng-scope">ここからは、具体的に多人数でファイルの共有を行う際の流れをなぞってみます。</p>
+
+<p class="ng-scope">文書の共有、編集からアプリケーション開発まで、同様の方法で行うことができます。</p>
+
+<h2 id="9" class="ng-scope"><strong>リモートリポジトリを作ろう</strong></h2>
+
+<p class="ng-scope">複数人でファイルを共有する際、他の作業者とリポジトリを共有するためにはリモートリポジトリを使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_447"></i> リモート</h3>
+
+<p class="ng-scope">リモートとはローカルの反対で、インターネットを通じて操作するものを指します。</p>
+
+<p class="ng-scope"><img src="042.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_448"></i> リモートリポジトリ</h3>
+
+<p class="ng-scope">リモートリポジトリとは、Githubなどを利用してインターネット上においておくリポジトリのことです。</p>
+
+<p class="ng-scope">リモートリポジトリから複製したリポジトリを複数人の作業者のPCにおき、リモートリポジトリとローカルのリポジトリの同期を通じて、それぞれに保管されているお互いのコミットを同期していくことで、作業を進めていきます。(下図参照)</p>
+
+<p class="ng-scope"><img src="043.png" alt="投稿画面"></p>
+
+<p class="ng-scope">ここではまず、リモートリポジトリを作りましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、リモートリポジトリを作ってください。</h3>
+
+<p class="ng-scope"><strong>①SourceTreeの右上にある「設定」ボタンをクリックしてください。</strong><br>
+<i class="icon attention"></i>以下の画像とは表示が違う方は先に進んでください。</p>
+
+<p class="ng-scope"><img src="e5e48846666b37403363badfef092652.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//e5e48846666b37403363badfef092652.png"></p>
+
+<p class="ng-scope">「設定」のアイコンがない人は以下の画像のように「&gt;&gt;」ボタンをクリックするとでてきます。これはウィンドウの幅によって表示が上の画像または下の画像のように変わります。</p>
+
+<p class="ng-scope"><img src="8bf0f91daef7389470729d9c232527d9.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//8bf0f91daef7389470729d9c232527d9.png"></p>
+
+<p class="ng-scope"><strong>②リモートを選択し、「追加」ボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="015.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>③地球マークを押してください。</strong></p>
+
+<p class="ng-scope"><img src="016.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>④「新規リポジトリを作成」ボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope"><strong><img src="017.png" alt="投稿画面"></strong></p>
+
+<p class="ng-scope"><strong>⑤リモートリポジトリの名前を「sample」と入力してください。</strong></p>
+
+<p class="ng-scope">なお、リモートリポジトリを非公開にする場合、料金が発生します。今回は「公開する」にチェックを入れておきましょう。</p>
+
+<p class="ng-scope"><img src="018.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>⑥作成されたリポジトリを選択して、OKボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="019.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>⑦SourceTree上で表示する名前を「sample」と入力し、OKボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="020.png" alt="投稿画面"></p>
+
+<p class="ng-scope">これでリモートリポジトリを作ることができました。確認してみましょう。</p>
+
+<p class="ng-scope"><strong>⑦SourceTree上で、キーボードでcommand + nを打ってください。</strong></p>
+
+<p class="ng-scope">以下のような画面になったら、上部メニューの「リモート」を選択してみましょう。</p>
+
+<p class="ng-scope">先ほど作成した「sample」という名前が表示されていれば、リモートリポジトリが作成されています。</p>
+
+<p class="ng-scope"><img src="038.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="480" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-663" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-663" name="check-663" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">リモートリポジトリを作成できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="481" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-664" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-664" name="check-664" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">複数人で作業する際は、リモートリポジトリを介して互いのリポジトリを共有する。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope"><strong>ローカルリポジトリをプッシュしよう</strong></h2>
+
+<p class="ng-scope">リモートリポジトリを作ることができたら、次にローカルリポジトリとリモートリポジトリを同期してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_449"></i> プッシュ</h3>
+
+<p class="ng-scope">自分のローカルリポジトリをリモートリポジトリと同期し、自分のコミットを反映させることをプッシュと言います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_450"></i> プル</h3>
+
+<p class="ng-scope">プッシュでは自分が行った変更をリモートリポジトリに同期させます。しかし、複数人で開発している場合は自分以外の作業者が変更をプッシュする場合があります。すると自分のローカルリポジトリの状態とリモートリポジトリの状態が変わってしまいます。このとき、リモートリポジトリの変更をローカルリポジトリに同期させることをプルといいます。</p>
+
+<p class="ng-scope">下図は、プルとプッシュを含めたGitによるバージョン管理の全体図です。</p>
+
+<p class="ng-scope"><img src="045.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、ローカルリポジトリをプッシュしましょう。</h3>
+
+<p class="ng-scope"><strong>①リポジトリを更新するため、~/Desktop/sample/site/test.htmlを開き、以下のように変更し保存してください。</strong></p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>test<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Type"</span> <span class="na">content=</span><span class="s">"text/html; charset=UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+<span class="hll">  こんにちわ、世界
+</span>  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>②SourceTreeを開きます。左メニューにある「作業コピー」の横の数が1になっていることを確認し、クリックしてください。</strong></p>
+
+<p class="ng-scope"><strong>③変更をコミットしてください。</strong></p>
+
+<p class="ng-scope">コミットメッセージは「文字変更」にしてください。</p>
+
+<p class="ng-scope"><strong>④上部メニューバーのプッシュボタンを押してください。</strong></p>
+
+<p class="ng-scope"><strong>⑤開いた画面にあるmasterにチェックを入れ、OKボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="021.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>⑥githubのアカウントページにアクセスしてください。</strong></p>
+
+<p class="ng-scope">リモートリポジトリに反映されたか確認します。</p>
+
+<p class="ng-scope">以下の画像を参考に、githubのトップページから、アカウントページにアクセスしましょう。</p>
+
+<p class="ng-scope"><span class="image-caption">■</span><br><img src="049.png" alt=""></p>
+
+<p class="ng-scope"><strong>⑦リモートリポジトリにアクセスしてください。</strong></p>
+
+<p class="ng-scope">アカウントページの中央辺りに、以下のような部分があります。「sample」をクリックすると、リモートリポジトリの状態が確認できます。</p>
+
+<p class="ng-scope"><img src="023.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>⑧コミット一覧ページにアクセスしてください。</strong></p>
+
+<p class="ng-scope">以下の画像を参考にコミット一覧にアクセスしてください。</p>
+
+<p class="ng-scope"><img src="024.png" alt="投稿画面"></p>
+
+<p class="ng-scope">以下のように、先ほどのローカルリポジトリでのコミットが、リモートリポジトリに反映されていることがわかります。</p>
+
+<p class="ng-scope"><img src="025.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="482" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-665" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-665" name="check-665" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ローカルリポジトリからリモートリポジトリにプッシュできた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="483" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-666" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-666" name="check-666" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">自分のローカルリポジトリの変更分をリモートリポジトリと同期することをプッシュ、リモートリポジトリとローカルリポジトリを同期することをプルと言う。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope"><strong>ブランチを使ってみよう</strong></h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_451"></i> ブランチ</h3>
+
+<p class="ng-scope">ブランチとはGitのバージョン管理の仕組みで、現在のコミットから分岐した作業履歴を残すことができるというものです。</p>
+
+<p class="ng-scope">はじめは「master」ブランチのみがリポジトリに存在していますが、ここからあたかも別の歴史に分岐するように、ブランチを増やしていくことができます。</p>
+
+<p class="ng-scope"><img src="046.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_452"></i> masterブランチ</h3>
+
+<p class="ng-scope">リポジトリに最初のコミットを行うと、自動でmasterという名前のブランチが作成されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_453"></i> ブランチを利用した開発の例</h3>
+
+<p class="ng-scope">ブランチを利用すると、同じリポジトリの中で複数の変更を同時に進めることができます。</p>
+
+<p class="ng-scope">また、一度分岐したブランチは元のブランチと結合して一つのブランチにすることができます。</p>
+
+<p class="ng-scope">これを利用して、多人数で作業する際に簡単に役割分担ができます。</p>
+
+<p class="ng-scope">例えばとあるアプリケーションの開発において、masterブランチからAさんはフォロー機能を、Bさんはコメント機能を、Cさんはお気に入り機能を作るためにそれぞれのブランチを作ります。</p>
+
+<p class="ng-scope">すると、それぞれ別個のブランチで作業するので、互いに影響し合ってエラーが起こるといったことがありません。</p>
+
+<p class="ng-scope">Aさんが作業を終了し、元のブランチに作業したブランチを結合すると、元のブランチのアプリケーションにはフォロー機能が追加されます。</p>
+
+<p class="ng-scope">同じように残りの2人もブランチを結合すれば、コメントやお気に入り機能もついたアプリケーションになるというわけです。</p>
+
+<p class="ng-scope"><img src="044.png" alt="投稿画面"></p>
+
+<p class="ng-scope">では、試しにブランチを作成してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、ブランチを作りましょう。</h3>
+
+<p class="ng-scope"><strong>①SourceTree上部メニューの「ブランチ」ボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope">現在のブランチから枝分かれする、新たなブランチを作成できます。</p>
+
+<p class="ng-scope"><strong>②任意の名前を入力し、「作成」ボタンを押してください。</strong></p>
+
+<p class="ng-scope">ブランチの名前は、「作成するブランチで何をするのか」がわかるような名前にします。</p>
+
+<p class="ng-scope">今回は、「test」という名前にしてください。</p>
+
+<p class="ng-scope">また、このとき「新規ブランチをチェックアウト」のチェックボックスにはチェックをつけておきましょう。</p>
+
+<p class="ng-scope">ブランチ作成後、作業中のブランチが新規作成したブランチになります。</p>
+
+<p class="ng-scope"><img src="026.png" alt="投稿画面"></p>
+
+<p class="ng-scope">これでブランチができました。</p>
+
+<p class="ng-scope">左メニューの「ブランチ」という項目のmasterの下に、testというブランチができていることを確認してください。</p>
+
+<p class="ng-scope"><img src="028.png" alt="投稿画面"></p>
+
+<p class="ng-scope">太字になっている方が、現在操作しているブランチです。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="484" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-667" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-667" name="check-667" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチを作成できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="485" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-668" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-668" name="check-668" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチとはGitのバージョン管理の仕組みで、現在のコミットから別々の作業履歴を残すことができるものである。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-669" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-669" name="check-669" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチを利用することの利点は、多人数で作業する際に開発の分担が容易になることである。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">コミットとブランチの違い</h2>
+
+<p class="ng-scope">これまで、コミットとブランチついて学んできましたが、ここではこの２つの大きな違いについて解説していきます。</p>
+
+<p class="ng-scope">コミットとは、 <strong><em>ある地点に後で戻れるように、セーブポイントを作ること</em></strong> です。<br>
+ブランチとは、 <strong><em>１つの機能を実装するときに作成するもの</em></strong> です。</p>
+
+<p class="ng-scope">どういうことか詳しく見ていきましょう。</p>
+
+<p class="ng-scope">例えば、あるアプリケーションにユーザー機能を実装するとします。</p>
+
+<p class="ng-scope">ここで最初に行うことは、ブランチを作成することです。<br>
+ある機能の実装を行うときは、その機能ごとにブランチを作成します。</p>
+
+<p class="ng-scope">ブランチを作成する大きなメリットは、複数の機能を同時並行で実装することができます。</p>
+
+<p class="ng-scope">ブランチはブランチ毎に独立していて、実装している段階ではお互いに干渉し合いません。<br>
+ですので、機能ごとにブランチを作成することにより、複数の機能を同時並行で実装していくことができるのです。</p>
+
+<p class="ng-scope">小さなアプリケーションを開発する場合や、お一人での開発の場合はメリットが少ないのですが、<br>
+FacebookやTwitterのような大きなアプリケーションの場合や、複数人での開発の場合はメリットが大きくなります。</p>
+
+<p class="ng-scope">また、ブランチを作成するときに気をつけなければならないのがブランチ名です。<br>
+ブランチ名を適当につけてしまうと、どのブランチで何の機能を実装しているのか分からなくなってしまいます。<br>
+ですので、ブランチ名は何の作業をしているのかを判別できる名前にしましょう。</p>
+
+<p class="ng-scope">ブランチを作成し、ブランチ名を決めたら実際にユーザー機能を実装していきます。<br>
+このとき、以前学習したdeviseというgemを使うことにしましょう。<br>
+Gemfileにgem 'devise'を記述してターミナルでbundle installを実行し、rails g devise:installを実行しdeviseをアプリケーション内で使えるようにします。</p>
+
+<p class="ng-scope">bundle installの実行が終わったら、次に行うことはコミットです。<br>
+コミットとは後で戻れるように、セーブポイントを作ることでした。<br>
+ここでコミットをしておくと、そのユーザー機能の開発の段階で不具合が起きたときに、ソースコードをこの段階まで戻すことができます。</p>
+
+<p class="ng-scope">また、コミットをする際に気をつけなければならないのがコミット名です。<br>
+コミット名が適当ですと、あるコミット地点まで戻るときに、どのコミットで何をしたのかわからなくなってしまい、どのコミットに戻ればいいのかわかなくなってしまいます。</p>
+
+<p class="ng-scope">ですので、コミット名を記述するときは、そのコミットでどのような実装をしたのか分かるようにしましょう。</p>
+
+<p class="ng-scope">ここでは、install gem deviseというコミット名でコミットするのが適切でしょう。</p>
+
+<p class="ng-scope">次に、rails g devise:viewsを実行し、ビューファイルを作成します。<br>
+この作業でもコミットしましょう。<br>
+コミット名はinstall devise viewsとするのが適切でしょう。</p>
+
+<p class="ng-scope">rails g devise userを実行し、deviseに紐付いたuserモデルを作成します。<br>
+rails g devise userで作成されたマイグレーションファイルを実行するために、rake db:migrateコマンドを実行します。<br>
+この段階で、コミットを行います。<br>
+コミット名はcreate user model and tableとするのが適切でしょう。</p>
+
+<p class="ng-scope">このようにしてコミットを行っていきます。</p>
+
+<p class="ng-scope">機能ごとにコードを管理するときはブランチを作成し、セーブポイントを作りたいときにコミットを行います。<br>
+これがコミットをブランチの違いです。</p>
+
+<h2 id="13" class="ng-scope"><strong>ブランチを切り替えよう</strong></h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_454"></i> チェックアウト</h3>
+
+<p class="ng-scope">ブランチを切り替えることをチェックアウトと言います。</p>
+
+<p class="ng-scope"><strong>操作していないブランチをダブルクリックすると、チェックアウトできます。</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>この時、テキストエディタで開いているワークツリー内のファイルも、自動的にそのブランチの状態になってくれます。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、ブランチを切り替えましょう。</h3>
+
+<p class="ng-scope"><strong>①SourceTree左メニューの「ブランチ」の中にあるmasterブランチをダブルクリックしてください。</strong></p>
+
+<p class="ng-scope">もう一度、testブランチに切り替えておきましょう。</p>
+
+<p class="ng-scope"><strong>②SourceTree左メニューの「ブランチ」の中にあるtestブランチをダブルクリックしてください。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="486" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-670" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-670" name="check-670" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチを切り替えることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form><br>
+<form class="ng-pristine ng-valid ng-scope" data-id="487" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-671" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-671" name="check-671" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチを切り替えるには、切り替えたいブランチをダブルクリックする。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="14" class="ng-scope"><strong>ブランチをプッシュしよう</strong></h2>
+
+<p class="ng-scope">ブランチを作ったら、そのブランチ上で自分の担当箇所の作業をしていきます。</p>
+
+<p class="ng-scope">作業を終えたらコミットし、プッシュすることでリモートリポジトリに自分のブランチを反映します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> testブランチ上で、~/Desktop/sample/site/test.htmlを変更し、コミットとプッシュをしよう。</h3>
+
+<p class="ng-scope"><strong>①SourceTreeを開き、現在testブランチ上で作業していることを確認します。</strong></p>
+
+<p class="ng-scope"><strong>②~/Desktop/sample/site/test.htmlを以下のように書き換え、保存してください。</strong></p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>test<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Type"</span> <span class="na">content=</span><span class="s">"text/html; charset=UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+  こんにちわ、世界
+<span class="hll">  よろしくね！
+</span>  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>③変更をコミットしてください。</strong></p>
+
+<p class="ng-scope"><strong>④ローカルリポジトリをプッシュしてください。</strong></p>
+
+<p class="ng-scope">この時、新たに作ったブランチにチェックを入れ「OK」を押します。</p>
+
+<p class="ng-scope"><img src="027.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="488" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-672" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-672" name="check-672" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチをリモートリポジトリにプッシュできた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="489" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-673" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-673" name="check-673" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチでの作業が終わったら、コミットしプッシュする。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="15" class="ng-scope"><strong>testブランチをmasterブランチと統合しよう</strong></h2>
+
+<p class="ng-scope">testブランチでの作業は終了しているので、リモートリポジトリ上でmasterブランチと統合しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_455"></i> マージ</h3>
+
+<p class="ng-scope">その名の通り、ブランチとブランチを結合することを指します。</p>
+
+<p class="ng-scope">あるブランチは、そのブランチが分岐したブランチに統合される場合がほとんどです。</p>
+
+<p class="ng-scope">例えば<strong>masterブランチにtestブランチをマージする</strong>とき、両方のブランチでのコミットを含んだマージコミットが作成されます。(下図参照)</p>
+
+<p class="ng-scope"><img src="047.png" alt="投稿画面"></p>
+
+<p class="ng-scope">そのコミットがmasterブランチの最新のコミットとされます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_456"></i> プルリクエスト</h3>
+
+<p class="ng-scope">プルリクエストとは、リモートリポジトリにてマージする際に挟む確認作業です。プルリクエストを出すと、Github上でブランチ間にどれだけの差分があるかを確認できます。確認が終了したら、改めてマージを実行します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_457"></i> フェッチ</h3>
+
+<p class="ng-scope">プルを実行すると、リモートリポジトリにあるブランチの内容が自動的にローカルリポジトリの同じブランチにマージされてしまいます。しかし、単にリモートリポジトリの内容を確認したいだけで、マージはしたくない場合もあります。そのような時は「フェッチ」を使用します。</p>
+
+<p class="ng-scope"><img src="048.png" alt="投稿画面"></p>
+
+<p class="ng-scope">上部メニューの「フェッチ」ボタンを押すと、フェッチを実行できます。</p>
+
+<p class="ng-scope">フェッチを実行し、もしもリモートのブランチとローカルのブランチに差分があった場合、ブランチ名の横に下向きの矢印が現れます。</p>
+
+<p class="ng-scope">もしその差分を同期したければ、改めて「プル」ボタンを押しましょう。</p>
+
+<p class="ng-scope">では実際にプルリクエスト→マージの流れを体験してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従って、プルリクエストをしましょう。</h3>
+
+<p class="ng-scope"><strong>①Githubにアクセスします。</strong></p>
+
+<p class="ng-scope"><a href="https://github.com/">https://github.com/</a></p>
+
+<p class="ng-scope"><strong>②リモートリポジトリにアクセスします。</strong><br>
+先ほどの、testブランチのプッシュが正常にできていると画像のようになっているはずです。</p>
+
+<p class="ng-scope"><img src="b6909a6236945ecef669be92733def85.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//b6909a6236945ecef669be92733def85.png"></p>
+
+<p class="ng-scope"><strong>③右側にある「Compare &amp; pull request」ボタンをクリックしてください。</strong></p>
+
+<p class="ng-scope"><img src="f99cb08567f88e3cd0a941ba174375ad.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//f99cb08567f88e3cd0a941ba174375ad.png"></p>
+
+<p class="ng-scope"><strong>④プルリクエストを書きましょう。</strong></p>
+
+<p class="ng-scope">真ん中にある大きな欄に、どのような変更を行ったのか端的に記述しましょう。</p>
+
+<p class="ng-scope"><img src="775254abdb00c80d6dc1764c0d886530.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//775254abdb00c80d6dc1764c0d886530.png"></p>
+
+<p class="ng-scope">書き終わったら、右下にある緑色の「Create pull request」ボタンを押しましょう。</p>
+
+<p class="ng-scope"><strong>⑤プルリクエスト画面から、「Merge pull request」ボタンを押してください。</strong></p>
+
+<p class="ng-scope">以下のようなプルリクエスト画面に遷移してきたと思います。</p>
+
+<p class="ng-scope"><img src="051.png" alt=""></p>
+
+<p class="ng-scope">ここでは、このマージによってどのような変更が行われるかを作業者全員が確認することができます。</p>
+
+<p class="ng-scope">左下の「Merge pull request」ボタンを押しましょう。</p>
+
+<p class="ng-scope">すると、緑色で「Confirm merge」というボタンが表示されるので、こちらのボタンも押しましょう。</p>
+
+<p class="ng-scope"><strong>これで、masterブランチにtestブランチをマージできました。</strong></p>
+
+<p class="ng-scope"><strong>⑥マージ済みのブランチを消すよう促されるので、「delete branch」ボタンを押します。</strong></p>
+
+<p class="ng-scope">マージしたブランチは基本的に必要無くなるので、消してしまいます。</p>
+
+<p class="ng-scope"><img src="052.png" alt=""></p>
+
+<p class="ng-scope"><strong>⑦SourceTreeを確認してください。</strong></p>
+
+<p class="ng-scope">最後にSourceTreeを確認し、以下の画像のようにブランチmasterの横に下方向の矢印と数字が表示されていれば成功です。</p>
+
+<p class="ng-scope"><img src="036.png" alt="投稿画面"></p>
+
+<p class="ng-scope">testブランチにおける変更がリモートのmasterブランチに適用されたので、リモートのmasterブランチとローカルのmasterブランチの間で差異が生まれました。矢印と数字は、それを教えてくれています。数字の数は、変更されたファイルの数です。</p>
+
+<p class="ng-scope">もしも表示されていなければ、上部メニューより「フェッチ」ボタンを押してみてください。</p>
+
+<p class="ng-scope">リモートリポジトリとの差異が検出され、矢印と数字が表示されるはずです。</p>
+
+<p class="ng-scope"><strong>⑧リモートリポジトリをプルしてください。</strong></p>
+
+<p class="ng-scope">放置しておく意味も特にないので、安全だと確認できている場合はプルを実行しましょう。</p>
+
+<p class="ng-scope">まずはmasterブランチに移動してください。ブランチの名前をダブルクリックすると移動できます。</p>
+
+<p class="ng-scope">つづいて上部メニューの「プル」をクリックします。すると、以下のような画面になります。</p>
+
+<p class="ng-scope"><img src="037.png" alt="投稿画面"></p>
+
+<p class="ng-scope">「プルするリモートのブランチ」の欄がmasterであることを確認し、OKボタンを押しましょう。</p>
+
+<p class="ng-scope">これで、リモートリポジトリにおけるmasterへの変更(マージ)がローカルリポジトリに反映されました。</p>
+
+<p class="ng-scope"><strong>⑨testブランチを消去しましょう。</strong></p>
+
+<p class="ng-scope">作業が終わったブランチは必要ないので、ローカルリポジトリからも消去しましょう。</p>
+
+<p class="ng-scope">ブランチを右クリック→「ブランチを削除」でブランチを削除できます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="490" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-674" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-674" name="check-674" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">プルリクエストを送り、masterブランチにtestブランチをマージできた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="491" action="http://master.tech-camp.in/curriculums/26#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-675" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-675" name="check-675" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">プッシュ→プルリクエスト→マージの手順で、リモートリポジトリ内でブランチをマージすることができる。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="16" class="ng-scope"><strong>Gitを利用した複数人による作業の流れをおさらいしよう</strong></h2>
+
+<p class="ng-scope">ここまでGitを利用した複数人での作業の流れを順に追ってきましたが、まとめると以下のようになります。</p>
+
+<p class="ng-scope"><strong>①リモートリポジトリと、各人のローカルリポジトリを用意</strong></p>
+
+<p class="ng-scope"><strong>②masterブランチから、各人がそれぞれの担当箇所作業用のブランチを切る</strong></p>
+
+<p class="ng-scope"><strong>③担当箇所の作業が完了、リモートリポジトリに担当箇所のブランチをプッシュ</strong></p>
+
+<p class="ng-scope"><strong>④リモートリポジトリで、担当箇所のブランチをmasterブランチに結合(マージ)</strong></p>
+
+<p class="ng-scope"><strong>⑤各々のローカルリポジトリとリモートリポジトリを同期</strong></p>
+
+<p class="ng-scope">②~⑤を繰り返して作業を進めていきます。</p>
+
+<p class="ng-scope">ここまでの説明をより深く理解するためには以下のサイトが非常に参考になるので、是非読んでみてください。</p>
+
+<p class="ng-scope"><a href="http://www.backlog.jp/git-guide/intro/intro1_1.html">Gitの参考サイト</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">Gitの基本</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">Gitをインストールしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">Githubの会員登録をしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">SourceTreeのインストールをしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">バージョン履歴を保存する入れ物(リポジトリ)を作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">コミットをしてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents8" ng-click="clickContent(content.h1.id)">Gitによる多人数開発の手法</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">リモートリポジトリを作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">ローカルリポジトリをプッシュしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">ブランチを使ってみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">コミットとブランチの違い</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">ブランチを切り替えよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">ブランチをプッシュしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">testブランチをmasterブランチと統合しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">Gitを利用した複数人による作業の流れをおさらいしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 25<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/26">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

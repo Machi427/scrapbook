@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>事前準備</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発1 第1章<small class="ng-binding">〜事前準備〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    全長437キロも続く川、漓江(りこう)。唐代の詩人韓愈が『江は青羅の帯をなし、山は碧玉の簪の如し』という名句で詠じたとおり、漓江の美しさと山々の美しさがあいまって、桂林観光の一番の名所となっています。<a class="ng-binding" href="https://www.flickr.com/photos/dulun/7654074156/" target="_top">Rex Leow - 果然佳胜在兴坪</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h3 class="ng-scope">
+<i class="icon attention"></i> 本章の学習を進めるにはRails開発環境の構築が必要です</h3>
+
+<p class="ng-scope">Rails開発ではデータベース(MySQL)やRails自体のインストールなど、まずは開発のできる環境を整える必要があります。</p>
+
+<p class="ng-scope">必要な手順は主に以下です。  </p>
+
+<ul class="ng-scope">
+<li>Homebrewのインストール・アップデート</li>
+<li>rbenv・ruby-buildのインストール</li>
+<li>Ruby ver.2.1.3のインストール</li>
+<li>MySQLのインストール</li>
+<li>Ruby on Railsのインストール</li>
+</ul>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">これらの手順を終えていない方は、以下のリンクから資料を参照し、環境構築を行なってください。</p>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/curriculums/107">Rails開発環境の構築資料</a></h4>
+
+<p class="ng-scope"><strong>すでに環境構築を終えられている方は、このまま本カリキュラムを進めてください。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon attention"></i> Windowsの方は、フォルダは全て <code>vagrant</code> フォルダの中に作成してください</h3>
+
+<h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">新規Railsアプリケーションを作成し、開発を行なうための準備を行いましょう</p>
+
+<h1 id="2" class="ng-scope">学習キーワード</h1>
+
+<p class="ng-scope">・linuxコマンド<br><br>
+・Gem<br><br>
+・データベース<br></p>
+
+<h1 id="3" class="ng-scope">エラー解決について</h1>
+
+<p class="ng-scope">この章から本格的にRailsアプリケーション開発をはじめていきます。プログラミングでは当然のことながら開発中にエラーが発生することがあります。Railsでも同様です。  </p>
+
+<p class="ng-scope"><strong>エラーが発生した場合にはTECH::MASTERカリキュラムの<a href="http://master.tech-camp.in/curriculums/25">トラブルシューティング(Rails編)</a>を見ると、解決方法が見つかる可能性があります。</strong></p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/25">トラブルシューティング(Rails編)</a>を参考にしてよくあるエラーは自力ですぐに解決できるようになりましょう。エラー解決が素早くなればなるほど、効率的にプログラミングを行うことが出来ます。</p>
+
+<h1 id="4" class="ng-scope">新規Railsアプリケーションの作成</h1>
+
+<p class="ng-scope">Railsアプリケーションを開発する際には、コマンドを使ってアプリケーションのひな形を作成する必要があります。このセクションでは新規アプリケーションを作成し、開発への準備を整えます。</p>
+
+<h2 id="5" class="ng-scope">アプリケーションを配置するディレクトリを作ろう</h2>
+
+<p class="ng-scope">通常、アプリケーションを配置するディレクトリはどんな場所に作成しても構わないのですが、今回の開発では指定した場所にディレクトリを作成します。特定のディレクトリの下にアプリケーションを配置していくことで、<strong>アプリケーションが複数になった場合でも場所の管理がしやすくなります</strong>。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> アプリケーションを配置するディレクトリ
+    <ul>
+      <li class="t-folder"> アプリケーション①</li>
+      <li class="t-folder"> アプリケーション②</li>
+      <li class="t-folder"> アプリケーション③</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_259"></i> linux(リナックス)コマンド</h3>
+
+<p class="ng-scope">ターミナルはパソコンの中身の部分を操作できるシステムです。linuxコマンドとは<strong>ターミナル内で使用出来るコマンド</strong>のことを指します。新しくディレクトリを作成する時などに使用します。たくさんの種類があるので、全て覚えるのではなく必要に応じて使用しましょう。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">コマンド</th>
+<th style="text-align: center;">意味</th>
+<th style="text-align: center;">役割</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">cd</td>
+<td style="text-align: center;">change directory</td>
+<td style="text-align: center;">現在のディレクトリ（カレントディレクトリ）を移動する</td>
+</tr>
+<tr>
+<td style="text-align: center;">mkdir</td>
+<td style="text-align: center;">make directory</td>
+<td style="text-align: center;">新しくディレクトリを作成する</td>
+</tr>
+<tr>
+<td style="text-align: center;">pwd</td>
+<td style="text-align: center;">print working directory</td>
+<td style="text-align: center;">現在のディレクトリ（カレントディレクトリ）のパスを表示する</td>
+</tr>
+</tbody>
+</table>
+
+<h3 class="ng-scope">
+<i class="icon surprise"></i> ターミナルでコマンドを実行するときの注意 <i class="icon surprise"></i>
+</h3>
+
+<p class="ng-scope">これからテキストを読み進めていく中でターミナルでコマンドを実行するという作業があります。このときに注意して欲しいことが３点あります。</p>
+
+<h4 class="ng-scope">①＄マークはコマンドとして打ち込まない</h4>
+
+<p class="ng-scope">　＄マークはターミナルで実行するコマンドであることを示す記号です。そのため、実際にコマンドを実行する際には<strong>＄マーク以下の部分をコマンドとして実行</strong>しましょう。</p>
+
+<h4 class="ng-scope">②＃マーク以下の文字を打ち込まない</h4>
+
+<p class="ng-scope">　＃マークはコメントアウトとよばれ、プログラムには関係の無い文字列などをコードの中に書き込むときに使用するものです。<strong>＃マーク以下には説明などを書き込む</strong>ため、コマンドとして実行するときには打ち込まないようにしましょう。</p>
+
+<h4 class="ng-scope">③コマンドを１行ずつ実行する</h4>
+
+<p class="ng-scope">　コマンドを実行する際に、複数のコマンドを実行することがあります。その際には必ず<strong>一行ずつ実行</strong>するようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~
+  <span class="c"># ホームディレクトリに移動</span>
+
+  <span class="nv">$ </span>mkdir projects
+  <span class="c">#「projects」というディレクトリを作成</span>
+
+  <span class="nv">$ </span><span class="nb">cd </span>projects
+  <span class="c">#「projects」ディレクトリに移動</span>
+
+  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリのパスを表示</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="265" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-369" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-369" name="check-369" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「pwd」コマンドを実行すると「/Users/ユーザー名/projects」と表示された</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="266" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-370" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-370" name="check-370" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">場所の管理をしやすくするために、特定のディレクトリの下にアプリケーションを配置する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-371" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-371" name="check-371" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルで使用出来るコマンドをlinuxコマンドと言う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">新規アプリケーションを作成しよう</h2>
+
+<p class="ng-scope">Railsで新規アプリケーションを作成するためには<strong>rails newコマンド</strong>を使用します。このコマンドを実行すると、Railsアプリケーションのひな形のようなものが作成されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_260"></i> rails new コマンド</h3>
+
+<p class="ng-scope">このコマンドはRailsで新規アプリケーションを作成する際に使用します。コマンドを実行する際には作成したいアプリケーション名を最後につけて<strong>「rails new アプリケーション名」とコマンドを実行</strong>します。また、オプションを付ける場合には<strong>「- オプション名」と追記することで様々なオプションをつける</strong>ことが出来ます。</p>
+
+<p class="ng-scope"><br></p>
+
+<h3 class="ng-scope"><strong><i class="icon attention"></i> 以下のように【例】と書かれたコードは実際には打ち込まないでください。あくまでも、参考用です。</strong></h3>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails new アプリケーション名
+  <span class="c"># アプリケーションを新規作成</span>
+
+  <span class="nv">$ </span>rails new アプリケーション名 -オプション名
+  <span class="c"># オプションを付けてアプリケーションを作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_261"></i> railsアプリケーション</h3>
+
+<p class="ng-scope">rails new コマンドを実行するとアプリケーション名のディレクトリが作成されます。<br>
+これらの作成された<strong>ディレクトリ以下のファイル全てをrailsアプリケーション</strong>といいます。つまり、これから開発を行なっていく際にはこれらのファイルを編集していくことになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_262"></i> mysql(マイ エス キュー エル)</h3>
+
+<p class="ng-scope">mysqlとは、<strong>データを保存するデータベースの一種</strong>です。Railsではmysqlの他に「SQLite」などのデータベースも使用することができますが、本テキストではmysqlを利用します。</p>
+
+<p class="ng-scope">今回のRailsアプリケーションではmysqlデータベースを使用します。そのため、rails newコマンドに「-d mysql」というオプションを付けて新規railsアプリケーションを作成します。このオプションによって「mysql」というデータベースに最適化された<br>
+設定でアプリケーションが生成されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~/projects
+  <span class="c"># projectsディレクトリに移動</span>
+  <span class="nv">$ </span>rails new pictweet -d mysql
+  <span class="c"># 「pictweet」を「mysql」オプションで作成</span>
+
+  <span class="nv">$ </span><span class="nb">cd </span>pictweet
+  <span class="c"># 「pictweet」ディレクトリに移動</span>
+
+  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリのパスを表示</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="267" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-372" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-372" name="check-372" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「pwd」コマンドを実行すると「/Users/ユーザー名/projects/pictweet」と表示された</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="268" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-373" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-373" name="check-373" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rails new コマンドで新規Railsアプリケーションを作成できる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-374" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-374" name="check-374" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">railsアプリケーションとはアプリケーション名のディレクトリ以下のファイル全てのことを指す</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-375" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-375" name="check-375" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">mysqlとはデータベースの一種である</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope">SublimeTextでディレクトリを開こう</h2>
+
+<p class="ng-scope">Railsで新規アプリケーションを作成すると、アプリケーション名のディレクトリ以下にファイルが作成されます。Railsの開発では<strong>これらの複数のファイルを編集するので、ファイルごとに編集を行なうのは非常に大変</strong>です。そこで、SublimeTextを使ってディレクトリごとファイルを開いて開発を行ないます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sublime Textを使って「pictweet」ディレクトリを開きましょう</h3>
+
+<p class="ng-scope">ディレクトリを開くにはSublimeTextを起動した状態で、<strong>「Command + o」というコマンドを実行</strong>します。コマンドを実行するとFinderが出てくるので、「pictweet」ディレクトリを選択しましょう。</p>
+
+<p class="ng-scope"><img src="007.gif" alt="sublimetext"></p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> アプリケーション名
+    <ul>
+      <li class="t-folder"> app</li>
+      <li class="t-folder"> bin</li>
+      <li class="t-folder"> config</li>
+      <li class="t-folder"> db</li>
+      <li class="t-folder"> lib</li>
+      <li class="t-folder"> log</li>
+      <li class="t-folder"> public</li>
+      <li class="t-folder"> test</li>
+      <li class="t-folder"> tmp</li>
+      <li class="t-folder"> vendor</li>
+      <li class="t-file"> .gitignore</li>
+      <li class="t-file"> config.ru</li>
+      <li class="t-file"> Gemfile</li>
+      <li class="t-file"> Gemfile.lock</li>
+      <li class="t-file"> Rakefile</li>
+      <li class="t-file"> README.rdoc</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">正しくディレクトリを開けると上記のようなディレクトリ構造がSublimeTextの左側に表示されるようになります。左側の部分でそれぞれ、ファイルを選択することで、編集を行なうことが出来ます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="269" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-376" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-376" name="check-376" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">SublimeTextでディレクトリごとファイルを開くことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="270" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-377" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-377" name="check-377" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「Command + o」コマンドでディレクトリごとファイルを開くことができる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="8" class="ng-scope">Gemの追加</h1>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_263"></i> Gem(ジェム)</h3>
+
+<p class="ng-scope">Railsは<strong>Gemと呼ばれる便利なrubyライブラリ</strong>をインストールして利用することで、より簡単にアプリケーション開発をすることができます。gemには開発を効率化してくれたり、会員登録サービスが簡単にできるなど便利なものがたくさんあります。Railsアプリケーションは全てをゼロから作るのではなく<strong>gemのライブラリも利用することでより効率的に開発する</strong>ことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_264"></i> Gemfileとbundle install</h3>
+
+<p class="ng-scope">RailsでGemを追加するには「Gemfile」というファイルに「gem ‘Gem名’」と追記し、「bundle install」コマンドを実行する必要があります。「bundle install」コマンドは<strong>「bundler」と呼ばれるシステムを利用してGemをインストールする</strong>ためのコマンドです。<strong>Gemfileに追記したGemは「bundle install」コマンドを実行することによってインストールされる</strong>ので、Gemfileを編集した際には必ずこのコマンドを実行しましょう。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">アプリケーション名/Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">gem</span> <span class="s1">'Gem名'</span>
+  <span class="c1"># Gemの追加</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>bundle install
+  <span class="c"># Gemをインストール</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「pictweet/Gemfile」に下記のように変更、追記しましょう。7行目は、すでに書かれている「gem 'mysql2'」という記述の上に、9行目は「gem 'sass-rails', '~&gt; 5.0’」という記述の上に上書きして変更してください。19~21行目は、ファイルの一番下に追記しましょう。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> pictweet
+    <ul>
+      <li class="t-file"> Gemfile</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">pictweet/Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">source</span> <span class="s1">'https://rubygems.org'</span>
+
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="err">（中略）</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+
+<span class="hll">  <span class="n">gem</span> <span class="s1">'mysql2'</span><span class="p">,</span> <span class="s1">'0.3.18'</span>
+</span>  <span class="c1"># Use SCSS for stylesheets</span>
+<span class="hll">  <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span> <span class="s1">'~&gt; 4.0.2'</span>
+</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="err">（中略）</span>
+  <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+
+    <span class="c1"># Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring</span>
+    <span class="n">gem</span> <span class="s1">'spring'</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="n">gem</span> <span class="s1">'pry-rails'</span>
+</span><span class="hll">  <span class="n">gem</span> <span class="s1">'compass-rails'</span><span class="p">,</span><span class="s1">'~&gt; 2.0'</span>
+</span><span class="hll">  <span class="n">gem</span> <span class="s1">'sprockets'</span><span class="p">,</span> <span class="s1">'2.11.0'</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">初めからインストールされているGemに加えて3つのGemを追加しました。また、「mysql2」「sprockets」というGemに対してはバージョン指定を行ないました。そのため、Gemのバージョン指定を管理している「Gemfile.lock」というファイルを削除してから「bundle install」を行なう必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>「pictweet/Gemfile.lock」というファイルを削除しましょう。削除はSublime TextからでもFinderからでも構いません。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> pictweet
+    <ul>
+      <li class="t-file"> Gemfile.lock</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「/Users/ユーザー名/projects/pictweet」であることを確認</span>
+
+  <span class="nv">$ </span>bundle install
+  <span class="c"># Gemfileの内容に従ってGemをインストール</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="271" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-378" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-378" name="check-378" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gemをインストールすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="272" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-379" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-379" name="check-379" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Rubyの様々な便利な機能を提供するライブラリはgemを使って追加することができる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-380" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-380" name="check-380" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gemを追加するにはGemfileを編集し、bundle installコマンドを実行する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-381" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-381" name="check-381" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">bundle installコマンドはbundlerと呼ばれるツールを利用してGemをインストールする</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="9" class="ng-scope">データベースの作成</h1>
+
+<p class="ng-scope">Railsではアプリケーション内でデータベースを利用することが出来ます。データベースを利用するためには、新規アプリケーションの作成とは別にデータベースの作成を行なう必要があります。</p>
+
+<h2 id="10" class="ng-scope">データベースを作成しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_265"></i> データベース</h3>
+
+<p class="ng-scope">データベースとはたくさんの情報(データ)が入っている箱のようなものです。この中には様々な種類のデータが存在していて、<strong>データを格納したり、取り出すことが出来ます</strong>。Railsでは<strong>運用環境</strong>ごとにひとつのデータベースを持っています。</p>
+
+<p class="ng-scope"><img src="001.png" alt="データベース"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_266"></i> 運用環境</h3>
+
+<p class="ng-scope">開発を行なう際に、運用環境と呼ばれるものを使い分けることで効率的に作業を行なうことができます。運用環境には３つの種類があり、以下のような使い分けをします。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: left;">運用環境</th>
+<th style="text-align: left;">概要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">development</td>
+<td style="text-align: left;">開発環境。通常、開発をする際に使用する環境。</td>
+</tr>
+<tr>
+<td style="text-align: left;">production</td>
+<td style="text-align: left;">本番環境。アプリケーションを実際にリリースする際に使用する環境。</td>
+</tr>
+<tr>
+<td style="text-align: left;">test</td>
+<td style="text-align: left;">テスト環境。アプリケーションの動作をテストする際に使用する環境。</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope">Railsでは運用環境ごとにひとつのデータベースを持っています。ローカルでの開発では基本的にdevelopment環境と呼ばれる開発用の環境しか使用しません。そのため、利用するデータベースも開発環境用のみとなります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_267"></i> rake db:create</h3>
+
+<p class="ng-scope">新しくデータベースを作成するには「rake db:create」というコマンドを実行します。このコマンドは<code>database.yml</code>というファイルの内容に基づいてデータベースを新規作成するという機能を持っています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_268"></i> database.yml(データベース・ヤムル)</h3>
+
+<p class="ng-scope">database.ymlにはデータベースの設定を記述します。Railsは開発環境ごとにデータベースを持つので、開発環境の分だけデータベースの設定が記述してあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> database.ymlというファイルを開いて内容を確認しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> pictweet
+    <ul>
+      <li class="t-folder"> config
+        <ul>
+          <li class="t-file"> database.yml</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><img src="002.png" alt="database.yml"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="273" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-382" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-382" name="check-382" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">それぞれの環境ごとのデータベースの設定を確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rake db:create
+  <span class="c"># データベースの作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">rake db:createをした後は何も起こっていないように見えますが、データベースはしっかりと作成されています。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="274" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-383" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-383" name="check-383" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">データベースを作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="275" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-384" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-384" name="check-384" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">データベースにはデータを格納したり、データを取り出すことができる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-385" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-385" name="check-385" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Railsでは運用環境ごとにひとつのデータベースを持つ</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-386" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-386" name="check-386" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rake db:createコマンドを実行すると<code>database.yml</code>の内容にもとづいてデータベースが作成される</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope">データベースを確認しよう</h2>
+
+<p class="ng-scope">上記の作業によってデータベースが作成されたはずです。今から<strong>Sequel Pro(シークエル・プロ)</strong>というアプリケーションを使って、データベースが正しく作成できているかを確認します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下のリンクからSequel Proをダウンロードし、インストールしましょう</h3>
+
+<h4 class="ng-scope"><a href="https://sequel-pro.googlecode.com/files/sequel-pro-1.0.2.dmg">Sequel Proのダウンロード</a></h4>
+
+<p class="ng-scope">画面下方に表示されるdmgファイルをクリックします。</p>
+
+<p class="ng-scope"><img src="008.png" alt="008"></p>
+
+<p class="ng-scope">sequel Proをアプリケーションフォルダにドラッグ＆ドロップします</p>
+
+<p class="ng-scope"><img src="9be6201117e1fae3a7661c0ab6b41180.gif" alt="sequel Pro"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_269"></i> Sequel Pro(シークエル・プロ)</h3>
+
+<p class="ng-scope">Sequel Proは<strong>データベースの中身をわかりやすく視覚化して表示する</strong>アプリケーションです。このアプリケーションを使用することで、データベースをより簡単に管理することができます。</p>
+
+<p class="ng-scope"><img src="005.png" alt="Sequel Pro"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sequel Proを起動して、以下のようにデータベースに接続しましょう</h3>
+
+<p class="ng-scope">「control + space」でSpotlight検索を起動します。「sequel」と入力するとsequel Proを選択できるので、「enterキー」でsequel Proを起動します。</p>
+
+<p class="ng-scope"><img src="009.png" alt="009"></p>
+
+<p class="ng-scope"><img src="003.png" alt="SequelPro1"></p>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>"接続"を押して下図のようなエラーが起きた場合</strong></p>
+
+<p class="ng-scope"><img src="006.png" alt="接続エラー"></p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~
+  <span class="c"># ホームディレクトリに移動</span>
+
+  <span class="nv">$ </span>mysql.server start
+  starting MySQL
+  .. SUCCESS!
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この操作でMySQLを起動してください</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「データベースを選択」をクリックしましょう</h3>
+
+<p class="ng-scope"><img src="004.png" alt="SequelPro2"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="276" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-387" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-387" name="check-387" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「pictweet_development」と「pictweet_test」があることが確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="277" action="http://master.tech-camp.in/curriculums/11#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-388" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-388" name="check-388" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Sequel Proというアプリケーションでデータベースをより簡単に管理することができる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">ここまでの流れを確認しよう</h2>
+
+<h5 class="ng-scope">以下の動画カリキュラムで、ここまでのアプリケーション作成の流れを確認できます。</h5>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/360">Railsアプリケーションの新規作成</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">学習キーワード</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">エラー解決について</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents4" ng-click="clickContent(content.h1.id)">新規Railsアプリケーションの作成</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">アプリケーションを配置するディレクトリを作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">新規アプリケーションを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">SublimeTextでディレクトリを開こう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents8" ng-click="clickContent(content.h1.id)">Gemの追加</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents9" ng-click="clickContent(content.h1.id)">データベースの作成</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">データベースを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">データベースを確認しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">ここまでの流れを確認しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">20 / 20<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/11">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

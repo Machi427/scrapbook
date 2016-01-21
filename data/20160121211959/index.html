@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>データをWeb上に表示してみよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発1 第4章<small class="ng-binding">〜データをWeb上に表示してみよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    世界遺産の黄山。黄山の名は伝説上の王、黄帝がこの山で不老不死の霊薬を飲み、仙人になったという言い伝えに基づいている。伝説の仙境を彷彿とさせる独特の景観から、古代から「黄山を見ずして、山を見たというなかれ」と言われ、数多くの文人が訪れた。<a class="ng-binding" href="https://www.flickr.com/photos/qiaoke/4656572924/" target="_top">Suvcon - Huang Shan/Yellow Mountain/黄山</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">モデルを利用して、データベースに保存されたデータを一覧画面に表示しましょう</p>
+
+<h1 id="2" class="ng-scope">学習キーワード</h1>
+
+<p class="ng-scope">・モデル<br><br>
+・データベース<br><br>
+・レコード<br><br>
+・CSSファイル<br></p>
+
+<h1 id="3" class="ng-scope">ビューにデータを受け渡す</h1>
+
+<p class="ng-scope">Railsでの処理が<strong>ルーティング→コントローラー→ビューの順番</strong>で進むことは以前に学習しました。その際にコントローラーの役割をルーティングからビューへと処理を受け渡す役割と説明しました。実はそれだけでなく、<strong>受け渡す際にコントローラーの中で処理を行なうことも可能</strong>なのです。そこで今回はコントローラーからビューにデータを受け渡し、そのデータをビューで表示するという作業を行ないます。</p>
+
+<p class="ng-scope"><img src="001.png" alt="ビューにデータを受け渡す"></p>
+
+<h2 id="4" class="ng-scope">コントローラーからビューにデータを渡そう</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweets_controller.rbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> controllers
+        <ul>
+          <li class="t-file"> tweets_controller.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controlers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweet</span> <span class="o">=</span> <span class="s2">"プログラミングなう"</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="301" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-432" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-432" name="check-432" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーのindexアクションに処理を書くことが出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_308"></i> コントローラーのインスタンス変数</h3>
+
+<p class="ng-scope"><strong>コントローラークラスでインスタンス変数(@つきの変数)を定義すると、そのインスタンス変数はビューで呼び出すことができる</strong>という決まりがあります。今回の作業では、<code>@tweet = "プログラミングなう"</code>と定義しました。つまり、ビューにおいて<code>@tweet</code>を呼び出すと、<code>"プログラミングなう"</code>という情報を使用できるというわけです。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="302" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-433" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-433" name="check-433" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーは処理を受け渡すだけでなく、その中で処理を行なうことも出来る</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-434" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-434" name="check-434" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラー定義したインスタンス変数はビューで使用できる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope">受け取ったデータをビューで表示しよう</h2>
+
+<p class="ng-scope">先ほどの編集によってビューに<code>@tweet = "プログラミングなう"</code>という情報が渡されたはずです。そこで今回はビューに渡されたデータを実際に表示してみようと思います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_309"></i> インスタンス変数の呼び出し範囲</h3>
+
+<p class="ng-scope">先ほどの作業で、インスタンス変数をtweets_controllerのindexアクションの中で定義しました。その場合このインスタンス変数は、indexアクションに対応したビューである<code>app/views/tweets/index.html.erb</code>の中でのみ呼び出しが可能です。他のアクションで定義したインスタンス変数を呼び出すことはできません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.html.erbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> index.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">app/views/tweets/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">&lt;</span>%= @tweet %&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="303" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-435" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-435" name="check-435" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューファイルを正しく編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_310"></i> rubyコード</h3>
+
+<p class="ng-scope">ビューで、定義した<strong>変数を使用するためには<code>&lt;%= %&gt;</code>で変数名を囲んであげる</strong>必要があります。<code>&lt;%= %&gt;</code>の中のrubyコードは、ビューをレスポンスとして返すまでに実行されて、最終的にはHTMLコードとして返されます。<code>&lt;%= %&gt;</code>を利用するにはビューの拡張子が<code>.erb</code>になっている必要があります。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">viewファイル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="err">&lt;</span>%= 変数名 %&gt;                      #変数をビュー内で使用
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでビューにデータを受け渡し、表示させるということができているはずです。そこで、実際にサーバーを立ち上げて確認してみましょう。<br>
+また<code>=</code>がない<code>&lt;% %&gt;</code>でもRubyの記述を行うことは可能です。しかし<code>&lt;% %&gt;</code>の場合は結果を出力されないため、出力をしない計算や繰り返し処理、条件分岐などRubyコードを記述するのに使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/pictweet
+  <span class="c"># アプリケーションのあるディレクトリに移動</span>
+
+  <span class="nv">$ </span>rails s
+  <span class="c"># テストサーバーを起動</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ブラウザで下記のURLにアクセスしましょう</h3>
+
+<h4 class="ng-scope"><a href="http://localhost:3000/tweets">http://localhost:3000/tweets</a></h4>
+
+<p class="ng-scope"><img src="programming_now.png" alt="プログラミングなう"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="304" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-436" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-436" name="check-436" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「プログラミングなう」と表示されている</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="305" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-437" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-437" name="check-437" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーのアクションで定義したインスタンス変数はそのアクションに対応したビューでのみ呼び出せる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-438" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-438" name="check-438" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューで定義した変数を使用するためには<code>&lt;%= %&gt;</code>で変数名を囲む</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="6" class="ng-scope">モデルを利用してデータを表示する</h1>
+
+<p class="ng-scope">上記の作業でコントローラーからビューにデータを受け渡して、表示するということを学びました。そこで今回は前章で学習したモデルを使って、データベースの値を取り出し、ビューへ受け渡し、その情報を表示させたいと思います。</p>
+
+<h2 id="7" class="ng-scope">データベースの値をビューに表示しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_311"></i> MVC(エム・ブイ・シー)</h3>
+
+<p class="ng-scope">Railsではルーティング→コントローラー→モデル→ビューの順番に処理が行われます。このように<strong>モデル(model)とビュー(view)とコントローラー(controller)を使用して処理を行なうシステム</strong>をそれぞれの頭文字を取って<strong>MVC</strong>と呼ばれています。以下に処理の流れをまとめたので、確認してみましょう。</p>
+
+<p class="ng-scope"><img src="003.png" alt="MVC"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweets_controller.rbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> controllers
+        <ul>
+          <li class="t-file"> tweets_controller.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controlers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="306" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-439" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-439" name="check-439" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーを正しく編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">上記の編集によって<code>@tweets</code>というインスタンス変数に、tweetクラスのインスタンスの配列が定義されました。<code>all</code>というメソッドはテーブルの全てのレコードを取得するものなので、<code>@tweets</code>にはtweetsテーブルの全てのレコードの情報を持っています。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="307" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-440" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-440" name="check-440" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーで、モデルを利用してデータベースの値を取り出すことが出来る</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope">ビューファイルを編集しよう</h2>
+
+<p class="ng-scope">以前に学んだモデルの使い方を思い出してください。上記の編集によってビューにツイートテーブルの全てのレコードがインスタンスの配列として受け渡されました。これからそれらの情報をビューに表示させていきたいと思います。</p>
+
+<p class="ng-scope">その際、部分的にhtmlを別途用意しておき、繰り返し利用するという方法をとります。まずはhtml上に別のhtmlを呼び出す方法(部分テンプレート)について学び、続いてそこに1つのtweetの情報を表示、さらに複数のtweetを表示する方法まで解説していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_312"></i> 部分テンプレート</h3>
+
+<p class="ng-scope">ビューを作成する際に同じようなレイアウトの部分が複数存在する場合があります。例えば、Twitterを思い浮かべてください。</p>
+
+<p class="ng-scope">Twitterでは複数のツイートが表示されていますが、これらのHTML構造は全て同じです。このような場合に<strong>同じHTML構造の部分を共通化することによって、無駄なくビューファイルを作成する</strong>ことが出来ます。この共通化された部分を、 <strong>部分テンプレート</strong>といいます。 部分テンプレートを使用した場合、そのHTML構造を他のビューでも使いまわすことができるという利点も存在します。</p>
+
+<p class="ng-scope">また、<strong>部分テンプレートのファイル名は必ずアンダーバー「_」から始まります。</strong></p>
+
+<p class="ng-scope"><img src="004.png" alt="部分テンプレート"></p>
+
+<p class="ng-scope">それでは、部分テンプレートを作成してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「_tweet.html.erb」というファイルを以下のディレクトリに作成しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> _tweet.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> _tweet.html.erbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">app/views/tweets/_tweet.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;p&gt;</span>プログラミング中・・・<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">続いて、こちらの部分テンプレートを呼び出します。そのためには、<strong>renderメソッド</strong>を利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_313"></i> render</h3>
+
+<p class="ng-scope">renderメソッドは、部分テンプレートを呼び出す際に利用するメソッドです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_314"></i> render partialオプション</h3>
+
+<p class="ng-scope">renderメソッドに <code>:partial</code>というオプションをつけることで、明示的に部分テンプレート名を指定し、部分テンプレートを表示することができます。</p>
+
+<p class="ng-scope">以下の例では、partialオプションにて部分テンプレート名をsampleとしているので、_sample.html.erbを呼び出します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">render</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s2">"sample"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">では、renderメソッドを利用して_tweet.html.erbを呼び出しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.html.erbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> index.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents row"</span> <span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s2">"tweet"</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">その後サーバーを立ち上げた状態で「localhost:3000/tweets」にアクセスすると、以下のような表示になっているはずです。</p>
+
+<p class="ng-scope">これは、renderメソッドによって部分テンプレート _tweet.html.erbが呼び出されたためです。</p>
+
+<p class="ng-scope"><img src="008.png" alt="部分テンプレート"></p>
+
+<p class="ng-scope">続いて、データベースから1つのtweetの情報を取ってきて、部分テンプレートによってindex.html.erbに表示してみましょう。</p>
+
+<p class="ng-scope">まずはコントローラーにて、データベースから一つのtweetの情報をとってきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweets_controller.rbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> controllers
+        <ul>
+          <li class="t-file"> tweets_controller.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controlers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+      <span class="vi">@tweet</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで、<strong>index.html.erb上で@tweetという変数も利用できるようになりました。</strong>(単数形であることに注意してください)@tweetには、tweetsテーブルのレコード1行が、Tweetクラスのインスタンスとして代入されています。早速、部分テンプレートにて@tweetを利用しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> _tweet.html.erbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/_tweet.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@tweet</span><span class="o">.</span><span class="n">text</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">こうすることで、localhost:3000/tweetsにアクセスした際、@tweetに代入されているtweetsテーブルのレコードの、textカラムの値が表示されるようになります。確認してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ブラウザで下記のURLにアクセスしましょう</h3>
+
+<h4 class="ng-scope"><a href="http://localhost:3000/tweets">http://localhost:3000/tweets</a></h4>
+
+<p class="ng-scope"><img src="009.png" alt="部分テンプレート"></p>
+
+<p class="ng-scope">続いて、複数のtweetの情報を、1つの部分テンプレートで繰り返し順番に表示します。そのために、renderメソッドについてもう少し詳しく説明していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_315"></i> render collectionオプション</h3>
+
+<p class="ng-scope">部分テンプレートを繰り返し表示したい場合、renderメソッドに <code>:collection</code> というオプションをつけることで実現できます。具体的には、以下のように利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.html.erbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> index.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents row"</span> <span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s2">"tweet"</span><span class="p">,</span> <span class="ss">collection</span><span class="p">:</span> <span class="vi">@tweets</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このようにすると、<strong>部分テンプレートである_tweet.html.erbの中身を、@tweetsのレコードの数だけ繰り返し表示する</strong>ようになります。</p>
+
+<p class="ng-scope">このとき、部分テンプレート内で使用される変数は、partialオプションで指定した部分テンプレート名(今回の場合は<code>tweet</code>)になります。具体的な挙動を見るとわかりやすいので、一旦コードを書き切りましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="308" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-441" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-441" name="check-441" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text"><code>index.html.erb</code>を正しく編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">続いて、_tweet.html.erbを編集します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> _tweet.html.erbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">app/views/tweets/_tweet.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;p&gt;</span><span class="err">&lt;</span>%= tweet.text %&gt;<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">やったことは、「@tweet」を「tweet」にしただけです。先ほどpartialオプションにて<code>tweet</code>と指定したので、部分テンプレートで使用される変数はtweetです。</p>
+
+<p class="ng-scope">これはrubyの章で扱った<strong>eachメソッド</strong>の挙動に似ています。以下のコードだと、配列オブジェクトである<code>animals</code>内の要素1つ1つを変数<code>animal</code>に入れています。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"いぬ"</span><span class="p">,</span> <span class="s2">"ねこ"</span><span class="p">,</span> <span class="s2">"ねずみ"</span><span class="o">]</span>
+  <span class="n">animals</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">animal</span><span class="o">|</span>
+    <span class="nb">puts</span> <span class="n">animal</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">今回の場合だと、コントローラーからビューへ複数のツイート情報が<code>@tweets</code>として渡されました。<br>
+partialオプションで<code>tweet</code>と指定しているので、ここに<code>@tweets</code>内の要素1つ1つが入ります。<br>
+ビューではそれぞれのツイートに対して同じようなHTML構造で表示を行ないます。</p>
+
+<p class="ng-scope">コントローラーにある@tweetはもう必要無いので、消してしまいましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweets_controller.rbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> controllers
+        <ul>
+          <li class="t-file"> tweets_controller.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controlers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="309" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-442" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-442" name="check-442" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">部分テンプレートファイルを正しく作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_316"></i> プロパティ値</h3>
+
+<p class="ng-scope">先ほど編集した<code>_tweet.html.erb</code>の<code>tweet.text</code>という記述に注目してください。この記述の<code>tweet</code>という変数はtweetsテーブルの１つ１つのインスタンスを示しています。その場合、<code>変数.カラム名</code>と記述することによって、そのインスタンスのプロパティ値を取り出すことができます。</p>
+
+<p class="ng-scope">以下の例を参考にしてみましょう。まずは<code>tweet</code>という変数にtweetモデルのインスタンスを定義します。そして、そのインスタンスに対して<code>.カラム名</code>と記述することによって、そのプロパティ値を取り出すことが出来ます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"Sato"</span><span class="p">,</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">"Hello!"</span><span class="p">,</span> <span class="ss">image</span><span class="p">:</span> <span class="s2">"test.jpg"</span><span class="p">)</span>
+  <span class="o">=&gt;</span> <span class="c1">#&lt;;Tweet id: nil, name: "Sato", image: "test.jpg", text: "Hello!", created_at: nil, updated_at: nil&gt;;</span>
+  <span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">save</span>
+  <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="k">BEGIN</span>
+    <span class="no">SQL</span> <span class="p">(</span><span class="mi">26</span><span class="o">.</span><span class="mi">2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">INSERT</span> <span class="no">INTO</span> <span class="sb">`tweets`</span> <span class="p">(</span><span class="sb">`created_at`</span><span class="p">,</span> <span class="sb">`image`</span><span class="p">,</span> <span class="sb">`name`</span><span class="p">,</span> <span class="sb">`text`</span><span class="p">,</span> <span class="sb">`updated_at`</span><span class="p">)</span> <span class="no">VALUES</span> <span class="p">(</span><span class="s1">'2014-11-01 02:07:11'</span><span class="p">,</span> <span class="s1">'test.jpg'</span><span class="p">,</span> <span class="s1">'Sato'</span><span class="p">,</span> <span class="s1">'Hello!'</span><span class="p">,</span> <span class="s1">'2014-11-01 02:07:11'</span><span class="p">)</span>
+     <span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="mi">3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">COMMIT</span>
+  <span class="o">=&gt;</span> <span class="kp">true</span>
+  <span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">name</span>
+  <span class="o">=&gt;</span> <span class="s2">"Sato"</span>
+  <span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span>
+  <span class="o">=&gt;</span> <span class="s2">"Hello!"</span>
+  <span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">image</span>
+  <span class="o">=&gt;</span> <span class="s2">"test.jpg"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以上でビューファイルの適用が終わりました。そこでさっそくサーバーを立ち上げて表示を確認してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ブラウザで下記のURLにアクセスしましょう</h3>
+
+<h4 class="ng-scope"><a href="http://localhost:3000/tweets">http://localhost:3000/tweets</a></h4>
+
+<p class="ng-scope">※テストサーバーを立ち上げていない場合にはもう一度「rails s」コマンドでサーバーを起動する必要があります。</p>
+
+<p class="ng-scope"><img src="006.png" alt="サンプルtweets"></p>
+
+<h2 id="9" class="ng-scope">動画で部分テンプレートの要点を確認しよう</h2>
+
+<p class="ng-scope">部分テンプレートとrenderメソッドに関しては重要な要素が多くわかりづらいので、動画で要点を確認しましょう。</p>
+
+<iframe class="ng-scope" src="index_1.html" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="310" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-443" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-443" name="check-443" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ツイートが正しく表示されている</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="311" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-444" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-444" name="check-444" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">部分テンプレートは同じHTML構造の部分を共通化することが出来る</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-445" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-445" name="check-445" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">部分テンプレートを使うにはビューファイルを編集し、部分テンプレートのビューファイルを新規作成する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-446" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-446" name="check-446" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">部分テンプレートを使用するビューファイルには<code>render</code>を記述する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-447" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-447" name="check-447" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">部分テンプレートファイルの名前は先頭をアンダーバーにしてビューファイルと同じディレクトリに作成する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-448" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-448" name="check-448" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">モデルのインスタンスに<code>.カラム名</code>と記述することでそのインスタンスのプロパティの値を取り出すことが出来る</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="10" class="ng-scope">レイアウトを変更する</h1>
+
+<p class="ng-scope">先ほど作成したビューは装飾がなく素っ気ないものでした。そこで、このビューにHTML、CSSファイルを適用して装飾を加えてみます。</p>
+
+<h2 id="11" class="ng-scope">HTMLファイルを適用しましょう</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> application.html.erbを以下のリンク先ファイルの内容と置き換えましょう</h3>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/1" target="_top">application.html.erb</a></h4>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> layouts
+            <ul>
+              <li class="t-file"> application.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="312" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-449" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-449" name="check-449" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">レイアウトファイルを正しく編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_317"></i> ヘルパーメソッド</h3>
+
+<p class="ng-scope">Railsのビューファイルではヘルパーメソッドというメソッドを呼び出すことができます。ヘルパーメソッドを呼び出すことで、<strong>ビューファイルの中で処理を行なう</strong>ことができます。実際に呼び出す場合には<code>&lt;%= メソッド名(引数) %&gt;</code>という形で使用します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/test/sample.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;div&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="err">メソッド名</span><span class="p">(</span><span class="err">引数</span><span class="p">)</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_318"></i> application_helper.rb</h3>
+
+<p class="ng-scope">ヘルパーメソッドは<code>application_helper.rb</code>というファイルに定義します。このファイルの中にメソッドを定義することで、ビューからヘルパーメソッドとして呼び出すことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> application_helper.rbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> helpers
+        <ul>
+          <li class="t-file"> application_helper.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/helpers/application_helper.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">module</span> <span class="nn">ApplicationHelper</span>
+    <span class="k">def</span> <span class="nf">br</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+      <span class="n">h</span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">.</span><span class="n">gsub</span><span class="p">(</span><span class="sr">/(\r\n?)|(\n)/</span><span class="p">,</span> <span class="s2">"&lt;br /&gt;"</span><span class="p">)</span><span class="o">.</span><span class="n">html_safe</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="313" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-450" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-450" name="check-450" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text"><code>application_helper.rb</code>を正しく編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><code>br</code>というヘルパーメソッドはビューで入力された改行をツイートに反映させるためのものです。詳しい処理については学習しなくて良いので、<strong>このメソッドが改行を反映させるためのものである</strong>ということだけ確認しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> _tweet.html.erbを以下のように編集しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> _tweet.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/_tweet.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"content_post"</span> <span class="na">style=</span><span class="s">"background-image: url(</span><span class="cp">&lt;%=</span> <span class="n">tweet</span><span class="o">.</span><span class="n">image</span> <span class="cp">%&gt;</span><span class="s">);"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">br</span><span class="p">(</span><span class="n">tweet</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"name"</span><span class="nt">&gt;</span><span class="cp">&lt;%=</span> <span class="n">tweet</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="314" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-451" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-451" name="check-451" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">部分テンプレートファイルを正しく編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><code>_tweet.html.erb</code>の３行目を見てください。<code>&lt;%= %&gt;</code>の中に<code>br</code>とあります。つまりこの記述は、<code>tweet.text</code>を表示する際に<code>br</code>というヘルパーメソッドを呼び出していることを示しています。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="315" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-452" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-452" name="check-452" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューでヘルパーメソッドを呼び出すことができる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-453" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-453" name="check-453" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ヘルパーメソッドはapplication_helper.rbに定義する</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">CSSファイルを適用しましょう</h2>
+
+<p class="ng-scope">HTMLファイルの適用が終わったので、続いてCSSファイルの適用を行なっていきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_319"></i> stylesheet_link_tag</h3>
+
+<p class="ng-scope">CSSファイルの読込みはHTMLのヘッダー部分の<code>stylesheet_link_tag</code>から読み込まれます。Railsの場合レイアウトファイルがあるので、<code>application.html.erb</code>にヘッダーの記述があります。<code>application.html.erb</code>の5行目に注目してください。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/layouts/application.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pictweet<span class="nt">&lt;/title&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">cssファイルは<code>app/assets/stylesheets/</code>というディレクトリに配置します。application.html.erbの<code>stylesheet_link_tag</code>の部分に<code>application</code>と書いてあるので、このHTMLからはapp/assets/stylesheets/application.cssというCSSファイルを読み込むことを示しています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_320"></i> require_tree</h3>
+
+<p class="ng-scope"><code>application.css</code>の13行目に注目してください。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> stylesheets
+            <ul>
+              <li class="t-file"> application.css</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/assets/stylesheets/application.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="o">*</span>
+ <span class="o">*=</span> <span class="n">require_tree</span> <span class="o">.</span>
+ <span class="o">*=</span> <span class="n">require_self</span>
+ <span class="o">*/</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">application.cssには、どのcssを読み込むかという設定が書いてあります。<code>require_tree</code>には引数として与えられたディレクトリ以下のcssファイルをアルファベット順に全て読み込むという意味があります。現在require_treeの引数には.(ドット)が渡されています。<code>引数.(ドット)はカレントディレクトリを表します。</code>つまり、この記述によって<code>app/assets/stylesheets</code>というディレクトリにあるcssファイルは全て読み込まれることになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> リンク先のファイルをダウンロードして「style.scss」と「setting.css」を下記のディレクトリに配置しましょう</h3>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/2" target="_top">style.scss</a></h4>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/3" target="_top">setting.css</a></h4>
+
+<p class="ng-scope"><strong>※ファイルを追加する際には既に存在するファイルは削除しないでください</strong></p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> stylesheets
+            <ul>
+              <li class="t-file"> style.scss</li>
+              <li class="t-file"> setting.css</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><code>scss</code>という拡張子はcssファイルの一種ですので、今は気にせずに追加しましょう</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="316" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-454" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-454" name="check-454" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">style.scssとsetting.cssを配置することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="317" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-455" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-455" name="check-455" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">stylesheet_link_tagには適用するCSSを記述する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-456" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-456" name="check-456" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">require_treeという記述によってapp/assets/stylesheets以下のCSSファイルが読み込まれる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">フォントファイルを適用しましょう</h2>
+
+<p class="ng-scope">レイアウトを編集する際に、CSSやHTMLの編集に加えて文字のフォントの編集も可能です。Railsでフォントを変更する際にはフォントファイルというものを追加します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_321"></i> フォントファイル</h3>
+
+<p class="ng-scope">フォントファイルとは、文字のフォントを変更するためのファイルです。このファイルには、フォントの情報が記載してあります。Railsでフォントを読み込むためには<code>app/assets/fonts</code>というディレクトリにフォントファイルを配置し、CSSファイルにフォントファイルの読み込みを記述する必要があります。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> fonts
+            <ul>
+              <li class="t-file"> フォントファイル</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">追加したフォントを使用する際には、CSSファイルにフォントファイルの指定を行ないます。<code>app/assets/stylesheets/style.scss</code>の11行目に注目してください。<code>font_1_honokamin.ttf</code>という記述があり、これがフォントファイルの指定を行なっています。</p>
+
+<div class="code-frame ng-scope" data-lang="scss">
+<div class="code-lang"><span class="bold">app/assets/stylesheets/style.scss</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">@font-face</span> <span class="p">{</span>
+    <span class="na">font-family</span><span class="o">:</span> <span class="s1">'</span><span class="s2">ほのか明朝'</span><span class="p">;</span>
+    <span class="na">src</span><span class="o">:</span> <span class="sx">url('font_1_honokamin.ttf')</span> <span class="nf">format</span><span class="p">(</span><span class="s1">'</span><span class="s2">truetype'</span><span class="p">);</span>
+    <span class="na">font-weight</span><span class="o">:</span> <span class="no">normal</span><span class="p">;</span>
+    <span class="na">font-style</span><span class="o">:</span> <span class="no">normal</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「fonts」というディレクトリを以下のディレクトリに作成しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> fonts</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> リンク先のファイルをダウンロードして「font_1_honokamin.ttf」を下記のディレクトリに配置しましょう</h3>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/7" target="_top">font_1_honokamin.ttf</a></h4>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> fonts
+            <ul>
+              <li class="t-file"> font_1_honokamin.ttf</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="318" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-457" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-457" name="check-457" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">フォントファイルを作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="319" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-458" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-458" name="check-458" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">フォントファイルはapp/assets/fonts以下のディレクトリに配置する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-459" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-459" name="check-459" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">フォントファイルを適用する際にはCSSに記述を行なう</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="14" class="ng-scope">レイアウトの変更を確認しましょう</h2>
+
+<p class="ng-scope">以上の作業で、HTMLの編集、CSSの編集、フォントファイルの適用が終了しました。これから、実際に編集が適用されているかを確認しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> imageカラムに画像のURLを保存しましょう</h3>
+
+<h4 class="ng-scope"><a href="https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg" alt="サンプル画像" target="_top">サンプル画像</a></h4>
+
+<p class="ng-scope">上のリンク先から画像のURLをコピーします。</p>
+
+<p class="ng-scope"><img src="011.png" alt="画像URLコピー"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> imageカラムに画像のURLをペーストしましょう</h3>
+
+<p class="ng-scope">sequel Proのtweetsテーブルを開き、一番上のレコードのimageカラムをダブルクリックすると以下の画像のように表示されるので、今コピーした画像のURLをペーストしましょう。</p>
+
+<p class="ng-scope"><img src="010.png" alt="画像URLコピー"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ブラウザで下記のURLにアクセスしましょう</h3>
+
+<h4 class="ng-scope"><a href="http://localhost:3000/tweets">http://localhost:3000/tweets</a></h4>
+
+<p class="ng-scope"><i class="icon attention"></i>テストサーバーを立ち上げていない場合にはもう一度「rails s」コマンドでサーバーを起動する必要があります。</p>
+
+<p class="ng-scope">以下の画面のようになっていることを確認しましょう。</p>
+
+<p class="ng-scope"><img src="007.png" alt="画像が表示されるか確認"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="320" action="http://master.tech-camp.in/curriculums/14#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-460" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-460" name="check-460" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">レイアウトが正しく変更されている</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="15" class="ng-scope">Ruby on Railsの全体フロー図を確認しよう</h2>
+
+<p class="ng-scope">ここまでで、Ruby on Railsがリクエストを受けてからビューファイルをブラウザに表示させるまでの基本を学び終わりました。ここまでの「ルーティング → コントローラー → ビュー」の流れを、要点チェックシートに含まれている「Rails全体フロー図」を見て確認しましょう。<br>
+<a href="http://master.tech-camp.in/filedownload/18" target="_top">要点チェックシートをダウンロード</a></p>
+
+<h1 id="16" class="ng-scope">アプリケーション開発問題に挑戦</h1>
+
+<p class="ng-scope">2章で作成した、Nekotterの続きを開発しましょう。問題形式で学習することで、良い復習になります。必ず取り組むようにしてください。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/346" target="_top">Nekotterを開発しよう②</a></p>
+
+<h3 class="ng-scope">動画で開発の様子を確認</h3>
+
+<p class="ng-scope">問題を解き終えたら、実際にNekotterを開発しつつRailsのポイントに関して解説している動画を見て、理解を深めましょう。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/363" target="_top">Nekotter開発動画カリキュラム④</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"><div class="ng-scope">
+  <p>テストを受けた回数：<span class="ng-binding">1回</span></p>
+  <p>最高得点：<span class="ng-binding">87点</span></p>
+  <!-- ngIf: curriculum.short_test.has_passed --><div class="ng-scope" ng-if="curriculum.short_test.has_passed">
+    <p>合否：<span class="pass">合格</span></p>
+  </div><!-- end ngIf: curriculum.short_test.has_passed -->
+  <!-- ngIf: !curriculum.short_test.has_passed -->
+</div></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">学習キーワード</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">ビューにデータを受け渡す</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">コントローラーからビューにデータを渡そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">受け取ったデータをビューで表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">モデルを利用してデータを表示する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">データベースの値をビューに表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">ビューファイルを編集しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">動画で部分テンプレートの要点を確認しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents10" ng-click="clickContent(content.h1.id)">レイアウトを変更する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">HTMLファイルを適用しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">CSSファイルを適用しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">フォントファイルを適用しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">レイアウトの変更を確認しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">Ruby on Railsの全体フロー図を確認しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents16" ng-click="clickContent(content.h1.id)">アプリケーション開発問題に挑戦</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">29 / 29<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/14">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

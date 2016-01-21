@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>ユーザーページ、グループページをつくろう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('visual_image.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発3 第3章<small class="ng-binding">〜ユーザーページ、グループページをつくろう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    兵庫県朝来市和田山町竹田にあった、日本の城である。川霧により霞むことから、「日本のマチュピチュ」や「天空の城」と呼ばれることも多い。明け方から午前8時頃まで。<a class="ng-binding" href="http://master.tech-camp.in/curriculums/148" target="_top"> - </a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">ユーザーページをつくろう</h1>
+
+<p class="ng-scope">ログインしたユーザーの情報を表示するページをつくりましょう。こちらが作成するユーザーページのイメージです。</p>
+
+<p class="ng-scope"><img src="user-page-sample.png" alt="text"></p>
+
+<p class="ng-scope">新機能をつけるときは、やみくもに実装していくのではなく事前に筋道を立てておくことが大事です。<br>
+新たにページを作成するときは次の4ステップが必要となります。</p>
+
+<ol class="ng-scope">
+<li>ルーティングを設定する</li>
+<li>コントローラーをつくる</li>
+<li>ビューをつくる</li>
+<li>作成したページへのリンクを設定する</li>
+</ol>
+
+<p class="ng-scope">この順番に実装していきましょう。</p>
+
+<h2 id="2" class="ng-scope">ユーザーページへのルーティングを設定する</h2>
+
+<p class="ng-scope">まずはじめにルーティングを設定していきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_497"></i> resourcesメソッド</h3>
+
+<p class="ng-scope">resourcesメソッドに対象となるリソース名を指定した1行をルーティングとして記述するだけで、<a href="http://master.tech-camp.in/curriculums/16#term_312">Railsのリソースの7つのアクション</a>で記載した7つのアクション名に対してのルーティングが自動的に設定されます。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:books</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ターミナルにて <code>bundle exec rake routes</code> コマンドを実行すると以下のように7つのルーティングが設定されているのが確認できます。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="no">Prefix</span> <span class="no">Verb</span>   <span class="no">URI</span> <span class="no">Pattern</span>               <span class="no">Controller</span><span class="c1">#Action</span>
+    <span class="n">books</span> <span class="no">GET</span>    <span class="sr">/books(.:format)          books#index</span>
+<span class="sr">          POST   /</span><span class="n">books</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span>          <span class="n">books</span><span class="c1">#create</span>
+ <span class="n">new_book</span> <span class="no">GET</span>    <span class="sr">/books/ne</span><span class="n">w</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span>      <span class="n">books</span><span class="c1">#new</span>
+<span class="n">edit_book</span> <span class="no">GET</span>    <span class="sr">/books/</span><span class="ss">:id</span><span class="o">/</span><span class="n">edit</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span> <span class="n">books</span><span class="c1">#edit</span>
+     <span class="n">book</span> <span class="no">GET</span>    <span class="sr">/books/</span><span class="ss">:id</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span>      <span class="n">books</span><span class="c1">#show</span>
+          <span class="no">PATCH</span>  <span class="sr">/books/</span><span class="ss">:id</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span>      <span class="n">books</span><span class="c1">#update</span>
+          <span class="no">PUT</span>    <span class="sr">/books/</span><span class="ss">:id</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span>      <span class="n">books</span><span class="c1">#update</span>
+          <span class="no">DELETE</span> <span class="sr">/books/</span><span class="ss">:id</span><span class="p">(</span><span class="o">.</span><span class="ss">:format</span><span class="p">)</span>      <span class="n">books</span><span class="c1">#destroy</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">また、controllerで<a href="http://master.tech-camp.in/curriculums/20#term_246">before_action</a>の編集をする際に、exceptやonlyオプションを組み合わせると特定のアクションを指定することができることと同様に、ルーティングでresourcesメソッドを編集する際にはルーティングを特定することができます。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題1：users_controllerのshowアクションのルーティングを設定しましょう。</h3>
+
+<h5>作業ファイル：config/routes.rb</h5>
+<h5>ヒント1： resourceメソッドを利用して設定しましょう。</h5>
+<h5>ヒント2： onlyオプションを使い、showアクションのみに設定しましょう。</h5>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">devise_for</span> <span class="ss">:users</span>
+  <span class="c1"># resourceメソッドで、users_controllerのshowアクションを指定してください。</span>
+  <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="s2">"top#index"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+    <curriculum-question-container class="ng-scope" data-order="1"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで<code>bundle exec rake routes</code>を実行して追加されたルーティングを確認してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$rake</span> routes
+   <span class="o">(</span>省略<span class="o">)</span>
+   new_user_confirmation GET    /users/confirmation/new<span class="o">(</span>.:format<span class="o">)</span> devise/confirmations#new
+                         GET    /users/confirmation<span class="o">(</span>.:format<span class="o">)</span>     devise/confirmations#show
+<span class="hll">                    user GET    /users/:id<span class="o">(</span>.:format<span class="o">)</span>              users#show
+</span>                    root GET    /                                 top#index
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">railsの処理の流れは必ずルーティング→コントローラー→ビューの順番となります。<br>
+このルーティングは例えば開発環境なら、<code>localhost:3000/users/10</code>にリクエストがきたときはusers_controlerのshowアクションに処理を渡すというルーティングになります。10という数を取得するためには、アクションのメソッドの中でparams[:id]と指定すれば良いでしょう。</p>
+
+<h2 id="3" class="ng-scope">ユーザーページへのコントローラーをつくる</h2>
+
+<p class="ng-scope">コントローラーはほとんどの場合、コマンドで生成します。</p>
+
+<p class="ng-scope">既に知ってる人も多いと思いますが、通常コントローラー名はusersのように複数形にします。<br>
+<code>rails g controller</code>で生成されるファイルについては、ターミナルの表示を確認してください。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題2：users_controllerを作成してください。</h3>
+<h5>作業場所：ターミナル</h5>
+<h5>ヒント： railsコマンドを使いましょう。</h5>
+    <curriculum-question-container class="ng-scope" data-order="2"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h2 id="4" class="ng-scope">ユーザーページのビューを生成する</h2>
+
+<p class="ng-scope">showアクションに対応するビューファイルを作成しましょう。</p>
+
+<p class="ng-scope">まだ、コントローラーにアクションを設定していなかったので、まずはアクションの定義から始めましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題3：任意のユーザーのインスタンスをusersテーブルから取得できるようにしてください</h3>
+
+<h5>作業ファイル：app/controller/users_controller.rb</h5>
+<h5>ヒント①： ユーザーページヘのリンクを踏んだ時に一緒に送られてくるはずの、ユーザー個別のidを利用できそうです。</h5>
+<h5>ヒント②：ビューから送られてくる情報を取得し利用するためにはparamsを使用します。</h5>
+
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">users_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">UsersController</span> 
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+
+    <curriculum-question-container class="ng-scope" data-order="3"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/views/users/以下にshow.html.erbを作成してください。</h3>
+
+<p class="ng-scope"><i class="icon attention"></i>新規作成はSublimeTextからフォルダを選んで右クリックなどで行ってください。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> users
+            <ul>
+              <li class="t-file">show.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/views/users/show.html.erbを以下のように編集してください。</h3>
+
+<p class="ng-scope">今はまだユーザーの情報がメールアドレスしかないので、とりあえずメールアドレスを表示しておきます。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/show.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">email</span> <span class="cp">%&gt;</span>のユーザーページです。
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h2 id="5" class="ng-scope">ユーザーページへのリンクを設定する</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>app/views/common/_header.html.erbを以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/common/_header.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>15
+16
+17
+18
+19
+20
+21</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"dropdown-toggle"</span> <span class="na">data-toggle=</span><span class="s">"dropdown"</span> <span class="na">role=</span><span class="s">"button"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span><span class="nt">&gt;</span>アカウント <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span> <span class="na">role=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+<span class="hll">    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"マイページ"</span><span class="p">,</span> <span class="n">user_path</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+</span>    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"ログアウト"</span><span class="p">,</span> <span class="n">destroy_user_session_path</span><span class="p">,</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:delete</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/li&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>user_path</code>はresourcesでルーティングを生成したときに自動で生成されるヘルパーメソッドです。<br>
+引数にidを指定すると自動でパスに変換されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  user_path<span class="o">(</span>10<span class="o">)</span> <span class="c"># =&gt; 'users/10'に変換される</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">実際にどんなパスが設定されるのか確認してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>rails s</code>でサーバーを起動してヘッダーのマイページに設定されているパスを要素の検証で確認してください。</h3>
+
+<p class="ng-scope"><img src="user_page_path.png" alt="ユーザーページへのパスを確認"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> マイページの表示を確認してください。</h3>
+
+<p class="ng-scope"><img src="user-page.png" alt="ユーザーページへのパスを確認"></p>
+
+<h1 id="6" class="ng-scope">ユーザーページを充実させる</h1>
+
+<p class="ng-scope">ここまででマイページを作成することができました。<br>
+今はまだマイページとして表示する情報が何もないので、項目を増やしていきましょう。<br>
+また、それらを更新できるようにしましょう。</p>
+
+<h2 id="7" class="ng-scope">ユーザーページの項目に姓名を追加しよう</h2>
+
+<p class="ng-scope">deviseで生成した時点のusersテーブルには新規登録、ログインのための最小限の情報しかありません。<br>
+ユーザーページなので名前くらいはわかったほうがいいですよね。まずは姓名を登録できるようにします。<br>
+カラムを追加するにはマイグレーションファイルを追加します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで次のコマンドを実行してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rails g migration AddColumnToUsers
+<span class="c"># =&gt; マイグレーションファイルの作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">次に追加するカラムを今生成したマイグレーションファイルに記述しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>db/migrate/201xxxxxxxxx_add_column_to_users.rb</code>を以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">db/migrate/201xxxxxxxxx_add_column_to_users.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">AddColumnToUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+<span class="hll">  <span class="k">def</span> <span class="nf">change</span>
+</span><span class="hll">    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:family_name</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class="hll">    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class="hll">    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:family_name_kana</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class="hll">    <span class="n">add_column</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">:first_name_kana</span><span class="p">,</span> <span class="ss">:string</span>
+</span><span class="hll">  <span class="k">end</span>
+</span><span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで<code>bundle exec rake db:migrate</code>を実行後、SeaquelProからカラムが追加されたことを確認してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rake db:migrate
+<span class="o">==</span> <span class="m">20150221014338</span> AddColumnToUsers: <span class="nv">migrating</span> <span class="o">=================================</span>
+-- add_column<span class="o">(</span>:users, :family_name, :string<span class="o">)</span>
+   -&gt; 0.4195s
+-- add_column<span class="o">(</span>:users, :first_name, :string<span class="o">)</span>
+   -&gt; 0.0724s
+-- add_column<span class="o">(</span>:users, :family_name_kana, :string<span class="o">)</span>
+   -&gt; 0.2079s
+-- add_column<span class="o">(</span>:users, :first_name_kana, :string<span class="o">)</span>
+   -&gt; 0.0582s
+<span class="o">==</span> <span class="m">20150221014338</span> AddColumnToUsers: migrated <span class="o">(</span>0.7583s<span class="o">)</span> <span class="o">========================</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">カラムは追加されましたが、ログイン中のあなたの姓名はNULLになっています。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> SeaquelProからログイン中のあなたのアカウントのfamily_name、first_name、family_name_kana、first_name_kanaを入力してください。</h3>
+
+<p class="ng-scope"><img src="add-sequel-prd.png" alt="シークエルプロから追加"></p>
+
+<p class="ng-scope">カラムを追加して、実際の姓名も入力したのでビューから読みだしてみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/users/show.html.erb</code>を以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/show.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form user_profile"</span><span class="nt">&gt;</span>
+</span><span class="hll">  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+</span><span class="hll">    <span class="nt">&lt;h2&gt;</span><span class="cp">&lt;%=</span> <span class="s2">"</span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">family_name</span><span class="si">}#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">first_name</span><span class="si">}</span><span class="s2">"</span> <span class="cp">%&gt;</span><span class="nt">&lt;span&gt;</span><span class="cp">&lt;%=</span> <span class="s2">"</span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">family_name_kana</span><span class="si">}#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">first_name_kana</span><span class="si">}</span><span class="s2">"</span> <span class="cp">%&gt;</span><span class="nt">&lt;/span&gt;&lt;/h2&gt;</span>
+</span><span class="hll">  <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll"><span class="nt">&lt;/div&gt;</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルからrails sでサーバーを起動後、マイページの表示を確認してください。</h3>
+
+<p class="ng-scope"><img src="user-page-name.png" alt="名前追加後のユーザーページ"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="528" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-731" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-731" name="check-731" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">config/routes.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-732" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-732" name="check-732" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">users_controllerを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-733" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-733" name="check-733" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/controllers/users_controller.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-734" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-734" name="check-734" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users/以下にshow.html.erbを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-735" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-735" name="check-735" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users/show.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-736" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-736" name="check-736" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/common/_header.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-737" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-737" name="check-737" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ヘッダーのマイページに設定されているパスを要素の検証で確認できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-738" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-738" name="check-738" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">マイページの表示を確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">データベースに登録した姓名をマイページに表示させることができました。<br>
+app/views/users/show.html.erbのコードで少し改善したいところがあります。<br>
+姓名を表示している部分のコードをみてください。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">冗長なコード</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll">  <span class="nt">&lt;h2&gt;</span><span class="cp">&lt;%=</span> <span class="s2">"</span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">family_name</span><span class="si">}#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">first_name</span><span class="si">}</span><span class="s2">"</span> <span class="cp">%&gt;</span><span class="nt">&lt;span&gt;</span><span class="cp">&lt;%=</span> <span class="s2">"</span><span class="si">#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">family_name_kana</span><span class="si">}#{</span><span class="vi">@user</span><span class="o">.</span><span class="n">first_name_kana</span><span class="si">}</span><span class="s2">"</span> <span class="cp">%&gt;</span><span class="nt">&lt;/span&gt;&lt;/h2&gt;</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">問題は以下、の箇所です。</p>
+
+<ul class="ng-scope">
+<li>"#{@user.family_name}#{@user.first_name}"</li>
+<li>"#{@user.family_name_kana}#{@user.first_name_kana}"</li>
+</ul>
+
+<p class="ng-scope">ユーザーの姓名、姓名カナを文字列連結してフルネームにしています。ただこの書き方ですと、文字列連結する分、コードが長くなってしまいますし、@userと何度もかくのは無駄に思えます。@userはUserモデルのインスタンスです。ユーザーのフルネームを返すインスタンスメソッドを作ってスッキリさせてしまいましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/models/user.rb</code>に以下のように追記してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/model/user.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="c1"># 省略</span>
+  <span class="c1"># 以下を追記</span>
+
+  <span class="k">def</span> <span class="nf">name</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="n">family_name</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">first_name</span><span class="si">}</span><span class="s2">"</span>
+<span class="hll">  <span class="k">end</span>
+</span><span class="hll">
+</span><span class="hll">  <span class="k">def</span> <span class="nf">name_kana</span>
+</span>    <span class="s2">"</span><span class="si">#{</span><span class="n">family_name_kana</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">first_name_kana</span><span class="si">}</span><span class="s2">"</span>
+<span class="hll">  <span class="k">end</span>
+</span><span class="hll">
+</span><span class="hll">  <span class="c1"># 省略</span>
+</span><span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">nameとname_kanaというインスタンスメソッドを追加しました。ここではインスタンスが保持しているプロパティの値（family_nameなど）を呼び出して文字列連結をしています。関数は最後に評価した値を返り値として返す性質があるため、returnは省略しても構いません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/users/show.html.erb</code>を以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/show.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form user_profile"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+<span class="hll">    <span class="nt">&lt;h2&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="nt">&lt;span&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name_kana</span> <span class="cp">%&gt;</span><span class="nt">&lt;/span&gt;&lt;/h2&gt;</span>
+</span>  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">インスタンスメソッドを利用することでコードをスッキリさせることができました。他のビューでユーザーのフルネームを使いたい場合も再利用可能になります。ビューでは、できるかぎり複雑な処理は行わずインスタンスメソッドを利用することを意識すると良いでしょう。</p>
+
+<h2 id="8" class="ng-scope">ユーザーページを編集できるようにしよう</h2>
+
+<p class="ng-scope">ここまでで、簡易なユーザーページを作成することができました。<br>
+表示だけでなく更新できるようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> config/routes.rbを以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">devise_for</span> <span class="ss">:users</span>
+<span class="hll">  <span class="n">resources</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
+</span>  <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="s2">"top#index"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">新たにeditとupdateの２つを追加しました。editは更新ページ、updateは実際の更新処理を意味しています。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで<code>bundle exec rake routes</code>を実行して追加されたルーティングを確認してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$rake</span> routes
+   <span class="o">(</span>省略<span class="o">)</span>
+   new_user_confirmation GET    /users/confirmation/new<span class="o">(</span>.:format<span class="o">)</span> devise/confirmations#new
+                         GET    /users/confirmation<span class="o">(</span>.:format<span class="o">)</span>     devise/confirmations#show
+<span class="hll">               edit_user GET    /users/:id/edit<span class="o">(</span>.:format<span class="o">)</span>         users#edit
+</span>                    user GET    /users/:id<span class="o">(</span>.:format<span class="o">)</span>              users#show
+<span class="hll">                         PATCH  /users/:id<span class="o">(</span>.:format<span class="o">)</span>              users#update
+</span><span class="hll">                         PUT    /users/:id<span class="o">(</span>.:format<span class="o">)</span>              users#update
+</span>                    root GET    /                                 top#index
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i><strong> PATCHとPUT</strong></p>
+
+<p class="ng-scope">PATCHとPUTはHTTPメソッド名が違うだけで役割は同じです。rails3まではPUTでしたが、rails4からPATCHに移行しました。<br>
+そのため<code>:update</code>を指定した場合、両方のパターンのルーティングが生成されるようになっています。</p>
+
+<p class="ng-scope">続いて、コントローラーにアクションを追加しましょう</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i><code>app/controllers/users_controller.rb</code>を以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/users_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="k">def</span> <span class="nf">edit</span>
+</span><span class="hll">  <span class="k">end</span>
+</span>
+<span class="hll">  <span class="k">def</span> <span class="nf">update</span>
+</span><span class="hll">  <span class="k">end</span>
+</span><span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="529" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-739" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-739" name="check-739" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">db/migrate/201xxxxxxxxx_add_column_to_users.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-740" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-740" name="check-740" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">family_name、first_name、family_name_kana、first_name_kanaを入力できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-741" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-741" name="check-741" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users/show.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-742" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-742" name="check-742" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/models/user.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-743" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-743" name="check-743" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">config/routes.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-744" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-744" name="check-744" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/controllers/users_controller.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>app/views/users以下にedit.html.erbを作成してください。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> users
+            <ul>
+              <li class="t-file">edit.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">続いて、更新画面をつくるためにedit.html.erbに入力フォームを作成していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_498"></i> form_for</h3>
+
+<p class="ng-scope">form_forは、特定のモデルを編集・追加するためのフォームを生成するヘルパーメソッドです。<br>
+特定のテーブルにレコードだけを新規作成、更新するときに利用します。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="err">モデルクラスのインスタンス</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+…
+<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">form_for内で使うメソッドは、<code>f.htmlタグ名 :カラム名</code>の形で指定します。<br>
+例えば、以下のヘルパーメソッドを見てください。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span> <span class="cp">%&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">こちらは、次のようなhtmlに変換されます。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"モデル名_name"</span> <span class="na">name=</span><span class="s">"モデル名[name]"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">size=</span><span class="s">"モデルで設定したsize"</span> <span class="na">type=</span><span class="s">"text"</span><span class="nt">&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">form_for内におけるメソッドはformに使用するhtmlタグの数だけあります。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th>メソッド</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f.label</td>
+<td>labelのlabelタグを表示　</td>
+</tr>
+<tr>
+<td>f.text_field</td>
+<td>textのinputタグを表示</td>
+</tr>
+<tr>
+<td>f.date_select</td>
+<td>モデルで設定したフィールドをselectタグで選べるようにして表示</td>
+</tr>
+<tr>
+<td>f.check_box</td>
+<td>checkboxのinputタグを表示</td>
+</tr>
+<tr>
+<td>f.submit</td>
+<td>submitのinputタグを表示</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope">基本的にhtmlのformを知っていたら推測できるようなメソッドが用意されています。ここで全てのメソッドを覚えるのは大変なので、必要なときに<a href="http://railsdoc.com/form">railsの公式ドキュメント</a>を確認してください。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> form_forに似たヘルパーメソッドとして、<strong>モデルとは関係のないフォームを生成する</strong><code>form_tag</code>があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_499"></i> form_forとform_tag</h3>
+
+<p class="ng-scope"><code>form_for</code> と <code>form_tag</code> どちらを使うべきかは、基本的にモデルの有無で判断します。入力フォームで入力するデータのモデルがあれば <code>form_for</code> を使い、入力するデータが特にモデルを持っていなければ <code>form_tag</code> を使います。</p>
+
+<ul class="ng-scope">
+<li>form_for: モデルがあるデータを扱うときに使う。(投稿フォームなど)</li>
+</ul>
+
+<p class="ng-scope">例えばProfyのindex.html.erbには常に新規作成されたQuestionクラスのインスタンスが渡されています。<br>
+質問入力用のフォームに入力された言葉は、投稿ボタンを押した瞬間にQuestionクラスの新規インスタンスのtext属性の値としてセットされ、インスタンスはそのままquestionsテーブルに保存されます。<br>
+このような関係を簡単に実現してくれるのが<code>form_for</code> です。以下のコードをご覧ください。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+<span class="hll">    <span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="n">current_user</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+</span>      <span class="nt">&lt;h2&gt;</span>登録情報<span class="nt">&lt;/h2&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-6"</span><span class="nt">&gt;</span>
+<span class="hll">          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:full_name</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"フルネーム"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+</span>        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+<span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"送信"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary withripple"</span> <span class="cp">%&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/154#term_69">eachメソッド</a>や<a href="http://master.tech-camp.in/curriculums/20#term_254">mapメソッド</a>のように3行目で<code>|変数|</code> で変数を定義しており、さらに7行目と11行目で<code>f. ~</code> としている部分で、属性値をセットしている様子が直感的にわかります。このように、「モデルの新規インスタンスに値を追加して保存」したい場合は<code>form_for</code> を利用します。</p>
+
+<ul class="ng-scope">
+<li>
+<a href="http://master.tech-camp.in/curriculums/15#term_203">form_tag</a>: モデルがないデータを扱うときに使う。(検索フォームなど)</li>
+</ul>
+
+<p class="ng-scope">一方でRails2-3で実装した<a href="http://master.tech-camp.in/curriculums/19">検索機能</a>のように、「となりのトトロ」と入力すると、モデルを介さずにコントローラーにてproductsテーブルから該当する情報を引用し、結果をビューに表示しました。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>app/views/users/edit.html.erbを以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/edit.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="n">current_user</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;h2&gt;</span>登録情報<span class="nt">&lt;/h2&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-6"</span><span class="nt">&gt;</span>
+          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:family_name</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"姓"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-6"</span><span class="nt">&gt;</span>
+          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"名"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-6"</span><span class="nt">&gt;</span>
+          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:family_name_kana</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"セイ"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-6"</span><span class="nt">&gt;</span>
+          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:first_name_kana</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"メイ"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"送信"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary withripple"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="530" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-745" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-745" name="check-745" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users以下にedit.html.erbを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-746" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-746" name="check-746" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users/edit.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="531" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-747" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-747" name="check-747" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">form_forは、特定のモデルを編集・追加するためのフォームを生成するヘルパーメソッド</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">最後にヘッダーに更新のリンクを追加しましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題4：プロフィール編集画面へのパスを指定しましょう。</h3>
+<h5>作業ファイル：app/views/common/_header.html.erb</h5>
+<h5>ヒント： なし。</h5>
+
+<div class="code-frame" data-lang="html">
+<div class="code-lang"><span class="bold">app/views/common/_header.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>15
+16
+17
+18
+19
+20
+21
+22</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"dropdown-toggle"</span> <span class="na">data-toggle=</span><span class="s">"dropdown"</span> <span class="na">role=</span><span class="s">"button"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span><span class="nt">&gt;</span>アカウント <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span> <span class="na">role=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="err">&lt;</span>%= link_to "マイページ", user_path(current_user) %&gt;<span class="nt">&lt;/li&gt;</span>
+<span class="hll">    <span class="nt">&lt;li&gt;</span><span class="err">&lt;</span>%= link_to "プロフィール編集", #プロフィール編集画面へのパスを指定 %&gt;<span class="nt">&lt;/li&gt;</span>
+</span>    <span class="nt">&lt;li&gt;</span><span class="err">&lt;</span>%= link_to "ログアウト", destroy_user_session_path, method: :delete %&gt;<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/li&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+    <curriculum-question-container class="ng-scope" data-order="4"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> プロフィール編集をクリックして実際の表示を確認してください。</h3>
+
+<p class="ng-scope"><img src="users-edit.png" alt="text"></p>
+
+<p class="ng-scope">編集ページを作成することができました。次に実際に更新できるようにしていきましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="532" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-748" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-748" name="check-748" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/common/_header.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-749" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-749" name="check-749" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">プロフィール編集をクリックして実際の表示を確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_500"></i> params.require</h3>
+
+<p class="ng-scope">requireメソッドはストロングパラメーターのメソッドです。利用することでparamsのハッシュの中で利用するキーを制限することができます。</p>
+
+<p class="ng-scope">例えば以下のようなパラメーターが送られてきたとします。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>Parameters: <span class="o">{</span><span class="s2">"utf8"</span><span class="o">=</span>&gt;<span class="s2">"✓"</span>, <span class="s2">"authenticity_token"</span><span class="o">=</span>&gt;<span class="s2">"zzz"</span>, <span class="s2">"user"</span><span class="o">=</span>&gt;<span class="o">{</span><span class="s2">"name"</span><span class="o">=</span>&gt;<span class="s2">"山田"</span>, <span class="s2">"age"</span><span class="o">=</span>&gt;<span class="s2">"22"</span><span class="o">}}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>params.require(:user)</code>とすることでuserキー以下のパラメーターのみを取得することができます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">test_controller</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span>
+<span class="c1">#=&gt; {"name"=&gt;"山田", "age"=&gt;"22"}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">requireを指定することにより不要なパラメーターを受け取ることを防ぐことができます。<br>
+それではrequireを利用して、ユーザープロフィールの更新処理を記述していきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i><code>app/controllers/users_controller.rb</code>を以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/users_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">UsersController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">edit</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">update</span>
+<span class="hll">    <span class="n">current_user</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">update_params</span><span class="p">)</span>
+</span>  <span class="k">end</span>
+
+<span class="hll">  <span class="kp">private</span>
+</span><span class="hll">  <span class="k">def</span> <span class="nf">update_params</span>
+</span><span class="hll">    <span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:family_name</span><span class="p">,</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:family_name_kana</span><span class="p">,</span> <span class="ss">:first_name_kana</span><span class="p">)</span>
+</span><span class="hll">  <span class="k">end</span>
+</span><span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>current_user</code>はdeviseのヘルパーメソッドです。ログイン中のユーザーのインスタンスを取得することができます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="533" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-750" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-750" name="check-750" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">requireメソッドはparamsのハッシュの中で利用するキーを制限することができる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="534" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-751" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-751" name="check-751" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/controllers/users_controller.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>app/views/users以下にupdate.html.erbを作成してください。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> users
+            <ul>
+              <li class="t-file">update.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/users/update.html.erb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/update.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>プロフィールの編集が完了しました。<span class="nt">&lt;/h3&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"ホームに戻る"</span><span class="p">,</span> <span class="n">root_path</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">マイページに編集ページへのリンクを設置しておきます。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題5：ユーザーがサインインしている場合にプロフィール編集へのリンクが出るようにしましょう。</h3>
+  <h5>作業ファイル：app/views/users/show.html.erb</h5>
+  <h5>ヒント： 現在ログインしているユーザーのidはdeviseのヘルパーメソッドを使って取得しましょう。</h5>
+
+<div class="code-frame" data-lang="html">
+<div class="code-lang"><span class="bold">app/views/users/show.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form user_profile"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span><span class="err">&lt;</span>%= @user.name %&gt;<span class="nt">&lt;span&gt;</span><span class="err">&lt;</span>%= @user.name_kana %&gt;<span class="nt">&lt;/span&gt;&lt;/h2&gt;</span>
+<span class="hll">    <span class="err">&lt;</span>% 現在ログインしているユーザーと、ユーザーページのユーザーが一致する場合 %&gt;
+</span><span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"profile_edit"</span><span class="nt">&gt;</span>
+</span><span class="hll">        <span class="err">&lt;</span>%= link_to 'プロフィール編集', edit_user_path(current_user), {:class =&gt; 'btn btn-primary withripple' }%&gt;
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">    <span class="err">&lt;</span>% 閉じタグ %&gt;
+</span>  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+    <curriculum-question-container class="ng-scope" data-order="5"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 更新ページから実際にデータが更新できることを確認してください。</h3>
+
+<p class="ng-scope"><img src="profile-submit.png" alt="text"></p>
+
+<p class="ng-scope"><img src="update-complete.png" alt="text"></p>
+
+<p class="ng-scope">念の為、マイページで情報が更新されているか確認しておきましょう。</p>
+
+<p class="ng-scope"><img src="update-mypage.png" alt="text"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="535" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-752" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-752" name="check-752" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users以下にupdate.html.erbを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-753" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-753" name="check-753" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users/update.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-754" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-754" name="check-754" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/users/show.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-755" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-755" name="check-755" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">更新ページから実際にデータが更新できることを確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope">ユーザーページに画像を設定できるようにしよう</h2>
+
+<p class="ng-scope">姓名だけではちょっとさびしいので、アイコンを設定できるようにしましょう。<br>
+画像アップロードはgemのpaperclipを利用します。paperclipの使い方は<a href="https://github.com/thoughtbot/paperclip">githubのreadme</a>、もしくは日本語で書かれたブログを探して、読むのが良いでしょう。まずは画像用のカラムをusersテーブルに追加するところからはじめていきます。</p>
+
+<p class="ng-scope">※paperclipは前章でGemfileに記述したので既にインストールが完了しています。</p>
+
+<p class="ng-scope">今回のUserモデルのカラム<code>avatar</code>では以下の指定をしましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題6：paperclipを使用できるように、設定していきましょう。</h3>
+  <h5>作業場所：ターミナル,app/model/user.rb</h5>
+  <h5>ヒント1： rails g でpaperclipをuserモデルにavatarというカラムで追加する</h5>
+  <h5>ヒント2： userモデルではhas_attached_fileとvalidates_attachment_content_typeについて設定しましょう。</h5>
+    <curriculum-question-container class="ng-scope" data-order="6"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/controllers/users_controller.rb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/users_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="kp">private</span>
+  <span class="k">def</span> <span class="nf">update_params</span>
+<span class="hll">    <span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:family_name</span><span class="p">,</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:family_name_kana</span><span class="p">,</span> <span class="ss">:first_name_kana</span><span class="p">,</span> <span class="ss">:avatar</span><span class="p">)</span>
+</span>  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/users/show.html.erb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/show.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form user_profile"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+<span class="hll">    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"image"</span> <span class="na">style=</span><span class="s">"background-image: url(</span><span class="cp">&lt;%=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">avatar</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="ss">:medium</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="s">);"</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span>    <span class="nt">&lt;h2&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name</span> <span class="cp">%&gt;</span><span class="nt">&lt;span&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@user</span><span class="o">.</span><span class="n">name_kana</span> <span class="cp">%&gt;</span><span class="nt">&lt;/span&gt;&lt;/h2&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="vi">@user</span><span class="o">.</span><span class="n">id</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"profile_edit"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'プロフィール編集'</span><span class="p">,</span> <span class="n">edit_user_path</span><span class="p">(</span><span class="n">current_user</span><span class="p">),</span> <span class="p">{</span><span class="ss">class</span><span class="p">:</span> <span class="s1">'btn btn-primary withripple'</span> <span class="p">}</span><span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/users/edit.html.erb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/users/edit.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="n">current_user</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+<span class="hll">      <span class="nt">&lt;h2&gt;</span>プロフィール画像<span class="nt">&lt;/h2&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group file"</span><span class="nt">&gt;</span>
+</span><span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">file_field</span> <span class="ss">:avatar</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control floating-label"</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"画像アップロード"</span> <span class="cp">%&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span>      <span class="nt">&lt;h2&gt;</span>登録情報<span class="nt">&lt;/h2&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 実際に画像アップロードを試してみましょう。</h3>
+
+<p class="ng-scope"><img src="image-upload.png" alt="text"></p>
+
+<p class="ng-scope"><img src="comfirm-image.png" alt="text"></p>
+
+<p class="ng-scope">ここまでで画像アップロードを実装することができました。paperclipはRails2-4,2-5で触ったことがあれば簡単だったかもしれません。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="536" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-756" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-756" name="check-756" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">実際に画像アップロードをすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope">新規登録後、必ずプロフィールを登録してもらうようにする。</h2>
+
+<p class="ng-scope">せっかくプロフィールが投稿できるようになったのに、登録してもらえないと悲しいですよね。<br>
+今後、メインの投稿機能がついたときも、誰が投稿したのか分からなくなってしまいます。<br>
+そこで、まだプロフィールを登録していない時に、トップページに登録を促す表示を出すようにしましょう。<br>
+次のようなイメージです。</p>
+
+<p class="ng-scope"><img src="please-register-profile.png" alt="text"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/top/index.html.erb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/top/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;%</span> <span class="k">unless</span> <span class="n">current_user</span><span class="o">.</span><span class="n">full_profile?</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"header_top panel panel-default col-lg-12 no-profile"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>まずは、あなたの基本プロフィールを登録しましょう！<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Profyは友達の質問に答えながらプロフィールを作るサービスです！<span class="nt">&lt;/p&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"プロフィールを登録する"</span><span class="p">,</span> <span class="n">edit_user_path</span><span class="p">(</span><span class="n">current_user</span><span class="p">),</span> <span class="p">{</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-lg btn-primary withripple"</span> <span class="p">}</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+<span class="cp">&lt;%</span> <span class="k">else</span> <span class="cp">%&gt;</span>
+
+<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul class="ng-scope">
+<li>1行目</li>
+</ul>
+
+<p class="ng-scope"><code>current_user.full_profile?</code>はまだ定義していませんがユーザーがプロフィールを全て登録しているか確認するインスタンスメソッドです。<br>
+<code>current_user</code>はUserモデルのインスタンスなので、Userモデルに定義したインスタンスメソッドを呼び出すことができます。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題7：full_profile?メソッドを定義し、メソッド内は姓名、姓名カナ、画像が設定されていないとfalseを返すようにしましょう。</h3>
+  <h5>作業場所：app/model/user.rb</h5>
+  <h5>ヒント： なし</h5>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/models/user.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">name_kana</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="n">family_name_kana</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">first_name_kana</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="k">def</span> <span class="nf">full_profile?</span>
+</span><span class="hll">    <span class="c1"># 姓名、姓名カナ、画像が設定されていないとfalseを返すようにしましょう。</span>
+</span><span class="hll">  <span class="k">end</span>
+</span>
+  <span class="kp">private</span>
+  <span class="k">def</span> <span class="nf">has_group_key?</span>
+    <span class="n">group_key</span><span class="o">.</span><span class="n">present?</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+    <curriculum-question-container class="ng-scope" data-order="7"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 実際にプロフィール登録への促しが表示されるか確認しましょう。</h3>
+
+<p class="ng-scope"><i class="icon attention"></i> ログインユーザーのユーザー画像、姓名、姓名いずれかをSequelProで消して確認してください。</p>
+
+<p class="ng-scope"><img src="please-register-profile2.png" alt="text"></p>
+
+<p class="ng-scope">これでプロフィールを全て登録しないとメインの機能は表示されないようになりました。忘れずにプロフィールを登録してもらえそうですね。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="537" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-757" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-757" name="check-757" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/top/index.html.erbを編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-758" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-758" name="check-758" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/models/user.rbを編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-759" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-759" name="check-759" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">実際にプロフィール登録への促しが表示されるか確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="11" class="ng-scope">グループページをつくろう</h1>
+
+<p class="ng-scope">profyはチャットサービスのSlackのように新規登録時に、所属グループが決まっています。<br>
+グループページには、同じグループのメンバーが表示されます。</p>
+
+<h2 id="12" class="ng-scope">ヘッダーにグループページへのリンクを設定しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>config/routes.rb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">devise_for</span> <span class="ss">:users</span>
+  <span class="n">resources</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
+  <span class="n">root</span> <span class="ss">to</span><span class="p">:</span> <span class="s2">"top#index"</span>
+<span class="hll">  <span class="n">resources</span> <span class="ss">:groups</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:show</span><span class="p">,</span> <span class="ss">:edit</span><span class="p">,</span> <span class="ss">:update</span><span class="o">]</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/common/_header.html.erb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/common/_header.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar-collapse collapse navbar-responsive-collapse navbar-right"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"nav navbar-nav"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"HOME"</span><span class="p">,</span> <span class="n">root_path</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+<span class="hll">    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"dropdown-toggle"</span> <span class="na">data-toggle=</span><span class="s">"dropdown"</span> <span class="na">role=</span><span class="s">"button"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span><span class="nt">&gt;</span>グループ <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span> <span class="na">role=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">current_user</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">group_path</span><span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">group</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/ul&gt;</span>
+</span><span class="hll">    <span class="nt">&lt;/li&gt;</span>
+</span>    <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"dropdown"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">class=</span><span class="s">"dropdown-toggle"</span> <span class="na">data-toggle=</span><span class="s">"dropdown"</span> <span class="na">role=</span><span class="s">"button"</span> <span class="na">aria-expanded=</span><span class="s">"false"</span><span class="nt">&gt;</span>アカウント <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"caret"</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"dropdown-menu"</span> <span class="na">role=</span><span class="s">"menu"</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"マイページ"</span><span class="p">,</span> <span class="n">user_path</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"プロフィール編集"</span><span class="p">,</span> <span class="n">edit_user_path</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"ログアウト"</span><span class="p">,</span> <span class="n">destroy_user_session_path</span><span class="p">,</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:delete</span> <span class="cp">%&gt;</span><span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 実際にヘッダーの表示を確認してください。</h3>
+
+<p class="ng-scope"><img src="header-group.png" alt="text"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="538" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-760" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-760" name="check-760" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">config/routes.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-761" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-761" name="check-761" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/common/_header.html.erbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-762" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-762" name="check-762" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">実際にヘッダーの表示を確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">グループページを作成しよう</h2>
+
+<p class="ng-scope">groupのコントローラーをまだ作成していなかったのでつくっていきましょう。<br>
+必要なアクションやビューも同時に定義します。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題8：groups_controller.rbを作成し、showアクションを編集してください。</h3>
+  <h5>作業場所：ターミナル,app/controller/groups_controller.rb</h5>
+   <h5>ヒント1： showアクションではparamsを利用し、groupsテーブルからインスタンスを取得してください。</h5>
+    <curriculum-question-container class="ng-scope" data-order="8"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/groups</code>以下にshow.html.erbを作成してください。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> groups
+            <ul>
+              <li class="t-file">show.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/views/groups/show.html.erb</code>を以下のように更新してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/groups/show.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@group</span><span class="o">.</span><span class="n">key</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;small</span> <span class="na">class=</span><span class="s">"edit"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"編集"</span><span class="p">,</span> <span class="n">edit_group_path</span><span class="p">(</span><span class="vi">@group</span><span class="p">)</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/small&gt;</span>
+    <span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="vi">@group</span><span class="o">.</span><span class="n">detail</span><span class="o">.</span><span class="n">blank?</span> <span class="p">?</span> <span class="s2">"このグループの説明はありません"</span> <span class="p">:</span> <span class="vi">@group</span><span class="o">.</span><span class="n">detail</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"group_action panel panel-default"</span><span class="nt">&gt;&lt;/div&gt;</span>
+     <span class="nt">&lt;h3&gt;</span>Member List<span class="nt">&lt;/h3&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"list-group"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%</span> <span class="vi">@group</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"list-group-item"</span><span class="nt">&gt;</span><span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">user_path</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;hr&gt;&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 実際にグループページにアクセスして表示を確認してください。</h3>
+
+<p class="ng-scope">無事グループページを表示することができました。</p>
+
+<p class="ng-scope"><img src="group_page.png" alt="text"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="539" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-763" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-763" name="check-763" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">groupのコントローラーを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-764" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-764" name="check-764" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/controllers/groups_controller.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-765" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-765" name="check-765" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/groups以下にshow.html.erbを作成・編集できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="14" class="ng-scope">グループページを編集できるようにしよう</h2>
+
+<p class="ng-scope">ここまでrailsを学習してきた皆さんなら編集をつけるくらいは簡単かもしれません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <code>app/controllers/groups_controller.rb</code>を以下のようにファイルを更新してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/groups_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">GroupsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+  <span class="k">def</span> <span class="nf">show</span>
+    <span class="vi">@group</span> <span class="o">=</span> <span class="no">Group</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="k">def</span> <span class="nf">edit</span>
+</span><span class="hll">    <span class="vi">@group</span> <span class="o">=</span> <span class="no">Group</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="hll">  <span class="k">end</span>
+</span>
+<span class="hll">  <span class="k">def</span> <span class="nf">update</span>
+</span><span class="hll">    <span class="vi">@group</span> <span class="o">=</span> <span class="no">Group</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class="hll">    <span class="vi">@group</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">update_params</span><span class="p">)</span>
+</span><span class="hll">  <span class="k">end</span>
+</span>
+  <span class="kp">private</span>
+<span class="hll">  <span class="k">def</span> <span class="nf">update_params</span>
+</span><span class="hll">    <span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:group</span><span class="p">)</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:key</span><span class="p">,</span> <span class="ss">:detail</span><span class="p">)</span>
+</span><span class="hll">  <span class="k">end</span>
+</span><span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i><code>app/views/groups</code>以下にedit.html.erbとupdate.html.erbを作成し、以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/groups/edit.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="vi">@group</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;h3&gt;</span>グループ情報を編集する<span class="nt">&lt;/h3&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:key</span><span class="p">,</span> <span class="ss">:Name</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"control-label"</span> <span class="cp">%&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:key</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"グループ名を入力して下さい"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:detail</span><span class="p">,</span> <span class="ss">:Detail</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"control-label"</span> <span class="cp">%&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_area</span> <span class="ss">:detail</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"グループ概要を入力してください"</span><span class="p">,</span> <span class="ss">size</span><span class="p">:</span> <span class="s2">"30x10"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"送信"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary withripple"</span> <span class="cp">%&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/groups/update.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3&gt;</span>グループの編集が完了しました。<span class="nt">&lt;/h3&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"一覧に戻る"</span><span class="p">,</span> <span class="n">group_path</span><span class="p">(</span><span class="vi">@group</span><span class="p">)</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><img src="edit-page.png" alt="text"></p>
+
+<p class="ng-scope"><img src="update-page.png" alt="text"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="540" action="http://master.tech-camp.in/curriculums/148#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-766" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-766" name="check-766" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/controllers/groups_controller.rbを編集できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-767" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-767" name="check-767" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/groups以下にedit.html.erbを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-768" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-768" name="check-768" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">app/views/groups以下にupdate.html.erbを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">ユーザーページをつくろう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents2" ng-click="clickContent(h2.id)">ユーザーページへのルーティングを設定する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">ユーザーページへのコントローラーをつくる</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">ユーザーページのビューを生成する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">ユーザーページへのリンクを設定する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">ユーザーページを充実させる</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">ユーザーページの項目に姓名を追加しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">ユーザーページを編集できるようにしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">ユーザーページに画像を設定できるようにしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">新規登録後、必ずプロフィールを登録してもらうようにする。</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents11" ng-click="clickContent(content.h1.id)">グループページをつくろう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">ヘッダーにグループページへのリンクを設定しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">グループページを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">グループページを編集できるようにしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 38<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/148">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>基礎文法を学ぼう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('top.jpg');">
+  <h1 class="ng-binding">
+    プログラミングをはじめよう<small class="ng-binding">〜基礎文法を学ぼう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    グランドキャニオンはアメリカ合衆国アリゾナ州北部にある渓谷です。約4000万年前から続くコロラド川の浸食によって複雑な渓谷が形成されました。世界で最も多くの化石が発見された場所でもあります。<a class="ng-binding" href="https://www.flickr.com/photos/aigle_dore/5854361826/" target="_top">Moyan Brenn - Grand Canyon</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<h3 class="ng-scope">Rubyでアプリケーションを作成する前に必要な基礎知識として、よく使う以下の5つの基本事項を理解する</h3>
+
+<ul class="ng-scope">
+<li><strong>文字列</strong></li>
+<li><strong>数値</strong></li>
+<li><strong>メソッド</strong></li>
+<li><strong>演算子</strong></li>
+<li><strong>変数</strong></li>
+</ul>
+
+<p class="ng-scope">どれも必要最低限の知識であり、よく使うものなので確実に覚えておきましょう。</p>
+
+<h1 id="2" class="ng-scope">文字列オブジェクト</h1>
+
+<p class="ng-scope">1章でも触れましたが、Rubyでは現実世界の数、文字、色、時間などをオブジェクトとしてデータ化し操作します。</p>
+
+<p class="ng-scope">ここでは、「文字」と「数字」のオブジェクトについて学習します。</p>
+
+<h2 id="3" class="ng-scope">文字を表示しよう</h2>
+
+<p class="ng-scope">前章にも出てきましたが、文字列に関しておさらいしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_90"></i> 文字列オブジェクト</h3>
+
+<p class="ng-scope">文字列オブジェクトは、文字を表現するオブジェクトです。文字列、と省略して呼ばれます。</p>
+
+<p class="ng-scope">文字列を生成するには、文字を<strong>"(ダブルクォテーション)</strong>または<strong>'(シングルクォテーション)</strong>で囲みます。以下の例を見てください。</p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope"><strong><i class="icon attention"></i> 以降、【例】と書かれた後に続くコードはあくまで参考なので、実際に打ち込んで試す必要はありません(エラーになる場合もあります)。</strong></p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="s2">"This is string."</span>
+
+  <span class="s1">'This is string, too.'</span>
+
+  <span class="no">This</span> <span class="n">is</span> <span class="ow">not</span> <span class="n">string</span><span class="o">.</span> <span class="c1"># Error</span>
+  <span class="ss">NameError</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">local</span> <span class="n">variable</span> <span class="ow">or</span> <span class="nb">method</span> <span class="sb">`This is not string.' for main:Object</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">5行目は、文字を"(ダブルクォテーション)または'(シングルクォテーション)で囲っていないため文字列として認識されず、上記のようなエラーになります。</p>
+
+<h3 class="ng-scope">本章でのプログラムの実行</h3>
+
+<p class="ng-scope">本章では、プログラムを実行する際に逐一ファイルに記述して実行、という手順は踏まないこととします。代わりに、<em>irb</em>という簡易プログラム実行機能を利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_91"></i> irb</h3>
+
+<p class="ng-scope">irbとは、ターミナルから直接、Rubyのプログラムを動かすことができる機能です。ターミナルから「irb」と入力すると起動します。irbを起動したら、直接プログラムを入力してエンターキーを押すだけで実行してくれます。</p>
+
+<p class="ng-scope">irbを終了するには、irbを起動中に「exit」と入力しエンターキーを押します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>irb                                  <span class="c">#irbの起動</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt;  <span class="s2">"This is string."</span>    <span class="c">#プログラムを書いてエンターキーで実行</span>
+  <span class="o">=</span>&gt; <span class="s2">"This is string."</span>                   <span class="c">#結果の表示</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="nb">exit</span>                  <span class="c">#irbを終了する</span>
+  <span class="err">$</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">本章のプログラムは簡単なものが多いので、<strong>作業はすべてirbを使いましょう。</strong></p>
+
+<p class="ng-scope">以下の注意事項に留意してください。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>irbで日本語を入力すると、文字化けする場合があります。</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>本章の作業は全て半角英数字で行うよう、注意してください。</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>irbを起動中に再び「irb」と打ち実行しないでください。</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>exitと打っても終了できない場合は、endと打って実行してみてください</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>irbのバージョンが古い場合、irbの入力待機中の表記は"irb(main):001:0&gt;"ではなく"&gt;&gt;"となります。</strong></p>
+
+<p class="ng-scope">exit、endともに効果が無い場合は、一度ターミナルを終了して再起動してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>ターミナルを起動し、下記のようにコマンドを実行してください。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#irbの起動</span>
+  <span class="nv">$ </span>irb
+<span class="c">#プログラムを書いてエンターキーで実行</span>
+<span class="c">#irb(main):001:0&gt;の部分は、irbの待機状態なので入力する必要はありません                       </span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt;  <span class="s2">"Hello!"</span>
+<span class="c">#続けてこのように表示されれば成功　</span>
+  <span class="o">=</span>&gt;<span class="s2">"Hello!"</span>                      
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>=&gt;</code>となっている部分は、プログラムの実行結果です。今は気にせずに進みましょう。大切なのは、<strong>irbではエンターキーを打つたびにそこまでの記述の結果を示す</strong>ということです。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="44" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-61" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-61" name="check-61" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">irbから文字列を出力できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="45" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-62" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-62" name="check-62" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rubyで文字を表現する時は文字列オブジェクトを使う。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-63" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-63" name="check-63" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">文字列オブジェクトは、文字を""か''で囲う。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="4" class="ng-scope">文字列を連結しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_92"></i> 文字列オブジェクトの連結</h3>
+
+<p class="ng-scope">文字列オブジェクト同士を連結させるには、文字列オブジェクト同士を<strong>+(プラス)</strong>で繋ぎます。数式と同じような書き方です。</p>
+
+<p class="ng-scope">以下の例では、Hello と Worldが繋がっています。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="s2">"Hello "</span> + <span class="s1">'World'</span>    <span class="c">#文字列を連結</span>
+  <span class="o">=</span>&gt; <span class="s2">"Hello World"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">または、<strong>#{}</strong>を利用します。</p>
+
+<p class="ng-scope">連結したい文字列を以下のように並べて実行します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="s2">"#{"</span>very<span class="s2">" "</span> hard!<span class="s2">"}"</span>   <span class="c">#文字列を連結</span>
+  <span class="o">=</span>&gt; <span class="s2">"very hard!"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">一見<code>+</code> の方が簡単に思えますが、<code>#{}</code>を使った記法の方が使う機会が多くなります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、以下のコマンドを実行してください。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#文字列を連結</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="s2">"#{"</span>Hey!<span class="s2">" "</span> brother！<span class="s2">"}"</span> 
+<span class="c">#続けてこのように表示されれば成功</span>
+  <span class="o">=</span>&gt;<span class="s2">"Hey! brother!"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="46" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-64" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-64" name="check-64" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">文字列を連結できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="47" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-65" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-65" name="check-65" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">文字列を連結するには、 + か、#{ }を使う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="5" class="ng-scope">数値オブジェクト</h1>
+
+<p class="ng-scope">続いて、数を表すオブジェクトに関して学習しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_93"></i> 数値オブジェクト</h3>
+
+<p class="ng-scope">数値を表現するオブジェクトです。数値オブジェクトを生成するには文字列のときのような"(ダブルクォテーション)または'(シングルクォテーション)も<strong>必要ありません。</strong>ただ単に数字を記述するだけで生成できます。以下は数値オブジェクトを使った数値の表し方の例です。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="mi">10</span>   <span class="c1"># 整数</span>
+  <span class="mi">3</span><span class="o">.</span><span class="mi">14</span> <span class="c1"># 小数</span>
+  <span class="o">-</span><span class="mi">10</span>  <span class="c1"># 負の値</span>
+  <span class="nb">puts</span> <span class="o">-</span><span class="mi">3</span><span class="o">.</span><span class="mi">14</span> <span class="c1"># 数値も出力できる</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>4行目に注目してください。1章で学んだputsは、数値オブジェクトも出力できます。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、下記のようにコマンドを実行してください。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#putsで数値を出力</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; puts 108
+<span class="c">#続けてこのように表示されれば成功</span>
+  <span class="nv">108</span>
+  <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="48" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-66" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-66" name="check-66" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">数値を出力できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="49" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-67" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-67" name="check-67" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">数値オブジェクトは、そのまま数字を入力するだけで生成できる。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="6" class="ng-scope">メソッド</h1>
+
+<p class="ng-scope">オブジェクトは、メソッドと呼ばれる処理によって自身の形を変えたりすることができます。</p>
+
+<p class="ng-scope">例えば、文字列オブジェクトが<code>length</code>というメソッドを利用すると、<strong>自身の文字数である数値オブジェクトに姿を変えます。</strong></p>
+
+<p class="ng-scope">Rubyでは、オブジェクトごとにそれぞれ利用できるメソッドが定義されています。<br>
+ここでは、文字列が利用できるメソッドと、数値が利用できるメソッドを実際に使ってみましょう。</p>
+
+<h2 id="7" class="ng-scope">文字の数を数えてみよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_94"></i> lengthメソッド</h3>
+
+<p class="ng-scope">lengthメソッドは文字列が利用できるメソッドで、文字列の文字の数を数えてくれます。<br>
+メソッドを利用するには、以下のようにオブジェクトに対してメソッド名(length)を<strong>.(ドット)</strong>で繋ぎます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="s2">"Hello World"</span>.length <span class="c"># 文字列の文字数を返す</span>
+<span class="o">=</span>&gt;11
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>"Hello World".length</code>は、一つの式として見ることもできますね。<br>
+上の例で=&gt;の後に表示されているのは、「Hello World」の文字数11です。</p>
+
+<p class="ng-scope">ここはとても重要なことなのですが、この結果を説明する時、lengthメソッドは<strong>返り値として数値オブジェクトの11を返した</strong>という表現をします。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_95"></i> 返り値</h3>
+
+<p class="ng-scope">返り値とは、オブジェクトやメソッドが処理された後の最終的な値のことです。戻り値とも言います。<strong>Rubyのオブジェクト自体、またはメソッドを利用した式には、全て返り値があります。</strong><br>
+メソッドとその返り値はプログラムでは非常に頻繁に使用します。ぜひ、Rubyの学習段階で意識して理解するようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、下記のようにコマンドを実行してください。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="s2">"good morning"</span>.length  <span class="c">#lengthで数えた文字数返す</span>
+  <span class="o">=</span>&gt;12                                    <span class="c">#続けてこのように表示されれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="50" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-68" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-68" name="check-68" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lengthメソッドを使って文字列の文字数を数えられた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="51" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-69" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-69" name="check-69" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lengthメソッドは、文字列の文字数を数えられる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-70" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-70" name="check-70" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">メソッドは、処理の終わりに返り値を返す。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">続いて、メソッドを利用した問題解決を試してみましょう。</p>
+
+<h2 id="8" class="ng-scope">文字列と数値を連結してみよう</h2>
+
+<p class="ng-scope">文字列<code>"i am "</code>,　数値<code>20</code>,　文字列<code>" years old."</code><br>
+この3つのオブジェクトを連結して出力します。しかし単純に<code>+</code>を使って以下のように実行しても、エラーが出てしまいます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; puts <span class="s2">"i am "</span> + <span class="m">20</span> + <span class="s2">" years old."</span>   <span class="c">#error</span>
+  TypeError: no implicit conversion of Fixnum into String
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">文字列と数値は別のオブジェクトなので、連結することができないためです。そこで、<strong>to_sメソッドを利用して数値である20を文字列に変換しましょう。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_96"></i> to_sメソッド</h3>
+
+<p class="ng-scope">数値オブジェクトのメソッドです。数値オブジェクトを文字列に変換してくれます。以下の例を見てください。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; 20.to_s        <span class="c">#数値 20 にto_sメソッドをつけて実行</span>
+  <span class="o">=</span>&gt; <span class="s2">"20"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">to_sメソッドによって、文字列"20"が返り値となっています。</p>
+
+<p class="ng-scope">では、"i am 20 years old."を表示しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、下記のようにコマンドを実行してください。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; puts <span class="s2">"i am "</span> + 20.to_s + <span class="s2">" years old."</span>  <span class="c">#to_sで数値を文字列に変換し、連結</span>
+  i am <span class="m">20</span> years old.                                   <span class="c">#続けてこのように表示されれば成功</span>
+  <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">「はじめから文字列<code>"20"</code>を用意すればよかったのでは？」と思うかもしれません。しかし、処理の結果が必ず数値で返ってくる値を文字列として利用したい場合など、<code>to_s</code>メソッドを利用することは多くあります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="52" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-71" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-71" name="check-71" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">to_sメソッドを使って数値を文字列に変換できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="53" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-72" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-72" name="check-72" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">to_sメソッドは、数値を文字列に変換する。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="9" class="ng-scope">演算子</h1>
+
+<p class="ng-scope">ここからは、プログラムでよく使われる演算子について学びましょう。</p>
+
+<h2 id="10" class="ng-scope">Rubyを使って計算をしよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_97"></i> Rubyの演算子</h3>
+
+<p class="ng-scope">Rubyで一般的な計算処理をする場合、以下の様な数式記号が使えます。</p>
+
+<ul class="ng-scope">
+<li><strong>+(足し算)</strong></li>
+<li><strong>-(引き算)</strong></li>
+<li>* <strong>(かけ算)</strong>
+</li>
+<li><strong>/(割り算)</strong></li>
+<li><strong>%(剰余)</strong></li>
+</ul>
+
+<p class="ng-scope">使い方は、普通の算数の計算と同じです。<strong>剰余の計算のみ馴染みがないので注意が必要です。</strong>例えば、「17を5で割った余り」を求めることができます。以下の例を見てください。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#足し算</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="m">1000</span> + <span class="nv">2000</span>
+  <span class="o">=</span>&gt;3000
+ <span class="c">#引き算</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="m">3000</span> - <span class="nv">1500</span>
+  <span class="o">=</span>&gt;1500
+<span class="c">#掛け算</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="m">50</span> * <span class="nv">40</span>
+  <span class="o">=</span>&gt;2000
+<span class="c">#割り算</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt; <span class="m">600</span> / <span class="nv">15</span>
+  <span class="o">=</span>&gt;40
+<span class="c">#5 ÷ 2をした余り</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:005:0&gt; <span class="m">5</span> % <span class="nv">2</span>
+  <span class="o">=</span>&gt;1
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">その他にも、Rubyプログラムで使える演算子はまだあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_98"></i> 比較演算子(&gt;, &lt;, ==)</h3>
+
+<p class="ng-scope">比較演算子は、値同士を比較するときに使用します。実行すると、以下のような結果になります。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#20は1より大きいか？</span>
+irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="m">1</span> &lt; <span class="nv">20</span>
+<span class="o">=</span>&gt;true
+<span class="c">#1は20より大きいか？</span>
+irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="m">1</span> &gt; <span class="nv">20</span>
+<span class="o">=</span>&gt;false
+<span class="c">#2 × 5は10と等しいか？</span>
+irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="m">2</span> * <span class="nv">5</span> <span class="o">==</span> <span class="nv">10</span>
+<span class="o">=</span>&gt;true
+<span class="c">#10は20と等しいか？</span>
+irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt; <span class="nv">10</span> <span class="o">==</span> <span class="nv">20</span>
+<span class="o">=</span>&gt;false
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">比較演算子を使った場合の返り値は、式が正しければ<code>true</code>、間違っていれば<code>false</code>という結果になります。それぞれ文字列の"true", "false"とは別の、「真を示すオブジェクト」と「誤を示すオブジェクト」だということに気をつけましょう。</p>
+
+<p class="ng-scope">また、値同士が等しいかを確かめる場合は、「<code>=</code> が2つであること」に留意してください。<code>=</code>と、<code>==</code>とでは意味が全く異なります。<code>=</code>が一つの場合に関してはこの後説明します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_99"></i> 比較演算子(&gt;=, &lt;=)</h3>
+
+<p class="ng-scope">比較演算子&gt;,&lt;のあとに=を続けることで〜以上、〜以下を表すことができます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#2 × 3は6以上か？</span>
+ irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="m">2</span> * <span class="m">3</span> &gt;<span class="o">=</span> <span class="nv">6</span>
+ <span class="o">=</span>&gt;true
+<span class="c">#2 × 3は6より大きいか？</span>
+ irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="m">2</span> * <span class="m">3</span> &gt; <span class="nv">6</span>
+ <span class="o">=</span>&gt;false
+ <span class="c">#4 × 5は20以下か？</span>
+ irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="m">4</span> * <span class="m">5</span> &lt;<span class="o">=</span> <span class="nv">20</span>
+ <span class="o">=</span>&gt;true
+ <span class="c">#4 × 5は6より小さいか？</span>
+ irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt; <span class="m">4</span> * <span class="m">5</span> &lt; <span class="nv">6</span>
+ <span class="o">=</span>&gt;false
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_100"></i> not演算子(!)</h3>
+
+<p class="ng-scope">!(エクスクラメーションマーク)はnot演算子と呼ばれ、<strong>否定</strong>の意味で使われます。<br>
+!と=を合わせた<strong>!=</strong>は==と反対で、<strong>値同士が等しくない</strong>場合にtrueを返します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#2 × 3 は6ではないか？</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="m">2</span> * <span class="m">3</span> !<span class="o">=</span> <span class="nv">6</span>
+  <span class="o">=</span>&gt;false
+<span class="c">#2 × 3 は10ではないか？</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="m">2</span> * <span class="m">3</span> !<span class="o">=</span> <span class="nv">10</span>
+  <span class="o">=</span>&gt;true
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">では、演算子を使ってみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、上で紹介した例を実際に試してみましょう。</strong>
+</h3>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="54" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-73" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-73" name="check-73" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">演算子を使った計算ができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="55" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-74" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-74" name="check-74" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rubyでは算用記号の他に「以上、以下」や「ではない」を表す演算子がある</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="11" class="ng-scope">変数</h1>
+
+<p class="ng-scope">オブジェクトをプログラム中で繰り返し呼び出したい時に利用する、<strong>変数</strong>について学びます。</p>
+
+<h2 id="12" class="ng-scope">オブジェクトを何度も呼びだそう</h2>
+
+<p class="ng-scope">Rubyのプログラム上では、私たちは自身で文字列や数値などのオブジェクトを生み出すことができます。しかし、その値を保持し利用し続けるためには、オブジェクトに名前をつけておく必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_101"></i> 変数</h3>
+
+<p class="ng-scope">変数とは、オブジェクトの入れ物、またはオブジェクトを識別する名札のようなものです。例えば、helloworld.rbで"Hello World"という文字列を作りました。そしてこの文字の数を数えたかったため、<code>length</code>メソッドを利用しました。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#"Hello World"の文字数を数える</span>
+   irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; puts <span class="s2">"Hello World"</span>.length
+   <span class="o">=</span>&gt;11
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">11という値が返ってきましたね。では、この値を保持し、3回、4回と利用するにはどうすれば良いでしょうか？毎回<code>"Hello World".length</code>と記述するのは、ちょっと面倒ですね。</p>
+
+<p class="ng-scope">ここで役に立つのが<strong>変数</strong>です。</p>
+
+<p class="ng-scope">以下の例を見てください。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#numberという変数の中身を、"Hello World".lengthの結果である11と定義する</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">number</span> <span class="o">=</span> <span class="s2">"Hello World"</span>.length  
+<span class="c">#numberを実行すると、格納された11が出力される</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; puts number      
+    <span class="nv">11</span>
+    <span class="o">=</span>&gt;nil
+<span class="c">#何度実行しても、格納された11が出力される</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; puts number
+    <span class="nv">11</span>
+    <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>puts number</code>を実行するだけで11が出力されており、<code>puts "Hello World".length</code>よりも短く記述できますね。</p>
+
+<p class="ng-scope">ちなみに、<strong>putsの返り値は「nil」となります。</strong>これは、オブジェクトが何もない、という意味です。これに関しては、後程説明します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_102"></i> 変数の宣言</h3>
+
+<p class="ng-scope">変数の名前は、原則として<strong>小文字から始めます</strong>。</p>
+
+<p class="ng-scope">変数は以下のように宣言します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  変数 <span class="o">=</span> 格納するオブジェクト
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_103"></i> 代入</h3>
+
+<p class="ng-scope">stringのあとの<strong>=(イコール)</strong>は数学の方程式のように等しいという意味ではなく、<strong>代入する</strong>という意味です。上の例で行っている処理は、「numberという変数に"Hello World".lengthの返り値である数値11を代入する」ということになります。</p>
+
+<p class="ng-scope">数値11が代入された変数numberは数値11と同じものとなります。<br>
+すなわち、<code>puts</code>メソッドを<code>number</code>に対して行えば「11」とターミナル上に出力されるということです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_104"></i> 再代入</h3>
+
+<p class="ng-scope">一回オブジェクトを代入したあとの変数に、別のオブジェクト再び代入することもできます。</p>
+
+<p class="ng-scope"><strong>プログラム中に何度でも変更可能である</strong>ことも変数の特徴です。</p>
+
+<p class="ng-scope">以下の例を見てください。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#変数に代入</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">value</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="o">=</span>&gt;<span class="s2">"Hello World"</span>
+<span class="c">#変数を出力</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; puts value
+  Hello <span class="nv">World</span>
+  <span class="o">=</span>&gt;nil
+<span class="c">#変数に再代入</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="nv">value</span> <span class="o">=</span> <span class="s2">"See you"</span> 
+<span class="o">=</span>&gt;<span class="s2">"See you"</span>
+<span class="c">#変数を出力</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt; puts value
+  See <span class="nv">you</span>
+  <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">変数が後から代入したものに書き換わっていることがわかります。<br>
+Rubyにおいては、変数にはどんなオブジェクトでも代入でき、文字列を代入したあとに数値を代入することなどもできます。もちろん、変数に対してメソッドを使うこともできます。</p>
+
+<h3 class="ng-scope">なぜ変数を使うのか</h3>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_105"></i> 名札としての変数</h3>
+
+<p class="ng-scope">変数にはオブジェクトが何であるかを識別する名札という役割があります。変数を定義することにより、<strong>ソースコード中でオブジェクトをわかりやすく使えます。</strong><br>
+以下はある映画のタイトルと説明文を画面上に出力するプログラムです。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c1">#一部省略</span>
+    <span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">title</span> <span class="o">=</span> <span class="s2">"Spider man"</span>
+    <span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">002</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="n">description</span> <span class="o">=</span> <span class="s2">"It is amazing"</span>
+    <span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">003</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="nb">puts</span> <span class="n">title</span>
+    <span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">004</span><span class="p">:</span><span class="mi">0</span><span class="o">&gt;</span> <span class="nb">puts</span> <span class="n">description</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ただ"Spider man"と出力しただけではこれが何の文字列かわかりませんが、titleという変数に入れることで、この文字列はタイトルなのだとすぐにわかるようになりました。</p>
+
+<p class="ng-scope">こうしたソースコードの見やすさ(可読性)やわかりやすさは、プログラミングにおいて非常に重要です。</p>
+
+<p class="ng-scope">また、プログラムの中で同じ値を何度も使う場合、その値を変数にして使うようにすれば、仕様変更でその値を変える必要が生じた場合も変数に代入する箇所を変更するだけで済みます。以下の例を見てください。直径が10の円の、面積と円周を表しています。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="c"># 直径10</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">menseki</span> <span class="o">=</span> <span class="o">(</span><span class="m">10</span> / 2<span class="o">)</span> * <span class="o">(</span><span class="m">10</span> / 2<span class="o">)</span> * 3.14 <span class="c"># 面積</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="nv">ensyu</span> <span class="o">=</span> <span class="m">2</span> * <span class="m">10</span> * 3.14 <span class="c"># 円周</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このソースコード上では直径を示す「10」が3回も出ています。もし直径を20に変更する場合、10と書いてある箇所をすべて20に訂正するのは大変だし、訂正し忘れる可能性もあります。</p>
+
+<p class="ng-scope">また、ただ「10」とだけ書かれても何の値かわかりづらいので、上のソースコードを以下のように変更します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c"># 直径10</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">diameter</span> <span class="o">=</span> <span class="m">10</span> 
+<span class="c"># 面積</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="nv">menseki</span> <span class="o">=</span> <span class="o">(</span>diameter / 2<span class="o">)</span> * <span class="o">(</span>diameter / 2<span class="o">)</span> * 3.14 
+<span class="c"># 円周</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="nv">ensyu</span> <span class="o">=</span> diameter * 3.14
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これなら直径を20に変える場合も以下のようにすれば良いでしょう。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c"># 直径を20に変更</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">diameter</span> <span class="o">=</span> <span class="m">20</span> 
+ <span class="c"># 面積</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="nv">menseki</span> <span class="o">=</span> <span class="o">(</span>diameter / 2<span class="o">)</span> * <span class="o">(</span>diameter / 2<span class="o">)</span> * 3.14
+<span class="c"># 円周</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="nv">ensyu</span> <span class="o">=</span> diameter * 3.14
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">可読性も一気に向上しました。このように、できるだけ変数を使ってわかりやすいコードを書くよう心がけましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、下記のようにコマンドを実行してください。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#変数に値を代入</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">name</span> <span class="o">=</span> <span class="s2">"takashi"</span>
+  <span class="o">=</span>&gt;<span class="s2">"takashi"</span>
+<span class="c">#文字数を調べる</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; name.length               
+  <span class="o">=</span>&gt;7
+ <span class="c">#変数を出力</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; puts name
+  <span class="nv">takashi</span>
+  <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">変数に代入した文字列の文字数が返ってきたことを確認してください。ちなみに、一度irbを終了(exitを実行)すると、それまで利用していた変数はリセットされます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="56" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-75" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-75" name="check-75" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">変数を定義し、利用することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="57" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-76" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-76" name="check-76" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">同じオブジェクトを何度も利用したい時は、変数を使う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">代入した値を固定しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_106"></i> 定数</h3>
+
+<p class="ng-scope">定数は、基本的には変数と同じくオブジェクトを格納する入れ物です。しかし変数とは違い、<strong>一度オブジェクトを代入したら再代入することをしません</strong>。<br>
+定数を定義するときは<strong>名前の最初を大文字にします</strong>。慣習としては、定数は名前をすべて英大文字にし、定義したあとは再代入しません。</p>
+
+<p class="ng-scope">以下は定数の例です。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#定数に代入</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">CONST</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="c">#定数を出力</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; puts CONST
+    Hello <span class="nv">World</span>
+    <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">定数に再代入しようとすると、以下のように警告が出ます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#定数に代入</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">CONST</span> <span class="o">=</span> <span class="s2">"Hello World"</span>
+<span class="c">#定数を出力</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; puts CONST
+    Hello <span class="nv">World</span>
+    <span class="o">=</span>&gt;nil
+<span class="c">#再代入すると警告が出る</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; <span class="nv">CONST</span> <span class="o">=</span> <span class="s2">"Hello Japan"</span> 
+    warning: already initialized constant COUNT
+    warning: previous definition of COUNT was here
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">変数と比べて少し窮屈な気がしますが、<strong>再代入しないとわかっているオブジェクト、または再代入してはいけないオブジェクトには定数を使います。</strong>例えば以下の例では、円周率は絶対に変わらない数値なので、定数にしています。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c"># 円周率(定数)</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">PI</span> <span class="o">=</span> 3.14
+<span class="c">#直径(変数)</span>
+    irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; <span class="nv">diameter</span> <span class="o">=</span> 10
+
+    irb<span class="o">(</span>main<span class="o">)</span>:003:0&gt; puts <span class="m">2</span> * diameter * PI
+
+    irb<span class="o">(</span>main<span class="o">)</span>:004:0&gt; <span class="nv">diameter</span> <span class="o">=</span> 50
+
+    irb<span class="o">(</span>main<span class="o">)</span>:005:0&gt; puts <span class="m">2</span> * diameter * PI
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">では、定数を使ってあなたの干支を出力してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>irbで、下記のようにコマンドを実行してください</strong>
+</h3>
+
+<p class="ng-scope">コマンド：</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c"># dogの部分は自分の干支を英語で入力してください</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:001:0&gt; <span class="nv">ANIMAL</span> <span class="o">=</span> <span class="s2">"dog"</span>
+  <span class="c"># 定数を出力</span>
+  irb<span class="o">(</span>main<span class="o">)</span>:002:0&gt; puts <span class="s2">"I was born in the year of #{ANIMAL}."</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">出力結果：</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  I was born in the year of dog.
+  <span class="o">=</span>&gt;nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="58" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-77" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-77" name="check-77" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">定数を定義し、利用することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="59" action="http://master.tech-camp.in/curriculums/3#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-78" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-78" name="check-78" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">全プログラム中で絶対に変わらないオブジェクトは、定数で定義する。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">文字列オブジェクト</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">文字を表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">文字列を連結しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents5" ng-click="clickContent(content.h1.id)">数値オブジェクト</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">メソッド</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">文字の数を数えてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">文字列と数値を連結してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents9" ng-click="clickContent(content.h1.id)">演算子</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">Rubyを使って計算をしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents11" ng-click="clickContent(content.h1.id)">変数</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">オブジェクトを何度も呼びだそう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">代入した値を固定しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">18 / 18<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/3">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title></title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page ng-hide" style="background-image: url('@22@22');">
+  <h1 class="ng-binding">
+    Railsドリル１解答<small class="ng-binding">〜〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 class="ng-scope" id="rails_drill_1"> 問題1解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"keita"</span><span class="p">,</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">"rails now. it's so fun!!"</span><span class="p">,</span> <span class="ss">image</span><span class="p">:</span> <span class="s2">"http://image.jpg"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: nil, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: nil, updated_at: nil&gt;</span>
+
+<span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">save</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">インスタンスを生成する際にそれぞれのカラムに代入したい値を入れる場合、</p>
+
+<p class="ng-scope"><code>Tweet.new(name: "keita", text: "rails now. it's so fun!!", image: "http://image.jpg")</code></p>
+
+<p class="ng-scope">のようにnewメソッドに引数を与えてあげます。</p>
+
+<p class="ng-scope">また、newメソッドはモデルのインスタンスを生成するのみでデータベースには保存されていません。<br>
+データベースに反映させるためには<code>save</code>メソッドを使いましょう。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_2"> 問題2解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">"satoshi"</span>
+<span class="o">=&gt;</span> <span class="s2">"satoshi"</span>
+
+<span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">"oh!!happy day!"</span>
+<span class="o">=&gt;</span> <span class="s2">"oh!!happy day!"</span>
+
+<span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="s2">"http://happy.jpg"</span>
+<span class="o">=&gt;</span> <span class="s2">"http://happy.jpg"</span>
+
+
+<span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">save</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope"><code>tweet = Tweet.new</code>のように新しくインスタンスを生成し、変数tweetを定義した後に、カラムに値を代入する場合</p>
+
+<p class="ng-scope"><code>tweet.カラム名</code>でそのカラムの値にアクセスすることが出来ます。<br>
+そして、上記のように</p>
+
+<p class="ng-scope"><code>tweet.カラム名 = 代入する値</code><br>
+と書けば、インスタンスを生成した後に値を代入することが出来ます。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_3"> 問題3解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"keita"</span><span class="p">,</span> <span class="ss">text</span><span class="p">:</span> <span class="s2">"i am happy boy!"</span><span class="p">,</span> <span class="ss">image</span><span class="p">:</span> <span class="s2">"http:://happy_boy.jpg"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http:://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-13 10:53:59", updated_at: "2015-01-13 10:53:59"&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">createメソッドはインスタンスを生成(new)して保存(save)するまで一気にやってくれるメソッドです。引数はnewメソッドの時と同じように</p>
+
+<p class="ng-scope"><code>Tweet.create(name: "keita", text: "i am happy boy!", image: "http:://happy_boy.jpg")</code></p>
+
+<p class="ng-scope">と書きます。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_4"> 問題4解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Tweet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 7, name: "satoshi", image: "http://happy.jpg", text: "oh!!happy day!", created_at: "2015-01-12 07:56:21", updated_at: "2015-01-12 11:52:53"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-12 11:53:49"&gt;]</span>
+ <span class="err">※</span><span class="n">pictweet</span><span class="err">を作成した時に生成したインスタンスも表示されます。</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope"><code>モデル名.all</code>というようにallメソッドはtweetsテーブルの全てのレコードを取得することが出来ます。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_5"> 問題5解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 7, name: "satoshi", image: "http://happy.jpg", text: "oh!!happy day!", created_at: "2015-01-12 07:56:21", updated_at: "2015-01-12 11:52:53"&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">findメソッドは引数にtweetsテーブルのidを指定して使います。</p>
+
+<p class="ng-scope"><code>モデル名.find(取得したいレコードのid)</code></p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_6"> 問題6解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">find_by</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"keita"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">find_byメソッドは<code>モデル名.find_by(カラム名: 値)</code>で検索してヒットした最初のレコード<strong>１つのみ</strong>を取得します。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_7"> 問題7解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">"keita"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Tweet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-12 11:53:49"&gt;]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">whereメソッドは<code>モデル名.where(カラム名: 値)</code>で検索して、ヒットした全てのレコードを取得できます。</p>
+
+<p class="ng-scope">find_byメソッドと似ていますが、find_byメソッドは条件で検索した時に、一番初めにヒットしたレコードを<strong>１つ</strong>だけ取得します。<br>
+それに対し、whereメソッドは条件で検索し、ヒットした<strong>全て</strong>のレコードを取得します。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_8"> 問題8解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Tweet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 7, name: "satoshi", image: "http://happy.jpg", text: "oh!!happy day!", created_at: "2015-01-12 07:56:21", updated_at: "2015-01-12 11:52:53"&gt;]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">limitメソッドは<code>モデル名.limit(取得したい件数)</code>というように使うと、<br>
+初めのレコードから取得したい件数分テーブルから取得出来ます。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_10"> 問題9解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">Tweet</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s2">"created_at DESC"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-12 11:53:49"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 7, name: "satoshi", image: "http://happy.jpg", text: "oh!!happy day!", created_at: "2015-01-12 07:56:21", updated_at: "2015-01-12 11:52:53"&gt;,</span>
+ <span class="c1">#&lt;weet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;]</span>
+<span class="err">　インスタンスが生成された時刻が最新順で取得</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">orderメソッドは,<code>モデル名.order("カラム名")</code></p>
+
+<p class="ng-scope">というように使い、レコードを並び替えて取得することが出来ます。<br>
+今回は最新順になるように取得するので、インスタンスが保存された時刻を表すカラム、created_atを指定します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_488"></i> DESC と ASC</h3>
+
+<p class="ng-scope">DESC は降順の意味の Descending、ASC  は昇順の意味の Ascending という英語の略です。</p>
+
+<p class="ng-scope"><code>Tweet.order("created_at DESC")</code>というように使うと降順で、つまり最新順で並び替えを してくれます。</p>
+
+<p class="ng-scope">他の例も見てましょう。</p>
+
+<p class="ng-scope">textカラムでorderをしてみましょう<br>
+textカラムの値を日本語にし、新たに２つインスタンスを保存しました。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Tweet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 7, name: "satoshi", image: "http://happy.jpg", text: "oh!!happy day!", created_at: "2015-01-12 07:56:21", updated_at: "2015-01-12 11:52:53"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-12 11:53:49"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 10, name: "satoshi", image: "enjoy.jpg", text: "楽しい", created_at: "2015-01-14 11:34:47", updated_at: "2015-01-14 11:34:47",&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 11, name: "satoshi", image: "enjoy.jpg", text: "ありがとう", created_at: "2015-01-14 11:35:05", updated_at: "2015-01-14 11:35:05"&gt;]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この状態でorderしてみます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s2">"text"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-12 11:53:49"&gt;,</span>
+<span class="c1">#&lt;Tweet id: 7, name: "satoshi", image: "http://happy.jpg", text: "oh!!happy day!", created_at: "2015-01-12 07:56:21", updated_at: "2015-01-12 11:52:53"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 6, name: "keita", image: "http://image.jpg", text: "rails now. it's so fun!!", created_at: "2015-01-12 07:55:38", updated_at: "2015-01-12 07:55:38"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 11, name: "satoshi", image: "enjoy.jpg", text: "ありがとう", created_at: "2015-01-14 11:35:05", updated_at: "2015-01-14 11:35:05"&gt;,</span>
+ <span class="c1">#&lt;Tweet id: 10, name: "satoshi", image: "enjoy.jpg", text: "楽しい", created_at: "2015-01-14 11:34:47", updated_at: "2015-01-14 11:34:47"&gt;]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">最初の３つのレコードはtextカラムの値がアルファベット順に、最後の２つは五十音順に並び替えられました。</p>
+
+<hr class="ng-scope">
+
+<h1 class="ng-scope" id="rails_drill_11"> 問題10解答</h1>
+
+<h3 class="ng-scope">入力内容</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">解答例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://happy_boy.jpg", text: "i am happy boy!", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-12 11:53:49"&gt;</span>
+<span class="c1">#更新したいレコードを取得</span>
+
+<span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="ss">text</span><span class="p">:</span> <span class="s2">"update is beautifull"</span><span class="p">,</span> <span class="ss">image</span><span class="p">:</span> <span class="s2">"http://update.jpg"</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+
+<span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">tweet</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 8, name: "keita", image: "http://update.jpg", text: "update is beautifull", created_at: "2015-01-12 11:53:49", updated_at: "2015-01-19 08:36:55"&gt;</span>
+ <span class="c1">#レコード更新</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope">updateメソッドは<code>インスタンス.update(カラム名1: "更新したい値1", カラム名2: "更新したい値2")</code>というように使い、既にデータベースに保存されているレコードを更新することが出来ます。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">以上です。</p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap class="fixed-side" style="width: 220px;" id="sideWrap">
+          <ul style="max-height: 460px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_1" ng-click="clickContent(content.h1.id)"> 問題1解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_2" ng-click="clickContent(content.h1.id)"> 問題2解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contentsrails_drill_3" ng-click="clickContent(content.h1.id)"> 問題3解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_4" ng-click="clickContent(content.h1.id)"> 問題4解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_5" ng-click="clickContent(content.h1.id)"> 問題5解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_6" ng-click="clickContent(content.h1.id)"> 問題6解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_7" ng-click="clickContent(content.h1.id)"> 問題7解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_8" ng-click="clickContent(content.h1.id)"> 問題8解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_10" ng-click="clickContent(content.h1.id)"> 問題9解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contentsrails_drill_11" ng-click="clickContent(content.h1.id)"> 問題10解答</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope ng-hide">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 0<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary style="" class="" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a class="ng-hide" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/118">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

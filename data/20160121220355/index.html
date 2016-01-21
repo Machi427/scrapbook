@@ -1,0 +1,2278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>スクレイピングで映画情報を取得しよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発2 第2章<small class="ng-binding">〜スクレイピングで映画情報を取得しよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    エトワール凱旋門。1806年、フランスの英雄として知られるナポレオンの命により建設が開始されました。30年後の1836年に完成しましたがこの時ナポレオンは既に死去しており、彼がこの門をくぐったのはパリに改葬された時でした。この凱旋門を中心に12本の通りが放射線状に伸びており、その形が地図上で光り輝く星のように見えるのでこの広場は「星の広場」と呼ばれていたそうです。<a class="ng-binding" href="https://www.flickr.com/photos/kieranlynam/2619781448/" target="_top">Kieran Lynam - Arc de triomphe de l'Étoile</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習目標</h1>
+
+<p class="ng-scope">実際の練習問題を通して、スクレイピングの仕方を理解しよう</p>
+
+<h1 id="2" class="ng-scope">学習キーワード</h1>
+
+<ul class="ng-scope">
+<li>スクレイピング</li>
+</ul>
+
+<h1 id="3" class="ng-scope">映画のデータを用意しよう</h1>
+
+<h2 id="4" class="ng-scope">映画のデータ</h2>
+
+<p class="ng-scope">映画レビューサイトの実装をする前にまずは映画レビューサイトに必要な<strong>映画のデータ</strong>を用意しましょう。映画レビューサイトではヘッダー部分からレビューを投稿することができます。</p>
+
+<p class="ng-scope"><img src="04.png" alt="投稿する" title="投稿する"></p>
+
+<p class="ng-scope">レビューを投稿するときにレビューをつける映画を選択します。</p>
+
+<p class="ng-scope"><img src="05.png" alt="映画選択" title="映画選択"></p>
+
+<p class="ng-scope">レビューはユーザーが生成する情報です。では、この映画の情報はどこにあるのでしょうか？これはあらかじめ、アプリケーションのデータベースに映画の情報を入れておくのです。</p>
+
+<h2 id="5" class="ng-scope">プログラムで映画の情報を取得しよう</h2>
+
+<p class="ng-scope">どうやってデータベースに映画の情報を用意するのでしょうか。１つ１つ自力でデータベースに映画のタイトルや画像の情報を入れるのは大変すぎますね。そこでプログラムを使って映画の情報を自動で取得してきましょう。</p>
+
+<p class="ng-scope">そこで使うのが<strong>スクレイピング</strong>と呼ばれる技術です。</p>
+
+<h1 id="6" class="ng-scope">スクレイピング</h1>
+
+<p class="ng-scope">スクレイピングを使って映画の情報を取得しましょう。</p>
+
+<h2 id="7" class="ng-scope">スクレイピングとは</h2>
+
+<p class="ng-scope">スクレイピングとは、ウェブサイト上のHTMLからある特定のデータを抜き出す処理のことを言います。<br>
+外部のサーバーからデータを抽出し、集計をしたりするときに役立ちます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_379"></i> スクレイピング</h3>
+
+<p class="ng-scope">例えば、以下のようなHTMLのサイトがあった場合</p>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;</span>TEST1<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>TEST2<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;</span>TEST3<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">&lt;ul&gt;&lt;li&gt;の中にある「TEST1、TEST2、TEST3」等の値を取り出すことを言います。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="357" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-502" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-502" name="check-502" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">スクレイピングとはウェブサイト上のHTMLからある特定のデータを抜き出す処理のこと</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope">スクレイピングで映画情報を取得しよう</h2>
+
+<p class="ng-scope">映画レビューサイトで使用するための映画情報をスクレイピングで取得しましょう。</p>
+
+<p class="ng-scope">今回は映画の情報が欲しいので<strong>映画.com</strong>という映画情報サイトから、スクレイピングで映画作品データを取得して「非公開」で利用します。</p>
+
+<p class="ng-scope"><i class="icon attention"></i><strong>データの著作権は映画.com側に所属するので、一般公開をすることはできません</strong></p>
+
+<p class="ng-scope">映画.comのサイトはこちら → <a href="http://eiga.com/">映画.com</a></p>
+
+<p class="ng-scope"><img src="06.png" alt="映画.com" title="映画.com"></p>
+
+<h2 id="9" class="ng-scope">スクレイピングしてみよう</h2>
+
+<p class="ng-scope">では実際にスクレイピングでHTML内のデータを取得してみましょう。スクレイピングには<strong>Mechanize</strong>というGemが必要です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_380"></i> Mechanize</h3>
+
+<p class="ng-scope">Mechanizeはスクレイピングを行うためのGemです。MechanizeのGemを入れると<strong>Mechanizeクラス</strong>が使えるようになります。このMechanizeクラスにはスクレイピングをするための様々なメソッドが用意されています。</p>
+
+<p class="ng-scope">では、Mechanizeを入れてみましょう。MechanizeはGemなので<strong>Gemfile</strong>にMechanizeを使用するという記述をします。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>Gemfileの最後の行に下記を追記して下さい</strong>
+</h3>
+
+<p class="ng-scope">Mechanizeという、スクレイピング用のGemを使用します</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">gem</span> <span class="s1">'mechanize'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="358" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-503" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-503" name="check-503" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gemfileの最後の行に<code>gem 'mechanize'</code>と記述できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">ではMechanizeをインストールします。Gemfileに記述されたGemをインストールするにはターミナルでコマンド<strong><code>bundle install</code></strong>を打ち込みます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>ターミナルで下記のようにコマンドを実行してください</strong>
+</h3>
+
+<p class="ng-scope">bundle installで先程追記したMechanizeをインストールします(時間がかかる場合があります)</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>bundle install
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">エラーなくbundle installが成功すると、以下のような「bundle complete!」という表示がされます。</p>
+
+<p class="ng-scope"><img src="7297bd80999cfbc01aa8c5db68bad459.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//7297bd80999cfbc01aa8c5db68bad459.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="359" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-504" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-504" name="check-504" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">エラー無く<code>bundle install</code>が完了し、「Your bundle is complete!」と表示された</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="360" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-505" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-505" name="check-505" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Mechanizeはスクレイピングを簡単に使えるようにするためのGem</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope">Mechanizeクラスを使ってみよう</h2>
+
+<p class="ng-scope">Mechanizeを使ってスクレイピングをするには、まず<strong>Mechanizeクラスのインスタンスを生成します。</strong></p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span> <span class="c1"># Mechanizeクラスのインスタンスを生成</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">次にMechanizeクラスのインスタンスメソッド<strong>getメソッド</strong>を使ってスクレイピングしたいウェブサイトのHTMLを取得します。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="361" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-506" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-506" name="check-506" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">スクレイピングをするときはまずMechanizeクラスのインスタンスを生成する</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope">ウェブサイトのHTML情報を取得する</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_381"></i> getメソッド</h3>
+
+<p class="ng-scope">getメソッドはMechanizeクラスのインスタンスメソッドです。get("スクレイピングしたいウェブサイトのURL")と引数にURLの文字列を指定することで、そのURLのウェブサイトのHTMLを取得します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+<span class="hll">  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span> <span class="c1"># 映画.comのHTMLを取得</span>
+</span></pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ここで取得できた<code>page</code>は単なるHTMLの文字列ではなくその<strong>ウェブサイトのHTMLの情報を持ったMechanize::Pageオブジェクトです。</strong></p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span> <span class="c1"># 映画.comのHTMLを取得</span>
+<span class="hll">  <span class="nb">puts</span> <span class="n">page</span>
+</span>  <span class="c1"># &lt;Mechanize::Page:0x007fcdda803dd8&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><code>page</code>がMechanize::Pageオブジェクトであることが確認できました</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="362" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-507" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-507" name="check-507" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">getメソッドで指定したウェブサイトのHTMLの情報を取得できる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">HTML情報から指定のタグ要素の情報を検索する</h2>
+
+<p class="ng-scope">特定のhtmlタグ情報を取得するには <strong>searchメソッド</strong> を使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_382"></i> searchメソッド</h3>
+
+<p class="ng-scope">searchメソッドはgetメソッドで取得したページの情報が入ったオブジェクトに対して使用します。これを使うと取得したウェブサイトのHTML情報の中から指定したHTML要素の内容を検索できます。<br>
+<strong>該当するHTMLのタグ要素が1つでも、返り値は配列の形式で返ってきます。</strong></p>
+
+<p class="ng-scope">searchメソッドは以下のような使い方をします。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>   <span class="n">elements</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">::</span><span class="no">Page</span><span class="err">オブジェクト</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'セレクタ'</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">引数の<strong>セレクタ</strong>とはCSSのようにHTMLのタグの要素名を指定します。<code>'h1'</code>や<code>'li a'</code>のような指定です。</p>
+
+<p class="ng-scope">では、例として映画.comのページ(<a href="http://eiga.com/">http://eiga.com/</a>)から<strong>h1要素のHTMLの情報</strong>を取得してみます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span>
+<span class="hll">  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'h1'</span><span class="p">)</span> <span class="c1"># h1要素を検索</span>
+</span>  <span class="nb">puts</span> <span class="n">elements</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これを実行すると以下のような出力を得られます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>&lt;h1&gt;映画のことなら映画.com 最新映画情報・プレゼント・試写会・映画ニュース・映画ファン必見！&lt;/h1&gt;
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ちゃんと、映画.comのh1要素のHTMLの情報が取得できました。<br>
+次は<strong>li要素の下のa要素</strong>のHTML情報を取得してみます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span>
+<span class="hll">  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'li a'</span><span class="p">)</span> <span class="c1"># li要素の下のa要素を検索</span>
+</span>  <span class="nb">puts</span> <span class="n">elements</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これを実行すると以下のような出力を得られます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/80316/"</span>&gt;&lt;strong&gt;近キョリ恋愛&lt;/strong&gt;&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/84664/"</span>&gt;山下智久&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/275455/"</span>&gt;小松菜奈&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/71668/"</span>&gt;水川あさみ&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/78507/"</span>&gt;&lt;strong&gt;ヘラクレス&lt;/strong&gt;&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/33446/"</span>&gt;ドウェイン・ジョンソン&lt;/a&gt;
+<span class="c"># 多すぎるので以下略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このように、<strong>該当するHTMLのタグ要素全てが取得されます。</strong></p>
+
+<p class="ng-scope">例として、searchメソッドの返り値が本当に<strong>配列の形式になっている</strong>ことを確認するために、以下のような例のコードを試してみます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">test_scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+
+  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span>
+  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'li a'</span><span class="p">)</span> <span class="c1"># li要素の下のa要素を検索</span>
+<span class="hll">  <span class="nb">puts</span> <span class="n">elements</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これを実行すると以下のような出力を得られます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  &lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/80316/"</span>&gt;&lt;strong&gt;近キョリ恋愛&lt;/strong&gt;&lt;/a&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このように、返ってきた値の1番目の要素をとりだすことができるので<strong>配列の形式で返ってきている</strong>ことが分かります。</p>
+
+<p class="ng-scope">では、searchメソッドで指定した要素のHTMLからテキストやリンク先を取得しましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="363" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-508" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-508" name="check-508" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">searchメソッドで指定したセレクタのHTML情報が取得できる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-509" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-509" name="check-509" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">searchメソッドで取得できるHTML情報は該当する要素すべて</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">HTML情報からテキストを抜き出そう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_383"></i> inner_textメソッド</h3>
+
+<p class="ng-scope">searchメソッドで得られたHTML情報のテキストを取得したい場合、inner_textメソッドを使います。</p>
+
+<p class="ng-scope">例えば、先ほどのsearchメソッドから取得した<code>'li a'</code>要素の一覧を見てみましょう。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span>
+  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'li a'</span><span class="p">)</span> <span class="c1"># li要素の下のa要素を検索</span>
+  <span class="nb">puts</span> <span class="n">elements</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ターミナルの出力</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/80316/"</span>&gt;&lt;strong&gt;近キョリ恋愛&lt;/strong&gt;&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/84664/"</span>&gt;山下智久&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/275455/"</span>&gt;小松菜奈&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/71668/"</span>&gt;水川あさみ&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/78507/"</span>&gt;&lt;strong&gt;ヘラクレス&lt;/strong&gt;&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/33446/"</span>&gt;ドウェイン・ジョンソン&lt;/a&gt;
+<span class="c"># 多すぎるので以下略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これらの要素のテキスト、すなわち「近キョリ恋愛、山下智久、小松菜奈、...」が欲しい場合は以下のようにします。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span>
+  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'li a'</span><span class="p">)</span>
+
+  <span class="n">elements</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">ele</span><span class="o">|</span>
+<span class="hll">    <span class="nb">puts</span> <span class="n">ele</span><span class="o">.</span><span class="n">inner_text</span>
+</span>  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ターミナルの出力</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>近日公開映画
+近キョリ恋愛
+山下智久
+小松菜奈
+水川あさみ
+ヘラクレス
+ドウェイン・ジョンソン
+<span class="c"># 多すぎるので以下略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ちゃんとHTML情報のテキストだけが抜き出されました。searchメソッドでは該当する要素のHTML情報がすべて取得できるので<strong>eachメソッドを使って、１つ１つのオブジェクトに対してinner_textメソッドを呼び出します。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="364" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-510" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-510" name="check-510" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">inner_textメソッドを使うとHTML情報のテキストだけ抜き出せる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="14" class="ng-scope">HTML情報から属性の値を抜き出そう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_384"></i> get_attributeメソッド</h3>
+
+<p class="ng-scope">aタグ要素のHTMLはリンク先のURLを値とする属性<strong>href</strong>を持っています。このようなHTMLの属性の値を取得したい場合、get_attributeメソッドを使います。<code>get_attribute(属性)</code>で指定した属性の値を取得できます。また、<code>.get_attribute(属性)</code>は<code>[:属性]</code>と簡略化して書くこともできます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/80316/"</span>&gt;&lt;strong&gt;近キョリ恋愛&lt;/strong&gt;&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/84664/"</span>&gt;山下智久&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/275455/"</span>&gt;小松菜奈&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/71668/"</span>&gt;水川あさみ&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/movie/78507/"</span>&gt;&lt;strong&gt;ヘラクレス&lt;/strong&gt;&lt;/a&gt;
+&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">"/person/33446/"</span>&gt;ドウェイン・ジョンソン&lt;/a&gt;
+<span class="c"># 多すぎるので以下略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この中から<code>href="リンク先"</code>の「リンク先」を抜き出しましょう。HTML情報のオブジェクトにメソッド<code>attribute('href')</code>を使います。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/"</span><span class="p">)</span>
+  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'li a'</span><span class="p">)</span>
+
+  <span class="n">elements</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">ele</span><span class="o">|</span>
+<span class="hll">    <span class="nb">puts</span> <span class="n">ele</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">)</span> <span class="c1"># puts ele[:href]としても良い</span>
+</span>  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ターミナルの出力</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>/movie/80316/
+/person/84664/
+/person/275455/
+/person/71668/
+/movie/78507/
+/person/33446/
+<span class="c"># 多すぎるので以下略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ちゃんと属性<strong>href</strong>の値だけ抜き出すことができました。<br>
+このようにMechanizeクラスを使えばウェブサイト上のHTMLのデータを自由に取得することができます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="365" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-511" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-511" name="check-511" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">get_attributeメソッドを使うとHTML情報から指定した属性の値を抜き出せる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="15" class="ng-scope">スクレイピングの手順まとめ</h2>
+
+<p class="ng-scope">Mechanizeを使ったスクレイピングの手順をまとめましょう。</p>
+
+<ul class="ng-scope">
+<li>Mechanizeクラスのインスタンスを生成する</li>
+<li>Mechanizeクラスのインスタンスメソッド<strong>get(情報を取得したいウェブサイトのURL)</strong>で、ウェブサイトのHTML情報を取得する</li>
+<li>欲しいデータのあるタグ要素を<strong>searchメソッド</strong>で指定して取得する</li>
+<li>取得したタグ要素のHTML情報にたいして<strong>inner_textメソッド</strong>、または<strong>get_attributeメソッド</strong>を使って欲しい値を取得する</li>
+</ul>
+
+<h2 id="16" class="ng-scope">実際にスクレイピングしてみよう</h2>
+
+<p class="ng-scope">ではこれからMechanizeを使って実際にスクレイピングをしてみます。ここでのスクレイピングの練習はRubyファイルを作成して行います。スクレイピング用のRubyファイル<code>scraping.rb</code>をデスクトップに作成してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>デスクトップにスクレイピング用のRubyファイル<code>scraping.rb</code>を作成してください</strong>
+</h3>
+
+<p class="ng-scope">Sublime Textを選択している状態で、</p>
+
+<p class="ng-scope">①<code>command</code> + <code>N</code>でファイルを新しく作成します。</p>
+
+<p class="ng-scope">②<code>command</code> + <code>S</code>でファイルを保存します。</p>
+
+<p class="ng-scope">③ファイル名を <code>scraping.rb</code> と編集し、保存先にデスクトップを選択してください。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="366" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-512" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-512" name="check-512" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">デスクトップにRubyファイル<code>scraping.rb</code>を作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">では作成したRubyファイル<code>scraping.rb</code>をSublime Textで開きましょう。</p>
+
+<p class="ng-scope"><strong>Mechanizeクラスは外部のクラスなのでそのままでは使えません。</strong>よって、Rubyファイルの一番上でMechanizeクラスを使うことを宣言しましょう。宣言には<code>require</code>を使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong><code>scraping.rb</code>の一番上にMechanizeクラスを使うことを宣言する一行を追加しましょう</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでMechanizeクラスが使えるようになりました。Mechanizeクラスのインスタンスを生成しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+
+  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="nb">puts</span> <span class="n">agent</span> <span class="c1"># インスタンスを生成できたか確認</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上のような編集ができたら、ターミナルで <code>ruby scraping.rb</code> と入力し実行しましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="367" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-513" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-513" name="check-513" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Mechanizeクラスのインスタンスを生成できた(以下のようにターミナルに表示された)
+    <pre class="brush:bash; gutter:false" title="ターミナル">      #&lt;Mechanize:0x007f80342407f0&gt;
+    </pre></span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これでスクレイピングをする準備はできました。</p>
+
+<h2 id="17" class="ng-scope">スクレイピング練習</h2>
+
+<p class="ng-scope">以下のスクレイピング用に用意したウェブページをスクレイピングしてみます。</p>
+
+<p class="ng-scope"><a href="http://mooovi.tech-camp.in/works/initial_scraping">http://mooovi.tech-camp.in/works/initial_scraping</a></p>
+
+<p class="ng-scope">「TEST1, TEST2, TEST3」と書いてあるだけです。この「TEST1, TEST2, TEST3」というテキストを取得しましょう。まずはこのページのHTML構造を確認します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>実際のHTMLを確認してみましょう</strong>
+</h3>
+
+<p class="ng-scope"><a href="http://mooovi.tech-camp.in/works/initial_scraping">http://mooovi.tech-camp.in/works/initial_scraping</a></p>
+
+<p class="ng-scope">上記のサイトにアクセスして、[command] + [option] + [u]を押してソースコードを表示させてください。</p>
+
+<p class="ng-scope"><img src="02.png" alt="スクレイピング"></p>
+
+<p class="ng-scope">“TEST1”, “TEST2”, “TEST3” は、pタグに囲まれていることがわかります。<strong>このようにスクレイピングをするときはスクレイピングしたいウェブページのHTML構造を確認することが大切です。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="368" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-514" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-514" name="check-514" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">上記の画像と同じHTMLが表示された</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">では、このウェブページからスクレイピングで「TEST1, TEST2, TEST3」を抜き出すプログラムを<code>scraping.rb</code>に書きましょう。<br>
+まずはgetメソッドでウェブページのHTMLの情報を取得します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>getメソッドを使ってスクレイピング用ウェブページのHTML情報を取得してください</strong>
+</h3>
+
+<p class="ng-scope">まずは、scraping.rbを以下のように編集します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+
+  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+<span class="hll">  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://mooovi.tech-camp.in/works/initial_scraping"</span><span class="p">)</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">HTML構造を確認すると「TEST1, TEST2, TEST3」はそれぞれ<strong>pタグ要素に囲まれています。</strong>searchメソッドでpタグ要素を取得しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>searchメソッドを使ってHTML情報の中からpタグ要素を取得してください</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+
+  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://mooovi.tech-camp.in/works/initial_scraping"</span><span class="p">)</span>
+<span class="hll">  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'p'</span><span class="p">)</span>
+</span><span class="hll">  <span class="nb">puts</span> <span class="n">elements</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここまで書けたら、下記のコマンドでscraping.rbを実行します。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c">#Desktopに移動</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/Desktop
+  <span class="c">#scraping.rbを実行</span>
+  <span class="nv">$ </span>ruby scraping.rb
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ターミナルには以下のように表示されると思います。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>&lt;p&gt;TEST1&lt;/p&gt;
+&lt;p&gt;TEST2&lt;/p&gt;
+&lt;p&gt;TEST3&lt;/p&gt;
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ちゃんとすべてのpタグ要素が取得できています。あとはinner_textメソッドでテキストを取得しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>inner_textメソッドを使って「TEST1, TEST2, TEST3」を抜き出しましょう</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+
+  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://mooovi.tech-camp.in/works/initial_scraping"</span><span class="p">)</span>
+  <span class="n">elements</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'p'</span><span class="p">)</span>
+
+<span class="hll">  <span class="n">elements</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">ele</span><span class="o">|</span>
+</span><span class="hll">    <span class="nb">puts</span> <span class="n">ele</span><span class="o">.</span><span class="n">inner_text</span>
+</span><span class="hll">  <span class="k">end</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>pタグ要素は複数あるのでeachメソッドを使ってオブジェクト一つ一つにたいしてinner_textメソッドを使います。</strong>このプログラムを実行すると以下のようにターミナルに表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>TEST1
+TEST2
+TEST3
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">テキスト「TEST1, TEST2, TEST3」が取得できました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="369" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-515" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-515" name="check-515" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">スクレイピングで指定のウェブサイトからテキスト「TEST1, TEST2, TEST3」を抜き出せた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="18" class="ng-scope">練習問題を解いてみよう</h2>
+
+<p class="ng-scope">各問題用のウェブサイトには、「Q0-TEST0」といったテキストが書かれています。それらは問題ごとにHTMLの構造が異なります。HTML構造を確認しながら、表示されている文字列から該当するものをスクレイピングで取得しましょう。</p>
+
+<p class="ng-scope">作業ファイルは<code>scraping.rb</code>です。問題ごとにそれまで書いていたソースコードは全て消して新しく書いていきましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題1：この<a href="http://mooovi.tech-camp.in/works/first_scraping" alt="サイト1">サイト1</a>からスクレイピングを使って文字列を"Q1-TEST1", "Q1-TEST2", "Q1-TEST3"をすべて取得してみましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping.rb</h5>
+    <h5>ヒント：特になし</h5>
+    <curriculum-question-container class="ng-scope" data-order="1"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="370" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-516" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-516" name="check-516" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">この<a href="http://mooovi.tech-camp.in/works/first_scraping" title="first_scraping">サイト1</a>から文字列"TEST1", "TEST2", "TEST3"を取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題2：この<a href="http://mooovi.tech-camp.in/works/second_scraping" alt="サイト2">サイト2</a>からスクレイピングを使って文字列を"Q2-TEST1", "Q2-TEST2", "Q2-TEST3"をすべて取得してみましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping.rb</h5>
+    <h5>ヒント：特になし</h5>
+    <curriculum-question-container class="ng-scope" data-order="2"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="371" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-517" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-517" name="check-517" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">この<a href="http://mooovi.tech-camp.in/works/second_scraping" title="second_scraping">サイト2</a>から文字列"TEST1", "TEST2", "TEST3"を取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題3：この<a href="http://mooovi.tech-camp.in/works/third_scraping" alt="サイト3">サイト3</a>からスクレイピングを使って文字列を"Q3-TEST1", "Q3-TEST2", "Q3-TEST3"のみを取得してみましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping.rb</h5>
+    <h5>ヒント：CSSと同じように('.クラス名')でクラスを指定できます。</h5>
+    <curriculum-question-container class="ng-scope" data-order="3"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="372" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-518" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-518" name="check-518" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">この<a href="http://mooovi.tech-camp.in/works/third_scraping" title="third_scraping">サイト3</a>から文字列"TEST1", "TEST2", "TEST3"を取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="19" class="ng-scope">映画.comからのスクレイピング</h1>
+
+<p class="ng-scope">それでは映画レビューサイトを開発するにおいて、映画.comから映画の情報を取得しましょう。</p>
+
+<h2 id="20" class="ng-scope">映画情報を取得するページ</h2>
+
+<p class="ng-scope">映画.comには映画情報が載っているページはたくさんありますがその中から今回は「上映中の映画」のデータを取得しましょう。「上映中の映画」ページは以下のリンクから遷移できます。</p>
+
+<p class="ng-scope"><a href="http://eiga.com/now/">http://eiga.com/now/</a></p>
+
+<p class="ng-scope">このページには20件の映画情報が載っています。まずはこのページにある<strong>20件の映画情報をスクレイピングで取得しましょう。</strong></p>
+
+<h2 id="21" class="ng-scope">作品名、作品画像のURLを取得しよう</h2>
+
+<p class="ng-scope">映画の情報と言っても作品名、監督名、公開日など様々なものがあります。とりあえず今回は最低限の情報として<strong>「作品名」</strong>と<strong>「作品画像のURL」</strong>を取得しましょう。</p>
+
+<p class="ng-scope"><img src="07.png" alt="映画情報" title="映画情報"></p>
+
+<h2 id="22" class="ng-scope">映画情報のスクレイピング用のRubyファイルを作ろう</h2>
+
+<p class="ng-scope">映画の「作品名」と「作品画像のURL」を取得するスクレイピングのプログラムを書くためのRubyファイルを作成しましょう。作品名のスクレイピング用のRubyファイル<code>scraping_title.rb</code> 、作品画像のスクレイピング用のRubyファイル<code>scraping_image.rb</code> 、をデスクトップに作成してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>デスクトップにスクレイピング用のRubyファイル<code>scraping_title.rb</code>と<code>scraping_image.rb</code>を作成してください</strong>
+</h3>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="373" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-519" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-519" name="check-519" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">デスクトップにRubyファイル<code>scraping_title.rb</code>と<code>scraping_image.rb</code>を作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="23" class="ng-scope">ウェブサイトのHTML構造を確認しよう</h2>
+
+<p class="ng-scope">まずはスクレイピングするウェブサイトのHTML構造を調べてみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>スクレイピングするページにウェブブラウザでアクセスして、HTMLを確認して下さい</strong>
+</h3>
+
+<p class="ng-scope"><a href="http://eiga.com/now/">映画.com 上映中の映画</a></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>作品名のHTML構造を確認しよう</strong>
+</h3>
+
+<p class="ng-scope"><strong>開発者ツールを使えば、HTMLが見やすいです</strong></p>
+
+<ol class="ng-scope">
+<li>作品名や作品画像を右クリック</li>
+<li>[要素の検証]をクリックして開発者ツールを立ち上げる</li>
+<li>HTMLが見やすく整形されて表示される
+<img src="01.png" alt="スクレイピング" title="スクレイピング">
+</li>
+</ol>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="374" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-520" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-520" name="check-520" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">画像のような開発者ツールが表示された</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="24" class="ng-scope">作品名を取得しよう①</h2>
+
+<p class="ng-scope">まずは、開発者ツールを利用して作品名がある要素のHTML構造を確認しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>Chromeの開発者ツールを使って下記のようなHTML構造を確認しましょう</strong>
+</h3>
+
+<p class="ng-scope">HTMLを確認してみると、作品名はどこに存在するかというのがわかるとおもいます。</p>
+
+<p class="ng-scope"><img src="03.png" alt="スクレイピング" title="スクレイピング"></p>
+
+<p class="ng-scope">あとは、このHTML構造にたいしてスクレイピングのプログラムを書くだけです。作業ファイルは<code>scraping_title.rb</code>です。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題4：<a href="http://eiga.com/now/" alt="映画.com(上映中の映画)">映画.com(上映中の映画)</a>に表示されている映画20件の「作品名」を取得しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping_title.rb</h5>
+    <h5>ヒント：開発者ツールで確認したHTMLのタグ要素をsearchメソッドの引数にしましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order="4"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="375" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-521" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-521" name="check-521" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">映画.comから映画20件の作品名を取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="25" class="ng-scope">作品画像のURLを取得しよう</h2>
+
+<p class="ng-scope">作品名が取得できたので、次は作品画像のURLを取得しましょう。<br>
+先ほどのように画像に対して開発者ツールの<strong>要素の検証</strong>をして、HTMLの構造を確認しましょう。作業ファイルは<code>scraping_image.rb</code>です。</p>
+
+<p class="ng-scope"><img src="08.png" alt="HTML構造" title="HTML構造"></p>
+
+<p class="ng-scope">では、作品名と同じように表示されている20件の映画の作品画像URLをスクレイピングで取得しましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題5：<a href="http://eiga.com/now/" alt="映画.com(上映中の映画)">映画.com(上映中の映画)</a>に表示されている映画20件の「作品画像のURL」を取得しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping_image.rb</h5>
+    <h5>ヒント：取得するのはテキストでなく属性の値です</h5>
+    <curriculum-question-container class="ng-scope" data-order="5"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="376" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-522" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-522" name="check-522" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">映画.comから映画20件の作品画像のURLを取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="26" class="ng-scope">作品画像のURLを取得しよう②</h2>
+
+<p class="ng-scope">作品画像のURLを取得することができました。では試しに取得できた画像を開いてみてください。<br>
+画像が小さいですね。あとカバー写真というよりは映画のワンシーンのような画像です。これでは表示させるとき少し物足りないです。</p>
+
+<p class="ng-scope">そこでちゃんとした作品画像を取り直しましょう。<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>でどれかの映画をクリックしてみましょう。その映画の個別ページに移動しました。そこに良さそうな画像があります。</p>
+
+<p class="ng-scope"><img src="11.png" alt="個別ページ" title="個別ページ"></p>
+
+<p class="ng-scope">この作品画像を取得しましょう。</p>
+
+<h2 id="27" class="ng-scope">個別ページの作品画像のURLを取得しよう</h2>
+
+<p class="ng-scope">では、まず<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>に表示されている映画ならどれでもいいので個別ページに移動しましょう。</p>
+
+<p class="ng-scope"><img src="15.png" alt="個別ページ" title="個別ページ"></p>
+
+<p class="ng-scope">移動できたらそのページの作品画像URLを取得してみましょう。作業ファイルは<code>scraping_image.rb</code>です。先ほど書いたソースコードは使わないので消してしまいましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題6：映画の個別ページに表示されている映画の「作品画像のURL」を取得しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping_image.rb</h5>
+    <h5>ヒント：リンクは各自開いた映画の個別ページのものを使いましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order="6"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="377" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-523" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-523" name="check-523" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">映画の個別ページに表示されている作品画像のURLを取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="28" class="ng-scope">20件分すべての映画の個別ページから作品画像のURLを取得しよう</h2>
+
+<p class="ng-scope">先ほどは<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>で表示されている20件の映画の中から1つだけ選んで、その個別ページから作品画像のURLを取得しました。</p>
+
+<p class="ng-scope"><strong>次は20件すべての映画の個別ページから作品画像のURLを取得しましょう。</strong>もちろんすべてプログラムで自動で取得します。</p>
+
+<p class="ng-scope">以下のような流れでスクレイピングをします。</p>
+
+<ol class="ng-scope">
+<li>
+<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>で表示されている映画の個別ページのリンクを取得する</li>
+<li>取得した個別ページのリンク１つ１つに対してスクレイピングをする</li>
+</ol>
+
+<p class="ng-scope">以下のようにスクレイピングのプログラムを書きましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping_image.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">require</span> <span class="s1">'mechanize'</span>
+
+  <span class="n">links</span> <span class="o">=</span> <span class="o">[]</span> <span class="c1"># 個別ページのリンクを保存する配列</span>
+  <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+  <span class="n">current_page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com/now/"</span><span class="p">)</span>
+  <span class="c1"># 個別ページのリンクを取得</span>
+
+  <span class="n">links</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">link</span><span class="o">|</span>
+    <span class="c1"># 個別ページから作品画像のURLを取得</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題7：<a href="http://eiga.com/now/" alt="映画.com(上映中の映画)">映画.com(上映中の映画)</a>にある20件の映画すべての個別ページから作品画像のURLを取得しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：scraping_image.rb</h5>
+    <h5>ヒント1：映画で表示されている映画の個別ページのリンクを取得する</h5>
+    <h5>ヒント2：取得した個別ページのリンク１つ１つに対してスクレイピングをする</h5>
+
+    <curriculum-question-container class="ng-scope" data-order="7"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="377" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-523" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-523" name="check-523" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">映画の個別ページに表示されている作品画像のURLを取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="29" class="ng-scope">データベースに映画のデータを保存しよう</h1>
+
+<p class="ng-scope">これで映画レビューサイトで必要な映画の情報「作品名」と「作品画像」がスクレイピングで取得できました。あとは得たこの情報をデータベースに入れるだけです。 <strong>ここからは映画レビューアプリケーションのディレクトリ<code>mooovi</code>で作業をしましょう。</strong></p>
+
+<h2 id="30" class="ng-scope">映画情報のモデルを作成しよう</h2>
+
+<p class="ng-scope">映画の情報を扱うモデルとして<strong>Productモデル</strong>を作成しましょう。このProductモデルに対応するproductsテーブルは以下のカラムを持っています。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">カラム名</th>
+<th style="text-align: center;">型</th>
+<th style="text-align: center;">情報</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">title</td>
+<td style="text-align: center;">String</td>
+<td style="text-align: center;">作品名</td>
+</tr>
+<tr>
+<td style="text-align: center;">image_url</td>
+<td style="text-align: center;">Text</td>
+<td style="text-align: center;">作品画像のURL</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">では、Productモデルを作成し、上記のカラムを持ったテーブルの作成をしましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題8：映画レビューアプリケーションmoooviに指定したカラムを持つproductテーブルを作成しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ディレクトリ：mooovi</h5>
+    <h5>ヒント：特になし</h5>
+    <curriculum-question-container class="ng-scope" data-order="8"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="379" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-525" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-525" name="check-525" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">映画情報を持つProductモデルが作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="31" class="ng-scope">映画情報をデータベースに保存するメソッドを書こう</h2>
+
+<p class="ng-scope">では、今まで書いてきたスクレイピングのメソッドを利用して「映画.com」から映画情報を取得し、データベースに保存するメソッドを書きましょう。</p>
+
+<p class="ng-scope">先ほどまではDesktopにRubyファイルを作って実行していますが、今回は取得した情報をデータベースへ保存する必要があるので<code>mooovi</code>ディレクトリの中にファイルを作成し、ソースコードを書いていきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 下記に従い、scraping.rbを作成しましょう</h3>
+
+<p class="ng-scope"><strong>mooovi &gt; app &gt; models</strong> 内に<strong>scraping.rb</strong>というファイルを作成します。</p>
+
+<p class="ng-scope">この時、sublime text上から直接ファイルを作成します。</p>
+
+<p class="ng-scope">①「mooovi」&gt;「app」&gt;「models」を右クリックし、「new file」を選択しましょう</p>
+
+<p class="ng-scope"><img src="102.png" alt="選択ツールnewfile"></p>
+
+<p class="ng-scope">下記のように「untitled」という空のファイルが開かれます。</p>
+
+<p class="ng-scope"><img src="103.png" alt="作成されるファイル"></p>
+
+<p class="ng-scope">②「⌘ (コマンド)+ sキー」を実行し、ファイル保存画面を開きましょう</p>
+
+<p class="ng-scope"><img src="104.png" alt="save画面"></p>
+
+<p class="ng-scope">③「scraping.rb」というファイル名で保存しましょう</p>
+
+<p class="ng-scope">その後、以下のようなディレクトリ構造になっていることを確認してください。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> models
+        <ul>
+          <li class="t-file"> scraping.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="32" class="ng-scope">記述するメソッドと実行方法</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> スクレイピングのためのコードを記述しましょう</h3>
+
+<p class="ng-scope">先ほど作成した<code>scraping.rb</code>というファイルにスクレイピング関連のメソッドを記述していきます。</p>
+
+<p class="ng-scope">下記のように編集してください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Scraping</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">movie_urls</span>
+    <span class="nb">puts</span> <span class="s1">'get movies link URL'</span>
+    <span class="c1"># ここに処理を書く</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">get_product</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s1">'get movie information'</span>
+    <span class="c1"># ここに処理を書く</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">クラスメソッド<code>movie_urls</code>と<code>get_product</code>がありますね。この中に具体的な処理を書いていきます。</p>
+
+<p class="ng-scope">このクラスメソッド<code>movie_urls</code>は、<code>rails c</code>をしている状態で実行することができます。</p>
+
+<p class="ng-scope">まず<code>rails c</code>コマンドを打ち、クラスメソッド<code>movie_urls</code>を実行してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで<code>rails c</code>を立ち上げ、クラスメソッド<code>movie_urls</code>を実行してみましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#rails コンソールの立ち上げ</span>
+<span class="nv">$ </span>rails c
+<span class="c">#Scrapingクラスのクラスメソッド movie_urls の実行</span>
+pry<span class="o">(</span>main<span class="o">)</span>&gt; Scraping.movie_urls
+get movies link <span class="nv">URL</span>
+<span class="o">=</span>&gt; nil
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">"get movies link URL"と表示されればクラスメソッド<code>movie_urls</code>は正常に実行できています。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="380" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-526" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-526" name="check-526" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルでget_productsの実行ができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="33" class="ng-scope">クラスメソッドmovie_urls</h2>
+
+<p class="ng-scope"><code>scraping.rb</code>に記述されているScrapingクラスのクラスメソッド<code>movie_urls</code>は表示されている20件分の映画の個別ページのリンクURLを取得して、そのリンクをクラスメソッド<code>get_product</code>を渡す処理をします。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">movie_urls</span>
+    <span class="c1"># 映画の個別ページのURLを取得</span>
+    <span class="c1"># get_product(link)を呼び出す</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h2 id="34" class="ng-scope">クラスメソッドget_product</h2>
+
+<p class="ng-scope"><code>scraping.rb</code>に記述されているScrapingクラスのクラスメソッド<code>get_product</code>は引数として渡された個別ページのリンクURLを使って「作品名」と「作品画像のURL」をスクレイピングし、それらをproductsテーブルに保存する処理を書きます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">get_product</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="c1"># 「作品名」と「作品画像のURL」をスクレイピング</span>
+    <span class="c1"># スクレイピングした「作品名」と「作品画像のURL」をProductsテーブルに保存</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i> <code>puts 'get movies link URL'</code>と<code>puts 'get movie information'</code>は消してかまいません。</p>
+
+<h2 id="35" class="ng-scope">映画情報をデータベースに保存しよう</h2>
+
+<p class="ng-scope">今まで書いたスクレイピングのRubyファイル、<code>scraping_title.rb</code>と<code>scraping_image.rb</code>を用いて映画の「作品名」と「作品画像のURL」を取得し、productsテーブルにその情報を保存する処理を<code>scraping.rb</code>に書きましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_385"></i> reload!</h3>
+
+<p class="ng-scope">コンソール起動中にコードを修正・追記した際、コンソールはリアルタイムで変更内容を反映してくれません。<br>
+その際は通常、一度exitして再度 rails c コマンドを打ちコンソールを再起動するという手順を踏みますが、 <code>reload!</code> コマンドを実行すると毎回exitせずともコンソールがコードの変更内容を読み込んでくれるので大変便利です。</p>
+
+<p class="ng-scope">今後コンソールで何かを実行する前には <code>reload!</code> コマンドの実行を忘れないようにしてください。<br>
+以下では、先ほど実行したScrapingクラスのクラスメソッド movie_urls を例にとって実際の動作を示しています。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Scraping</span><span class="o">.</span><span class="n">movie_urls</span>
+  <span class="n">get</span> <span class="n">movies</span> <span class="n">link</span> <span class="no">URL</span>
+  <span class="c1">#=&gt; nil</span>
+
+  <span class="c1">## movie_urlsメソッド内の文字列「get movies link URL」を「リロードのテストです」に変更</span>
+
+  <span class="c1">#reload!をかけずに再度実行した場合は変更内容が反映されない</span>
+  <span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Scraping</span><span class="o">.</span><span class="n">movie_urls</span>
+  <span class="n">get</span> <span class="n">movies</span> <span class="n">link</span> <span class="no">URL</span>
+  <span class="c1">#=&gt; nil</span>
+
+  <span class="c1">#reload!をかけてから再度実行すると編集内容が反映される</span>
+  <span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">reload!</span>
+  <span class="no">Reloading</span><span class="o">.</span><span class="n">.</span><span class="o">.</span>
+  <span class="c1">#=&gt; true</span>
+
+  <span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="no">Scraping</span><span class="o">.</span><span class="n">movie_urls</span>
+  <span class="c1"># リロードのテストです</span>
+  <span class="c1">#=&gt; nil</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題9：Productsテーブルに<a href="http://eiga.com/now/" alt="映画.com(上映中の映画)">映画.com(上映中の映画)</a>から取得した映画20件の情報を保存しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/models/scraping.rb</h5>
+    <h5>ヒント：個別ページのスクレイピングごとにProductモデルのインスタンスを生成しましょう</h5>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">class</span> <span class="nc">Scraping</span>
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">movie_urls</span>
+        <span class="c1">#①linksという配列の空枠を作る</span>
+        <span class="c1">#②Mechanizeクラスのインスタンスを生成する</span>
+        <span class="c1">#③映画の全体ページのURLを取得</span>
+        <span class="c1">#④全体ページから映画20件の個別URLのタグを取得</span>
+        <span class="c1">#⑤個別URLのタグからhref要素を取り出し、links配列に格納する</span>
+        <span class="c1">#⑥get_productを実行する際にリンクを引数として渡す</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">get_product</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="c1">#⑦Mechanizeクラスのインスタンスを生成する</span>
+        <span class="c1">#⑧映画の個別ページのURLを取得</span>
+        <span class="c1">#⑨inner_textメソッドを利用し映画のタイトルを取得</span>
+        <span class="c1">#①⓪image_urlがあるsrc要素のみを取り出す</span>
+        <span class="c1">#①①newメソッド、saveメソッドを使い、 スクレイピングした「映画タイトル」と「作品画像のURL」をproductsテーブルに保存</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+   <curriculum-question-container class="ng-scope" data-order="9"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="381" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-527" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-527" name="check-527" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">データベースに映画情報を20件保存できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="36" class="ng-scope">さらに映画の情報を充実させよう</h1>
+
+<p class="ng-scope">これで映画レビューアプリケーションを作るための最低限の映画情報をデータベースに保存できました。しかしさすがに20件しか映画の情報がないのはさみしいですね。そこでスクレイピングのメソッドを拡張してより充実した映画の情報を取得できるようにしましょう。</p>
+
+<h2 id="37" class="ng-scope">同じ映画の情報はデータベースに新規で保存できないようにしましょう</h2>
+
+<p class="ng-scope">いまスクレイピングのメソッド<code>movie_urls</code>を2回実行すると同じ映画が2つずつ保存されてしまいます。つまり、メソッドが実行されるたびに同じ映画がデータベース上に増えていってしまいます。これではまずいので<strong>同じタイトルの映画情報はデータベースに保存しないようにしましょう。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_386"></i> first_or_initializeメソッド</h3>
+
+<p class="ng-scope">whereメソッドとともに使うことで、whereで検索した条件のレコードがあればそのレコードのインスタンスを返し、なければ新しくインスタンスを作るメソッドです。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<ul class="ng-scope">
+<li>ニックネームが"Shinbo"のユーザーがすでに保存されていれば取得し、保存されていなければ生成する</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">nickname</span><span class="p">:</span> <span class="s2">"Shinbo"</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">【例-1】</h3>
+
+<ul class="ng-scope">
+<li>すでにニックネームが"Shinbo"のユーザーが保存されている場合</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">nickname</span><span class="p">:</span> <span class="s2">"Shinbo"</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+  <span class="o">=&gt;</span> <span class="c1">#&lt;User id: 1, nickname: "Shinbo"&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">すでにデータベースのUsersテーブルにニックネームが"Shinbo"のレコードが保存されている場合、そのレコードのインスタンスが取得されます。</p>
+
+<h3 class="ng-scope">【例-2】</h3>
+
+<ul class="ng-scope">
+<li>まだニックネームが"Shinbo"のユーザーが保存されていない場合</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">nickname</span><span class="p">:</span> <span class="s2">"Shinbo"</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+  <span class="o">=&gt;</span> <span class="c1">#&lt;User id: nil, nickname: "Shinbo"&gt;</span>
+  <span class="nb">p</span> <span class="n">user</span><span class="o">.</span><span class="n">nickname</span>
+  <span class="o">=&gt;</span> <span class="s2">"Shinbo"</span> <span class="c1"># "Shinbo"がnicknameカラムに代入されている</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ニックネームが"Shinbo"のレコードが無い場合は新しくUserモデルのインスタンスが生成されます。生成されたインスタンスは<strong>検索で使われた"Shinbo"がnicknameに代入された状態</strong>となっています。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> first_or_initializeではnewメソッドと同様、<strong>インスタンスを生成しただけでデータベースに保存されていません</strong>。saveメソッドでデータベースに保存するのを忘れないようにしましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">nickname</span><span class="p">:</span> <span class="s2">"Shinbo"</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+  <span class="n">user</span><span class="o">.</span><span class="n">save</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題10：同じ映画の情報がデータベースにすでに保存されていたら、新規にインスタンスを作らずに既に保存されているインスタンスを更新するようにしましょう。</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/models/scraping.rb</h5>
+    <h5>ヒント：productインスタンスを生成しているコードを書き換えましょう。</h5>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">product</span> <span class="o">=</span> <span class="no">Product</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="err">検索されるカラム名</span><span class="p">:</span> <span class="err">検索する値</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+   <curriculum-question-container class="ng-scope" data-order="10"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="382" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-528" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-528" name="check-528" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">同じ映画の情報はデータベースに新規で保存できないようにできた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="38" class="ng-scope">
+<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>ですべてのページから映画の情報を取得できるようにしましょう</h2>
+
+<p class="ng-scope">いまのスクレイピングのメソッドは<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>の1ページ目の20件の映画しか取得していません。そこでこれから、<strong>2ページ目以降の映画の情報もすべて取得するスクレイピングを書いていきましょう。</strong></p>
+
+<p class="ng-scope"><a href="http://eiga.com/now/">映画.com(上映中の映画)</a>はページネーションを利用しています。各ページの下に次のページへのリンクがあります。これを使えば次のページのURLリンクをたどることができます。</p>
+
+<p class="ng-scope"><img src="14.png" alt="ページネーション" title="ページネーション"></p>
+
+<p class="ng-scope">次のページへのリンク先がなくなったときにスクレイピングを終了させます。</p>
+
+<p class="ng-scope"><img src="13.png" alt="ページネーション" title="ページネーション"></p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題11：<a href="http://eiga.com/now/">映画.com(上映中の映画)</a>の全てのページにある映画のタイトル、映画の画像を取得しましょう。</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/models/scraping.rb</h5>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="k">class</span> <span class="nc">Scraping</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">movie_urls</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="o">[]</span>
+
+    <span class="c1"># パスの部分を変数で定義</span>
+    <span class="n">next_url</span> <span class="o">=</span> <span class="sc">??</span><span class="p">?</span>
+
+    <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+
+      <span class="n">current_page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com"</span> <span class="o">+</span> <span class="n">next_url</span><span class="p">)</span>
+      <span class="n">elements</span> <span class="o">=</span> <span class="n">current_page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'.m_unit h3 a'</span><span class="p">)</span>
+      <span class="n">elements</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">ele</span><span class="o">|</span>
+        <span class="n">links</span> <span class="o">&lt;&lt;</span> <span class="n">ele</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="c1"># 「次へ」を表すタグを取得</span>
+      <span class="n">next_link</span> <span class="o">=</span> <span class="sc">??</span><span class="p">?</span>
+      <span class="c1"># そのタグからhref属性の値を取得</span>
+      <span class="n">next_url</span> <span class="o">=</span> <span class="sc">??</span><span class="p">?</span>
+
+      <span class="c1"># next_urlがなかったらwhile文を抜ける</span>
+      <span class="k">unless</span> <span class="sc">??</span><span class="p">?</span>
+        <span class="sc">??</span><span class="p">?</span>
+      <span class="k">end</span>
+
+    <span class="k">end</span>
+
+    <span class="n">links</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">link</span><span class="o">|</span>
+      <span class="n">get_product</span><span class="p">(</span><span class="s1">'http://eiga.com'</span> <span class="o">+</span> <span class="n">link</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+  
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+   <curriculum-question-container class="ng-scope" data-order="11"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="383" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-529" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-529" name="check-529" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text"><a href="http://eiga.com/now/">映画.com(上映中の映画)</a>のすべてのページにある映画を取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="39" class="ng-scope">Productsテーブルに「監督名」、「あらすじ」、「公開日」のカラムを追加しましょう</h2>
+
+<p class="ng-scope">映画の情報は「監督名」や「あらすじ」、「公開日」など様々なものがあります。スクレイピングするならこれらの情報もまとめて取得しておきたいところです。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">カラム名</th>
+<th style="text-align: center;">型</th>
+<th style="text-align: center;">情報</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">director</td>
+<td style="text-align: center;">string</td>
+<td style="text-align: center;">監督名</td>
+</tr>
+<tr>
+<td style="text-align: center;">detail</td>
+<td style="text-align: center;">text</td>
+<td style="text-align: center;">あらすじ</td>
+</tr>
+<tr>
+<td style="text-align: center;">open_date</td>
+<td style="text-align: center;">string</td>
+<td style="text-align: center;">公開日</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_387"></i> rails generate migrationコマンド</h3>
+
+<p class="ng-scope">テーブルにカラムを追加したり、削除するような<strong>テーブルの構造を変えたいときもマイグレーションファイルを作成します。</strong>作成には<code>rails generate migration</code>コマンドを使用します。このコマンドはマイグレーションファイルを新しく作るためのものです。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>bundle <span class="nb">exec </span>rails g migration AddRateToProducts
+  <span class="c"># =&gt; マイグレーションファイルの作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>rails generate migration</code>に続けて<strong>クラス名</strong>を指定します。このコマンドで指定したクラス名のマイグレーションファイルが作成されます。また <code>generate</code> は <code>g</code> と省略することができます。「db &gt; migrate」に<strong>20141027115020_add_rate_to_products.rb</strong>というファイルが作成されました。中身は以下のようになっています。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">20141027115020_add_rate_to_products.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">AddRateToProducts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メソッド<code>change</code>の中にテーブル構造の変更を書きます。<br>
+例えば、<strong>Booksテーブル</strong>に<strong>Integer型</strong>のカラム<strong>price</strong>を追加するため</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">20141027115020_add_rate_to_products.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">AddPriceToBooks</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+  <span class="k">def</span> <span class="nf">change</span>
+<span class="hll">    <span class="n">add_column</span> <span class="ss">:books</span><span class="p">,</span> <span class="ss">:price</span><span class="p">,</span> <span class="ss">:integer</span>
+</span>  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_388"></i> add_column</h3>
+
+<p class="ng-scope"><code>add_column</code>をマイグレーションファイルのchangeメソッド内に書くと<strong>カラムの追加ができます。</strong>記述方法は以下です。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  add_column :テーブル名, :カラム名, :カラムの型
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">複数のカラムを追加する場合は以下のよう改行をして続けて記述します。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  add_column :テーブル名, :カラム名, :カラムの型
+  add_column :テーブル名, :カラム名, :カラムの型
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_389"></i> remove_column</h3>
+
+<p class="ng-scope">マイグレーションファイルのchangeメソッドではカラムを追加だけでなく削除もできます。<code>remove_column</code>をマイグレーションファイルのchangeメソッド内に書くと<strong>カラムの削除ができます。</strong>記述方法は以下です。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  remove_column :テーブル名, :カラム名, :カラムの型
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">マイグレーションファイルに書いたテーブルの変更内容をテーブルに反映させるにはターミナルで<code>rake db:migrate</code>コマンドを実行します。</p>
+
+<p class="ng-scope">マイグレーションの実行</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>rake db:migrate
+<span class="o">==</span> AddPriceToBooks: <span class="nv">migrating</span> <span class="o">==========================</span>
+-- add_column<span class="o">(</span>:books, :price, :integer<span class="o">)</span>
+   -&gt; 0.0500s
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上の例ではマイグレーションファイルAddPriceToBooksが実行され、booksテーブル内にinteger型のpriceカラムが追加されました。</p>
+
+<p class="ng-scope">このように<strong>テーブルの変更を行うときは必ずマイグレーションファイルを作成しましょう。</strong>また、分からなくなった際は<a href="http://master.tech-camp.in/curriculums/18#term_237" target="_self">rails generate migrationコマンド</a>を振り返りましょう。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope"><i class="icon attention"></i> Sequel Proのようなデータベースを操作できるアプリケーションを使うとそのアプリケーションからカラムの追加や削除ができます。しかし、アプリケーションから操作してしまうと複数人で開発している場合、<strong>開発者ごとにデータベースのテーブル構造が異なる</strong>という問題が起きてしまいます。そのため、テーブル構造を変えるときは必ずマイグレーションファイルを作成し、マイグレーションを実行することでテーブル構造を操作するようにしましょう。</p>
+
+<hr class="ng-scope">
+
+<h3 class="ng-scope">
+<i class="icon design"></i> 作業内容</h3>
+
+<ul class="ng-scope">
+<li>Productsテーブルに以下のカラムを追加する</li>
+</ul>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">カラム名</th>
+<th style="text-align: center;">型</th>
+<th style="text-align: center;">情報</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">director</td>
+<td style="text-align: center;">string</td>
+<td style="text-align: center;">監督名</td>
+</tr>
+<tr>
+<td style="text-align: center;">detail</td>
+<td style="text-align: center;">text</td>
+<td style="text-align: center;">あらすじ</td>
+</tr>
+<tr>
+<td style="text-align: center;">open_date</td>
+<td style="text-align: center;">string</td>
+<td style="text-align: center;">公開日</td>
+</tr>
+</tbody>
+</table>
+
+<h3 class="ng-scope">
+<i class="icon files"></i> 編集するファイル</h3>
+
+<ul class="ng-scope">
+<li>ターミナル</li>
+<li>db/migrate/(作成したマイグレーションファイル)</li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon crown"></i> ヒント</h3>
+
+<ul class="ng-scope">
+<li>カラムを追加するために<code>rails g migrationコマンド</code>でマイグレーションファイルを作成しましょう</li>
+<li>
+<code>add_column</code>を使用してテーブルに指定のカラムを追加するような記述をマイグレーションファイルにしましょう</li>
+<li>マイグレーションファイルが出来たら、<code>bundle exec rake db:migrateコマンド</code>でマイグレーションファイルを実行します</li>
+</ul>
+
+<h4 class="ng-scope">
+<i class="icon attention"></i> <strong>Sequel Pro</strong>でカラムが追加されたか確認しましょう</h4>
+
+<p class="ng-scope">きちんと追加されていれば、新たに３つのカラムがproductsテーブルの中に作成されています。</p>
+
+<p class="ng-scope"><img src="74e07bab0cb02c0788714a1ce0ee6f2e.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//74e07bab0cb02c0788714a1ce0ee6f2e.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="384" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-530" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-530" name="check-530" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Productモデルに指定のカラムを追加できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="40" class="ng-scope">映画の個別ページから「監督名」、「あらすじ」、「公開日」を取得してデータベースに保存しましょう</h2>
+
+<p class="ng-scope">カラムを追加したら、それらのデータを実際にデータベースに保存したいですね。映画.comで映画の個別ページには「監督名」、「あらすじ」、「公開日」が載っています。これらをスクレイピングで取得し、Productsテーブルに保存しましょう。</p>
+
+<p class="ng-scope">これらの値を取得する際に注意しなくてはならないことは、作品によっては監督名等が記載されていない場合があるということです。この時、<strong>searchメソッドあるいはatメソッドで取得したタグがnilになっている</strong>恐れがあります。これに対して<code>get_attributeメソッド</code>や<code>inner_textメソッド</code>を使うとNoMethodErrorとなってしまいます。これを回避する必要があります（<a href="http://master.tech-camp.in/curriculums/53">問題9の解説</a>を参照してください）。</p>
+
+<p class="ng-scope">さて、すでに取得してある映画情報にカラムを追加しなくてはいけません。<code>first_or_initialize</code>メソッドを使えば条件に当てはまるレコードがテーブルに保存されていればそのレコードのインスタンスを取得できます。</p>
+
+<p class="ng-scope">取得したインスタンスのカラムを更新するには<code>インスタンス.カラム名 = 値</code>という記述方法を使うのでした。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">product</span> <span class="o">=</span> <span class="no">Product</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="err">条件</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+  <span class="c1"># カラムの更新</span>
+  <span class="n">product</span><span class="o">.</span><span class="n">director</span> <span class="o">=</span> <span class="err">監督名</span>
+  <span class="c1"># 中略</span>
+  <span class="n">product</span><span class="o">.</span><span class="n">save</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">最後にsaveするのを忘れないようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon design"></i> 作業内容</h3>
+
+<ul class="ng-scope">
+<li>映画の個別ページから「監督名」、「あらすじ」、「公開日」を取得する</li>
+<li>取得した「監督名」、「あらすじ」、「公開日」の情報をインスタンスに更新する</li>
+<li>実際にデータベースに保存する</li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon files"></i> 編集するファイル</h3>
+
+<ul class="ng-scope">
+<li>app/models/scraping.rb<br>
+</li>
+<li>ターミナル</li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon crown"></i> ヒント</h3>
+
+<ul class="ng-scope">
+<li>映画の個別ページで作品画像のURLを取得するときに、一緒にこれらの情報も取得しましょう</li>
+<li>カラムの更新には<code>「インスタンス.カラム名 = 値」</code>の式を使いましょう</li>
+<li>コードが書けたらコンソールで<code>Scraping.movie_urls</code>を実行しましょう</li>
+</ul>
+
+<h4 class="ng-scope">
+<i class="icon attention"></i>Sequel Proのproductsテーブルを確認して、データが保存されているか確認しましょう</h4>
+
+<p class="ng-scope">きちんと情報が保存されていれば、以下のように表示されます。</p>
+
+<p class="ng-scope"><img src="90ed69c1744e34c197fdcb6fab696d81.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//90ed69c1744e34c197fdcb6fab696d81.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="385" action="http://master.tech-camp.in/curriculums/18#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-531" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-531" name="check-531" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「監督名」、「あらすじ」、「公開日」をデータベースに保存できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">以下が完成の一例です。他の記述の方法もありますので参考までにご確認ください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">scraping</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Scraping</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">movie_urls</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">links</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="n">next_url</span><span class="o">=</span> <span class="s2">"/now/"</span>
+
+    <span class="k">while</span> <span class="kp">true</span>
+      <span class="n">current_page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"http://eiga.com"</span> <span class="o">+</span> <span class="n">next_url</span><span class="p">)</span>
+      <span class="n">elements</span> <span class="o">=</span> <span class="n">current_page</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">'.m_unit h3 a'</span><span class="p">)</span>
+      <span class="n">elements</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">ele</span><span class="o">|</span>
+        <span class="n">links</span> <span class="o">&lt;&lt;</span> <span class="n">ele</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">)</span>
+      <span class="k">end</span>
+
+      <span class="n">next_link</span> <span class="o">=</span> <span class="n">current_page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.next_page'</span><span class="p">)</span>
+      <span class="n">next_url</span> <span class="o">=</span> <span class="n">next_link</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">'href'</span><span class="p">)</span>
+
+      <span class="k">break</span> <span class="k">unless</span> <span class="n">next_url</span>
+    <span class="k">end</span>
+    <span class="n">links</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">link</span><span class="o">|</span>
+      <span class="n">get_product</span><span class="p">(</span><span class="s1">'http://eiga.com'</span> <span class="o">+</span> <span class="n">link</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">get_product</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="n">agent</span> <span class="o">=</span> <span class="no">Mechanize</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.moveInfoBox h1'</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span>
+    <span class="n">image_url</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.pictBox img'</span><span class="p">)</span><span class="o">[</span><span class="ss">:src</span><span class="o">]</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.pictBox img'</span><span class="p">)</span>
+    <span class="n">director</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.f span'</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.f span'</span><span class="p">)</span>
+    <span class="n">detail</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.outline p'</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span>
+    <span class="n">open_date</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.opn_date strong'</span><span class="p">)</span><span class="o">.</span><span class="n">inner_text</span> <span class="k">if</span> <span class="n">page</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="s1">'.opn_date strong'</span><span class="p">)</span>
+
+    <span class="n">product</span> <span class="o">=</span> <span class="no">Product</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">title</span><span class="p">:</span> <span class="n">title</span><span class="p">,</span> <span class="ss">image_url</span><span class="p">:</span> <span class="n">image_url</span><span class="p">)</span><span class="o">.</span><span class="n">first_or_initialize</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">director</span> <span class="o">=</span> <span class="n">director</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">detail</span> <span class="o">=</span> <span class="n">detail</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">open_date</span> <span class="o">=</span> <span class="n">open_date</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">save</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このようなソースコードが書けたら次のカリキュラムへ進みましょう。</p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">学習キーワード</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">映画のデータを用意しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">映画のデータ</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">プログラムで映画の情報を取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">スクレイピング</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">スクレイピングとは</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">スクレイピングで映画情報を取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">スクレイピングしてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">Mechanizeクラスを使ってみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">ウェブサイトのHTML情報を取得する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">HTML情報から指定のタグ要素の情報を検索する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">HTML情報からテキストを抜き出そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">HTML情報から属性の値を抜き出そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">スクレイピングの手順まとめ</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">実際にスクレイピングしてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents17" ng-click="clickContent(h2.id)">スクレイピング練習</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents18" ng-click="clickContent(h2.id)">練習問題を解いてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents19" ng-click="clickContent(content.h1.id)">映画.comからのスクレイピング</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents20" ng-click="clickContent(h2.id)">映画情報を取得するページ</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents21" ng-click="clickContent(h2.id)">作品名、作品画像のURLを取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents22" ng-click="clickContent(h2.id)">映画情報のスクレイピング用のRubyファイルを作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents23" ng-click="clickContent(h2.id)">ウェブサイトのHTML構造を確認しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents24" ng-click="clickContent(h2.id)">作品名を取得しよう①</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents25" ng-click="clickContent(h2.id)">作品画像のURLを取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents26" ng-click="clickContent(h2.id)">作品画像のURLを取得しよう②</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents27" ng-click="clickContent(h2.id)">個別ページの作品画像のURLを取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents28" ng-click="clickContent(h2.id)">20件分すべての映画の個別ページから作品画像のURLを取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents29" ng-click="clickContent(content.h1.id)">データベースに映画のデータを保存しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents30" ng-click="clickContent(h2.id)">映画情報のモデルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents31" ng-click="clickContent(h2.id)">映画情報をデータベースに保存するメソッドを書こう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents32" ng-click="clickContent(h2.id)">記述するメソッドと実行方法</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents33" ng-click="clickContent(h2.id)">クラスメソッドmovie_urls</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents34" ng-click="clickContent(h2.id)">クラスメソッドget_product</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents35" ng-click="clickContent(h2.id)">映画情報をデータベースに保存しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents36" ng-click="clickContent(content.h1.id)">さらに映画の情報を充実させよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents37" ng-click="clickContent(h2.id)">同じ映画の情報はデータベースに新規で保存できないようにしましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents38" ng-click="clickContent(h2.id)">
+映画.com(上映中の映画)ですべてのページから映画の情報を取得できるようにしましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents39" ng-click="clickContent(h2.id)">Productsテーブルに「監督名」、「あらすじ」、「公開日」のカラムを追加しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents40" ng-click="clickContent(h2.id)">映画の個別ページから「監督名」、「あらすじ」、「公開日」を取得してデータベースに保存しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">29 / 29<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">質問受付中</div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/18">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding">質問受付中</span></div></div></body>
+</html>

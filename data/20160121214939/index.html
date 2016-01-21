@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>具体的なエラーの解決方法を学ぼう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    エラーを解決しよう<small class="ng-binding">〜具体的なエラーの解決方法を学ぼう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ヴァチカン美術館は、世界各地の美術品を集め展示している巨大な美術館の集合です。古代美術、エジプト美術、エルトリア美術など、時代を超えた貴重な作品が展示されています。<a class="ng-binding" href="https://www.flickr.com/photos/giacinto-lo-meo/16170741930/" target="_top">Giacinto Lo Meo - Scala Musei Vaticani</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">エラーが発生した際自力で原因を突き止め、正常にプログラムが作動するよう修正できるようになりましょう。</p>
+
+<h1 id="2" class="ng-scope">エラー解決</h1>
+
+<p class="ng-scope">プログラミングをする上でエラーは必ず起こります。迅速に修正するためには、エラー解決の方法を知っておく必要があります。</p>
+
+<p class="ng-scope">本章ではエラー解決の手法を学んだ後に、実際にエラーを起こすファイルを実行し、それを解決することでエラー解決の力を身に付けましょう。</p>
+
+<h2 id="3" class="ng-scope">事前準備</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の指示に従い、本章で利用するフォルダをダウンロード、確認してください。</h3>
+
+<p class="ng-scope">以下のリンクをクリックすると、いくつかのファイルが入ったフォルダ(error_question)がダウンロードできます。まずはこちらを解凍してください。</p>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/17" target="_top">error_question</a></h4>
+
+<p class="ng-scope">解凍ができたら、中身のファイルが以下のような構成になっているか確認してください。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> error_question
+    <ul>
+      <li class="t-file"> error_question1.rb</li>
+      <li class="t-file"> error_question2.rb</li>
+      <li class="t-file"> error_question3.rb</li>
+      <li class="t-file"> error_question4.rb</li>
+      <li class="t-file"> error_question5.rb</li>
+      <li class="t-file"> error_question6.rb</li>
+      <li class="t-file"> error_question7.rb</li>
+      <li class="t-file"> error_question8.rb</li>
+      <li class="t-file"> error_sample.rb</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">解凍したフォルダをホームディレクトリ直下に設置してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 解凍した「error_question」を以下のように設置してください。</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> $HOME(userの名前の階層)
+    <ul>
+      <li class="t-folder"> error_question
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">中にあるファイルを実行してもエラーが発生し、プログラムが正常に作動しません。そこで、ファイルを実行して表示されるエラー文をもとに、それぞれのエラーを解決し、プログラムが正常に動くようにしていただきます。 </p>
+
+<h2 id="4" class="ng-scope">デバッグの方法を学ぼう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_435"></i>デバッグ</h3>
+
+<p class="ng-scope">デバッグとは、プログラム中の不具合を発見し、動作を正常にするまでの一連の作業のことです。</p>
+
+<p class="ng-scope">まずは、基本的なデバッグの方法を学びましょう。</p>
+
+<p class="ng-scope">先ほどダウンロードしたファイルのうち、error_sample.rbをsublime textで開いてみましょう。</p>
+
+<p class="ng-scope">こちらは、入力した数に対し1~100までの内で約数となっている数の個数を数えてくれるプログラムです。</p>
+
+<p class="ng-scope">実行すると入力待ちになり、そこで入力した数の約数を調べて表示します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここで、見慣れない文法が出てきました。上記の4行目の部分です。これは、<code>for文</code>と呼ばれる構文です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_436"></i>for文</h3>
+
+<p class="ng-scope"><code>for</code>は、「while」と同じく繰り返しに関する書き方です。以下のように記述します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">for文の例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span> <span class="k">do</span>
+    <span class="nb">puts</span> <span class="n">num</span>
+  <span class="k">end</span>
+  <span class="mi">1</span>
+  <span class="mi">2</span>
+  <span class="mi">3</span>
+  <span class="mi">4</span>
+  <span class="mi">5</span>
+  <span class="mi">6</span>
+  <span class="mi">7</span>
+  <span class="mi">8</span>
+  <span class="mi">9</span>
+  <span class="mi">10</span>
+  <span class="o">=&gt;</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">10</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上記の例では、変数numに1を代入して出力、2を代入して出力、3を・・・という処理を、10まで行なっています。<code>1..10</code>は、[1,2,3,4,5,6,7,8,9,10]と書くのと同じです。</p>
+
+<p class="ng-scope"><code>in</code>の後ろに書いたオブジェクトを順番にnumに入れて、endまでの処理を行います。</p>
+
+<p class="ng-scope">では、sample1.rbを実行してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ~/error_question/error_sample.rbを実行しましょう。</h3>
+
+<p class="ng-scope"><i class="icon attention"></i> エラーが起こる操作です。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~/error_question
+  <span class="c"># 実行したいファイルのあるディレクトリまで移動</span>
+  <span class="nv">$ </span>ruby error_sample.rb
+  <span class="c"># ファイルを実行</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">すると、以下のようなエラーが出ます。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  $ ruby ~/error_question/error_sample.rb
+  /Users/koichiroabe/error_question/error_sample.rb:17: syntax error, unexpected end-of-input, expecting keyword_end
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">では、このエラーを解決していきましょう。</p>
+
+<p class="ng-scope">まずは<code>エラー文</code>を読みましょう。エラー文とは、あるファイルが正常に実行されなかった際の原因を報告してくれる文です。多くの場合、エラー文はターミナル上でファイルを実行した直後の行に出力されます。</p>
+
+<p class="ng-scope">今回の場合のエラー文は以下の部分です。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  /Users/koichiroabe/error_question/error_sample.rb:17: syntax error, unexpected end-of-input, expecting keyword_end
+  # エラー文
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">エラー文には以下の2つの重要な情報が含まれています。</p>
+
+<ol class="ng-scope">
+<li><p>どんな種類のエラーか</p></li>
+<li><p>ファイルの何行目でエラーが起きたか</p></li>
+</ol>
+
+<h3 class="ng-scope">1.に関して</h3>
+
+<p class="ng-scope">今回は以下の部分がエラーの種類を示しています。</p>
+
+<p class="ng-scope"><code>syntax error, unexpected end-of-input, expecting keyword_end</code></p>
+
+<p class="ng-scope"><code>syntax error</code>は文法に関するエラーだということです。<code>unexpected end-of-input, expecting keyword_end</code>は、構文を閉じるための<code>&lt;end&gt;</code>の数がおかしいことを示しています。</p>
+
+<h3 class="ng-scope">2.に関して</h3>
+
+<p class="ng-scope">Rubyは、エラー文においてエラーが起こっている場所をちゃんと教えてくれます。</p>
+
+<p class="ng-scope"><code>error_sample.rb:17:</code>、つまり、error_sample.rbの17行目でエラーが発生しているよということです。しかし、今回のエラーは<code>&lt;end&gt;</code>の数によるものです。このエラーの場合、<strong>該当の行でエラーが起きているわけではありません。</strong>Rubyが、<code>end</code>の必要な部分までコードを読んで、そこでエラーを検知するからです。ほとんどの場合はエラーが起こっている場所を正確に示しますが、そうでない場合もあるので注意しましょう。</p>
+
+<p class="ng-scope">以上の情報からわかることは、このファイルのどこかに<code>&lt;end&gt;</code>の足りない構文があるということです。早速チェックしてみましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この中で<code>&lt;end&gt;</code>が必要な箇所は全部で<strong>5箇所</strong>あります。まず、一番大きなくくりであるclassとメソッドに関してみてみましょう。</p>
+
+<p class="ng-scope">インデントが揃えてあるので、どの<code>&lt;end&gt;</code>がクラスやメソッドに対応しているのかが明示的です。14行目がclassの閉じタグ、9行目と13行目がそれぞれのメソッドの閉じタグになっていることがわかります。</p>
+
+<p class="ng-scope">ここに関しては問題なく存在するようです。</p>
+
+<p class="ng-scope">続いて、クラスメソッド「find_devi」の中を見てみましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">find_divi</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="hll">      <span class="k">end</span>
+</span>    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この中で<code>&lt;end&gt;</code>が必要な箇所は2箇所あります。for文と、if文です。</p>
+
+<p class="ng-scope">しかし、<code>&lt;end&gt;</code>は実際には1つしかありません。どうやら、6行目と7行目の間に必要なfor文のための<code>&lt;end&gt;</code>が抜けていたようです。</p>
+
+<p class="ng-scope">こちらを修正し、もう一度プログラムを実行してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> もう一度error_sample.rbを実行しましょう。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_sample.rb
+  <span class="c"># ファイルを実行</span>
+
+  <span class="c">#任意の数字を入力</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">すると、またエラーが起こってしまいます。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  $ error_sample.rb:13:in `show_divi': wrong number of arguments (1 for 0) (ArgumentError)
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">今度はどこが悪いのでしょうか。またエラー文を読むことで解決していきましょう。</p>
+
+<p class="ng-scope">まず、エラーが起きた場所ですが、今回は13行目だと書かれています。</p>
+
+<p class="ng-scope">次にエラーが起きた原因ですが、<code>wrong number of arguments (1 for 0)</code>とあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_437"></i>wrong number of arguments</h3>
+
+<p class="ng-scope">wrong number of arguments とは、引数の数が違う、いう意味です。(1 for 0)と後ろに書かれている場合、メソッドを呼ぶ際には1つの引数を渡しているのに、メソッドを定義している箇所では何も受け取っていないよ、という意味になります。</p>
+
+<p class="ng-scope">とりあえずエラー箇所である13行目を見てみると、一見普通にクラス定義がされているようです。</p>
+
+<p class="ng-scope">しかし、よく見ると間違いがあるのに気が付きます。呼び出す箇所(10行目)では引数を書いているのに、13行目の関数定義には引数を受け取る記述がありません。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span>
+</span>  <span class="c1"># =&gt; 変数diviを受け取っていない！</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでは、14行目で変数diviを出力できませんね。</p>
+
+<p class="ng-scope">というわけで、13行目を修正します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+</span>    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで、正常に動くようになったはずです。再度ファイルを実行しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ~/error_question/error_sample.rbを実行しましょう。</h3>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  $ pwd
+  ユーザー名/error_question
+  # 現在error_questionディレクトリに居ることを確認
+  $ ruby error_sample.rb
+  # ファイルを実行
+
+  4
+  #任意の数字を入力(ここでは4にしています)
+  #数字が出力されていれば成功
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">うまく実行されたでしょうか？このように、エラー文を見て原因を調査すれば、エラーは自力で解決できます。</p>
+
+<p class="ng-scope">ここで、このプログラムがどう動くのかをひと通りさらってみます。</p>
+
+<h3 class="ng-scope">【1行目~16行目まで】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="hll"><span class="k">end</span>
+</span><span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">まず、1行目から16行目まででclassとそのクラス・メソッドを定義しています。ここまでは定義を読み込むだけです。</p>
+
+<h3 class="ng-scope">【17行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="hll"><span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+</span><span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">pという変数に対して、右辺のgets.to_iの値を代入しています。</p>
+
+<p class="ng-scope">getsメソッドによる入力待ちになりますが、ここでは「4」と入力したことにしましょう。</p>
+
+<h3 class="ng-scope">【18行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="hll"><span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ErrorSampleクラスのクラス・メソッドである<code>find_divi</code>メソッドが呼ばれています。この時、引数として17行目で定義した<code>p</code>を利用しています。処理の流れは呼び先である<code>find_divi</code>メソッドの定義されている3行目に移動します。</p>
+
+<h3 class="ng-scope">【3行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error_sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+<span class="hll">  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</span>    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">3行目末尾にある<code>(p)</code>は、18行目から引数として渡されてきた変数pを<strong>find_diviメソッドの内部では「p」として扱う</strong>という宣言になります。つまり、ここでは17行目で定義したpをpとしてそのまま利用できます。</p>
+
+<h3 class="ng-scope">【4行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+<span class="hll">    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+</span>    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">数字の0を、変数diviに代入します。</p>
+
+<h3 class="ng-scope">【5行目 〜 9行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">for文の中身に入っていきます。このfor文では9行目までの処理が100回、繰り返されます。6行目にあるif文では、numでpを割って余りが0になったらtrueになるので、<strong>pの約数の際に変数diviの数が1増えます。</strong>つまりdiviは<strong>1〜100までの間にあるpの約数の数になります。</strong></p>
+
+<h3 class="ng-scope">【10行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">10行目では、13行目に定義されているクラスメソッドshow_diviを呼び出しています。その際、変数diviを引数として利用し、処理は13行目に移ります。</p>
+
+<h3 class="ng-scope">【13〜14行目】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">ErrorSample</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+    <span class="n">divi</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">num</span> <span class="k">in</span> <span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">100</span> <span class="k">do</span>
+      <span class="k">if</span> <span class="nb">p</span> <span class="o">%</span> <span class="n">num</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">divi</span> <span class="o">=</span> <span class="n">divi</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">show_divi</span><span class="p">(</span><span class="n">divi</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">divi</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="nb">p</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+<span class="no">ErrorSample</span><span class="o">.</span><span class="n">find_divi</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">13行目末尾で渡された変数diviをdiviとして扱うという宣言をしています。そして、14行目の<code>puts</code>メソッドでdiviの値を出力してプログラムが終了します。</p>
+
+<p class="ng-scope">今回pには4を代入しました。すると、約数diviは3になるはずなので、3と出力されるでしょう。</p>
+
+<h2 id="5" class="ng-scope">問題</h2>
+
+<p class="ng-scope">では、続いて問題に移ります。</p>
+
+<p class="ng-scope">本章冒頭でダウンロードしたerror_questionフォルダの中にあるerror_question1.rb ~ error_question8.rbを実行すると、すべてエラーが起こります。先ほどのデバッグの例を参考にコードを修正し、プログラムを正常に動作させてください。</p>
+
+<p class="ng-scope">以下にそれぞれのファイルが正常に動作した場合の挙動と、エラーの解決法を解説したリンクを記します。はじめは自力で解決できるよう努め、どうしてもわからなかった場合に解説を参照するようにしましょう。</p>
+
+<h3 class="ng-scope">error_question1.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  $ pwd
+  /Users/ユーザー名/error_question
+  # 現在error_questionディレクトリに居ることを確認
+  $ ruby error_question1.rb
+  # ファイルを実行
+  Member: tanaka, suzuki, satoh
+  #上記が出力されていれば成功
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/138">error_question1解答解説</a></p>
+
+<h3 class="ng-scope">error_question2.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  /Users/ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_question2.rb
+  <span class="c"># ファイルを実行</span>
+  48
+  <span class="c">#上記が出力されていれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/139">error_question2解答解説</a></p>
+
+<h3 class="ng-scope">error_question3.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  /Users/ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_question3.rb
+  <span class="c"># ファイルを実行</span>
+  直径が4,高さが10の円柱の体積は120です
+  <span class="c">#上記が出力されていれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/140">error_question3解答解説</a></p>
+
+<h3 class="ng-scope">error_question4.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  /Users/ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_question4.rb
+  <span class="c"># ファイルを実行</span>
+  0か1を入力してください
+  <span class="c">#入力を促される</span>
+  0
+  <span class="c">#数字の入力</span>
+  あなたの入力した数字は0です
+  あなたの入力した数字は1です
+  あなたの入力した数字は0でも1でもありません
+  <span class="c">#入力した数字に応じて上記のいずれかが出力されていれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/141">error_question4解答解説</a></p>
+
+<h3 class="ng-scope">error_question5.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  /Users/ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_question5.rb
+  <span class="c"># ファイルを実行</span>
+  合計点は210です
+  平均点は70です
+  <span class="c">#上記が出力されていれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/142">error_question5解答解説</a></p>
+
+<h3 class="ng-scope">error_question6.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  $ pwd
+  /Users/ユーザー名/error_question
+  # 現在error_questionディレクトリに居ることを確認
+  $ ruby error_question6.rb
+  # ファイルを実行
+  合計は28 平均は5
+  #上記が出力されていれば成功
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/143">error_question6解答解説</a></p>
+
+<h3 class="ng-scope">error_question7.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  /Users/ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_question7.rb
+  <span class="c"># ファイルを実行</span>
+  10
+  <span class="c">#上記が出力されていれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/144">error_question7解答解説</a></p>
+
+<h3 class="ng-scope">error_question8.rb</h3>
+
+<h4 class="ng-scope">正常な動作</h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  /Users/ユーザー名/error_question
+  <span class="c"># 現在error_questionディレクトリに居ることを確認</span>
+  <span class="nv">$ </span>ruby error_question8.rb
+  <span class="c"># ファイルを実行</span>
+  合計は10です
+  <span class="c">#上記が出力されていれば成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h4 class="ng-scope">解答解説</h4>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/145">error_question8解答解説</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 460px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">エラー解決</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">事前準備</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">デバッグの方法を学ぼう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">問題</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope ng-hide">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 0<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a class="ng-hide" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">質問受付中</div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/137">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding">質問受付中</span></div></div></body>
+</html>

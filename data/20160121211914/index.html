@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>モデルについて学習しよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発1 第3章<small class="ng-binding">〜モデルについて学習しよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ユネスコの世界遺産に登録されている九寨溝。Y字型の渓谷にそって、1日かけて、さまざまな湖滝群をめぐるのが観光におすすめ。<a class="ng-binding" href="https://www.flickr.com/photos/bianca1112_gr/303557073/" target="_top">Bian Bianca - JIUZHAIGOU VALLEY1</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">データベースとのやりとりの仕組みについて理解し、モデルを使ってデータベースに保存されたデータの呼び出し、データベースへのデータの保存が出来るようにしましょう</p>
+
+<h1 id="2" class="ng-scope">キーワード</h1>
+
+<p class="ng-scope">・モデル<br><br>
+・テーブル<br><br>
+・レコード<br><br>
+・カラム<br><br>
+・migration<br><br>
+・ActiveRecord<br><br>
+・コンソール<br><br>
+・SQL<br></p>
+
+<h1 id="3" class="ng-scope">モデルとテーブルを理解する</h1>
+
+<p class="ng-scope">前章ではルーティング、コントローラー、ビューの流れの処理について学習しました。ただし、これだけでは何度アクセスしても同じ内容になる静的なサイトしか作成できません。アクセスのたびに内容が変わるような動的なサイトを作るにはデータベースにデータを保存するために必要な「テーブル」と、テーブルからデータを取得するために必要な「モデル」について学習する必要があります。</p>
+
+<h2 id="4" class="ng-scope">モデルを作成しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_285"></i> テーブル</h3>
+
+<p class="ng-scope">テーブルとは、<strong>表形式の収納場所</strong>です。0章にて、データベースとは様々な情報を保存しておく場所だということを学びました。ツイッターを例にとると、ツイートやユーザーの情報がデータベースに存在するテーブルに整理して保存されています。</p>
+
+<p class="ng-scope"><img src="001.png" alt="テーブル"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_286"></i> レコードとカラム</h3>
+
+<p class="ng-scope">テーブルの<strong>横1行のことをレコード</strong>、<strong>縦の列をカラム</strong>と言います。１列目に項目名を入れたエクセルのようなイメージです。</p>
+
+<p class="ng-scope"><img src="002.png" alt="レコードとカラム"></p>
+
+<p class="ng-scope">通常、一つのデータベースの中に複数のテーブルがあり、この中にデータが保存されていきます。つまり、<strong>データベースがあっても、テーブルがなければデータを保存できません。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_287"></i> モデル</h3>
+
+<p class="ng-scope">モデルは、データベースへのアクセスをはじめとする情報のやりとりに関する処理を担当しているパートです。最初から概念だけで理解するのは難しいので、実際に使いながら慣れて行きましょう。</p>
+
+<p class="ng-scope">2章でルーティング→コントローラ-→ビューの順で処理が進みページが表示されることを学びました。ビューでデータベースに保存されているデータを表示するためには、コントローラーでモデルを利用してテーブルからデータを引き出し、ビューに渡します。</p>
+
+<p class="ng-scope"><img src="003.png" alt="モデル"></p>
+
+<p class="ng-scope">基本的に、モデルは<code>app/models</code>以下の階層に設置されます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> models
+        <ul>
+          <li class="t-file"> モデルファイル</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="k">class</span> <span class="nc">Sample</span>
+
+  <span class="k">def</span> <span class="nf">test</span>
+  <span class="k">end</span>
+
+ <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Sampleというクラスが書かれていることがわかります。モデルを担当するクラスのことをモデルクラスと言います。例の場合は、<code>Sample</code>というクラスがモデルクラスになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_288"></i> モデルの命名規則</h3>
+
+<p class="ng-scope">Railsでは、ファイルやテーブルなどの命名を規則に従った形にする必要があります。モデルとテーブルに関する命名規則は以下のようになっており、これに従えばテーブルとモデルが結びつきます。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: left;">種類</th>
+<th style="text-align: left;">概要</th>
+<th style="text-align: left;">名前例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">モデルクラス名</td>
+<td style="text-align: left;">先頭は大文字、単数形</td>
+<td style="text-align: left;">Tweet</td>
+</tr>
+<tr>
+<td style="text-align: left;">モデルクラスのファイル名</td>
+<td style="text-align: left;">先頭は小文字、単数形</td>
+<td style="text-align: left;">tweet.rb</td>
+</tr>
+<tr>
+<td style="text-align: left;">テーブル名</td>
+<td style="text-align: left;">先頭は小文字、複数形</td>
+<td style="text-align: left;">tweets</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope"><img src="004.png" alt="モデルの命名規則"></p>
+
+<p class="ng-scope">Tweetクラスがtweetsテーブルを操作でき、モデルクラスが入ったファイル名はtweet.rbとなります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_289"></i> rails g model コマンド</h3>
+
+<p class="ng-scope">rails g modelコマンドを使用すると、モデルファイルと関連ファイルを自動で作成することができます。実際に使用する際には「rails g model モデルクラス名(全て小文字)」というように<strong>作成したいモデルのクラス名を全て小文字にしたものを後ろに付けて実行</strong>します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ja">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  $ rails g model モデルクラス名(全て小文字)
+  # モデルを作成
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">※ <code>rails g model</code>の<code>g</code>とは「generate」を省略したものです。以前に使用した「rails g controllerコマンド」と同様です。</p>
+
+<h3 class="ng-scope">
+<i class="icon attention"></i> ターミナルでサーバーを起動している場合は「control + c」でサーバーを止めてください</h3>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「users/ユーザー名/projects/pictweet」であることを確認</span>
+
+  <span class="nv">$ </span>rails g model tweet
+  <span class="c"># tweetモデルを作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">正しく作成できれば以下の様な出力結果が表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  invoke  active_record
+  create    db/migrate/20141011073059_create_tweets.rb
+  create    app/models/tweet.rb
+  invoke    test_unit
+  create      <span class="nb">test</span>/models/tweet_test.rb
+  create      <span class="nb">test</span>/fixtures/tweets.yml
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="291" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-413" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-413" name="check-413" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">モデルを正しく作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_290"></i> モデルファイル</h3>
+
+<p class="ng-scope">コマンドを正しく実行出来ると、出力結果が表示されます。この出力結果の３行目に注目してください。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  create    app/models/tweet.rb
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">と書いてあります。これは<code>create</code>以下のファイルを新しく作成したことを意味しています。作成されたファイルは<code>app/models/tweet.rb</code>となっているので、<code>app/models</code>というディレクトリに<code>tweet.rb</code>というモデルファイルが作成されたことを意味しています。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> models
+        <ul>
+          <li class="t-file">tweet.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">さきほどコマンドを実行する際に、<code>rails g model</code>のあとに<code>tweet</code>と付けて実行したことを思い出してください。この<code>tweet</code>はモデル名を表しているので、その結果<code>tweet.rb</code>というモデルファイルが作成されました。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_291"></i> rails d model コマンド</h3>
+
+<p class="ng-scope">先ほど、モデルを作成する際に「rails g model」コマンドを使用して作成を行ないました。この時にモデル名を間違えて作成してしまった場合、<strong>「rails d model」コマンドを使用してモデルファイルを削除する</strong>ことが出来ます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails d model モデル名
+  <span class="c"># 作成したモデルを削除</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">※ ちなみに、<code>rails d model</code>の<code>d</code>とは「destroy」を省略したものです。以前に使用した「rails d controllerコマンド」と同様です。</p>
+
+<p class="ng-scope">「rails d model」コマンドを使用する際には間違えて作成したモデル名を後につけて「rails d model」コマンドを実行します。このコマンドで削除を実行すると、モデルを作成した際に自動的に作られた<strong>関連ファイルも同時に削除されるので非常に便利</strong>です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="292" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-414" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-414" name="check-414" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">テーブルとは、データベースに保存される情報を整理して保存するための収納場所である</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-415" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-415" name="check-415" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">テーブルに保存される情報をレコード、情報の要素をカラムという</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-416" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-416" name="check-416" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">モデルは、テーブルからデータを引き出してくる役割を担う</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-417" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-417" name="check-417" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">あるテーブル名の単数形の名前のモデルが、そのテーブルを操作できる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope">テーブルを作成しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_292"></i> マイグレーションファイル</h3>
+
+<p class="ng-scope">マイグレーションファイルは、<strong>テーブルの設計図</strong>です。マイグレーションファイルにどんなカラムを持つテーブルにするかを書き込み、実行することでテーブルが作成されます。</p>
+
+<p class="ng-scope">このマイグレーションファイルは以前に「rails g model」コマンドを実行した際に作成されています。出力結果の２行目に注目してください。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  create    db/migrate/20141011073059_create_tweets.rb
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">create以下が作成されたファイルを示すので、<code>db/migrate</code>というディレクトリにマイグレーションファイルが作成されたことがわかります。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> db
+    <ul>
+      <li class="t-folder"> migrate
+        <ul>
+          <li class="t-file"> 2014XXXXXXXXXXXX_create_tweets.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">以下がマイグレーションファイルの中身の例です。changeというメソッドで、作成するカラムを指定することができます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">db/migrate/2014XXXXXXXXXXXX_create_tweets.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">Create</span><span class="err">テーブル名</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+    <span class="k">def</span> <span class="nf">change</span>
+      <span class="n">create_table</span> <span class="p">:</span><span class="err">テーブル名</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+
+        <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_293"></i> カラムの「型」</h3>
+
+<p class="ng-scope">カラム名を指定するとともに、そこにどんなデータが入るのかを示す「型」も指定する必要があります。以下に主な型の種類を紹介しておきます。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: left;">型</th>
+<th style="text-align: left;">説明</th>
+<th style="text-align: left;">用例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">:integer</td>
+<td style="text-align: left;">数字</td>
+<td style="text-align: left;">ユーザーのidなど</td>
+</tr>
+<tr>
+<td style="text-align: left;">:string</td>
+<td style="text-align: left;">文字(少なめ)</td>
+<td style="text-align: left;">ユーザー名、パスワードなど</td>
+</tr>
+<tr>
+<td style="text-align: left;">:text</td>
+<td style="text-align: left;">文字(多め)</td>
+<td style="text-align: left;">投稿文など</td>
+</tr>
+<tr>
+<td style="text-align: left;">:boolean</td>
+<td style="text-align: left;">真か偽か</td>
+<td style="text-align: left;">真偽フラグ</td>
+</tr>
+<tr>
+<td style="text-align: left;">:timestamp</td>
+<td style="text-align: left;">日付と時刻</td>
+<td style="text-align: left;">作成日時、更新日時など</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br>それでは実際に、マイグレーションファイルを編集しましょう。先ほどのrails g model コマンドですでにマイグレーションファイルが作成されています。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> マイグレーションファイルを以下のように編集してください</h3>
+
+<p class="ng-scope">マイグレーションファイルは<code>db/migrate</code>というディレクトリの中にあるファイルのことです。ファイルは１つだけしか存在していないはずなので、そのファイルを編集しましょう。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> db
+    <ul>
+      <li class="t-folder"> migrate
+        <ul>
+          <li class="t-file"> 2014XXXXXXXXXXXX_create_tweets.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">db/migrate/2014XXXXXXXXXXXX_create_tweets.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">CreateTweets</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+    <span class="k">def</span> <span class="nf">change</span>
+      <span class="n">create_table</span> <span class="ss">:tweets</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">string</span>      <span class="ss">:name</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">text</span>        <span class="ss">:text</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">text</span>        <span class="ss">:image</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">timestamps</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">作成するカラムとその型を、changeというメソッドの中で指定します。</p>
+
+<p class="ng-scope">t.に続くのが「型」で、:に続くのがカラム名です。</p>
+
+<p class="ng-scope">t.timestampsは時間に関係するカラムを生成してくれるのでそのままにしておきましょう。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>t.timestampsの後ろに null: false と書かれている場合は、null: falseを削除してください。</strong></p>
+
+<p class="ng-scope">railsの最新バージョンではデフォルトでt.timestampsの後ろにnull: falseが記載される仕様となっています。<br>
+null: falseが記載されたままだと、本カリキュラム上で後に登場する「データベースに直接データを書き込む作業」ができなくなってしまうので削除しましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="293" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-418" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-418" name="check-418" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">マイグレーションファイルを正しく編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_294"></i> rake db:migrate</h3>
+
+<p class="ng-scope">さて、マイグレーションファイルはテーブルの設計図を表しているのでした。実際にその設計図に従ってテーブルを操作するには<code>rake db:migrate</code>コマンドを使用します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rake db:migrate
+<span class="c"># マイグレーションファイルの実行</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">マイグレーションファイルの編集ができたら、マイグレーションファイルを実行します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のようにコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「users/ユーザー名/projects/pictweet」であることを確認</span>
+
+  <span class="nv">$ </span>rake db:migrate
+  <span class="c"># マイグレーションファイルの実行(tweetsテーブルの作成)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">コマンドを正しく実行出来ると、出力結果が表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="o">==</span> <span class="m">20141016074753</span> CreateTweets: <span class="nv">migrating</span> <span class="o">==============================</span>
+-- create_table<span class="o">(</span>:tweets<span class="o">)</span>
+   -&gt; 0.0315s
+<span class="o">==</span> <span class="m">20141016074753</span> CreateTweets: migrated <span class="o">(</span>0.0317s<span class="o">)</span> <span class="o">=====================</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="294" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-419" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-419" name="check-419" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">tweetsテーブルを作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_295"></i> スキーマファイル</h3>
+
+<p class="ng-scope">スキーマファイルは「rake db:migrate」を実行した際に更新が行われ、最新のマイグレーションファイルのバージョンが記録されます。先ほどの作業でtweetsテーブルを作成するためにマイグレーションを実行しました。つまり、スキーマファイルにはtweetsテーブルを作成する際に編集したマイグレーションファイルのバージョンが記録されていることになります。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> db
+    <ul>
+      <li class="t-folder"> migrate
+        <ul>
+          <li class="t-file"> 20141025120015_create_tweets.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">ファイル名の「20141025120015」の部分がマイグレーションファイルのバージョンを示しています。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> db
+    <ul>
+      <li class="t-file"> schema.rb</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">db/schema.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Schema</span><span class="o">.</span><span class="n">define</span><span class="p">(</span><span class="ss">version</span><span class="p">:</span> <span class="mi">20141025120015</span><span class="p">)</span> <span class="k">do</span>
+
+    <span class="n">create_table</span> <span class="s2">"tweets"</span><span class="p">,</span> <span class="ss">force</span><span class="p">:</span> <span class="ss">:cascade</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">"name"</span>
+      <span class="n">t</span><span class="o">.</span><span class="n">text</span>     <span class="s2">"image"</span>
+      <span class="n">t</span><span class="o">.</span><span class="n">text</span>     <span class="s2">"text"</span>
+      <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">"created_at"</span>
+      <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">"updated_at"</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">14行目の部分に注目してください。<code>version:</code>のあとに<code>20141025120015</code>とあります。これが現在の最新のマイグレーションファイルのバージョンを示しています。今回はtweetsテーブルを作成するマイグレーションファイルの実行が最後のマイグレーションなので、このバージョンが一致しています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_296"></i> schema_migrations</h3>
+
+<p class="ng-scope"><code>schema_migrations</code>とはデータベースの変更履歴のようなもので、どのマイグレーションファイルまでが実行されているかが記録されていくテーブルです。マイグレーションファイルが実行された際に自動的に作成されます。</p>
+
+<p class="ng-scope">schema_migrationsを確認するために、Sequel Proを利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon attention"></i> 注意</h3>
+
+<p class="ng-scope">実行し終わったマイグレーションファイルを、実行し終わったからといって削除すると、schema_migrationsと齟齬が生じ、下で紹介する<code>rake db:rollback</code>を実行する時などに問題が生じる恐れがあります。そのため、マイグレーションファイルは消してはいけません。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_297"></i> Sequel Pro</h3>
+
+<p class="ng-scope">Sequel Proは、テーブルを見やすく表示してくれるアプリケーションです。データベースに接続し、見たいテーブルを選択するとエクセルのような形式で表示してくれます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sequel Proを起動して、「localhost」に接続してください</h3>
+
+<p class="ng-scope">「localhost」は左側のお気に入りリストの中にあります。このお気に入りは１章でデータベースの作成をする際に作成しました。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 左上にある「データベースを選択」から「pictweet_development」を選択してください。</h3>
+
+<p class="ng-scope">すると、以下のように左側に表示されるテーブル一覧に「tweets」と「schema_migrations」が表示されているはずです。</p>
+
+<p class="ng-scope"><img src="016.png" alt="schema_migrations"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>「schema_migrations」を選択し、下記のように「内容」を選択してください。</h3>
+
+<p class="ng-scope"><img src="017.png" alt="schema_migrations"></p>
+
+<p class="ng-scope">先ほど実行したマイグレーションファイルの名前の数字の部分がレコードとして記録されていることがわかります。</p>
+
+<p class="ng-scope"><img src="014.png" alt="schema_migrations"></p>
+
+<p class="ng-scope"><code>rake db:migrate</code>コマンドを実行すると、まずschema_migrationsを参照し、実行されていないmigrationファイルがあるかどうか調べ、あればそれを実行します。<br>
+そのため、rake db:migrateを複数回実行しても、同じmigrationファイルが再度実行されることはありません。また、一度実行されたmigrationファイルの中身を変更してもそれは実行されません。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="295" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-420" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-420" name="check-420" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">マイグレーションファイルを実行することで、テーブルが作成される</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-421" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-421" name="check-421" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">マイグレーションファイルには、テーブルのカラム名と、その型を指定する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-422" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-422" name="check-422" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">マイグレーションファイルの実行は、 rake db:migrate というコマンドを使う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">一度変更したデータベースの状態を元に戻そう</h2>
+
+<p class="ng-scope">rake db:migrateコマンドを実行した際、読み込んだmigrationファイルの記述が間違っていて、意図しない名前や型を持つテーブルができてしまうことがあります。そのような場合は、<code>rake db:rollback</code> コマンドを利用します。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> 誤った名前のカラムを追加してしまった時は、実行したマイグレーションファイルを書き換えて再度 <code>rake db:migrate</code>すれば良いと思うかもしれません。しかし、その方法では正しいカラムを作り直すことはできません。<br>なぜなら、railsではマイグレーションを一度実行してしまうと、そのマイグレーションを編集して再度マイグレーションを実行することが出来ないからです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_298"></i> rake db:rollback</h3>
+
+<p class="ng-scope">これから先新たなテーブルを作成したり、カラムの追加などテーブルに変更を加える際は常にmigrationファイルを作成します。rake db:rollbackコマンドを実行すると、データベースの状態が最新のmigrationファイルを実行する前に戻ります。</p>
+
+<p class="ng-scope">では、実際に<code>rake db:rollback</code>コマンドを試してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルから以下のコマンドを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「users/ユーザー名/projects/pictweet」であることを確認</span>
+
+  <span class="nv">$ </span>rake db:rollback
+  <span class="c"># データベースの状態を最新のマイグレーションファイルの実行前に戻す</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">成功すれば、続いてターミナルに以下のように表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">==</span> <span class="m">20150108030707</span> CreateTweets: <span class="nv">reverting</span> <span class="o">=====================================</span>
+  -- drop_table<span class="o">(</span>:tweets<span class="o">)</span>
+     -&gt; 0.0260s
+  <span class="o">==</span> <span class="m">20150108030707</span> CreateTweets: reverted <span class="o">(</span>0.0293s<span class="o">)</span> <span class="o">============================</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">先ほど作成したのはtweetsテーブルを作成するマイグレーションファイルでした。なので、<code>rollback</code>した場合はtweetsテーブルが消えるはずです。</p>
+
+<p class="ng-scope">もう一度Sequel Proを起動し確認してみましょう。</p>
+
+<p class="ng-scope"><img src="018.png" alt="confirm_sequelpro"></p>
+
+<p class="ng-scope">tweetsテーブルが消えているのが確認できます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sequel Proを起動して、「localhost」に接続しましょう</h3>
+
+<p class="ng-scope">左上の「データベースを選択」から、「pictweet_development」を選択します。</p>
+
+<p class="ng-scope">tweetsテーブルが消えていることがわかります。</p>
+
+<p class="ng-scope">また、「schema_migrations」テーブルを確認すると、先ほどの記録が消えて何もレコードが無い状態になっています。このように、rake db:rollbackコマンドを実行すると最後に行われたマイグレーションファイルの実行が無かったことになりますが、<strong>migrationファイル自体は残ります</strong>。なので、もう一度<code>rake db:migrate</code>コマンドを実行すれば再びtweetsテーブルが作成されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルから以下のコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「users/ユーザー名/projects/pictweet」であることを確認</span>
+
+  <span class="nv">$ </span>rake db:migrate
+  <span class="c"># マイグレーションファイルの読み込み(tweetsテーブルを作成する)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">続いてターミナルに以下のように表示されれば成功です。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="o">==</span> <span class="m">20141016074753</span> CreateTweets: <span class="nv">migrating</span> <span class="o">==============================</span>
+-- create_table<span class="o">(</span>:tweets<span class="o">)</span>
+   -&gt; 0.0315s
+<span class="o">==</span> <span class="m">20141016074753</span> CreateTweets: migrated <span class="o">(</span>0.0317s<span class="o">)</span> <span class="o">=====================</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h1 id="7" class="ng-scope">レコードの作成</h1>
+
+<p class="ng-scope">テーブルからデータを引き出す、という操作を体験するために、tweetsテーブルにレコードを作成してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sequel Proを起動して、「localhost」に接続しましょう</h3>
+
+<p class="ng-scope">「localhost」は左側のお気に入りリストの中にあります。このお気に入りは１章でデータベースの作成をする際に作成しました。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下を参考に、テーブルを表示しましょう</h3>
+
+<p class="ng-scope"><img src="005.png" alt="テーブルを表示1"></p>
+
+<p class="ng-scope">接続に成功すると、以下のような画面が表示されます。</p>
+
+<p class="ng-scope">上部に「id」「text」「created_at」・・・と続いているのがカラムです。カラムのうち「id」はレコードの番号で、自動で作成されます。「created_at」「updated_at」は、マイグレーションファイルのt.timestampsという記述によって作成されています。</p>
+
+<p class="ng-scope"><img src="006.png" alt="テーブルを表示2"></p>
+
+<p class="ng-scope">一番下の「＋」ボタンを押すと空のレコードが作成されます。編集したいレコードのカラムをダブルクリックすると以下の入力画面が表示されるので、「name」「text」のカラムを編集してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下を参考に3つレコードを作成し、それぞれの「name」「text」に適当に値を入れましょう</h3>
+
+<p class="ng-scope"><img src="007.png" alt="レコードの作成1"></p>
+
+<p class="ng-scope">以下のようにレコードが３つ作れていれば完成です。</p>
+
+<p class="ng-scope"><img src="008.png" alt="レコードの作成確認"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="296" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-423" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-423" name="check-423" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">tweetsテーブルに、レコードを3つ作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="297" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-424" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-424" name="check-424" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">sequel proを使えば、データベースのテーブルの中身を確認することができる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="8" class="ng-scope">コンソールでの操作を学習する</h1>
+
+<p class="ng-scope">railsでは、コンソールというものからアプリケーションのメソッドやアクションを実行することができます。<br>
+モデルとテーブルが正常に動作するか確かめるために、先ほど作成したレコードを呼び出してみましょう。</p>
+
+<h2 id="9" class="ng-scope">コンソールからレコード呼び出してみよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_299"></i> rails c コマンド</h3>
+
+<p class="ng-scope"><strong>rails c</strong> とは「rails console」(コンソール)の略です。コンソールを実行すると作成したRailsアプリケーションのメソッドやクラスなどを実際に呼び出すことができます。ターミナルから「rails c」コマンドを実行することでコンソールを起動できます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rails c
+<span class="c"># コンソールの起動</span>
+
+<span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">コンソールを起動すると<code>pry</code>と表示され、この横にメソッドなどを書いていくことができます。コンソールを終了するには、コンソール上で「exit」と入力しエンターキーを押します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; <span class="nb">exit</span>
+<span class="c"># exitと書きエンターキーで実行(ターミナルに戻る)</span>
+<span class="err">$</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">慣れないうちは、ターミナルで実行すべきコマンドをコンソールで実行してしまいエラーが出る、ということが良くあります。<strong>自分が実行するコマンドはターミナルで実行するものなのか、コンソールで実行するものなのかをよく確認しましょう。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_300"></i> ActiveRecord</h3>
+
+<p class="ng-scope">ActiveRecordはRubyのGemの一種です。このGemはモデルとテーブルをつなぎ合わせることで、Railsからテーブルのレコードにアクセスできるようにします。ActiveRecordはRailsにデフォルトでインストールされています。実際に、この機能を利用する際には<code>ActiveRecord::Base</code>というクラスを継承して使用します。クラスの継承に関しては、後ほど詳しく説明します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/models/tweet.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">Tweet</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>tweet.rb</code>の１行目に<code>&lt; ActiveRecord::Base</code>と書いてあります。<code>&lt;</code>マークはマーク以下のクラスを継承していることを示しているので、Tweetクラスは<code>ActiveRecord::Base</code>を継承していることになります。Tweetクラスはモデルクラスですが、このクラスがデータベースにアクセスすることが出来るのは<code>ActiveRecord::Base</code>を継承しているからなのです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_301"></i> クラスの継承</h3>
+
+<p class="ng-scope"><strong>あるクラスに定義されたメソッドを、別のクラスで利用出来るようにすることを継承と言います。</strong></p>
+
+<p class="ng-scope">今回の例で考えてみましょう。以下の図を見てください。<br><br>
+ここでは 元となるクラスを<strong>親クラス</strong>、親クラスのメソッドを引き継ぎ新しく作成するクラスを<strong>子クラス</strong> とします。<br>
+allメソッドやnewメソッドは、ActiveRecord::Baseクラスのメソッドです。</p>
+
+<p class="ng-scope"><img src="015.png" alt="クラスの継承"></p>
+
+<p class="ng-scope">現在ActiveRecord::Baseクラスを継承しているのは、Tweetクラスのみです。またTweetクラスにはまだメソッドが定義されていないので、現在Tweetクラスで用いる事が出来るのは継承しているActiveRecord::Baseクラスのメソッドだけです。</p>
+
+<p class="ng-scope">クラスの継承に関して分からなければ、Rubyの4章で復習しましょう。<a href="http://master.tech-camp.in/curriculums/5#term_316">クラスの継承</a></p>
+
+<p class="ng-scope">では、実際にActiveRecord::Baseクラスのメソッドについて学んでいきましょう。</p>
+
+<h2 id="10" class="ng-scope">ActiveRecord::Baseメソッド</h2>
+
+<p class="ng-scope">モデルのクラスはActiveRecord::Baseというクラスを継承しています。クラスを継承した場合、継承元のクラスで定義されているメソッドを利用することができます。このとき継承元であるActiveRecord::Baseで定義されているメソッドのことを「ActiveRecord::Baseメソッド」と言います。AciveRecord::Baseはデータベースにアクセスするためのクラスなので、そのメソッドもデータベースへのアクセスを行なうものになっています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_302"></i> allメソッド</h3>
+
+<p class="ng-scope">allメソッドはActiveRecord::Baseを継承したモデルと結びつくテーブルのレコードを全て取得します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.all
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以下はコンソールからallを実行した場合の例です。ActiveRecord::Baseを継承しているTweetクラスのクラス・メソッドのように利用します。</p>
+
+<p class="ng-scope"><img src="009.png" alt="allメソッド"></p>
+
+<p class="ng-scope">また、コンソールからallを実行した場合下記の最後のように「:」と表示され次のコマンドが打てなくなる現象があります。<br>
+これはターミナルの表示領域がいっぱいになってしまうためで、「Q」 を押すと次のコマンドが打てるようになります。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.all
+  Tweet Load <span class="o">(</span>16.8ms<span class="o">)</span>  SELECT <span class="sb">`</span>tweets<span class="sb">`</span>.* FROM <span class="sb">`</span>tweets<span class="sb">`</span>
+<span class="o">=</span>&gt; <span class="o">[</span><span class="c">#&lt;;Tweet:0x007fad47a6b1b0 id: 1, text: "こんにちは！", created_at: nil, updated_at: nil, name: "ken", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad42928050 id: 2, text: "また明日！", created_at: nil, updated_at: nil, name: "mami", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad47a6bae8 id: 4, text: "おはよう！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad47a6ad28 id: 5, text: "プログラミング好き！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad47a6b688 id: 6, text: "Ruby！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad47a6a850 id: 7, text: "on！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad47a6a238 id: 8, text: "Rails！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet:0x007fad42928668 id: 9, text: "どうも！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;,</span>
+ :
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでTweetsテーブルの全てのレコードをターミナル上に表示することができました。それでは、ここで取得できたレコードが一つ一つがどのように表示されているか見ていきましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>　#&lt;Tweet:0x007fad47a6b1b0 id: 1, text: <span class="s2">"こんにちは！"</span>, created_at: nil, updated_at: nil, name: <span class="s2">"ken"</span>, image: nil&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">idが1のTweetのレコードを見た時、その中にはidやtextなどのカラムの値が表示されています。これを見ることで、ActiveRecord::Baseに定義されたメソッドを利用して取得してきたそのレコードのカラムの値などを確認することができます。</p>
+
+<p class="ng-scope">ちなみにこの「#&lt;Tweet:~」以降に続いている「0x007fad47a6b1b0」という番号は <strong>オブジェクトid</strong>と呼ばれるもので、mysqlサーバー内でそのレコードおよびインスタンスを識別するための名前のようなものだと思っておいてください。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_303"></i> newメソッド・saveメソッド</h3>
+
+<p class="ng-scope">newメソッドはクラスのインスタンスを生成するメソッドです。ActiveRecord::Baseを継承しているモデルクラスの場合、newメソッドを実行すると関連するテーブルのカラム名がキーになったハッシュのようなものが生成されます。これをモデルクラスのインスタンスと呼びます。インスタンスのそれぞれのキーに値を代入してsaveメソッドを実行するとテーブルに保存されます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; <span class="nv">tweet</span> <span class="o">=</span> Tweet.new<span class="o">(</span>name: <span class="s2">"takashi"</span>, text: <span class="s2">"Nice to meet you!"</span><span class="o">)</span>
+  <span class="o">[</span>2<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; tweet.save
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以下はコンソールからレコードを保存した場合の例です。</p>
+
+<p class="ng-scope"><img src="010.png" alt="newメソッド・saveメソッド"></p>
+
+<p class="ng-scope">保存されたレコードを見ると、生成されたインスタンスに引数として渡したハッシュのキーがカラム名、バリューがその値となっていることが確認できます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_304"></i> createメソッド</h3>
+
+<p class="ng-scope">createメソッドはレコードの作成を行なうことの出来るメソッドです。newメソッドとsaveメソッドを使用して行なった処理をcreateメソッドで一気に行なうことができるので、単にレコードを作成する場合にはこのメソッドを使用しましょう。下記の例１と例２は同様の作業を行なっています。</p>
+
+<p class="ng-scope">例１：</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; <span class="nv">tweet</span> <span class="o">=</span> Tweet.new<span class="o">(</span>name: <span class="s2">"takashi"</span>, text: <span class="s2">"Nice to meet you!"</span><span class="o">)</span>
+  <span class="o">[</span>2<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; tweet.save
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">例２：</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.create<span class="o">(</span>name: <span class="s2">"takashi"</span>, text: <span class="s2">"Nice to meet you!"</span><span class="o">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_305"></i> SQL(エス・キュー・エル)</h3>
+
+<p class="ng-scope">SQLとは、データベースに対して保存されているデータを要求する時に使用する言語の形式です。</p>
+
+<p class="ng-scope">本来ならデータベースに対しては以下のようなSQL文を使ってデータを要求しなければなりませんが、railsではActiveRecordのおかげで簡単にデータを要求することができます。</p>
+
+<p class="ng-scope">例１：</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">SQL</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  SELECT  <span class="sb">`</span>tweets<span class="sb">`</span>.* FROM <span class="sb">`</span>tweets<span class="sb">`</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">例２：</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.all
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上記の例１と２は同じ処理を行なっています。Railsでは例２のように記述するだけで、データベースにアクセスする際には自動的に例１のようなSQL文に変換されます。このように、ActiveRecordを使用するRailsではより直感的で短い記法でテーブルの情報を操作することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c"># 現在のディレクトリが「users/ユーザー名/projects/pictweet」であることを確認</span>
+
+  <span class="nv">$ </span>rails c
+  <span class="c"># コンソールの起動</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">そのままコンソールで「Tweet.all」とコマンドを打ってみましょう。Tweetはクラス名で、allはテーブルに保存されたデータを全て呼び出すというメソッドでした。コマンドを実行すると、呼び出されたデータは、ターミナル上に表示されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> コンソールで以下のコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.all
+  <span class="c"># tweetsデーブルの全てのレコードを取得する</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以下のような出力結果が表示されれば、モデルとデータベースは正常に動作しています。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.all
+  Tweet Load <span class="o">(</span>0.6ms<span class="o">)</span>  SELECT  <span class="sb">`</span>tweets<span class="sb">`</span>.* FROM <span class="sb">`</span>tweets<span class="sb">`</span>  LIMIT <span class="nv">4</span>
+<span class="o">=</span>&gt; <span class="o">[</span><span class="c">#&lt;;Tweet id: 1, text: "こんにちは！", created_at: nil, updated_at: nil, name: "ken", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet id: 2, text: "また明日！", created_at: nil, updated_at: nil, name: "mami", image: nil&gt;;,</span>
+ <span class="c">#&lt;;Tweet id: 3, text: "どうも！", created_at: nil, updated_at: nil, name: "takumi", image: nil&gt;;]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">2行目に注目してください。SELECT ~ と続いているのが先ほど学んだSQL文です。SQL文も、以下の手順で実際に利用してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、Sequel proでSQL文を使用してください</h3>
+
+<p class="ng-scope"><img src="011.png" alt="SQL1"></p>
+
+<p class="ng-scope">⑤の操作の後、以下のように表示されれば成功です。Tweet.allで取得したレコードと同じものが取得されたことが確認できます。</p>
+
+<p class="ng-scope"><img src="012.png" alt="SQL2"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="298" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-425" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-425" name="check-425" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コンソールから、tweetsテーブルのレコードを全て取得できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-426" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-426" name="check-426" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">SQL文でtweetsテーブルのレコードを全て取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="299" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-427" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-427" name="check-427" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コンソールを実行すると、railsアプリケーションのメソッドやクラスを呼び出すことができる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-428" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-428" name="check-428" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">モデルがテーブルを操作するためには、Activerecord::baseというクラスを継承している必要がある</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-429" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-429" name="check-429" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Activerecord::baseによって、レコードをインスタンスとして扱うことができる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-430" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-430" name="check-430" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Activerecordは、メソッドをSQLに変換することでデータベースとのやりとりを楽にしてくれる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope">コンソールからレコードを作成してみよう</h2>
+
+<p class="ng-scope">続いて、コンソールからレコードを作成してみます。コンソールからレコードを作成するには<code>create</code>メソッドを使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> コンソールで以下のコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="o">[</span>2<span class="o">]</span> pry<span class="o">(</span>main<span class="o">)</span>&gt; Tweet.create<span class="o">(</span>name: <span class="s2">"takashi"</span>, text: <span class="s2">"Nice to meet you!"</span><span class="o">)</span>
+<span class="c"># 新しいレコードの作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sequel proを起動し、tweetsテーブルを確認してください</h3>
+
+<p class="ng-scope">以下のように、tweetsテーブルに新しくレコードが追加されていればOKです。</p>
+
+<p class="ng-scope"><img src="6a9c6c8ed29dd73d925fb1b27d92af31.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//6a9c6c8ed29dd73d925fb1b27d92af31.png" title="HTML構造"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="300" action="http://master.tech-camp.in/curriculums/13#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-431" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-431" name="check-431" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コンソールから、tweetsテーブルに新規レコード作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">コンソールからテーブルの情報を更新しよう</h2>
+
+<p class="ng-scope">ActiveRecordを利用して、あるテーブルのレコードの情報を更新してみましょう。</p>
+
+<p class="ng-scope">以下はその例になります。</p>
+
+<p class="ng-scope">まずは、テーブルからレコードを一つ取り出し、変数tweetに代入します。</p>
+
+<p class="ng-scope">今回はfindメソッドを使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_306"></i> findメソッド</h3>
+
+<p class="ng-scope">findメソッドは引数に指定したidにあたる作品情報を1件だけ取得します。 もし、そのidにあたる作品が存在しない場合、エラーが発生します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>pry<span class="o">(</span>main<span class="o">)</span>&gt; <span class="nv">tweet</span> <span class="o">=</span> Tweet.find<span class="o">(</span>1<span class="o">)</span>
+<span class="o">=</span>&gt;&lt;Tweet id:1, text:<span class="s2">"こんにちは!"</span>, created_at:nil, updated_at:nil, name:<span class="s2">"ken"</span>, image:nil &gt;
+<span class="c"># Tweetsテーブルからidが1のレコードを取得し、tweetという変数に代入</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この時、変数tweetにはActiveRecord::baseというクラスを継承したtweetクラスのインスタンスが代入されることになります。</p>
+
+<p class="ng-scope">ターミナルで表示されている=&gt;以降を見ると、tweetsテーブルのカラムとそのレコードが保持しているそれぞれのカラムの値がハッシュ形式で表示されていることがわかります。</p>
+
+<p class="ng-scope">さらに、以下の例のようにすることで、このtweetの持つカラムの値を更新することができます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">tweet</span> <span class="o">=</span> Tweet.find<span class="o">(</span>1<span class="o">)</span>   <span class="c">#ツイートテーブルからidカラムの値が1のレコードをインスタンスとして取得</span>
+  tweet.name <span class="o">=</span> <span class="s2">"abe"</span>  <span class="c">#取ってきたレコードのnameというカラムを、"abe"という値に上書き</span>
+  tweet.save   <span class="c">#更新したレコードを再び保存</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_307"></i> レコードの更新</h3>
+
+<p class="ng-scope">テーブルに保存されているレコードを更新するにはそのレコードをインスタンスとして取得し、カラムを指定して値を直接代入します。上書きするだけではレコードの値は更新されないので、上書きを保存するにはインスタンスの<strong>saveメソッド</strong>を使います。<br>
+　</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  インスタンス.カラム名 <span class="o">=</span> 上書きしたい値  <span class="c"># 指定したカラムに値を代入</span>
+  インスタンス.save                   <span class="c"># 更新した情報を保存する</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">【例】</h3>
+
+<p class="ng-scope">idが1のユーザーのnameを"Shinbo"から"Abe"に更新する</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">user</span> <span class="o">=</span> User.find<span class="o">(</span>1<span class="o">)</span>    <span class="c"># Usersテーブルのidが1のレコードを取得</span>
+  p user.name
+  <span class="o">=</span>&gt; <span class="s2">"Shinbo"</span>            <span class="c"># nameカラムの値は"Shinbo"</span>
+  user.name <span class="o">=</span> <span class="s2">"Abe"</span>  <span class="c"># nameカラムの値を"Abe"に上書き</span>
+  user.save              <span class="c"># 変更をデータベースに反映</span>
+  p user.name         
+  <span class="o">=</span>&gt; <span class="s2">"Abe"</span>               <span class="c"># nameカラムの値が"Abe"に更新された</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><i class="icon attention"></i> saveメソッドを呼び出すまではインスタンスの値が更新されてはいますが、<strong>データベース上には保存されていない状態</strong>です。データベースに更新を反映させるときはsaveメソッドを使うことを忘れないようにしましょう。</p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">以上の例にならい、実際にレコードを更新しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>【作業】以下の手順で、レコードを更新してみましょう。</h3>
+
+<p class="ng-scope"><strong>①コンソールを起動する</strong></p>
+
+<p class="ng-scope">ターミナルからrails cコマンドでコンソールを立ち上げましょう。</p>
+
+<p class="ng-scope"><strong>②tweetsテーブルからidが1のレコードを取得し、変数に代入する</strong></p>
+
+<p class="ng-scope">コンソールで以下のように書き、実行しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>pry<span class="o">(</span>main<span class="o">)</span>&gt; <span class="nv">tweet</span> <span class="o">=</span> Tweet.find<span class="o">(</span>1<span class="o">)</span>
+<span class="o">=</span>&gt;&lt;<span class="c">#Tweet id:1, text:"どうも！", created_at:nil, updated_at:nil, name:"takumi", image:nil &gt;</span>
+<span class="c"># Tweetsテーブルからidが1のレコードを取得し、tweetという変数に代入</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>③取得したレコードのtextカラムの中身を、「さようなら！」に更新する</strong></p>
+
+<p class="ng-scope">コンソールで以下のように書き、実行しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  pry<span class="o">(</span>main<span class="o">)</span>&gt; tweet.text <span class="o">=</span> <span class="s2">"さようなら！"</span>
+  <span class="c">#取ってきたレコードのtextカラムを、"さようなら"という値に上書き</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>④上書きしたレコードを再度保存する</strong></p>
+
+<p class="ng-scope">コンソールで以下のように書き、実行しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  pry<span class="o">(</span>main<span class="o">)</span>&gt; tweet.save
+  <span class="c">#上書きしたレコードを再保存</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以上で、tweetsテーブルにあるidが1のレコードのtextカラムを「さようなら！」に更新することができました。</p>
+
+<p class="ng-scope">最後に、もう一度レコードを取得し、正しく上書きできているか確認してみましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">コンソール</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  pry<span class="o">(</span>main<span class="o">)</span>&gt; <span class="nv">tweet</span> <span class="o">=</span> Tweet.find<span class="o">(</span>1<span class="o">)</span>
+  <span class="o">=</span>&gt;&lt;<span class="c">#Tweet id:q, text:"さようなら！", created_at:nil, updated_at:nil, name:"takumi", image:nil &gt;</span>
+  <span class="c">#正しく上書きできているかを確認</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">textの値が"さようなら！"になっていることがわかります。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">以上でこの章は全て終了ですが、ActiveRecordのメソッドについては今後もよく使うので、マスターしてもらいたいと思っています。</p>
+
+<p class="ng-scope">そこで、ActiveRecordのメソッドをまとめたドリルを用意してありますので、次の章に進む前に<a href="http://master.tech-camp.in/curriculums/117">Railsドリル1</a>をやることをオススメします。</p>
+
+<p class="ng-scope">→ <a href="http://master.tech-camp.in/curriculums/117">Railsドリル1に挑戦する</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"><div class="ng-scope">
+  <p>テストを受けた回数：<span class="ng-binding">1回</span></p>
+  <p>最高得点：<span class="ng-binding">100点</span></p>
+  <!-- ngIf: curriculum.short_test.has_passed --><div class="ng-scope" ng-if="curriculum.short_test.has_passed">
+    <p>合否：<span class="pass">合格</span></p>
+  </div><!-- end ngIf: curriculum.short_test.has_passed -->
+  <!-- ngIf: !curriculum.short_test.has_passed -->
+</div></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">キーワード</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">モデルとテーブルを理解する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">モデルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">テーブルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">一度変更したデータベースの状態を元に戻そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents7" ng-click="clickContent(content.h1.id)">レコードの作成</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents8" ng-click="clickContent(content.h1.id)">コンソールでの操作を学習する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">コンソールからレコード呼び出してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">ActiveRecord::Baseメソッド</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">コンソールからレコードを作成してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">コンソールからテーブルの情報を更新しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">19 / 19<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/13">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

@@ -1,0 +1,42 @@
+/* ::::: http://ref.xaio.jp/system/style.css ::::: */
+
+body { margin: 0px; padding: 0px; background-color: gray; color: black; }
+div#container { width: 85%; margin: 0px auto; padding: 6px 1em 1px; background-color: white; }
+h1, h2, h3, p, ul, ol, pre, blockquote, table { margin-top: 0px; margin-bottom: 1em; }
+p { line-height: 1.4; }
+a:link { color: blue; }
+a:visited { color: purple; }
+a.external:link { color: rgb(51, 102, 187); }
+a.external:visited { color: rgb(187, 51, 102); }
+code, pre { font-size: 1em; }
+pre { overflow: hidden; }
+h1 { font-size: 1.5em; }
+h2 { font-size: 1.2em; }
+div#system_menu { font-size: 86%; color: black; border: 1px solid silver; background-color: rgb(248, 248, 248); padding: 2px 6px; margin-bottom: 16px; }
+div#system_menu p { margin: 0px; display: inline; }
+div#system_menu form { margin: 0px 2em; display: inline; }
+div#system_menu a { text-decoration: none; }
+form.search_menu input.search_text { font-size: 12px; width: 100px; }
+form.search_menu input.search_submit { font-size: 12px; height: 22px; }
+p.system_footer { color: gray; font-size: 75%; text-align: center; margin-bottom: 8px; }
+div.article_title { margin: 0px 0px 1em; }
+div.article_title h1 { display: inline; margin: 0px; padding-right: 1em; }
+div.article_title p { display: inline; margin: 0px; vertical-align: 2px; font-size: 86%; }
+/* ::::: http://ref.xaio.jp/ruby/style.css ::::: */
+
+body { font-family: Meiryo,"Trebuchet MS"; }
+h2 { margin-top: 1em; }
+li { line-height: 1.5; }
+pre, code, .code, var, p.visibility { font-family: Consolas,"Courier New","MS Gothic"; }
+p code, p var, dd code { padding: 0px 2px; }
+pre.sample { padding: 4px 6px; background-color: rgb(240, 240, 240); margin-bottom: 8px; }
+pre.without_result { margin-bottom: 1em; }
+pre.result { padding: 4px 6px; background-color: gray; color: white; }
+pre.format { padding: 6px; border: 2px solid rgb(136, 136, 221); clear: both; }
+p.visibility { color: white; background-color: rgb(136, 136, 221); font-size: 11px; width: 60px; margin: 0px; padding: 2px 6px; line-height: 1; }
+div.article_title, h2 { font-weight: normal; border-bottom: 1px solid gray; }
+p.crumb { font-size: 85%; }
+p.footer { font-size: 75%; background-color: rgb(240, 240, 240); padding: 2px 16px; width: 95%; margin: 40px auto 1em; }
+p.footer a { text-decoration: none; margin-right: 1.5em; }
+p.system_footer { margin-top: 12px; }
+p.system_footer a { text-decoration: none; }

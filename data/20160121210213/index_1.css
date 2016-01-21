@@ -1,0 +1,53 @@
+/* ::::: http://jsfiddle.net/css/embed/embed-light.css?update_05_01_2016_1 ::::: */
+
+*, html, body, button, input, textarea, select { -moz-osx-font-smoothing: grayscale; }
+a { color: rgb(57, 70, 78); text-decoration: none; }
+a:hover { text-decoration: underline; }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td { margin: 0px; padding: 0px; }
+ol, ul { list-style: outside none none; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+:-moz-placeholder { color: rgb(171, 185, 194); }
+*::-moz-placeholder { color: rgb(171, 185, 194); }
+html { height: 100vh; }
+body { font-family: "Lato","Helvetica Neue","Arial","Verdana","Tahoma","Lucida Sans","FreeSans","Lucida Sans Unicode","Luxi Sans",sans-serif; overflow: hidden; padding: 0px; margin: 0px; position: relative; font-size: 14px; color: rgb(57, 70, 78); }
+a:hover { text-decoration: none; }
+#wrapper { position: relative; }
+header { height: 50px; box-shadow: 0px 0px 5px rgba(57, 70, 78, 0.2); z-index: 100; position: fixed; top: 0px; left: 0px; right: 0px; }
+header h1 { float: right; height: 50px; margin: 0px 0px 0px 10px; }
+header h1 a { display: block; height: 50px; line-height: 50px; color: rgb(127, 148, 161); font-size: 12px; padding-right: 45px; margin-right: 10px; background: transparent url('logo-dark.png') no-repeat scroll 100% 50%; }
+@media not all, only screen and (min--moz-device-pixel-ratio: 2), not all, only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+	header h1 a { background: transparent url('logo-dark@2x.png') no-repeat scroll 100% 50% / 37px auto; }
+}
+header h1 a:hover { text-decoration: underline; }
+#actions li { float: left; }
+#actions li a { display: block; padding: 0px 10px; line-height: 50px; height: 50px; }
+#actions .hl { height: 3px; width: 0px; background: rgb(28, 144, 243) none repeat scroll 0% 0%; position: absolute; bottom: 0px; left: 0px; }
+#tabs { margin-top: 50px; overflow: auto; height: calc(100vh - 50px); }
+#tabs .tCont { padding: 10px; display: none; }
+#tabs .tCont.active { display: block; }
+#tabs pre { background: transparent none repeat scroll 0% 0%; font-family: "Fira Mono","Monaco",sans-serif; line-height: 1.55em; font-size: 12px; }
+#tabs #result { padding: 0px; height: calc(100vh - 50px); }
+#tabs #result iframe { width: 100%; height: 100%; border: medium none; display: block; margin: 0px; }
+.hljs-variable, .hljs-template-variable, .hljs-regexp, .hljs-deletion, .hljs-keyword, .hljs-selector-id, .hljs-selector-class, .hljs-selector-tag, .hljs-attr { color: rgb(227, 136, 0); }
+.hljs-selector-id, .hljs-selector-class, .hljs-selector-tag, .hljs-attr { color: rgb(231, 118, 0); }
+.hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: rgb(42, 171, 81); }
+.hljs-title, .hljs-section, .hljs-name { color: rgb(250, 61, 88); }
+.hljs { display: block; overflow-x: auto; }
+header { background-color: rgb(255, 255, 255); }
+body { background-color: rgb(243, 245, 246); }
+/* ::::: http://fonts.googleapis.com/css?family=Fira+Mono&subset=latin,latin-ext ::::: */
+
+@font-face {
+	font-family: "Fira Mono";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Fira Mono"), local("FiraMono"), url('4jbdq56cmku462bp0t-w9jbw1xu1rkptjj_0jans920.woff2') format("woff2");
+}
+/* ::::: http://fonts.googleapis.com/css?family=Lato:400%27 ::::: */
+
+@font-face {
+	font-family: "Lato";
+	font-style: normal;
+	font-weight: 400;
+	src: local("Lato Regular"), local("Lato-Regular"), url('mdadn8dq_3ot6kvnuq_2r_eszw2xoq-xsnqo47m55da.woff2') format("woff2");
+}

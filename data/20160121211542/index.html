@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>ページを表示させよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発1 第2章<small class="ng-binding">〜ページを表示させよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    高さ468ｍを誇るテレビ塔で、上海のシンボル。球体部分が展望台となっており、どの展望台からも周囲360度がぐるりと見渡せる。アジア第１位のテレビ塔です。<a class="ng-binding" href="https://www.flickr.com/photos/eugenelimphotography/9343947688" target="_top">Eugene Lim - Lujiazui Skyline</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">ルーティング、コントローラー、ビューについて理解し、指定したウェブページを表示出来るようにしましょう</p>
+
+<h1 id="2" class="ng-scope">学習キーワード</h1>
+
+<p class="ng-scope">・ルーティング<br><br>
+・コントローラー<br><br>
+・ビュー<br></p>
+
+<h1 id="3" class="ng-scope">ルーティングの設定</h1>
+
+<p class="ng-scope">このセクションでは、指定したURLのウェブページを表示できるようにします。そのために、まずはwebサービスの基本的な仕組みから学習をしていきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_270"></i> リクエストとレスポンス</h3>
+
+<p class="ng-scope">ユーザーがPCやスマートフォンを使ってウェブサイトにアクセスした時、PCからは<strong>リクエスト</strong>というものが送信されます。それに対して、リクエストを受け取ったサーバーはリクエストに対して適切な<strong>レスポンス</strong>を返します。これが基本的なウェブサイトの仕組みになっています。</p>
+
+<p class="ng-scope"><img src="001.png" alt="リクエストとレスポンス"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_271"></i> ルーティング、コントローラー、ビュー</h3>
+
+<p class="ng-scope">Railsはサーバーの中で、送られてきたリクエストに対して適切なレスポンスを返す処理を行なっています。※厳密には違いますが、あえて簡略化して説明しています。</p>
+
+<p class="ng-scope"><img src="002.png" alt="ルーティング、コントローラー、ビュー"></p>
+
+<p class="ng-scope">Railsは行う処理の違いによっていくつかのパートが存在しています。リクエストに対してレスポンスを返す際には、ルーティング、コントローラー、ビューという3つのパートがそれぞれ異なる役割を持って処理を行います。<br>
+また、その処理は<strong>ルーティング→コントローラー→ビューという順番</strong>で行われます。個々の役割はのちほど解説しますので、ここでは処理の順番だけを理解しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_272"></i> ルーティング</h3>
+
+<p class="ng-scope">ルーティングには、送られてきた<strong>リクエストに対してどのコントローラーのアクションを動かすのかを設定</strong>しておきます。コントローラーとアクションについては後で解説していきますので、今はそういうものがあると理解しておけば大丈夫です。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<p class="ng-scope">リクエストA　→　コントローラーXのアクションα<br><br>
+リクエストB　→　コントローラーYのアクションβ<br></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_273"></i> routes.rb</h3>
+
+<p class="ng-scope">Railsではルーティングを<code>config/routes.rb</code>に記述します。このファイルを編集していくことで、新しいルーティングを設定したり、ルーティングを削除したりすることが出来ます。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> config
+    <ul>
+      <li class="t-file"> routes.rb</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> routes.rbを以下のように編集しましょう</h3>
+
+<h4 class="ng-scope">
+<i class="icon attention"></i> routes.rbに最初から書かれている記述はroutes.rbの記述方法のサンプルです。全て削除して、何も書かれていない状態にしてから編集を始めましょう。</h4>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> config
+    <ul>
+      <li class="t-file"> routes.rb</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="s1">'tweets'</span> <span class="o">=&gt;</span> <span class="s1">'tweets#index'</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="278" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-389" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-389" name="check-389" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ルーティングを正しく設定出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">ルーティングはRails.application.routes.draw doとendで挟まれた中の部分が重要な意味を持ちます。<br>
+今新たに記述した<code>get 'tweets' =&gt; 'tweets#index'</code>を見てください。<br>
+まずは、<code>get 'tweets'</code>の部分ですが、これはパソコンから次のようなURLでサイトにアクセスしたときのイメージしてください。</p>
+
+<p class="ng-scope"><img src="003.png" alt="パス"></p>
+
+<p class="ng-scope">localhost:3000の部分はホスト名と呼ばれる部分で環境によって変わるので今は気にしなくて大丈夫です。ここで重要なのはパスと呼ばれる/tweetsの部分です。<strong>ルーティングはパスに対応してどのコントローラーのアクションを動かすかを設定</strong>します。</p>
+
+<p class="ng-scope">次に<code>'tweets#index'</code>の部分です。</p>
+
+<p class="ng-scope"><img src="004.png" alt="ルーティング"></p>
+
+<p class="ng-scope">tweetsの部分はコントローラー名、#の後のindexの部分はアクションを指します。<br>
+コントローラーとアクションについては今後学んでいくので、今はルーティングについてのみ理解できれば大丈夫です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="279" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-390" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-390" name="check-390" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ウェブサイトはPCからリクエストを送り、サーバーがレスポンスを返すことで成り立っている</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-391" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-391" name="check-391" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ルーティング→コントローラー→ビューの順で処理が進んでいく</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-392" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-392" name="check-392" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ルーティングにはコントローラーのアクションを動かすのかを設定しておく</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-393" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-393" name="check-393" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">railsではルーティングを<code>routes.rb</code>に記述する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-394" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-394" name="check-394" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ルーティングにはリクエストのパスに対してどのコントローラーのアクションを動かすかを設定する</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="4" class="ng-scope">コントローラーの作成</h1>
+
+<p class="ng-scope">Railsでの処理はルーティング→コントローラー→ビューの流れで行われていることを学習しました。ルーティングの設定が終わったので、次はコントローラーの作成を行ないたいと思います。</p>
+
+<h2 id="5" class="ng-scope">コントローラーファイルを作成しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_274"></i> コントローラー</h3>
+
+<p class="ng-scope">コントローラーはルーティングとビューをつなぐ役割を持っています。リクエストが送られてきた際にルーティングが読まれると、それに対応するコントローラーが動きます。コントローラーでの処理が終わると、そのコントローラーから指定したビューが読みこまれます。このように<strong>コントローラーはルーティングからビューへと処理を受け渡す役割</strong>を持っています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_275"></i> rails g controller コマンド</h3>
+
+<p class="ng-scope">コントローラーを作成するためにはrails g controllerコマンドというものを使用します。このコマンドを使用することによってコントローラーに関するファイルを自動で作成してくれます。実際に使用する際には「rails g controller コントローラー名」というように<strong>作成したいコントローラーの名前を後ろに付けて実行</strong>します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails g controller コントローラー名
+  <span class="c"># コントローラーを作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">※ ちなみに、<code>rails g controller</code>の<code>g</code>とは「generate」を省略したものです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを実行しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c"># pictweetディレクトリに移動</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/pictweet
+  <span class="c"># pictweetディレクトリにいることを確認</span>
+  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="o">=</span>&gt; /Users/ユーザー名/projects/pictweet
+  <span class="c"># コントローラーを作成</span>
+  <span class="nv">$ </span>rails g controller tweets
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">正しく作成できれば以下の様な出力結果が表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  create  app/controllers/tweets_controller.rb
+  invoke  erb
+  create    app/views/tweets
+  invoke  test_unit
+  create    <span class="nb">test</span>/controllers/tweets_controller_test.rb
+  invoke  helper
+  create    app/helpers/tweets_helper.rb
+  invoke    test_unit
+  create      <span class="nb">test</span>/helpers/tweets_helper_test.rb
+  invoke  assets
+  invoke    coffee
+  create      app/assets/javascripts/tweets.js.coffee
+  invoke    scss
+  create      app/assets/stylesheets/tweets.css.scss
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="280" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-395" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-395" name="check-395" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーを正しく作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_276"></i> コントローラーファイル</h3>
+
+<p class="ng-scope">コマンドを正しく実行出来ると、出力結果が表示されます。この出力結果の一番最初の行に注目してください。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>create  app/controllers/tweets_controller.rb
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">と書いてあります。これは<code>create</code>以下のファイルを新しく作成したことを意味しています。作成されたファイルは<code>app/controllers/tweets_controller.rb</code>となっているので、<code>app/controllers</code>というディレクトリに<code>tweets_controller.rb</code>というコントローラーファイルが作成されたことを意味しています。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> controllers
+        <ul>
+          <li class="t-file"> tweets_controller.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">さきほどコマンドを実行する際に、<code>rails g controller</code>のあとに<code>tweets</code>と付けて実行したことを思い出してください。この<code>tweets</code>はコントローラー名を表しているので、その結果<code>tweets_controller.rb</code>というコントローラーファイルが作成されました。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_277"></i> rails d controller コマンド</h3>
+
+<p class="ng-scope">先ほど、コントローラーを作成する際に「rails g controller」コマンドを使用して作成を行ないました。この時にコントローラー名を間違えて作成してしまった場合、<strong>「rails d controller」コマンドを使用してコントローラーファイルを削除する</strong>ことが出来ます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails d controller コントローラー名
+   <span class="c"># 作成したコントローラーを削除</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">※ ちなみに、<code>rails d controller</code>の<code>d</code>とは「destroy」を省略したものです。</p>
+
+<p class="ng-scope">このコマンドを使用する際には間違えて作成したコントローラー名を後ろにつけて実行します。このコマンドで削除を実行すると、コントローラーを作成した際に自動的に作られた<strong>関連ファイルも同時に削除されるので非常に便利</strong>です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="281" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-396" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-396" name="check-396" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーはルーティングからビューへと処理を受け渡す役割を持っている</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-397" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-397" name="check-397" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rails g controllerコマンドでコントローラーを簡単に作成出来る</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-398" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-398" name="check-398" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rails g controllerコマンドを実行すると「コントローラー名_controller.rb」というファイルが作成される</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-399" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-399" name="check-399" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rails d controllerコマンドを実行するとコントローラーファイルを削除出来る</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">コントローラーファイルを編集しよう</h2>
+
+<p class="ng-scope">さきほどの作業によってコントローラーファイルが作成されました。しかし、作成されたのはコントローラーのひな形のみで、ページを表示させるのに必要なアクションは書かれていません。そこで、コントローラーファイルを編集してアクションを追加していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Sublime Textでtweets_controller.rbというファイルを開いてください</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> controllers
+        <ul>
+          <li class="t-file"> tweets_controller.rb</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweets_controller.rbを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controlers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="282" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-400" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-400" name="check-400" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">tweets_controller.rbを正しく編集することが出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_278"></i> コントローラーのクラス</h3>
+
+<p class="ng-scope"><code>tweets_controller.rb</code>の一番最初の行に<code>TweetsController</code>と記述してあるのに注目してください。これはコントローラーにおけるクラスを示しています。コントローラークラスはコントローラーのファイル名(tweets_controller.rb)から、単語の先頭を大文字にしてアンダーバーを取った名前(TweetsController)になります。Railsにおいて名前は重要な意味を持っているので、クラス名が違ったりすると正常に動かなくなります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_279"></i> アクション</h3>
+
+<p class="ng-scope"><strong>アクションとはコントローラーに存在するインスタンスメソッド</strong>のことを指します。<br>
+さきほどの編集でTweetsControllerクラスにindexというインスタンスメソッドを作成しました。つまりこれはindexというアクションを作成したことを意味します。コントローラーは複数のアクションを持つことが可能なので、index以外のアクションを追加することが可能です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_280"></i> ルーティングからコントローラーまでの流れ</h3>
+
+<p class="ng-scope">ここまでで、ルーティングからコントローラーまでの流れを説明しました。下の図でリクエスト→ルーティング→コントローラーの流れを今一度、整理してみましょう。</p>
+
+<p class="ng-scope"><img src="005.png" alt="ルーティングからコントローラーまでの流れ"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="283" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-401" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-401" name="check-401" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラーのクラスはファイル名から単語の先頭を大文字にしてアンダーバーを取った名前で作成される</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-402" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-402" name="check-402" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コントローラークラスのインスタンスメソッドはアクションと呼ばれる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-403" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-403" name="check-403" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">リクエスト→ルーティング→コントローラーの流れで処理が行われる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="7" class="ng-scope">ビューの作成</h1>
+
+<p class="ng-scope">ルーティングの設定、コントローラーの作成が終わったので、続いてはビューの作成を行ないます。ビューはウェブページにおいて見た目を担当する部分です。</p>
+
+<h2 id="8" class="ng-scope">ビューファイルを作成しよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.html.erbというファイルを以下のディレクトリに作成しましょう。ファイルには何も記述しなくて結構です。</h3>
+
+<p class="ng-scope">Sublime Textの場合「tweets」を右クリックして「New File」を押すことで新規ファイルを作成することができます。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> index.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="284" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-404" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-404" name="check-404" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューファイルを正しく作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_281"></i> ビューファイル</h3>
+
+<p class="ng-scope">以前にルーティング→コントローラー→アクション→ビューの順番に処理が進むことを説明しました。ビューファイルはウェブサイトにおける見た目の部分を担当していて、<strong>レスポンスとして返されるのがビューファイルのデータ</strong>というわけです。ビューファイルの拡張子は<code>html.erb</code>ですが、これはrubyのコードを書くことが出来るHTMLファイルだと理解しておきましょう。</p>
+
+<h3 class="ng-scope">ビューのきまり</h3>
+
+<p class="ng-scope">ビューファイルは<strong>コントローラーのメソッドひとつにつき、ひとつ存在</strong>しています。今回作成したビューファイルは「tweets」ディレクトリの中に「index.html.erb」という名前で作成しました。つまりこれは「tweets」コントローラーの「index」アクションのビューファイルであることを示しています。このように<strong>ビューファイルはコントローラーと同じ名前のフォルダ内にあるアクション名と同じファイル名のものが適用される</strong>というrailsの決まりがあります。</p>
+
+<p class="ng-scope"><img src="006.png" alt="ビューのきまり"></p>
+
+<h3 class="ng-scope">ビューの種類</h3>
+
+<p class="ng-scope">Railsから生成できるビューの情報は、htmlの他にjsonという形式などがあります。</p>
+
+<p class="ng-scope">今回のようにwebブラウザにて表示するビューファイルを生成する場合は<code>◯◯.html.erb</code>というビューファイルを用意します。</p>
+
+<p class="ng-scope">iOSアプリケーションやAndroidアプリケーションなどに情報を渡したい場合は<code>json</code>という形式で情報を渡すように設計します。</p>
+
+<p class="ng-scope"><img src="102.png" alt="htmlとjson形式"></p>
+
+<p class="ng-scope">ただし、iOSアプリケーションやAndroidアプリケーションなどを作る場合は、html/cssの代わりに<strong>Swift</strong>や<strong>Java</strong>といった言語を利用してビューを作る必要があります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="285" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-405" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-405" name="check-405" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューはウェブサービスの見た目の部分を担当している</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-406" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-406" name="check-406" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューはコントローラーと同じ名前のフォルダ内にあるアクション名と同じファイル名のものが適用される</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope">ビューファイルを編集しよう</h2>
+
+<p class="ng-scope">ビューファイルを作成したので、ウェブページを表示するために必要なものは完成しました。ただ、現在の状態だとビューファイルの中身が白紙なので、真っ白のページしか表示されません。そのため、今からビューファイルを編集していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.html.erbを以下のように編集してください</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> tweets
+            <ul>
+              <li class="t-file"> index.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;p&gt;</span>Hello World!<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="286" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-407" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-407" name="check-407" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ビューファイルを正しく編集することが出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_282"></i> レイアウトファイル</h3>
+
+<p class="ng-scope">app/views/layouts以下にあるファイルはレイアウトファイルと呼ばれるビューファイルです。レイアウトファイルは、それぞれのビューファイルが読み込まれる前に読み込まれます。つまり、このファイルにそれぞれのビューの共通部分(ヘッダーやフッターなど)を定義しておくことで、同じコードを省略することができます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> layouts
+            <ul>
+              <li class="t-file"> レイアウトファイル</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> application.html.erbというファイルを開いて内容を確認しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> layouts
+            <ul>
+              <li class="t-file"> application.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/layouts/application.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;!DOCTYPE html&gt;</span>
+  <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;title&gt;</span>PicTweet<span class="nt">&lt;/title&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+
+    <span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+
+    <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>application.html.erb</code>の11行目の<code>&lt;%= yield %&gt;</code>という部分に注目してください。これはこの部分をそれぞれのビューファイルに置き換えるということを示しています。つまり、今回の場合、<code>index.html.erb</code>に<code>&lt;p&gt;Hello World!&lt;/p&gt;</code>と記述しただけで、<code>index.html.erb</code>は以下のように編集するのと同じことになります。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;!DOCTYPE html&gt;</span>
+  <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;title&gt;</span>PicTweet<span class="nt">&lt;/title&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+
+    <span class="nt">&lt;p&gt;</span>Hello World!<span class="nt">&lt;/p&gt;</span>
+
+    <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="287" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-408" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-408" name="check-408" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text"><code>&lt;%= yield %&gt;</code>について理解することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">この編集によって<code>index.html.erb</code>が使用された際に、「Hello World!」と表示されるようになりました。今から実際にウェブページが表示されるのかを確認していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで下記のコマンドを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/pictweet
+  <span class="c"># アプリケーションのあるディレクトリに移動</span>
+
+  <span class="nv">$ </span>rails s
+  <span class="c"># テストサーバーを起動</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">テストサーバーが正しく起動できていれば、以下の様な出力結果が表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="o">=</span>&gt; Booting <span class="nv">WEBrick</span>
+<span class="o">=</span>&gt; Rails 4.1.6 application starting in development on http://0.0.0.0:3000
+<span class="o">=</span>&gt; Run <span class="sb">`</span>rails server -h<span class="sb">`</span> <span class="k">for</span> more startup <span class="nv">options</span>
+<span class="o">=</span>&gt; Notice: server is listening on all interfaces <span class="o">(</span>0.0.0.0<span class="o">)</span>. Consider using 127.0.0.1 <span class="o">(</span>--binding option<span class="o">)</span>
+<span class="o">=</span>&gt; Ctrl-C to shutdown server
+<span class="o">[</span>2014-10-10 21:20:15<span class="o">]</span> INFO  WEBrick 1.3.1
+<span class="o">[</span>2014-10-10 21:20:15<span class="o">]</span> INFO  ruby 2.1.2 <span class="o">(</span>2014-05-08<span class="o">)</span> <span class="o">[</span>x86_64-darwin13.0<span class="o">]</span>
+<span class="o">[</span>2014-10-10 21:20:15<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span><span class="m">8328</span> <span class="nv">port</span><span class="o">=</span>3000
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="288" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-409" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-409" name="check-409" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">テストサーバーを起動することが出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_283"></i> rails s コマンド</h3>
+
+<p class="ng-scope">アプリケーションを動かすためにはサーバーを立ち上げる必要があります。「rails s」コマンドはアプリケーションを動かすためのテストサーバーを起動するためのコマンドです。<code>rails s</code>の<code>s</code>とはserverを省略したものです。</p>
+
+<p class="ng-scope">テストサーバーが起動したので、アプリケーションが正しく動いているかを確認しましょう。テストサーバーでアプリケーションを立ち上げる場合のURLはパスの前に<code>http://localhost:3000</code>がついたものになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ブラウザで下記のURLにアクセスしてください</h3>
+
+<h4 class="ng-scope"><a href="http://localhost:3000/tweets">http://localhost:3000/tweets</a></h4>
+
+<p class="ng-scope"><img src="007.png" alt="Hello_World"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="289" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-410" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-410" name="check-410" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「Hello World!」と表示されている</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_284"></i> control c コマンド</h3>
+
+<p class="ng-scope">rails sコマンドで立ち上げたサーバーは「control + c」(<strong>controlボタン</strong>と<strong>c</strong>を同時押ししてください)<br>
+でシャットダウンできます。サーバーを立ち上げたままだとコマンド入力などはできないので、テストサーバーでの確認作業が終わったらシャットダウンしましょう。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>^C<span class="o">[</span>2014-10-30 10:00:16<span class="o">]</span> INFO  going to shutdown ...
+<span class="o">[</span>2014-10-30 10:00:16<span class="o">]</span> INFO  WEBrick::HTTPServer#start <span class="k">done</span>.
+Exiting
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="290" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-411" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-411" name="check-411" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「rails s」コマンドでテストサーバーを起動することができる</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-412" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-412" name="check-412" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「control + c」コマンドでテストサーバーをシャットダウンすることができる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルのタブを切り替えて作業する</h3>
+
+<p class="ng-scope">「control + c」を打って「rails s」で立ち上げたサーバーをシャットダウンした場合、再度「rails s」を実行しなければブラウザ上で表示を確認することが出来ません。<br>
+そこで、ブラウザで複数のタブを使用するようにターミナルでも「タブ」を活用してみましょう。</p>
+
+<p class="ng-scope"><strong>「command + t」</strong>を押してみて下さい。下記のようにターミナルの上部にタブが表示されます。<br>
+タブをクリックすることでタブを切り替えることが出来ます。</p>
+
+<p class="ng-scope"><img src="958cba09c2dc48bde36ed46917ddef4b.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//958cba09c2dc48bde36ed46917ddef4b.png"></p>
+
+<p class="ng-scope">今後、片方のタブで「rails s」を行い、もう片方のタブで作業すると、確認の度に「rails s」を打たなくても作業が進められます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1532" action="http://master.tech-camp.in/curriculums/12#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2166" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2166" name="check-2166" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルでタブを表示することが出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="10" class="ng-scope">アプリケーション開発に挑戦</h1>
+
+<p class="ng-scope">ここまで学習した知識を利用し、問題形式でアプリケーションを作成していきましょう。問題を解き、解説動画を確認しましょう。</p>
+
+<h3 class="ng-scope">問題に挑戦</h3>
+
+<p class="ng-scope">得た知識は、実際に活用しないと身につきません。そこで、Pictweetの開発と平行して「Nekotter」という別のアプリケーションも作成していただきます。</p>
+
+<p class="ng-scope">下記のリンク先にある「Nekotter作成問題」に挑戦しましょう。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/345" target="_top">Nekotterを開発しよう①</a></p>
+
+<h3 class="ng-scope">動画で開発の様子を確認</h3>
+
+<p class="ng-scope">問題を解き終えたら、実際にNekotterを開発しつつRailsのポイントに関して解説している動画を見て、理解を深めましょう。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/360" target="_top">Nekotter開発動画カリキュラム①</a></p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/361" target="_top">Nekotter開発動画カリキュラム②</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">学習キーワード</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">ルーティングの設定</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents4" ng-click="clickContent(content.h1.id)">コントローラーの作成</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">コントローラーファイルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">コントローラーファイルを編集しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents7" ng-click="clickContent(content.h1.id)">ビューの作成</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">ビューファイルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">ビューファイルを編集しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents10" ng-click="clickContent(content.h1.id)">アプリケーション開発に挑戦</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">25 / 25<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/12">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

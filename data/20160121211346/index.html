@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>Railsの開発環境をつくろう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Rails開発環境構築<small class="ng-binding">〜Railsの開発環境をつくろう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    宇宙からでも確認できるほど巨大な世界遺産、万里の長城。入り口からいきなり右と左にわかれています。あなたはどっちを選ぶ？<a class="ng-binding" href="https://www.flickr.com/photos/matianming/11622156285/" target="_top">Matt Ming - Great Wall</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope"><strong>Rails開発環境構築</strong></h1>
+
+<h1 id="2" class="ng-scope"><strong>はじめに</strong></h1>
+
+<p class="ng-scope">本章では、Ruby on Railsによる開発を行うための環境を構築します。</p>
+
+<h3 class="ng-scope">
+<i class="icon attention"></i> 本章での注意点</h3>
+
+<p class="ng-scope">本章を進める上での注意点が3つあります。</p>
+
+<h4 class="ng-scope">①<strong>現在利用中のMacで開発環境を構築したことがある場合</strong>、本章の内容に取り組む前に必ずメンターに連絡してください。</h4>
+
+<h4 class="ng-scope">②途中で何かエラーが発生した場合、必ず作業を中断し、メンターに連絡してください。</h4>
+
+<h4 class="ng-scope">③本章でターミナルにてコマンドを実行するときは、全てホームディレクトリから行ってください（ターミナルで一度 cd コマンドを実行し、ホームディレクトリに移動してからコマンドを入力してください）。</h4>
+
+<h2 id="3" class="ng-scope">事前に用意するもの</h2>
+
+<p class="ng-scope">以下のものを事前に準備しておいてください。</p>
+
+<p class="ng-scope">・<strong>Apple IDとパスワード</strong></p>
+
+<p class="ng-scope">・<strong>PC本体のパスワード</strong></p>
+
+<h2 id="4" class="ng-scope">Windowsユーザーの方へ</h2>
+
+<p class="ng-scope">Windowsユーザーの方はこの章で行う環境構築に関しては事前にvagrantを使って実行済みです。<br>
+そのためこの章は飛ばし、次の「はじめに」の章から再開をお願いします。</p>
+
+<h1 id="5" class="ng-scope"><strong>環境構築</strong></h1>
+
+<p class="ng-scope">以下に紹介する手順を順番に実行してください。</p>
+
+<h2 id="6" class="ng-scope">Command Line Toolsをインストールしよう</h2>
+
+<p class="ng-scope">まず、Homebrewというアプリケーションをインストールするのに必要なコマンドを使えるようにするため、<strong>Command Line Tools</strong>というものをインストールします。</p>
+
+<h3 class="ng-scope">1. Command Line Toolsのインストール</h3>
+
+<p class="ng-scope">①以下のリンク先にアクセスしてください。</p>
+
+<p class="ng-scope"><a href="https://developer.apple.com/downloads/index.action">Command Line Toolsのインストール</a></p>
+
+<p class="ng-scope">②アクセスするとまずApple IDとそのパスワードを要求されるので、入力してください。</p>
+
+<p class="ng-scope">③登録が初めての場合はいくつかの質問項目があるので、それらに答えて先に進んでください。</p>
+
+<p class="ng-scope">④登録が済むと、以下の画面になります。ページ左上から「Command Line Tools」を検索してください。</p>
+
+<p class="ng-scope"><img src="001.png" alt="投稿画面"></p>
+
+<p class="ng-scope">　<br>
+⑤すると、以下のようになります。Command Line Tools(OSX 10.X)となっているもののうち、自分のMacのOSのバージョンに合わせたものをインストールしましょう。</p>
+
+<p class="ng-scope"><img src="002.png" alt="投稿画面"></p>
+
+<p class="ng-scope">MacのOSのバージョンは、画面左上のりんごマークをクリック→「このMacについて」から調べることができます。</p>
+
+<p class="ng-scope"><strong>このMacについて</strong></p>
+
+<p class="ng-scope"><img src="010.png" alt="このMacについて"></p>
+
+<p class="ng-scope"><strong>バージョンの確認</strong></p>
+
+<p class="ng-scope"><img src="011.png" alt="OS X version"></p>
+
+<p class="ng-scope">以下の対応表に従ってインストールを進めてください。</p>
+
+<p class="ng-scope"><strong>対応表</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>x</strong>部分はどんな数字でも同じです。</p>
+
+<p class="ng-scope">また、該当するCommand Line Toolsが複数ある場合は<strong>上（最新）</strong>の物を選択してください。</p>
+
+<table class="wide ng-scope">
+  <thead>
+    <tr>
+      <th class="center">OS Xのバージョン</th>
+      <th class="center">Command Line Tools</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="center">10.10.x</td>
+      <td class="center"> Command Line Tools (OS X 10.10)for Xcode x.x.x </td>
+    </tr>
+    <tr>
+      <td class="center">10.9.x</td>
+      <td class="center"> Command Line Tools (OS X 10.9)for Xcode x.x.x </td>
+    </tr>
+    <tr>
+      <td class="center">10.8.x</td>
+      <td class="center"> Command Line Tools (OS X Mountain Lion)for Xcode x.x.x </td>
+    </tr>
+    <tr>
+      <td class="center">10.7.x</td>
+      <td class="center"> Command Line Tools (OS X Lion)for Xcode x.x.x </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="ng-scope">⑥ダウンロードしたCommand Line Toolsをインストールしてください。</p>
+
+<p class="ng-scope">以上です。</p>
+
+<h2 id="7" class="ng-scope">コマンドを順番に実行しよう</h2>
+
+<p class="ng-scope">以降は、基本的にはコマンドをターミナルからホームディレクトリ上で実行していくだけです。</p>
+
+<p class="ng-scope">以下の手順を見ながら、2.~20.までの【実行するコマンド】で示されているコマンドを１つずつ実行していってください。</p>
+
+<h3 class="ng-scope">2. Homebrewのインストール</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span>  <span class="c">#ホームディレクトリに移動</span>
+<span class="nv">$ </span><span class="nb">pwd</span> <span class="c">#ホームディレクトリにいるかどうか確認</span>
+<span class="nv">$ </span>ruby -e <span class="s2">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</span>  <span class="c">#コマンドを実行</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>※処理に時間がかかる可能性のあるコマンドです。</strong></p>
+
+<p class="ng-scope">Homebrewというアプリケーションをインストールするためのコマンドです。ターミナルを起動し、cd コマンドでホームディレクトリに移動してからコマンドを入力、実行してください。</p>
+
+<p class="ng-scope">すると、以下のようにパスワードを要求されます。</p>
+
+<p class="ng-scope">また Press RETURN to continue or any other key to abort と表示された行の後は、エンターキーを押してください。その後Passwordを入力する画面になります。何も入力がないとタイムアウトしてしまいパスワード入力の行まで進めません。</p>
+
+<p class="ng-scope"><img src="003.png" alt="投稿画面"></p>
+
+<p class="ng-scope">このパスワードは、ご自身のMacのパスワードです。</p>
+
+<p class="ng-scope">ターミナル上でパスワードを入力しても文字は表示されません。ですがちゃんと入力はされているので、打ち終わったらエンターキーを押してください。</p>
+
+<p class="ng-scope">その後、以下の画像の下部のように％表示がされ、再びコマンドを入力できるようになれば成功です。</p>
+
+<p class="ng-scope"><img src="004.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_350"></i> Homebrewについて</h3>
+
+<p class="ng-scope">Homebrewは、Mac OS上でのソフトウェア管理を行うソフトウェアのことです。これを使うことで、インターネット上から便利なアプリケーションを簡単にインストールしたり、そのバージョン管理をすることができます。<br>
+これからいくつかのアプリケーションをインストールするのですが、その管理のためにHomebrewをインストールします。</p>
+
+<h3 class="ng-scope">3.Homebrewがインストールされているか確認</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew -v
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Homebrewがインストールされているかを確認します。以下のように、Homebrewのバージョン情報が表示されれば無事にインストールされています。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew -v
+Homebrew 0.9.5
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">4.Homebrewのアップデート</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew update
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Homebrewを最新バージョンにするためのコマンドです。バージョンが既に最新である場合もあります。</p>
+
+<p class="ng-scope">Macのバージョンが10.11.1以上の方は、ターミナルから以下のコマンドを実行してください。バージョンは、ウィンドウ左上のリンゴマークをクリックし、「この Mac について」を押すと調べることができます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">権限の変更</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>sudo chown -R <span class="se">\`</span>whoami<span class="se">\`</span>:admin /usr/local/bin
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">5.rbenv と ruby-buildのインストール</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew install rbenv ruby-build
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Homebrewを使って、rbenv, ruby-buildという2種類のアプリケーションをインストールするためのコマンドです。</p>
+
+<p class="ng-scope">実行すると、以下のようになります。</p>
+
+<p class="ng-scope"><img src="006.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_351"></i> rbenvとruby-buildについて</h3>
+
+<p class="ng-scope">rbenvとruby-buildは、Rubyのバージョンを管理する際に組み合わせて使います。</p>
+
+<p class="ng-scope">ruby-buildによってRubyの様々なバージョン(2.0.0など)をインストールし、rbenvを使ってそれらを切り替えます。</p>
+
+<p class="ng-scope">なぜバージョンを切り替える必要があるのかというと、開発環境によってはRubyの特定のバージョンでなければエラーが出てしまうことがあるためです。</p>
+
+<h3 class="ng-scope">6. rbenvのパスを通す</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'eval "$(rbenv init -)"'</span> &gt;&gt; ~/.bash_profile
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">パスを通すことで、rbenvをどのディレクトリからも使用できるようにします。実行すると、すぐコマンド入力画面になります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_352"></i> パスを通すとは</h3>
+
+<p class="ng-scope">本来アプリケーションを利用するためにはそのアプリケーションの存在するディレクトリまで移動しなくてはいけません。</p>
+
+<p class="ng-scope">しかし、設定ファイルにコードを書き設定することで、どのディレクトリからもアプリケーションを呼び出せるようになります。</p>
+
+<p class="ng-scope">このことを「パスを通す」と言います。</p>
+
+<h3 class="ng-scope">7. .bash_profileの読み込み</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">source</span> ~/.bash_profile
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">書き込んだ設定を読み込み、有効にします。</p>
+
+<h3 class="ng-scope">8. readlineのinstall</h3>
+
+<p class="ng-scope">ターミナルのirb上で日本語入力を可能にする設定を行います。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew install readline
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">9. readlineのパスを通す</h3>
+
+<p class="ng-scope">パスを通すことでreadlineをどのディレクトリからでも使用できるようになります。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew link readline --force
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">10.readlineを利用してRuby ver.2.1.3のインストール</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ RUBY_CONFIGURE_OPTS</span><span class="o">=</span><span class="s2">"--with-readline-dir=$(brew --prefix readline)"</span>
+<span class="nv">$ </span>rbenv install 2.1.3
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>※処理に時間がかかる可能性のあるコマンドです。</strong></p>
+
+<p class="ng-scope">TECH::CAMPでの開発に使用していただく、Rubyの2.1.3バージョンをインストールします。</p>
+
+<p class="ng-scope">実行すると、以下のようにインストールが開始され、終わるとコマンド入力画面になります。</p>
+
+<p class="ng-scope"><img src="007.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_353"></i> なぜ新たにRubyをインストールするのか</h3>
+
+<p class="ng-scope">Macに最初から入っているRubyは、先ほどインストールしたrbenvでのバージョン管理ができません。</p>
+
+<p class="ng-scope">そのため、ruby-buildとrbenvを組み合わせてバージョン管理のできるRubyをインストールする必要があります。</p>
+
+<h3 class="ng-scope">11.Rubyを起動する準備をする</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rbenv rehash
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">rbenv rehashコマンドに関しては本章の最後の方で詳しく説明します。</p>
+
+<p class="ng-scope">rbenv rehashコマンドを実行した後すぐにコマンド入力画面に戻れば、正常に完了しています。</p>
+
+<h3 class="ng-scope">12. 利用するRubyのバージョンを決める</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rbenv global 2.1.3
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_354"></i> rbenv global コマンド</h3>
+
+<p class="ng-scope">rbenv global コマンドは、そのPCの全ての開発環境で利用するRubyのバージョンを決めることができます。</p>
+
+<h3 class="ng-scope">13. Rubyのバージョン確認</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>ruby -v
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Rubyのバージョンが、12. で設定した2.1.3であることが表示されればOKです。</p>
+
+<h3 class="ng-scope">14. MySQLのインストール</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>brew install homebrew/versions/mysql56
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>※処理に時間がかかる可能性のあるコマンドです。</strong></p>
+
+<p class="ng-scope">MySQLをインストールするコマンドです。<br>
+（本来<code>brew install mysql</code>とだけ入力しますが、現在最新のバージョンであるMySQL5.7系をインストールすると問題が起きるため、今回はバージョンを指定した方法でインストールします。）</p>
+
+<p class="ng-scope">実行すると以下のようになります。</p>
+
+<p class="ng-scope"><img src="a7351ee63f25fe3248f79d4adac317de.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//a7351ee63f25fe3248f79d4adac317de.png"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_355"></i> MySQL</h3>
+
+<p class="ng-scope">MySQLとは、<strong>データを保存するデーターベースサーバーの一種</strong>です。Ruby on Railsで作るアプリケーションで使用するデータを保存するために利用します。</p>
+
+<h3 class="ng-scope">15. MySQLの自動起動設定①</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>ln -sfv /usr/local/opt/mysql56/*.plist ~/Library/LaunchAgents
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">MySQLを自動で起動するためのコマンドです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_356"></i> MySQLの自動起動</h3>
+
+<p class="ng-scope">MySQLは、使用時に起動されてなくてはいけません。PCの電源を落とすとMySQLも終了し、再度手動で起動する必要があります。</p>
+
+<p class="ng-scope">これは面倒なので、PCを起動すると同時にMySQLも自動で起動する設定にしておきます。</p>
+
+<h3 class="ng-scope">16. MySQLの自動起動設定②</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql56.plist
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">17. bundlerのインストール</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>gem install bundler
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">bundlerをインストールするためのコマンドです。実行すると以下のようになります。</p>
+
+<p class="ng-scope"><img src="009.png" alt="投稿画面"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_357"></i> gem</h3>
+
+<p class="ng-scope">gemとは、Rubyを便利に扱うためのアプリケーションの総称です。ターミナルからそれぞれのgemが持つコマンドを実行するという形で使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_358"></i> bundler</h3>
+
+<p class="ng-scope">bundlerとはgemのバージョン管理などをしてくれるgemです。</p>
+
+<p class="ng-scope">環境ごとに使用するgemを決めたり、gemのバージョンを指定したりできます。</p>
+
+<h3 class="ng-scope">18. Ruby on Railsのインストール</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>gem install rails
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>※処理に時間がかかるコマンドです。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_359"></i> gem install railsコマンド</h3>
+
+<p class="ng-scope">Ruby on Rails(以下、Rails)に付随する様々なgemをインストールするためのコマンドです。Railsも、実はRubyのgemの一つです。上記のようなgemコマンドでインストールすることができます。実行すると、railsとそれに付随する様々なgemがインストールされていきます。</p>
+
+<p class="ng-scope">ここではインストールするものが多いので、しばらく時間がかかります。</p>
+
+<h3 class="ng-scope">19. 最後にもう一度rehash</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rbenv rehash
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_360"></i> rehashは何をしているのか</h3>
+
+<p class="ng-scope">gemは、各Rubyのバージョンごとに個別に保管されます。</p>
+
+<p class="ng-scope">rbenv rehashコマンドは、そのバージョンで利用しているgemのコマンドを使えるようにするために必要なコマンドです。</p>
+
+<p class="ng-scope">gemコマンドでgemをインストールしたときは、rbenv rehashコマンドを実行するのを忘れないようにしましょう。</p>
+
+<h3 class="ng-scope">20. Railsが入ったか確認</h3>
+
+<h4 class="ng-scope"><strong>【実行するコマンド】</strong></h4>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rails -v
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">railsのバージョンを確認するためのコマンドです。</p>
+
+<p class="ng-scope">もしもRailsが無事にインストールされていれば、ターミナルにバージョン情報が表示されるはずです。</p>
+
+<p class="ng-scope"><strong>以上で、Ruby on Railsを利用した開発のための環境構築は終了です。</strong></p>
+
+<p class="ng-scope"><strong>お疲れ様でした！</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="494" action="http://master.tech-camp.in/curriculums/107#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-678" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-678" name="check-678" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Railsの開発環境を構築できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">Rails開発環境構築</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">はじめに</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">事前に用意するもの</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">Windowsユーザーの方へ</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents5" ng-click="clickContent(content.h1.id)">環境構築</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">Command Line Toolsをインストールしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">コマンドを順番に実行しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">1 / 1<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/107">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

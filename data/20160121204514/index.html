@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>はじめての Ruby</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><p class="alert alert-success">ログインしました。</p><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('top.jpg');">
+  <h1 class="ng-binding">
+    プログラミングをはじめよう<small class="ng-binding">〜はじめての Ruby〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ヨセミテ国立公園はカリフォルニア州の中東部、シェラネバダ山脈に広がる自然公園です。全面積の9割は全く手つかずのまま自然が残っており、そのあまりの広さは観光客の集まるヨセミテ渓谷でさえ全体の1%未満の面積しかないほどです。ヨセミテ国立公園だけでカリフォルニアの20%以上の植物を見ることができます。<a class="ng-binding" href="https://www.flickr.com/photos/giuseppemilo/15868287972" target="_top">Giuseppe Milo - A view of El Capitan, Yosemite National Park, United States</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">この章では「プログラミングを行うための前知識」を学習し、「プログラムを書く」、「プログラムを実行する」ことが出来るようになりましょう。</p>
+
+<h1 id="2" class="ng-scope">はじめてのプログラミング</h1>
+
+<p class="ng-scope">これから実際にソースコードを書きながらプログラミングを学んでいきましょう。<br>
+最初に学ぶプログラミング言語は<strong>Ruby</strong>(ルビー)と呼ばれる言語です。</p>
+
+<h2 id="3" class="ng-scope">Rubyとは</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_67"></i> Ruby(プログラミング言語)</h3>
+
+<p class="ng-scope">Rubyはプログラミング言語の1つです。気軽に楽しくプログラミングできて、しかも実用的です。大きなWebアプリケーションから小さなプログラムまで、さまざまなソフトウェアを作ることができます。</p>
+
+<h4 class="ng-scope"><a href="https://www.ruby-lang.org/ja/">Ruby 公式サイト</a></h4>
+
+<p class="ng-scope"><br><br>
+Rubyの特徴としては、以下が挙げられます。</p>
+
+<ul class="ng-scope">
+<li>シンプルな文法で記述できる</li>
+<li>読みやすいコードが書ける</li>
+<li>プログラムを書いてすぐ実行できる</li>
+<li><strong>書いていて楽しい！！</strong></li>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="9" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-9" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-9" name="check-9" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Rubyとはプログラミング言語の１つでシンプルな文法が特徴</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">なぜRuby？</h3>
+
+<p class="ng-scope">数あるプログラミング言語の中でもRubyを勉強する理由は何でしょうか。<br>
+それは、Rubyは非常にシンプルで書きやすい言語であるため最初に学習するプログラミング言語として適しているからです。</p>
+
+<h3 class="ng-scope">Rubyと他の言語</h3>
+
+<p class="ng-scope">画面に"はじめてのプログラム"と表示するプログラムをJavaと呼ばれる他のプログラミング言語とRubyで書いたもので比較してみます。<br>
+(今はまだソースコードの意味が理解できていなくてもかまいません。)</p>
+
+<p class="ng-scope">例：<strong>Java</strong></p>
+
+<div class="code-frame ng-scope" data-lang="js">
+<div class="code-lang"><span class="bold">sample.java</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="kr">public</span> <span class="kr">class</span> <span class="nx">HelloWorld</span> <span class="p">{</span>
+    <span class="kr">public</span> <span class="kr">static</span> <span class="k">void</span> <span class="nx">main</span><span class="p">(</span><span class="nb">String</span><span class="p">[]</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">System</span><span class="p">.</span><span class="nx">out</span><span class="p">.</span><span class="nx">println</span><span class="p">(</span><span class="s2">"はじめてのプログラム"</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">例：<strong>Ruby</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span> <span class="s2">"はじめてのプログラム"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">見てわかるようにRubyの方が少ないコードで同じことができ、<br>
+さらに非常にシンプルな文法な記述で済んでいます。</p>
+
+<h3 class="ng-scope">Rubyを利用しているサービス</h3>
+
+<p class="ng-scope">Rubyは現在多くの有名サイトで使用されています。<br>
+以下にRubyが使用されているサイトの例を示します。</p>
+
+<ul class="ng-scope">
+<li><a href="http://twitter.com/" title="Twitter">Twitter</a></li>
+</ul>
+
+<p class="ng-scope"><img src="001.jpeg" alt="Twitter" title="Twitter"></p>
+
+<p class="ng-scope">言わずと知れた世界的な情報サービス。<br>
+  140文字以内の「ツイート」と称される短文を投稿し、他人と比較的軽いコミュニケーションをとることができます。</p>
+
+<ul class="ng-scope">
+<li><a href="http://cookpad.com/" title="cookpad">cookpad(クックパッド)</a></li>
+</ul>
+
+<p class="ng-scope"><img src="06.jpg" alt="cookpad" title="cookpad"></p>
+
+<p class="ng-scope">日本最大の料理レシピサイト。<br>
+  投稿レシピの数は150万品を超えており、このサイトを見ればほとんどの料理の作り方が分かります。<br>
+  20～30代の主婦を中心に多くの人々に利用されています。</p>
+
+<ul class="ng-scope">
+<li><a href="https://github.com/" title="GitHub">GitHub</a></li>
+</ul>
+
+<p class="ng-scope"><img src="03.jpg" alt="GitHub" title="GitHub"></p>
+
+<p class="ng-scope">開発者向けのホスティングサービス。<br>
+  プロジェクトやソースコードを世界中の人と共有できます。<br>
+  Tech::Campでも使用します。</p>
+
+<p class="ng-scope">ここで説明した以外でも多くのウェブサイトでRubyが使用されています。<br>
+Rubyを使えばこのような大規模サイトを作成することも可能になります。</p>
+
+<h2 id="4" class="ng-scope">Ruby on Rails</h2>
+
+<p class="ng-scope">Rubyを学習する理由の１つに<strong>Ruby on Railsを使うため</strong>という理由があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_68"></i> Ruby on Rails</h3>
+
+<p class="ng-scope">RubyのWebアプリケーションフレームワークの１つです。最も有名で、利用者も多いものです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_69"></i> Webアプリケーションフレームワーク</h3>
+
+<p class="ng-scope">Webアプリケーションフレームワークとは、Webアプリケーションを簡単に作れるようにする骨組みのことです。<br>
+フレームワークを使用することで、開発者は<strong>より少ない労力で開発を行うことが可能</strong>となります。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> フレームワーク自体は<strong>プログラミング言語ではありません</strong>。ある特定の用途に特化した機能を選定し集め、簡単に扱えるようにしたものです。</p>
+
+<p class="ng-scope"><strong>Tech::Campでも、後半にRuby on Railsを使ったWebアプリケーション開発を行ないます</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="10" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-10" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-10" name="check-10" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">フレームワークは特定の用途の機能を簡単に使えるようにしたもの</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-11" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-11" name="check-11" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">WebフレームワークはWebアプリケーションを簡単に作るためのフレームワーク</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-12" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-12" name="check-12" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Ruby on RailsはRubyで書かれたWebアプリケーションフレームワーク</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">では、Rubyについての説明を終えたところで本格的なプログラミング学習に入っていきましょう。</p>
+
+<h1 id="5" class="ng-scope">学習内容</h1>
+
+<p class="ng-scope">この章では自分でRubyのプログラムを「書いて」、「実行できる」ようになることが目標です。</p>
+
+<p class="ng-scope">以下の項目について学習していきます。</p>
+
+<ul class="ng-scope">
+<li><strong>ターミナルの操作</strong></li>
+<li><strong>Rubyファイルの作成</strong></li>
+<li><strong>Rubyを実際に書いてみる</strong></li>
+<li><strong>Rubyプログラムを実行する</strong></li>
+</ul>
+
+<h1 id="6" class="ng-scope">ターミナルの操作</h1>
+
+<p class="ng-scope">まず、プログラミングを学習する前準備として<strong>ターミナルの操作</strong>を学習しましょう。ターミナルは「Rubyの実行」や「サーバーの起動」などに必要です。ここで基本的な操作を覚えてしまいましょう。</p>
+
+<h3 class="ng-scope">ターミナルとは</h3>
+
+<p class="ng-scope">先ほどから出てくる<strong>ターミナル</strong>とは何でしょうか。こちらは、PCに命令をするリモコンのようなものです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_70"></i> ターミナル</h3>
+
+<p class="ng-scope">プログラムを記述したファイルを読み込み、プログラムとして実行するには<strong>コマンドライン</strong>というツールが必要となります。Macにデフォルトでインストールされているコマンドラインが<strong>ターミナル</strong>です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_71"></i> コマンドライン</h3>
+
+<p class="ng-scope">コマンドライン(またはコマンドラインインターフェース:CLI)とは、コンピュータに対してキーボードからコマンドという文字を打ち込んで操作を行う方法です。<br>
+コマンドラインとは対照的に、グラフィックを用いて操作を行う方法を<strong>グラフィカルユーザーインターフェース(GUI)</strong>といいます。</p>
+
+<p class="ng-scope"><img src="ruby1_cli.png" alt="コマンドライン"></p>
+
+<p class="ng-scope"><i class="icon attention"></i> ソースコードをファイルに記述するだけでは、プログラムは動きません。コマンドラインでプログラムを実行する必要があります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="11" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-13" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-13" name="check-13" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コマンドラインとはキーボードから文字を打ち込んでコンピュータを操作するツール</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-14" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-14" name="check-14" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Macでのコマンドラインはターミナル</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-15" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-15" name="check-15" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルを使えばコードの書いてあるファイルを読み込んでプログラムを実行することができる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope">ターミナルを開いてみよう</h2>
+
+<p class="ng-scope">ターミナルはMacに初めからインストールされているアプリケーションなので、<em>スポットライト検索</em>から簡単に起動することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> スポットライト検索を使って、ターミナルを起動しましょう</h3>
+
+<p class="ng-scope">controlキー + spaceキーを押すと、スポットライト検索のバーを出すことができます。その後、「ターミナル」と入力し、検索結果として出たターミナルのアプリケーションをダブルクリックして起動しましょう。</p>
+
+<p class="ng-scope"><img src="8cdfebc90982534d1f214e5bb606ac08.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//8cdfebc90982534d1f214e5bb606ac08.png"></p>
+
+<p class="ng-scope"><img src="index1.jpg" alt="ターミナルアイコン" title="ターミナルアイコン"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="12" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-16" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-16" name="check-16" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルを開くことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="13" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-17" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-17" name="check-17" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルはFinderの「アプリケーション &gt; ユーティリティ」から開ける</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope">ターミナル見方</h2>
+
+<p class="ng-scope">ターミナルが開けたでしょうか。まずは表示されている画面をみてみましょう。</p>
+
+<p class="ng-scope"><img src="ruby1-terminal.png" alt="ターミナル" title="ターミナル"></p>
+
+<p class="ng-scope">コンピュータ名は自分のコンピュータの名前ですね。ここでは「shinbo-no-Macbook-Pro」となっています。<br>
+ユーザー名は自分の名前です。ここでは「shinbomaiki」となっています。このあとに続く「$」は<strong>プロンプト</strong>といい、<strong>コンピュータが命令を受け付けられる状態であることを示します</strong>。つまり今は、命令待ちの状態です。<br>
+「〜」となっている<strong>カレントディレクトリ</strong>については次に説明します。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="14" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-18" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-18" name="check-18" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルには「コンピュータ名」、「ユーザー名」、「プロンプト」、「カレントディレクトリ」が表示されている</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope">ディレクトリについて学ぼう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_72"></i> ディレクトリ</h3>
+
+<p class="ng-scope">ディレクトリとはコンピュータ上で複数のファイルを整理するためのファイルの入れ物のことです。簡単に言ってしまえば、<strong>フォルダ</strong>のことを指します。PCの実体はディレクトリによる階層構造になっており、ディレクトリの中にさらに多くのディレクトリやファイルが保存されています。</p>
+
+<p class="ng-scope"><img src="ruby1-directory.png" alt="ディレクトリの構造" title="ディレクトリの構造"></p>
+
+<p class="ng-scope">本カリキュラムでは、ディレクトリの階層を以下のような図で表していきます。</p>
+
+<ul class="filetree ng-scope">
+<ul>
+<li class="t-file">このアイコンが<strong>ファイル</strong>
+</li>
+<li class="t-folder"> このアイコンが<strong>フォルダ(ディレクトリ)</strong>
+</li>
+</ul>
+
+<p></p>
+</ul>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+User
+<ul>
+<li class="t-file">index.html</li>
+<li class="t-folder"> DeskTop
+  <ul>
+    <li class="t-file">ruby.rb</li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="15" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-19" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-19" name="check-19" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ディレクトリとはフォルダのことで階層構造をとっている</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">ディレクトリの呼び方</h3>
+
+<p class="ng-scope">いくつかの特別なディレクトリを指し表す言葉があります。特別な呼び方をするディレクトリとして、「ルートディレクトリ」、「カレントディレクトリ」、「ホームディレクトリ」があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_73"></i> ルートディレクトリ</h3>
+
+<p class="ng-scope">ディレクトリは階層構造になっているので、あるディレクトリは他のディレクトリに属しています。その階層構造の一番上にあるディレクトリが<strong>ルートディレクトリ</strong>です。<br>
+以下の図では一番上の階層にあるのは「root」という名前のディレクトリです。  よって「root」がルートディレクトリとなります。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> ここでは例として「root」というフォルダを一番上の階層に置いているだけです。<strong>ルートディレクトリが決まって「root」という名前なわけではありません</strong>。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+<strong>root</strong> ←ルートディレクトリ
+<ul>
+<li class="t-file">index.html</li>
+<li class="t-folder"> tech-camp
+  <ul>
+    <li class="t-file">public.html</li>
+    <li class="t-folder"> ruby
+      <ul>
+        <li class="t-file">ruby.html</li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_74"></i> カレントディレクトリ</h3>
+
+<p class="ng-scope">カレントディレクトリとはターミナルで<strong>現在作業中となるディレクトリ</strong>のことを指します。ここを基準に、PCに命令を出していきます。<br>
+カレントディレクトリは先ほどターミナルで出てきました。ターミナルはディレクトリを移動して操作を行います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_75"></i> ホームディレクトリ</h3>
+
+<p class="ng-scope">ホームディレクトリは<strong>新規にターミナルを立ち上げた場合に作業中となるディレクトリ</strong>です。<strong>〜</strong>で表されます。Macでのデフォルトのホームディレクトリは<code>/Users/ユーザ名</code>となります。</p>
+
+<p class="ng-scope">これらをふまえて先ほどのターミナル画面をもう一度見てみましょう。</p>
+
+<p class="ng-scope"><img src="ruby1-terminal.png" alt="ターミナル" title="ターミナル"></p>
+
+<p class="ng-scope">この画面上ではカレントディレクトリは「〜」になっているので<br>
+<strong>現在、作業中のディレクトリ(カレントディレクトリ)はホームディレクトリ</strong>ということになります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="16" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-20" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-20" name="check-20" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ルートディレクトリとはフォルダの階層構造で一番上のフォルダのこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-21" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-21" name="check-21" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">カレントディレクトリは現在作業中のフォルダのこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-22" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-22" name="check-22" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ホームディレクトリはターミナルを新しく立ち上げたときに作業中になるフォルダのこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-23" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-23" name="check-23" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ホームディレクトリは〜で表される</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope">linuxコマンドに関して知ろう</h2>
+
+<p class="ng-scope">ターミナルからのPC操作には、<strong>linuxコマンド</strong>と呼ばれる一連の命令群を用います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_76"></i> linuxコマンド</h3>
+
+<p class="ng-scope">ターミナルでは<strong>linuxコマンド</strong>の入力でPCに様々な命令を与えます。linux(リナックス)とはPCの種類のようなもので、ここでは深く考える必要はありません。</p>
+
+<p class="ng-scope">よく使うコマンドとして<strong>lsコマンド</strong>と<strong>cdコマンド</strong>があります。</p>
+
+<p class="ng-scope">今後、ターミナルでlinuxコマンドを入力するときは以下のような形式で指示します。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>入力するlinuxコマンド
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>$</code>は前にも出てきたプロンプトという命令待ちを表す記号なので入力する必要はないです。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>また、以下のように<code>#</code>に続けて書いてあるのは説明であり、linuxコマンドではありません。実際に入力する必要はありません。</strong></p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>入力するlinuxコマンド
+<span class="c"># ここにあるのは説明です</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="17" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-24" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-24" name="check-24" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルはキーボードからlinuxコマンドを打ち込んで操作を行う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope">lsコマンドでファイルやフォルダの一覧を表示しよう</h2>
+
+<p class="ng-scope">では、linuxコマンドを学習していきましょう。まずはlsコマンドです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_77"></i> lsコマンド</h3>
+
+<p class="ng-scope">lsコマンドはlistの略で、フォルダやファイルの一覧を表示するコマンドです。カレントディレクトリの直下にあるファイルやフォルダの名前が一覧で表示されます。<br>
+使い方はターミナルで<strong>「ls」</strong>と打ち込んでエンターを押すだけです。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>ls
+<span class="c"># 今いるディレクトリの直下にあるファイルやフォルダの名前の一覧を表示します</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">例えば、以下のようなディレクトリ構造があるとします。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+tech-camp (<strong> カレントディレクトリ </strong>)
+<ul>
+<li class="t-folder"> ruby
+  <ul>
+    <li class="t-file">ruby.html</li>
+  </ul>
+</li>
+<li class="t-folder"> html </li>
+<li class="t-folder"> rails </li>
+<li class="t-file"> index.html </li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope">カレントディレクトリ、つまり現在作業中のディレクトリは<strong>tech-camp</strong>です。ここで<code>ls</code>コマンドを打ち込んでみると以下のような出力になります。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>ls
+ruby        html
+rails       index.html
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>tech-camp</strong>の直下にあるファイルやフォルダの「ruby, html, rails, index.html」の名前が出力されています。<strong>直下ではない「ruby.html」の名前がないことに注意してください。</strong></p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>ターミナルでlsコマンドを打ち込んでみよう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="18" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-25" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-25" name="check-25" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lsコマンドを使ってカレントディレクトリの直下にあるファイルやフォルダの名前を表示できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="19" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-26" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-26" name="check-26" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lsコマンドはフォルダやファイルの一覧を表示するコマンド</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">cdコマンドでディレクトリを移動しよう</h2>
+
+<p class="ng-scope">続いて、ディレクトリの移動を行う<strong>cdコマンド</strong>について学習しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_78"></i> cdコマンド</h3>
+
+<p class="ng-scope">cdコマンドはchange directoryの略で、カレントディレクトリを移動するときに使います。<br>
+使い方はターミナルで<strong>「cd (移動したいディレクトリのパス)」</strong>と打ち込んでエンターを押します。単に<strong>「cd」</strong>とすると<strong>ホームディレクトリに移動します</strong>。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span>
+<span class="c"># ホームディレクトリに移動します</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>Desktop
+<span class="c"># Desktopという名前のディレクトリに移動します</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">例えば、以下のようなディレクトリ構造があるとします。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+tech-camp (<strong> カレントディレクトリ </strong>)
+<ul>
+<li class="t-folder"> ruby </li>
+<li class="t-file"> index.html </li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope">カレントディレクトリ、つまり現在作業中のディレクトリは<strong>tech-camp</strong>です。ここで<code>cd</code>コマンドを使ってrubyディレクトリへ移動してみます</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>ruby
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+tech-camp
+<ul>
+<li class="t-folder"> ruby (<strong> カレントディレクトリ </strong>) </li>
+<li class="t-file"> index.html </li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope">すると、カレントディレクトリはrubyに移動します。</p>
+
+<p class="ng-scope">ディレクトリを移動できたかどうかは、ターミナルの**カレントディレクトリの部分を見て判断しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>shinbo-no-MacBook-Pro:〜 shinbomaiki<span class="err">$</span>
+<span class="c"># カレントディレクトリはホームディレクトリ</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>shinbo-no-MacBook-Pro:Desktop shinbomaiki<span class="err">$</span>
+<span class="c"># カレントディレクトリはDesktop</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>「cd Desktop」と打ち込んでDesktopに移動してみよう。さらに移動できたら「cd」でホームディレクトリに戻ろう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="20" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-27" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-27" name="check-27" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドを使ってDesktopディレクトリに移動できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-28" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-28" name="check-28" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドを使ってホームディレクトリ(〜)に移動できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="21" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-29" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-29" name="check-29" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドはディレクトリを移動するためのコマンド</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">ディレクトリのパスを指定する方法を覚えよう</h2>
+
+<p class="ng-scope">パスとはファイルやフォルダの所在を示す文字列のことです。<br>
+フォルダは階層ごとに<strong>/(スラッシュ)</strong>で区切ります。<br>
+パスの指定方法は<strong>絶対パス</strong>と<strong>相対パス</strong>の2つあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_79"></i> 絶対パス</h3>
+
+<p class="ng-scope">絶対パスは<strong>ルートディレクトリ</strong>から指定するパスです。絶対パスで指定するときにはパスの一番最初に/を指定します。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /Users/Desktop
+<span class="c"># 絶対パスは/から始めます</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_80"></i> 相対パス</h3>
+
+<p class="ng-scope">相対パスは<strong>現在いるディレクトリ(カレントディレクトリ)</strong>から指定するパスです。<strong>相対パスで指定するときにはパスの一番最初に/を書きません。</strong></p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>Users/Desktop
+<span class="c"># 相対パスは始めに/をつけません</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="22" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-30" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-30" name="check-30" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">絶対パスはルートディレクトリから指定するパス</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-31" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-31" name="check-31" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">相対パスはカレントディレクトリから指定するパス</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-32" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-32" name="check-32" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">絶対パスはパスの先頭に/をつけるが、相対パスはつけない</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">では「絶対パス」と「相対パス」を使ってディレクトリを移動してみます。Macのディレクトリ構造は簡単に示すと以下のようになっています。(実際にはここには書いていないディレクトリがいくつもあります)</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+Macintosh HD (<strong>ルートディレクトリ</strong>)
+<ul>
+<li class="t-folder"> Applications </li>
+<li class="t-folder"> ユーザー情報 </li>
+<li class="t-folder"> Users
+  <ul>
+    <li class="t-folder"> ユーザー名
+      <ul>
+        <li class="t-folder"> ダウンロード </li>
+        <li class="t-folder"> Desktop </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">まずは、<strong>絶対パス</strong>をつかってルートディレクトリに移動してみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong><code>cd /</code>とターミナルで打ち込んでルートディレクトリに移動しましょう</strong></p>
+
+<p class="ng-scope">絶対パスはルートディレクトリからパスを指定します。この場合、ルートディレクトリに移動するだけなので単に<code>/</code>とするだけです。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /
+<span class="c"># ルートディレクトリに移動する</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>cdと/の間に半角スペースがあることに注意してください。</strong></p>
+
+<p class="ng-scope">ターミナルでカレントディレクトリの表示が<code>/</code>となったでしょうか。</p>
+
+<p class="ng-scope"><strong>これでカレントディレクトリがルートディレクトリの</strong>「Macintosh HD」<strong>になりました。</strong></p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+<strong>Macintosh HD ←カレントディレクトリ</strong>
+<ul>
+<li class="t-folder"> Applications </li>
+<li class="t-folder"> ユーザ情報 </li>
+<li class="t-folder"> Users
+  <ul>
+    <li class="t-folder"> ユーザー名
+      <ul>
+        <li class="t-folder"> ダウンロード </li>
+        <li class="t-folder"> Desktop </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="23" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-33" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-33" name="check-33" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドで絶対パスを使ってルートディレクトリに移動できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">ここで今いるディレクトリ(ルートディレクトリ)の直下にどのようなファイルとフォルダがあるか見てみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong><code>ls</code>とターミナルで打ち込んでルートディレクトリの直下のファイルとフォルダの名前一覧を表示させましょう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="24" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-34" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-34" name="check-34" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lsコマンドでルートディレクトリの直下のファイルとフォルダの名前一覧を表示できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">lsコマンドで表示させた名前の一覧の中に「Users」という名前があったでしょうか。次はこの<strong>Usersディレクトリに移動します</strong>。ここも絶対パスで指定しましょう。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">「Users」ディレクトリは<strong>ルートディレクトリの直下にあります</strong>。なので絶対パスでは、/に続けてUsersと指定するだけです。　　</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+Macintosh HD (<strong>ルートディレクトリ</strong>)
+<ul>
+  <ul>
+    <li class="t-folder"> Users</li>
+  </ul>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /Users
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong><code>cd /Users</code>とターミナルで打ち込んでUsersディレクトリに移動しましょう</strong></p>
+
+<p class="ng-scope">ターミナルでカレントディレクトリの表示が<code>Users</code>となったでしょうか。<br>
+<strong>これでカレントディレクトリがUsersディレクトリになりました。</strong></p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+Macintosh HD
+<ul>
+<li class="t-folder"> Applications </li>
+<li class="t-folder"> ユーザー情報 </li>
+<li class="t-folder"> <strong>Users ←カレントディレクトリ</strong>
+  <ul>
+    <li class="t-folder"> ユーザー名
+      <ul>
+        <li class="t-folder"> ダウンロード </li>
+        <li class="t-folder"> Desktop </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="25" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-35" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-35" name="check-35" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドで絶対パスを使ってUsersディレクトリに移動できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">ではここから一気に「Desktop」まで移動させます。絶対パスで指定する場合は、<code>/Users/ユーザー名/Desktop</code>となります。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+Macintosh HD (<strong>ルートディレクトリ</strong>)
+<ul>
+<li class="t-folder"> Users
+  <ul>
+    <li class="t-folder"> ユーザー名
+      <ul>
+        <li class="t-folder"> Desktop </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /Users/ユーザー名/Desktop
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">しかし、相対パスなら今いる「Users」からのパスになるので、<code>ユーザー名/Desktop</code>だけで指定できます。<strong>相対パスでは先頭に「/」がつかないことに注目してください。</strong></p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+Macintosh HD (<strong>ルートディレクトリ</strong>)
+<ul>
+<li class="t-folder"> <strong>Users ←カレントディレクトリ</strong>
+  <ul>
+    <li class="t-folder"> ユーザー名
+      <ul>
+        <li class="t-folder"> Desktop </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ユーザー名/Desktop
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>ユーザー名</strong>は自分のMacのユーザー名となります。わからなければ、<strong>lsコマンド</strong>で確認しましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong><code>cd ユーザー名/Desktop</code>とターミナルで打ち込んでDesktopディレクトリに移動しましょう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="26" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-36" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-36" name="check-36" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドで相対パスを使ってDesktopディレクトリに移動できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">どうでしょうか。相対パスを使うとカレントディレクトリからの指定になるため絶対パスよりパスを省略できることがあります。ただし、<strong>カレントディレクトリより上のディレクトリに移動したい場合は絶対パスでなければいけません</strong>。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>shinbo-no-MacBook-Pro:Desktop shinbomaiki<span class="nv">$ </span><span class="nb">cd</span> /Users
+<span class="c"># カレントディレクトリはDesktopディレクトリで</span>
+<span class="c"># Usersディレクトリへ移動したいときは</span>
+<span class="c"># 絶対パスで指定しなければいけない</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i> 本カリキュラムでは<strong>相対パスを使うことを推奨</strong>します。入力が楽なためです。</p>
+
+<p class="ng-scope">これでソースコードを書く前の前知識は学びました。このあとは実際にRubyのプログラムを書いて実行していきます。</p>
+
+<h1 id="14" class="ng-scope">Rubyプログラムの実行</h1>
+
+<p class="ng-scope">ではいよいよRubyを書いてプログラムを実行してみましょう。<br>
+まずは<strong>画面上に文字を表示する</strong>という簡単なプログラムを書いて、Rubyのプログラムの作り方やプログラムの実行方法を学んでいきます。</p>
+
+<h3 class="ng-scope">手順の確認</h3>
+
+<p class="ng-scope">プログラミングを学ぶときにまず最初に作成するプログラムとして有名なものが<br>
+<strong>Hello World</strong>と表示するプログラムです。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>ruby helloworld.rb              <span class="c"># Rubyプログラムの実行(あとで学習)</span>
+<span class="hll">  Hello World                       <span class="c"># Hello Worldと出力</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このように画面上にHello Worldを表示できることが目標です。</p>
+
+<ul class="ng-scope">
+<li><strong>1.Rubyのプログラムを書くためのファイルを作成する</strong></li>
+<li><strong>2.Rubyのプログラムを書く</strong></li>
+<li><strong>3.Rubyのプログラムを実行する</strong></li>
+</ul>
+
+<p class="ng-scope">という流れでプログラムを実装していきましょう。</p>
+
+<h2 id="15" class="ng-scope">Rubyファイルを作成しよう</h2>
+
+<p class="ng-scope">まず、Rubyのプログラムを記述するファイルを作る必要があります。<br>
+Rubyを書くファイルの名前は何でも良いですが、<strong>helloworld.rb</strong>のようにファイル名の最後に<strong>rb</strong>という拡張子をつけるという決まりがあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_81"></i> 拡張子</h3>
+
+<p class="ng-scope">ファイル名の末尾につけられた<strong>ファイルの種類を識別</strong>するための文字のことです。<br>
+ファイル名と拡張子は<strong>.(ドット)</strong>で区切られます。</p>
+
+<p class="ng-scope">今回のRubyプログラムはHello Worldを表示するものなのでファイル名は<strong>helloworld.rb</strong>とします。</p>
+
+<p class="ng-scope">まず、プログラムを記述するためのテキストエディタ<strong>Sublime Text</strong>を開きましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_82"></i> テキストエディタ</h3>
+
+<p class="ng-scope">テキストエディタは文字情報のみのファイルを作成、編集、保存するために使わるソフトウェアです。プログラムの記述をするときにも、テキストエディタを使います。</p>
+
+<p class="ng-scope"><img src="images" alt="Sublime Text" title="Sublime Text"></p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>アプリケーションの一覧から「Sublime Text」を開きましょう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="27" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-37" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-37" name="check-37" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">アプリケーション一覧から「Sublime Text」を開けた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">Sublime Textを開けたら以下のような画面になったと思います。</p>
+
+<p class="ng-scope"><img src="ruby1-sublime1.png" alt="Sublime Text" title="Sublime Text"></p>
+
+<p class="ng-scope">いま、新規のファイルに文字を書き込むことができる状態です。この新規のファイルを<strong>helloworld.rb</strong>という名前で「デスクトップ」に保存しましょう。<br>
+キーボードで<strong>「command + s」</strong>を押すと保存名と保存先を決めるための画面がでてきます。</p>
+
+<p class="ng-scope"><img src="ruby1-sublime2.png" alt="Sublime Text" title="Sublime Text"></p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>デスクトップにhelloworld.rbという名前のRubyファイルを作成しましょう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="28" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-38" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-38" name="check-38" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">helloworld.rbという名前のRubyファイルが作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">作成できたら、Sublime Textは一旦閉じてしまいましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="29" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-39" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-39" name="check-39" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「Sublime Text」を使ってRubyファイルを作成する</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-40" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-40" name="check-40" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「Sublime Text」は文字情報のみのファイルを作成、編集、保存するためのツール</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-41" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-41" name="check-41" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「Sublime Text」のようなツールをテキストエディタという</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="16" class="ng-scope">プログラムを書いてみよう</h2>
+
+<p class="ng-scope">ではこれから先ほど作成したhelloworld.rbファイルにプログラムを書いていきます。<br>
+作成したhelloworld.rbをSublime Textで開きましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>デスクトップのhelloworld.rbを右クリックして「このアプリケーションで開く」&gt;「Sublime Text」でhelloworld.rbを開いてみましょう</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>Macでの右クリックとは、トラックパッドを2本指でクリックすること</strong>です</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="30" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-42" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-42" name="check-42" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">helloworld.rbを「Sublime Text」で開くことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">開いたhelloworld.rbにRubyプログラムを書いてみます。まずはこちらで指定したソースコードをそのまま書いてください。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをhelloworld.rbに記述してください</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">helloworld.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span> <span class="s2">"Hello World"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="31" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-43" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-43" name="check-43" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">指定したソースコードをファイルに記述できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これで画面上にHello Worldと表示するプログラムが書けました。<br>
+ではソースコードの内容を見てみましょう。</p>
+
+<h3 class="ng-scope">オブジェクトとその種類</h3>
+
+<p class="ng-scope"><code>puts "Hello World"</code>の<code>"Hello World"</code>は画面上に表示させる<strong>文字列</strong>です。<br>
+文字列はRubyの<strong>オブジェクト</strong>の1つで文字を扱うために使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_83"></i> オブジェクト</h3>
+
+<p class="ng-scope">Rubyで扱える全てのデータは、<strong>「オブジェクト」</strong>と呼ばれます。<br>
+現実世界の数、文字、色、時間などはRubyで扱う場合にはオブジェクトという形で<br>
+データ化され、扱うことが可能となります。</p>
+
+<p class="ng-scope">以下にRubyの代表的なオブジェクトを示します。もちろんこれら以外にもたくさんのオブジェクトがあります。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">オブジェクト名</th>
+<th style="text-align: center;">扱うもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">文字列オブジェクト</td>
+<td style="text-align: center;">文字</td>
+</tr>
+<tr>
+<td style="text-align: center;">数値オブジェクト</td>
+<td style="text-align: center;">数</td>
+</tr>
+<tr>
+<td style="text-align: center;">時刻オブジェクト</td>
+<td style="text-align: center;">時間</td>
+</tr>
+<tr>
+<td style="text-align: center;">日付オブジェクト</td>
+<td style="text-align: center;">日付</td>
+</tr>
+<tr>
+<td style="text-align: center;">配列オブジェクト</td>
+<td style="text-align: center;">複数のデータ</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_84"></i> 文字列</h3>
+
+<p class="ng-scope">文字列とはプログラミングの中で文字を扱うためのオブジェクトのことを指します。<br>
+文字列は文字を<strong>"(ダブルクォテーション)</strong>、または<strong>'(シングルクォテーション)</strong>で囲むことで定義します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="s2">"文字列のサンプル"</span>
+  <span class="s1">'文字列のサンプル'</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上の２つの文字列のサンプルはどちらも同じ文字列になります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="32" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-44" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-44" name="check-44" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">オブジェクトとはRubyプログラムで扱うデータのこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-45" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-45" name="check-45" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">文字をプログラム中で扱えるオブジェクトに(データ化)したものを文字列という</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-46" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-46" name="check-46" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">文字列を生成するには文字を"(ダブルクォテーション)、または'(シングルクォテーション)で囲む</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">メソッドに関して</h3>
+
+<p class="ng-scope"><code>puts "Hello World"</code>の<strong>puts</strong>はオブジェクトを表示するための<strong>メソッド</strong>です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_85"></i> メソッド</h3>
+
+<p class="ng-scope">メソッドとはプログラミングにおける何らかの処理をする命令群のことです。<br>
+例えば、「ターミナルにオブジェクトを出力する」という処理を実行するメソッドが<strong>puts</strong>になります。<br>
+メソッド名をプログラム中に記述することで、そのメソッドの処理を行うことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_86"></i> putsメソッド</h3>
+
+<p class="ng-scope">putsというメソッドに対して文字列などのオブジェクトを右に記述すると、そのオブジェクトが文字としてターミナル上に出力されます。<br>
+今回はputsのあとに"Hello World"という文字列を指定しているので画面上にHello Worldと表示されるはずです。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="33" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-47" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-47" name="check-47" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">メソッドとはあるプログラムにおけるある決まった処理を行う命令群のこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-48" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-48" name="check-48" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">putsメソッドはターミナル上に文字を出力するためのメソッド</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">puts "Hello World"の意味</h3>
+
+<p class="ng-scope">以上をふまえて先ほど書いたソースコードを見てみると、もう意味がわかりますね。</p>
+
+<div class="code-frame ng-scope" data-lang="js">
+<div class="code-lang"><span class="bold">helloworld.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nx">puts</span> <span class="s2">"Hello World"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このソースコードは<strong>"Hello World"という文字列</strong>を<strong>putsメソッドを使ってターミナル上に表示させる</strong>、というプログラムになります。</p>
+
+<h2 id="17" class="ng-scope">Rubyのプログラムを実行しよう</h2>
+
+<p class="ng-scope">では、さきほど書いたプログラムが予想通りの結果となるか実行してみましょう。<br>
+ここでの目的は、「Hello World」とターミナル上に表示されることです。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>ruby helloworld.rb              <span class="c"># Rubyプログラムの実行</span>
+<span class="hll">  Hello World                       <span class="c"># Hello Worldと出力</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>Rubyの実行はターミナルで行います。ターミナルを開きましょう</strong></p>
+
+<p class="ng-scope">この時、<code>commandキー + tabキー</code>を押すと、開いているアプリケーションを切り替えることができます。様々なアプリケーションを開きつつ作業をするエンジニアにとってはとても便利なコマンドなので、積極的に利用するようにしましょう。</p>
+
+<p class="ng-scope"><img src="a7f51cfe3cad15bb4dd0afc1279b0e48.gif" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//a7f51cfe3cad15bb4dd0afc1279b0e48.gif"></p>
+
+<p class="ng-scope"><code>commandキー</code>を押しつつ<code>tabキー</code>を連打すると、上記の動画のように右のアプリケーションを選択していくことができます。</p>
+
+<h3 class="ng-scope">デスクトップへの移動</h3>
+
+<p class="ng-scope"><strong>helloworld.rbはデスクトップにある</strong>ので、cdコマンドを使ってデスクトップへ移動しましょう。まず、カレントディレクトリでlsコマンドを打ち込みます。<br>
+<br><br>
+<i class="icon pen"></i> <strong>カレントディレクトリでlsコマンドを打ち込みましょう。</strong><br>
+<br><br>
+lsコマンドを打ち込むとターミナル上にデスクトップ、またはDeskTopと表示されていると思います。これはカレントディレクトリの直下にデスクトップのディレクトリがあるということです。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>cdコマンドでデスクトップにカレントディレクトリを移動しましょう。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="34" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-49" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-49" name="check-49" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">cdコマンドで作業中のディレクトリをDesktopに移動できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">デスクトップがカレントディレクトリになったでしょうか。では、その状態でlsコマンドを打ち込みましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>カレントディレクトリでlsコマンドを打ち込みましょう。</strong></p>
+
+<p class="ng-scope">helloworld.rbがあったでしょうか。デスクトップに保存していれば、あるはずです。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="35" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-50" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-50" name="check-50" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lsコマンドでDesktopにある「helloworld.rb」のファイル名を見つけられた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">helloworld.rbファイルを実行</h3>
+
+<p class="ng-scope">Rubyプログラムを実行します。<strong>Rubyプログラムの実行はターミナルで</strong>rubyコマンド<strong>を打ち込みます。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_87"></i> rubyコマンド</h3>
+
+<p class="ng-scope">rubyコマンドはRubyに関する様々な操作をターミナルで行うために必要なコマンドです。Rubyファイルをプログラムとして実行するためには以下のようにターミナルに打ち込みます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>ruby <span class="o">[</span>実行したいRubyファイルのパス<span class="o">]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">今回、実行したいファイルは<strong>helloworld.rb</strong>ですね。カレントディレクトリはDesktopなので、helloworld.rbファイルは直下にあります。そのため、相対パスならばhelloworld.rbと指定するだけです。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>ruby helloworld.rb
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>rubyコマンドを使って、helloworld.rbファイルに記述したプログラムを実行しましょう。</strong></p>
+
+<p class="ng-scope">ちゃんとターミナル上に<strong>Hello World</strong>と表示されたでしょうか？<br>
+もし何も表示されない場合はSublimeTextで保存ができていないことが考えられます。<br>
+保存ができているかどうかを確かめる方法があります。</p>
+
+<p class="ng-scope">次のようにファイル名の横がマルになっていると保存ができていない印です。</p>
+
+<p class="ng-scope"><img src="sublimetext-before.png" alt="Sublime Text" title="Sublime Text"></p>
+
+<p class="ng-scope">「command + s」で保存をした後はバツになっていると思います。</p>
+
+<p class="ng-scope"><img src="sublimetext-after.png" alt="Sublime Text" title="Sublime Text"></p>
+
+<p class="ng-scope">これで保存ができているという印になります。今後カリキュラムを進めていく上でも知っていると非常に便利ですのでぜひ覚えておいて下さい。</p>
+
+<p class="ng-scope">以上ではじめてのプログラムは書けました。<br>
+今後もこのようにRubyを実行していくので、忘れないようにしましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="36" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-51" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-51" name="check-51" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rubyコマンドでDesktopにある「helloworld.rb」のプログラムを実行できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="37" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-52" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-52" name="check-52" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Rubyプログラムの実行にはターミナルでrubyコマンドを打ち込む</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="18" class="ng-scope">ソースコードを書く上で気をつけること</h1>
+
+<p class="ng-scope">これからたくさんのソースコードを書いていくことになりますが、いくつか注意することがあるのでここで押さえておきましょう。</p>
+
+<h2 id="19" class="ng-scope">コメントを書くようにしよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_88"></i> コメント</h3>
+
+<p class="ng-scope">プログラム中には<strong>コメント</strong>と呼ばれるメモのようなものを書くことができます。<br>
+コメントはプログラムの実行時に無視されるので何を書いても問題ありません。<br>
+コメントを書いておくとどこで何をしているのかが明確になるため、ソースコードが読みやすくなります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_89"></i> コメントアウト</h3>
+
+<p class="ng-scope">ソースコード中の文字をコメントにすることを<strong>コメントアウト</strong>といいます。<br>
+コメントアウトするにはコメントにしたい文字の先頭に<strong>#(シャープ)</strong>を記述します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1"># コメントアウト</span>
+  <span class="nb">puts</span> <span class="s2">"Hello World"</span> <span class="c1"># これは実行される</span>
+  <span class="c1"># puts "Hello World" これは実行されない</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">2つめに記述された「puts "Hello World"」はその前に#が記述されているのでコメントアウトされ、実行されません。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>helloworld.rbに以下のようにコメントを書いて実行してみましょう。</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">helloworld.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1"># これはHello Worldと表示するプログラムです</span>
+  <span class="nb">puts</span> <span class="s2">"Hello World"</span>
+  <span class="c1"># puts "Hello Ruby"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="38" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-53" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-53" name="check-53" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">helloworld.rbにコメントを記述することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="39" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-54" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-54" name="check-54" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コメントはプログラムの実行とは関係なく無視される</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-55" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-55" name="check-55" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コメントアウトはコメントしたい文字の先頭に#をつける</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="20" class="ng-scope">起こりやすいエラーについて知ろう</h2>
+
+<p class="ng-scope">プログラミングにエラーはつきものです。その中でも、はじめのうちは特に起こしやすいエラーを紹介します。以下に挙げるエラーに気をつければ、効率良く学習をすることができます。</p>
+
+<p class="ng-scope"><strong>・全角スペース</strong><br>
+<strong>・スペル間違い</strong><br>
+<strong>・閉じタグがない</strong></p>
+
+<h3 class="ng-scope">全角スペースによるエラー</h3>
+
+<p class="ng-scope"><strong>全角スペースがプログラム中に混入すると実行時にエラーとなります</strong>。<br>
+はじめのうちは見つけづらく、頻繁に起こるエラーなので、全角スペースには気をつけましょう。<br>
+全角スペース同様、<strong>日本語がプログラム中に混入すると実行時にエラーとなります</strong>。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> ただし全角スペース、日本語ともに文字列では使えます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span> <span class="s2">" "</span>
+  <span class="nb">puts</span> <span class="s2">"こんにちは ルビー"</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上記のプログラムでは全角スペースと日本語がありますが、どちらも文字列なのでエラーを起こさずに実行できます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="40" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-56" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-56" name="check-56" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">全角スペース、日本語をソースコード中に書くと実行時にエラーする</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-57" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-57" name="check-57" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">全角スペース、日本語は文字列中なら使える</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope"><strong>全角スペースでのエラー</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error1.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span><span class="err">　</span><span class="s2">"Hello World"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">分かりづらいのですがputsと"Hello World"の間が全角スペースになっています。このプログラムを実行するとエラーしてしまいます。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> 　<strong>上の「error1.rb」のサンプルをhelloworld.rbにコピー&amp;ペーストして実行してみよう。エラーするので、どんなエラー文が表示されるのか見てみよう。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="41" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-58" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-58" name="check-58" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">全角スペースを入れているときに起きるエラーを確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">スペル間違いのエラー</h3>
+
+<p class="ng-scope"><strong>打ち間違いのエラー</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">error2.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">put</span> <span class="s2">"Hello World"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これは「puts」でなく「put」と<strong>sが抜けてしまっていますね</strong>。こうしたメソッドなどの名前を打ち間違えてしまいエラーとなることはよくあります</p>
+
+<p class="ng-scope"><i class="icon pen"></i> 　<strong>上の「error2.rb」のサンプルをhelloworld.rbにコピー&amp;ペーストして実行してみましょう。エラーとなるので、どんなエラー文が表示されるのか見てみましょう。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="42" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-59" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-59" name="check-59" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">メソッド名を打ち間違えたときに起きるエラーを確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">閉じタグがないことによるエラー</h3>
+
+<p class="ng-scope">プログラミングにおける文法の中には、<strong>決まった書き方で終わらせないといけない</strong>ものがあります。もっと後の章で学習しますが、Rubyでは<strong>if文</strong>という条件分岐に関する文法があります。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">if</span> <span class="p">(</span><span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="k">then</span>
+    <span class="nb">puts</span> <span class="s2">"3は1よりも大きい"</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">ここで<code>puts "3は1よりも大きい"</code>は「if」と「end」で囲まれています。この<strong>end</strong>を忘れるとエラーとなってしまいます。 さらにHTMLでも同様に、閉じタグの概念が出てきます。<strong>HTML・CSS</strong>を学習する際に改めて意識しましょう。</p>
+
+<h3 class="ng-scope">エラーが起こった時は</h3>
+
+<p class="ng-scope">ここまで、<strong>「全角スペース」「スペル間違い」「閉じタグ忘れ」</strong>という3つのよくあるエラーの原因に関して学びました。はじめのうちは必ずこれらでエラーを起こすので、真っ先にチェックするようにしましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="43" action="http://master.tech-camp.in/curriculums/2#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-60" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-60" name="check-60" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">エラーをしたら「全角スペースが入ってないか、打ち間違いをしていないか、閉じタグがあるか」を確認する</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">はじめてのプログラミング</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">Rubyとは</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">Ruby on Rails</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents5" ng-click="clickContent(content.h1.id)">学習内容</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">ターミナルの操作</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">ターミナルを開いてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">ターミナル見方</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">ディレクトリについて学ぼう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">linuxコマンドに関して知ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">lsコマンドでファイルやフォルダの一覧を表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">cdコマンドでディレクトリを移動しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">ディレクトリのパスを指定する方法を覚えよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents14" ng-click="clickContent(content.h1.id)">Rubyプログラムの実行</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">Rubyファイルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">プログラムを書いてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents17" ng-click="clickContent(h2.id)">Rubyのプログラムを実行しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents18" ng-click="clickContent(content.h1.id)">ソースコードを書く上で気をつけること</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents19" ng-click="clickContent(h2.id)">コメントを書くようにしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents20" ng-click="clickContent(h2.id)">起こりやすいエラーについて知ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">52 / 52<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/2">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

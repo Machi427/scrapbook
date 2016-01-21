@@ -1,0 +1,3447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>Rubyでアプリケーションをつくる2</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    プログラミングをはじめよう<small class="ng-binding">〜Rubyでアプリケーションをつくる2〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ゴールデンゲートブリッジはサンフランシスコ湾と太平洋が接続するゴールデンゲート海峡に架かる吊り橋です。全長は約3キロメートルもあり、橋の色を塗り替えるのには4年の歳月がかかります。夏は橋に霧がたちこめ「天空の橋」とも呼ばれるそうです。<a class="ng-binding" href="https://www.flickr.com/photos/82955120@N05/11702702564" target="_top">Nicolas Raymond - Golden Dawn Bridge - HDR</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">STEP5 : レビューを書いた後メニューに戻るようにしよう</h1>
+
+<p class="ng-scope">STEP4でのプログラムはメニュー画面はありますが、最初しか表示されません。レビューを書いて、見るためにはレビューを書いた後にメニュー画面に戻る必要があります。そこでSTEP5ではメニューで「プログラムを終了する」を選択するまで<strong>プログラムが終了しない</strong>ような実装をします。</p>
+
+<h2 id="2" class="ng-scope">このSTEPでできるようになること</h2>
+
+<ul class="ng-scope">
+<li><strong>ループ処理を行えるようになる</strong></li>
+</ul>
+
+<h2 id="3" class="ng-scope">ループ処理をする</h2>
+
+<p class="ng-scope">メニューで「アプリを終了する」を選択するまでプログラムが終了しないような実装は以下のようなイメージとなります。</p>
+
+<p class="ng-scope"><img src="ruby3-loop.png" alt="ループ処理" title="ループ処理"></p>
+
+<p class="ng-scope">プログラムを実行してから終わらせないようにするには<strong>ループ処理</strong>というものを使います。</p>
+
+<h2 id="4" class="ng-scope">繰り返し処理をしましょう</h2>
+
+<p class="ng-scope">ループ処理は<strong>while</strong>という文法を使えば実行できます。whileは<strong>繰り返し処理</strong>と呼ばれるものを実行するための文法です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_126"></i> 繰り返し処理</h3>
+
+<p class="ng-scope">繰り返し処理とはある決まった処理を繰り返し行うことです。<br>
+決まった回数や条件を満たしている間は処理を繰り返します。<br>
+繰り返し処理を行うための文法には<strong>for</strong>、<strong>each</strong>、<strong>while</strong>などいくつかあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_127"></i> while文</h3>
+
+<p class="ng-scope">while文は繰り返し処理を行う文法の１つです。whileは以下のような文法で繰り返し処理を行います。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">while</span> <span class="err">条件式</span> <span class="k">do</span>
+    <span class="c1"># 処理を実行する</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">whileは条件式で繰り返すかどうかを決めます。<strong>条件式が真(true)のときはずっと処理を繰り返し続けます。</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="94" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-124" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-124" name="check-124" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">繰り返し処理とは、決まった同じ処理を繰り返して行うことをいう</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-125" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-125" name="check-125" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">whileは条件式が真のときに処理を繰り返す</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope">whileで繰り返し処理をしてみよう</h2>
+
+<p class="ng-scope">繰り返し処理を具体的な例を使ってみてみましょう。1から10までを順に足し合わせてその都度表示するプログラムを書いてみましょう。</p>
+
+<p class="ng-scope">「1から10までを順に足し合わせてその都度表示する」は以下のような考え方で<strong>アルゴリズム</strong>を組み立てていきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_128"></i> アルゴリズム</h3>
+
+<p class="ng-scope">アルゴリズムはコンピュータである目的を達成するための処理の手順のことです。<br>
+ここでは「1から10までを順に足し合わせてその都度表示する」が目的、もしくは解となりこれを達成するためにどのようにプログラムを組んだらいいか考えることがアルゴリズムを考えることになります。</p>
+
+<p class="ng-scope"><strong>「1から10までを順に足し合わせてその都度表示する」処理の手順</strong></p>
+
+<ul class="ng-scope">
+<li>1から10まで1ずつ増えていく変数numberを定義する</li>
+<li>足し合わせた数値の変数sumを定義する。</li>
+<li>numberが10になるまで処理を繰り返すwhile文を書く</li>
+<li>while文の中に足し合わせる処理を書く</li>
+<li>while文の中に足し合わせた数字を表示させる処理を書く</li>
+</ul>
+
+<p class="ng-scope"><img src="ruby3-increment.png" alt="アルゴリズム" title="アルゴリズム"></p>
+
+<p class="ng-scope"><i class="icon attention"></i> ループ処理を書いていると条件によっては<strong>いつまでも処理が終わらないという無限ループ</strong>に入ってしまいます。そうしたときはターミナルでプログラムを強制終了させる必要があります。<strong>強制終了はターミナル画面で「control + c」</strong>です。</p>
+
+<p class="ng-scope">上のアルゴリズムの考え方と、while文を使って「1から10までを順に足し合わせてその都度表示する」プログラムを書いてみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>sample.rbに1から10までを順に足し合わせてその都度表示するプログラムを書いてみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">number</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="k">while</span> <span class="n">number</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="k">do</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">number</span>
+    <span class="nb">puts</span> <span class="n">sum</span>
+    <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">3行目の「number &lt;= 10」が条件式で「numberが10以下のときは処理を繰り返す」ということです。<br>
+ここで<code>+=</code>という演算子が出てきました。これは<strong>自己代入演算子</strong>と呼ばれる演算子です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_129"></i> 自己代入演算子</h3>
+
+<p class="ng-scope">自己代入とは、その名の通り自分自身に代入するということです。自己代入演算子は、通常の演算子を用いた書き方に直すことができます。例としてサンプルプログラム6行目の<code>number += 1</code>を通常の演算子<code>+</code>を使った書き方に直してみましょう。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">この自己代入演算子<code>+=</code>を使った式は以下のように書き直せます。</p>
+
+<h3 class="ng-scope">[例]</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">このソースコードを見るとわかるように自己代入演算子を使った式<code>number += 1</code>は変数<code>number</code>に1足した値を<code>number</code>自身に代入するという処理になります。<br>
+以下に代表的な自己代入演算子を示します。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">自己代入演算子</th>
+<th style="text-align: center;">例</th>
+<th style="text-align: center;">処理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">+=</td>
+<td style="text-align: center;">number += 1</td>
+<td style="text-align: center;">numberに1足した値をnumber自身に代入</td>
+</tr>
+<tr>
+<td style="text-align: center;">-=</td>
+<td style="text-align: center;">number -= 2</td>
+<td style="text-align: center;">numberから2引いた値をnumber自身に代入</td>
+</tr>
+<tr>
+<td style="text-align: center;">*=</td>
+<td style="text-align: center;">number *= 3</td>
+<td style="text-align: center;">numberに3かけた値をnumber自身に代入</td>
+</tr>
+<tr>
+<td style="text-align: center;">/=</td>
+<td style="text-align: center;">number /= 4</td>
+<td style="text-align: center;">numberを4で割った値をnumber自身に代入</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">このように自己代入演算子を使うと、変数自身にある値を足したり、引いたりすることを簡単に記述することができます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="95" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-126" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-126" name="check-126" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">while文を使って、「1から10までを順に足し合わせてその都度表示する」プログラムを書くことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="96" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-127" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-127" name="check-127" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">アルゴリズムとはコンピュータに目的を達成させるための処理の手順のこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-128" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-128" name="check-128" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">強制終了はターミナル画面で「control + c」</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-129" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-129" name="check-129" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">自己代入演算子を使うと変数自身に演算を行うときに簡単に記述できる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">ループ処理をしましょう</h2>
+
+<p class="ng-scope">プログラムを終了させず同じ処理をずっと繰り返すループ処理を行う方法は<strong>while文の条件式をtrue</strong>にしておくことです。これでwhileが繰り返すための条件が常に真となり、永遠にwhile内の処理が繰り返されます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="c1"># プログラムは終了せず繰り返し処理が行われる</span>
+    <span class="c1">## 処理</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">しかしこれでは<strong>無限ループ</strong>となり、処理が終わることがありません。このループの処理から抜けるためには<strong>exit</strong>メソッドを呼び出します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_130"></i> exitメソッド</h3>
+
+<p class="ng-scope">exitメソッドは<strong>プログラムの処理を強制的に終了させる</strong>メソッドです。言うならば、実行中のプログラムを強制終了するコマンド「control + c」と同じ役割を持つメソッドです。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="nb">exit</span> <span class="c1"># ここでプログラムが終わる</span>
+  <span class="k">end</span>
+  <span class="nb">puts</span> <span class="s2">"Hello World"</span> <span class="c1"># これは呼ばれない</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><i class="icon attention"></i> exitメソッドは<strong>プログラム自体を強制終了させるのでexitメソッド以降の処理は行われません</strong>。</p>
+
+<p class="ng-scope">では、exitメソッドを使ってループを抜けるサンプルコードを書いてみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>         <span class="c1"># ユーザーの入力</span>
+    <span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="s2">"exit"</span> <span class="k">then</span>    <span class="c1"># exitと入力されたら</span>
+      <span class="nb">exit</span>                     <span class="c1"># プログラムを終了</span>
+    <span class="k">end</span>
+    <span class="nb">puts</span> <span class="s2">"ループ中"</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これはexitと入力するまでずっと処理を続けるプログラムです。このように<strong>whileの条件式をtrueにすることでexitを呼ぶまで同じ処理を行い続けます</strong>。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="97" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-130" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-130" name="check-130" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">while文の条件式に「true」を入れることで繰り返しの条件が常に真となり処理が永遠と繰り返される</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-131" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-131" name="check-131" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">exitメソッドはプログラムを強制終了させる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope">メニュー画面をexitするまでループさせましょう</h2>
+
+<p class="ng-scope">では、メインの処理をループさせメニューが毎回表示されるようにしましょう。ここでのメインの処理とは<br>
+<strong>「メニューの表示」 &gt; 「ユーザーの入力」 &gt; 「入力によって条件分岐させた処理」</strong><br>
+です。「アプリを終了する」にexitメソッドを記述して[2]を選んだらプログラムが終了するようにしましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題12：「メニュー画面の表示 &gt; ユーザーの入力 &gt; 入力によって選ばれた処理」を繰り返すようにしましょう。また、"[2]:アプリを終了する"を選んだらプログラムが終了するようにしましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：reviewApp.rb</h5>
+    <h5>ヒント：メニュー画面の表示と入力によって処理を変える部分をwhileで囲んでループするようにしよう</h5>
+    <curriculum-question-container class="ng-scope" data-order="1"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="98" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-132" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-132" name="check-132" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">while文を使って、メニュー画面を処理が終わるごとに表示させ続けることができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-133" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-133" name="check-133" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">exitメソッドでアプリケーションを終了させることができるようになった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope">STEP5完成ソースコード</h2>
+
+<p class="ng-scope">これでSTEP5は終了です。ここまでのreviewApp.rbのソースコードをのせておきます。比較して確認してみてください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1"># メソッドの定義</span>
+  <span class="k">def</span> <span class="nf">post_review</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">read_reviews</span>
+    <span class="c1"># レビューを読む</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">end_program</span>
+    <span class="nb">exit</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">exception</span>
+    <span class="nb">puts</span> <span class="s2">"入力された値は無効な値です"</span>
+  <span class="k">end</span>
+
+  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="c1"># メニューの表示</span>
+    <span class="nb">puts</span> <span class="s2">"レビュー数：0"</span>
+    <span class="nb">puts</span> <span class="s2">"[0]レビューを書く"</span>
+    <span class="nb">puts</span> <span class="s2">"[1]レビューを読む"</span>
+    <span class="nb">puts</span> <span class="s2">"[2]アプリを終了する"</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+    <span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+      <span class="n">post_review</span>         <span class="c1"># post_reviewメソッドの呼び出し</span>
+    <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span>
+      <span class="n">read_reviews</span>        <span class="c1"># read_reviewsメソッドの呼び出し</span>
+    <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">then</span>
+      <span class="n">end_program</span>         <span class="c1"># end_programメソッドの呼び出し</span>
+    <span class="k">else</span>
+      <span class="n">exception</span>           <span class="c1"># exceptionメソッドの呼び出し</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">■ 処理の流れ</h3>
+
+<p class="ng-scope">ここで処理の流れをおさらいします。</p>
+
+<ul class="ng-scope">
+<li>2行目から29行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post_review</span>
+      <span class="c1"># レビューの投稿</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">read_reviews</span>
+      <span class="c1"># レビューの閲覧</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">end_program</span>
+      <span class="c1"># プログラムの終了</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">exception</span>
+      <span class="c1"># エラー処理</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここはほとんどSTEP4と同じです。まずはメインの処理が記述されたメソッドを定義します。プログラムを終了するメソッド<code>end_program</code>のみこのSTEPでは処理を追加しました。</p>
+
+<ul class="ng-scope">
+<li>23行目から25行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>23
+24
+25</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">end_program</span>
+      <span class="nb">exit</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">end_programメソッド内ではただ1つ<code>exit</code>というメソッドを呼び出します。exitメソッドはプログラムを強制的に終了させるためのメソッドです。exitメソッドが呼ばれると、そのあとに処理を残していてもプログラムは終了します。</p>
+
+<p class="ng-scope">今回はwhile文による無限ループからプログラムを終了させるために使用します。</p>
+
+<ul class="ng-scope">
+<li>31行目から48行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>31
+32
+33
+34
+35</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+      <span class="c1"># メニューの表示</span>
+      <span class="c1"># ターミナルからの入力</span>
+      <span class="c1"># 入力に応じた処理</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メソッドの定義のあと、プログラムの処理が始まりますがその前に<code>while文</code>で全体の処理を囲みます。while文は繰り返し処理と呼ばれる、同じ処理を何度も繰り返すときに使われる文法です。</p>
+
+<p class="ng-scope">while文は条件式が<code>true</code>(真、プログラムとして正しい)のときに処理を繰り返します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">while</span> <span class="err">条件式</span> <span class="k">do</span>
+      <span class="c1"># 条件式がtrueのときに処理を繰り返す</span>
+      <span class="c1"># 処理</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">よって、条件式をtrueにすると<strong>常に処理が繰り返し続ける</strong>ことになります(無限ループ)。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+      <span class="c1"># 常に処理を繰り返す</span>
+      <span class="c1"># 処理</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">今回、exitメソッドでプログラムを終了するまでは<br>
+  <code>「メニューの表示」 → 「ターミナルからの入力」 → 「入力に応じた処理」</code><br>
+  という流れを繰り返し続けるので、これらの処理をwhile文で囲みます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+      <span class="nb">puts</span> <span class="s2">"レビュー数：0"</span>
+      <span class="nb">puts</span> <span class="s2">"[0]レビューを書く"</span>
+      <span class="nb">puts</span> <span class="s2">"[1]レビューを読む"</span>
+      <span class="nb">puts</span> <span class="s2">"[2]アプリを終了する"</span>
+      <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+      <span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+        <span class="n">post_review</span>
+      <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span>
+        <span class="n">read_reviews</span>
+      <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">then</span>
+        <span class="n">end_program</span>
+      <span class="k">else</span>
+        <span class="n">exception</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">このようなソースコードが書けたらSTEP6へ進みましょう。</p>
+
+<hr class="ng-scope">
+
+<h1 id="9" class="ng-scope">STEP6 : レビューを複数書けるようにしよう</h1>
+
+<p class="ng-scope">STEP5でメニューがループするようになり、何回でもレビューを書けるようになりました。しかし今のままでは<strong>レビューを書くたびに上書きされてしまいます</strong>。このSTEPでは複数のレビューをかけるようにしましょう。</p>
+
+<h2 id="10" class="ng-scope">このSTEPでできるようになること</h2>
+
+<ul class="ng-scope">
+<li><strong>配列が使えるようになる</strong></li>
+<li><strong>配列に要素を追加できるようになる</strong></li>
+</ul>
+
+<h2 id="11" class="ng-scope">複数の情報を扱おう</h2>
+
+<p class="ng-scope">複数のレビューを扱う方法として考えられるのが<strong>レビューの数だけ変数を用意する方法</strong>です。しかし、このアプリケーションでは書くことのできるレビューの数に限界がないため、いくつ変数を用意すれば良いかわかりません。そのため考えられるだけ多くの変数を用意するしかないです(100個ほど)。</p>
+
+<p class="ng-scope">しかし、この方法はよくありません。なぜなら、<strong>用意した変数よりも多くレビューを書かれたら対応できないからです</strong>。さらにレビューを全く書かなければ<strong>使うことのない無駄な変数</strong>がたくさん出来てしまいます。</p>
+
+<h2 id="12" class="ng-scope">配列オブジェクト</h2>
+
+<p class="ng-scope">そこで登場するのが<strong>配列オブジェクト</strong>です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_131"></i> 配列オブジェクト</h3>
+
+<p class="ng-scope">配列オブジェクトはハッシュと同じように、1つの変数でたくさんの情報を持つことのできるオブジェクトです。配列の中にはたくさんのオブジェクトを入れることができます。ハッシュがキーでオブジェクトを管理していたのに対して、<strong>配列は順番でオブジェクトを管理します</strong>。</p>
+
+<p class="ng-scope">配列は箱をイメージしてください。この箱の中にはいろんな情報を何個でも入れることができます。</p>
+
+<p class="ng-scope"><img src="ruby3-array.png" alt="配列" title="配列"></p>
+
+<p class="ng-scope">箱の中に本を積み重ねると下から順番になりますね。このように配列もデータを入れるとそのデータに順番がつけられます。すなわち<strong>データと順番がひもづけられます</strong>。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_132"></i> 要素</h3>
+
+<p class="ng-scope">配列の中のデータは要素と呼ばれます。要素は順番を持っていて、配列に入れた順に1番目,2番目..と自動的に順番が割り振られます。</p>
+
+<p class="ng-scope"><img src="ruby3-array-stack.png" alt="配列と順番" title="配列と順番"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="99" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-134" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-134" name="check-134" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトは様々なデータを入れて管理できるオブジェクト</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-135" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-135" name="check-135" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトに入れられたデータを要素という</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-136" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-136" name="check-136" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">要素は順番を持つ</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">配列オブジェクトを生成してみよう</h2>
+
+<p class="ng-scope">配列オブジェクトを作ってみましょう。配列を作るもっとも簡単な方法は以下の方法です。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">配列オブジェクト</span> <span class="o">=</span> <span class="o">[]</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これで何も入っていない<strong>空の箱の配列</strong>ができます。ハッシュは<strong>{}(中括弧)</strong>で囲んでいたのに対し、配列は<strong>[](大括弧)</strong>で囲みます。</p>
+
+<p class="ng-scope">もちろん、最初から要素を入れた状態で作ることもできます。文字列「ペン、消しゴム、定規」の入った配列オブジェクト「pencil_case」をつくってみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">pencil_case</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"ペン"</span><span class="p">,</span> <span class="s2">"消しゴム"</span><span class="p">,</span> <span class="s2">"定規"</span><span class="o">]</span>
+  <span class="nb">puts</span> <span class="n">pencil_case</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここでは<strong>最初に書いた要素の方が早い順番になります</strong>。つまり、ペンが1番目、消しゴムが2番目、定規が3番目です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="100" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-137" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-137" name="check-137" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトは要素を[](大括弧)で囲む</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-138" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-138" name="check-138" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトを生成するとき、最初に書いた要素から順番がつけられる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="14" class="ng-scope">配列オブジェクトに要素を追加してみよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_133"></i> &lt;&lt;メソッド</h3>
+
+<p class="ng-scope">生成した配列オブジェクトに新しい要素を追加したいときがあります。そのときは<strong>&lt;&lt;メソッド</strong>を使って、以下のように追加ができます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">配列オブジェクト</span> <span class="o">&lt;&lt;</span> <span class="err">追加する要素</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">では先ほどの配列オブジェクト「pencil_case」に文字列「メモ帳」を追加しましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">pencil_case</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"ペン"</span><span class="p">,</span> <span class="s2">"消しゴム"</span><span class="p">,</span> <span class="s2">"定規"</span><span class="o">]</span>
+  <span class="n">pencil_case</span> <span class="o">&lt;&lt;</span> <span class="s2">"メモ帳"</span>
+  <span class="nb">puts</span> <span class="n">pencil_case</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">puts pencil_caseでは「メモ帳」も表示されるのでちゃんと追加されているのがわかりますね。<strong>&lt;&lt;メソッドで追加すると配列の一番最後にその要素が追加されます</strong>。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="101" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-139" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-139" name="check-139" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトに要素を追加するには&lt;&lt;メソッドを使う</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-140" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-140" name="check-140" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">&lt;&lt;メソッドでは配列オブジェクトに最後の順番で追加される</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="15" class="ng-scope">配列の要素の数をカウントしよう</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_134"></i> lengthメソッド</h3>
+
+<p class="ng-scope">lengthメソッドはその配列の中にある要素の数を返してくれるメソッドです。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">配列オブジェクト</span><span class="o">.</span><span class="n">length</span> <span class="c1"># =&gt; 配列オブジェクト内の要素の数</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">試しに配列オブジェクト「pencil_case」の中にいくつ要素があるのか調べてみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">pencil_case</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"ペン"</span><span class="p">,</span> <span class="s2">"消しゴム"</span><span class="p">,</span> <span class="s2">"定規"</span><span class="o">]</span>
+  <span class="nb">puts</span> <span class="n">pencil_case</span><span class="o">.</span><span class="n">length</span>
+
+  <span class="n">pencil_case</span> <span class="o">&lt;&lt;</span> <span class="s2">"メモ帳"</span>
+  <span class="n">pencil_case</span> <span class="o">&lt;&lt;</span> <span class="s2">"付箋"</span>
+  <span class="nb">puts</span> <span class="n">pencil_case</span><span class="o">.</span><span class="n">length</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">最初は「ペン、消しゴム、定規」という3つの要素が入っているので、<strong>3</strong>がlengthメソッドで返ってきます。その後「メモ帳、付箋」を追加したので<strong>5</strong>が返ってきます。このようにlengthメソッドを使えば配列の要素の個数がすぐにわかります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="102" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-141" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-141" name="check-141" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lengthメソッドで配列オブジェクトの要素の個数がわかる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="16" class="ng-scope">レビューの情報を配列オブジェクトで管理しよう</h2>
+
+<p class="ng-scope">では、今まで書いてきたreviewApp.rbを配列を使って書き直してみましょう。イメージとしては<br>
+- <strong>複数のレビューの情報を持った配列オブジェクト「posts」を定義する</strong><br>
+- <strong>１つのレビューは今まで通り、ハッシュオブジェクト「post」で生成する</strong><br>
+- <strong>レビューを書いたらハッシュオブジェクト「post」を配列オブジェクト「posts」に追加する</strong></p>
+
+<p class="ng-scope">これで、書いたレビューが次々に配列オブジェクトに入れられていきます。</p>
+
+<p class="ng-scope"><img src="ruby3-posts-add.png" alt="postsとpost" title="postsとpost"></p>
+
+<h2 id="17" class="ng-scope">配列オブジェクトpostsを生成しよう</h2>
+
+<p class="ng-scope">まずは、レビュー情報を管理する配列オブジェクトpostsを生成しましょう。生成は以下のコードで行います。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span>      <span class="c1"># 複数のレビューを持つ配列オブジェクト</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">始めはレビューの情報は何もないので、この生成方法になりますね。ではこの一行をreviewApp.rbのどこに書けばいいでしょうか。考えてみましょう。以下のどれかです。</p>
+
+<ul class="ng-scope">
+<li><strong>繰り返し処理whileよりも前(while文の外)</strong></li>
+<li><strong>whileで繰り返されている処理の中</strong></li>
+<li><strong>どれかのメソッドの中(post_reviewなど)</strong></li>
+</ul>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題13：レビュー情報を管理する配列オブジェクトpostsを生成しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：reviewApp.rb</h5>
+    <h5>ヒント：新たに書き足すのは`posts = []`の一行だけです</h5>
+    <curriculum-question-container class="ng-scope" data-order="2"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="103" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-142" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-142" name="check-142" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">レビュー情報を管理する配列オブジェクトpostsを生成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="18" class="ng-scope">配列オブジェクトpostsにレビューの情報postを追加しよう</h2>
+
+<p class="ng-scope">これで配列オブジェクトpostsを作ることができました。あとは「レビューを書く」で生成したレビューのハッシュオブジェクトpostを配列postsに追加するだけです。<br>
+ここでreviewApp.rbの「レビューを書く」メソッドの<code>post_review</code>を見てみましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">post_review</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="c1">## 以下省略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>post_review</code>メソッドの中では新しいレビューの変数postを生成しています。これを配列postsに追加したいのでこのようにソースコードを書き直したいです。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">post_review</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># 配列オブジェクトに追加</span>
+<span class="hll">    <span class="n">posts</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+</span>  <span class="k">end</span>
+
+  <span class="c1">## 以下省略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">しかし、このソースコードはエラーになってしまいます。なぜならば<strong>post_reviewメソッドの中では変数postsが使えない</strong>からです。</p>
+
+<h3 class="ng-scope">変数のスコープ</h3>
+
+<p class="ng-scope">変数には、その<strong>変数が使える範囲</strong>というものが決まっています。これをスコープといいます。通常、メソッド内ではそのメソッド内で定義した変数しか利用することができません。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_135"></i> スコープ</h3>
+
+<p class="ng-scope">ある変数を利用できる範囲のことです。スコープの範囲外の変数を使おうとすると、エラーが起こります。</p>
+
+<p class="ng-scope">さきほどのエラーは、変数postsにとってpost_reviewメソッドがスコープ外であるために起きました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="104" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-143" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-143" name="check-143" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">変数にはその変数を使うことのできる範囲が決まっていて、それをスコープという</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">ではどのようにして変数のスコープが決まるのでしょうか。具体的に見てみましょう。</p>
+
+<h3 class="ng-scope">変数のスコープの例</h3>
+
+<p class="ng-scope">以下のコードは、スコープが異なる範囲が存在しません。こちらを実行すれば、2行目の<code>puts</code>によって問題なくターミナルに「東京」と表示されるでしょう。</p>
+
+<h3 class="ng-scope">【例】スコープの範囲内のため、正常に動作する</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">capital</span> <span class="o">=</span> <span class="s2">"東京"</span>             <span class="c1"># 首都は「東京」</span>
+  <span class="nb">puts</span> <span class="n">capital</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">しかし、次のコードは、スコープの違う範囲にある変数を利用しようとしているため、エラーが起こります。</p>
+
+<h3 class="ng-scope">【例】スコープの範囲が違うため、エラーになる</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">capital</span> <span class="o">=</span> <span class="s2">"東京"</span>             <span class="c1"># 首都は「東京」</span>
+
+  <span class="k">def</span> <span class="nf">america</span>
+    <span class="nb">puts</span> <span class="n">capital</span>
+  <span class="k">end</span>
+
+  <span class="n">america</span>                     <span class="c1"># エラー</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">americaというメソッドを作って、その中で1行目の変数<code>capital</code>をputsしようとしています。しかし、<strong>メソッド内ではメソッド内で定義した変数しか使えません。</strong></p>
+
+<p class="ng-scope">以下の例では、同名ですがスコープの範囲が違う場所でそれぞれ定義した変数の挙動を確かめられます。</p>
+
+<h4 class="ng-scope">【例】同名でもスコープの範囲が違う変数</h4>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll">  <span class="n">capital</span> <span class="o">=</span> <span class="s2">"東京"</span>             <span class="c1"># 首都は「東京」</span>
+</span>
+  <span class="k">def</span> <span class="nf">america</span>
+<span class="hll">    <span class="n">capital</span> <span class="o">=</span> <span class="s2">"ワシントン"</span>       <span class="c1"># americaの首都は「ワシントン」</span>
+</span>    <span class="nb">puts</span> <span class="n">capital</span>
+  <span class="k">end</span>
+
+  <span class="n">america</span>                     <span class="c1"># =&gt; ワシントン</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">メソッド<code>america</code>内4行目で変数<code>capital</code>を生成しています。こちらは"ワシントン"という文字列です。このファイルを実行すると、最終的には5行目のputsで"ワシントン"と表示されます。1行目で変数<code>capital</code>という同じ名前で中身は"東京"の変数を定義していますが、メソッド<code>america</code>内では4行目につくった変数<code>capital</code>が使われます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="105" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-144" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-144" name="check-144" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">メソッドではメソッド内で定義した変数しか使えない</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-145" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-145" name="check-145" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">同じ名前の変数でもスコープが違えば別の変数となる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="19" class="ng-scope">違うスコープの変数を使うには</h2>
+
+<p class="ng-scope">さきほど、「メソッドではメソッド内で定義した変数しか使えない」ということを学びました。ではreviewApp.rbで<br>
+「レビューを書く」メソッドの<code>post_review</code>内で配列オブジェクトpostsを使うにはどうすれば良いでしょうか。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>このままのソースコードではエラーしてしまいます</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="k">def</span> <span class="nf">post_review</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+<span class="hll">    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+</span><span class="hll">    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+</span>    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># 配列オブジェクトに追加</span>
+    <span class="n">posts</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+  <span class="k">end</span>
+
+  <span class="c1">## 以下省略</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">18行目の配列オブジェクトpostsは<strong>post_reviewメソッドの外で定義した変数なのでpost_reviewメソッド内では使えません。</strong><br>
+「メソッドの外で定義した変数」を「メソッドの中」で使えるようにするには<strong>引数</strong>というものを使います。</p>
+
+<h2 id="20" class="ng-scope">引数でメソッドに変数を渡してみよう</h2>
+
+<p class="ng-scope">メソッドとは<strong>「何か材料を渡したら共通の処理を施した後に何か値を返してくれるもの」</strong>と言うことができます。引数とは、メソッドに渡す材料のことです。<br>
+また、「メソッドが返してくれる値」を明確に示すために、<strong>return</strong>という構文を利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_136"></i> 引数(ひきすう)</h3>
+
+<p class="ng-scope">引数はプログラムでメソッドなどに渡すことのできる値のことです。これによってメソッドの外にある変数(スコープ外の変数)をメソッドの中で使うことができます。</p>
+
+<p class="ng-scope">引数には以下に示す2つのポイントがあります。</p>
+
+<h4 class="ng-scope">1.「メソッドを呼び出す部分」と「メソッドを定義している部分」両方に書く</h4>
+
+<h4 class="ng-scope">2.「メソッドを呼び出す部分」に書く引数と「メソッドを定義している部分」に書く引数の名前は、一致している必要はない</h4>
+
+<p class="ng-scope">それぞれ説明します。</p>
+
+<h3 class="ng-scope">1.「メソッドを呼び出す部分」と「メソッドを定義している部分」両方に書く</h3>
+
+<p class="ng-scope">メソッドを呼び出す際に書く引数のことを<strong>本引数</strong>と呼びます。メソッドの呼び出し時は、以下のように本引数を書きます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">メソッド名</span><span class="p">(</span><span class="err">本引数</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">対して、メソッドを定義している部分に書く引数のことを<strong>仮引数</strong>と呼びます。メソッドを定義している部分には、以下のように仮引数を書きます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="err">メソッド名</span><span class="p">(</span><span class="err">仮引数</span><span class="p">)</span>
+    <span class="err">実行する処理</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">では、引数を渡してメソッドを実行する例を見てみましょう。</p>
+
+<h3 class="ng-scope">【例】引数を用いたメソッドの実行</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">multi</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">number</span> <span class="o">*</span> <span class="n">number</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="s2">"何か数字を入力してください"</span>
+  <span class="n">number</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+  <span class="n">multi</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">メソッド<code>multi</code>は、引数として渡した数を2乗した数字を出力してくれるメソッドです。</p>
+
+<p class="ng-scope">1 ~ 3行目はメソッドの定義なので、メソッドが呼ばれるまでは無視します。5行目のputsメソッドで「何か数字を入力してください」と出力されたあと、6行目でユーザーが入力した数字が変数<code>number</code>に代入されるように書いています。</p>
+
+<p class="ng-scope">そして、8行目でメソッド<code>multi</code>を実行しています。その際、後ろの()の中に<code>number</code>が書かれていることに注目してください。この記述により、メソッド<code>multi</code>が実行される際に<code>number</code>を引数として利用することが出来ます。</p>
+
+<p class="ng-scope">1行目、メソッドの定義側を見ると、仮引数は<code>number</code>となっています。なので、メソッド<code>multi</code>の処理中は、本引数<code>number</code>を<code>number</code>という変数として利用することになります。</p>
+
+<h3 class="ng-scope">2.「メソッドを呼び出す部分」に書く引数と「メソッドを定義している部分」に書く引数の名前は同じである必要はない</h3>
+
+<p class="ng-scope"><strong>本引数と仮引数の名前が同じである必要はありません。</strong>例えば、先ほどのメソッドの本引数を以下のようにしても問題なく動作します。</p>
+
+<h3 class="ng-scope">【例】本引数の名前を変更</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">multi</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">number</span> <span class="o">*</span> <span class="n">number</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="s2">"何か数字を入力してください"</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+  <span class="n">multi</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">本引数の変数名を<strong>value</strong>に変更しました。valueとしてメソッド<code>multi</code>に引き渡された引数の値は、メソッド<code>multi</code>の中では変数<code>number</code>に代入された状態で利用されます。</p>
+
+<h3 class="ng-scope">メソッド自体の答えを明示的に示すreturn文</h3>
+
+<p class="ng-scope">さて、現在メソッド<code>multi</code>は引数として渡された数字の2乗の結果を出力するだけです。この結果をメソッド自体の値とする(メソッドの答えとする)場合は、以下のように3行目を追記します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">multi</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">number</span> <span class="o">*</span> <span class="n">number</span>
+<span class="hll">    <span class="k">return</span> <span class="n">number</span> <span class="o">*</span> <span class="n">number</span>
+</span>  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="s2">"何か数字を入力してください"</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+  <span class="n">multi</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上記のようにすることで、8行目のメソッド<code>multi</code>の式の答えはnumber * numberの答えになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_137"></i> return文</h3>
+
+<p class="ng-scope"><code>return ◯◯</code>とすると、returnのあとに続けたオブジェクトがそのメソッド自体の返り値になります。returnを利用した時点で返り値が決まるため、メソッドはその行までで強制的に終了します。</p>
+
+<h3 class="ng-scope">【例】returnを利用した場合</h3>
+
+<p class="ng-scope"><i class="icon attention"></i> return文でメソッドは返り値を返して<strong>そのまま処理を終了します</strong>。return文のあとにコードがあっても無視されます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">sample</span>
+    <span class="s2">"1"</span>
+    <span class="s2">"2"</span>
+    <span class="s2">"3"</span>
+
+    <span class="k">return</span> <span class="s2">"4"</span>           <span class="c1"># ここで処理は終わり</span>
+
+    <span class="s2">"5"</span>                <span class="c1"># 呼ばれない</span>
+    <span class="s2">"6"</span>                <span class="c1"># 呼ばれない</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="n">sample</span>            <span class="c1"># =&gt; 4</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><code>return</code>を利用しなかった場合、メソッドの返り値は<strong>そのメソッドの中で最後に実行された式の値</strong>となります。以下の例を見てください。</p>
+
+<h3 class="ng-scope">【例】returnを利用しない場合</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">sample</span>
+    <span class="s2">"1"</span>
+    <span class="s2">"2"</span>
+    <span class="s2">"3"</span>
+    <span class="s2">"4"</span>
+    <span class="s2">"5"</span>
+    <span class="s2">"6"</span>                <span class="c1"># 最後に実行されている</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="n">sample</span>            <span class="c1"># =&gt; 6</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>Rubyでは、どんな記述も式と捉え、その返り値を持ちます。</strong>上記のように文字列を書いておくだけの場合、返り値はその文字列の値となります。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="106" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-146" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-146" name="check-146" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">引数はメソッドの外からメソッドに渡す値</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-147" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-147" name="check-147" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">メソッドでreturnのあとにオブジェクトを続けるとそのオブジェクトを返り値として返せる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="21" class="ng-scope">引数と引数を入れる変数の関係①</h2>
+
+<p class="ng-scope">ここでもうひとつメソッドを作って、引数や返り値についての理解を深めましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">mixer</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">fruit</span><span class="si">}</span><span class="s2">を細かく砕く"</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="si">#{</span><span class="n">fruit</span><span class="si">}</span><span class="s2">ジュース"</span>
+  <span class="k">end</span>
+
+  <span class="nb">puts</span> <span class="n">mixer</span><span class="p">(</span><span class="s2">"リンゴ"</span><span class="p">)</span> <span class="c1"># =&gt; リンゴジュース</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">きちんと最後に「リンゴジュース」が出力されたでしょうか。<strong>メソッドの呼び出し側で渡された引数(リンゴ)は引数を入れる変数(fruit)としてメソッド内で使うことができます</strong>。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span> <span class="n">mixer</span><span class="p">(</span><span class="s2">"リンゴ"</span><span class="p">)</span>           <span class="c1"># この"リンゴ"という値がメソッドmixerに渡される。</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">puts object とすればobjectが出力されますが、今、objectの部分が<code>mixer("リンゴ")</code>となっています。そこでまずメソッドmixer自体の（返り値）を確定させるために、メソッドmixerが実行されます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">mixer</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span>                <span class="c1"># 渡された"リンゴ"という値が引数を入れる変数fruitに代入される。</span>
+    <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">fruit</span><span class="si">}</span><span class="s2">を細かく砕く"</span>     <span class="c1"># 今、fruitには"リンゴ"という値が入っている。</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="si">#{</span><span class="n">fruit</span><span class="si">}</span><span class="s2">ジュース"</span>      <span class="c1"># "リンゴジュース" を返す。</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">以上より、mixer("リンゴ")は、"リンゴを細かく砕く"を出力した後、"リンゴジュース"を返します。返すとはすなわち、mixer("リンゴ")というメソッドの呼び出しが"リンゴジュース"という値になる、ということです。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span> <span class="n">mixer</span><span class="p">(</span><span class="s2">"リンゴ"</span><span class="p">)</span>    <span class="c1"># mixer("リンゴ")を出力するとその返り値である"リンゴジュース"が出力される</span>
+  <span class="o">=&gt;</span> <span class="s2">"リンゴジュース"</span>
+
+  <span class="n">juice</span> <span class="o">=</span> <span class="n">mixer</span><span class="p">(</span><span class="s2">"ブドウ"</span><span class="p">)</span> <span class="c1"># 変数に代入もできる</span>
+  <span class="nb">puts</span> <span class="n">juice</span>
+  <span class="o">=&gt;</span> <span class="s2">"ブドウジュース"</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>引数を使うと渡す側の値によって結果を変えることができる</strong>ので非常に便利です。6行目の「puts mixer("リンゴ") 」の"リンゴ"をいろんな文字列に変えると結果の出力も変わってくるのです。</p>
+
+<p class="ng-scope"><i class="icon pen"></i>  <strong>「puts mixer("リンゴ")」の部分を「puts mixer("ぶどう")」や「puts mixer("みかん")」に変えて実行してみよう</strong></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="107" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-148" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-148" name="check-148" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">引数の値はメソッド名(変数)の変数の中に代入されて、そのままメソッド内で使われる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="22" class="ng-scope">引数と引数を入れる変数②</h2>
+
+<p class="ng-scope">先ほど出てきたスコープに関しておさらいしましょう。引数を使った簡単なプログラムの例を実行してみます。</p>
+
+<p class="ng-scope"><i class="icon attention"></i>こちらの項の内容は、重要ながら非常に理解が難しいものとなっています。そこで、本項の最後に解説の動画を用意しています。一通り読み終えたら、動画を見て要点を確認しましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tanaka"</span>
+  <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="nb">name</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここで定義しているメソッド<code>rename</code>は引数で渡した変数<code>name</code>にMr.をつけるという処理を行っています。しかし、実行してみるとわかるように7行目のputsではMr.Tanakaではなく<strong>Tanaka</strong>と表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>$ ruby sample.rb
+Tanaka
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">引数で渡した値はメソッドで変数に入れられてメソッド内で使用されます。このとき実は、<strong>メソッドの変数には引数で渡した値のコピーが代入されています。</strong></p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">引数の<code>name</code>とrenameメソッドで受け取る変数<code>name</code>を以下のように色分けして考えます。</p>
+
+<p class="ng-scope"><img src="04.png" alt="値渡し①"></p>
+
+<p class="ng-scope">ここで重要なのは<strong>引数の<code>name</code>と<code>rename</code>メソッドで受け取る変数<code>name</code>は名前は同じですが、別物であるということです。</strong>詳しく見ていきましょう。</p>
+
+<ul class="ng-scope">
+<li>まず、5行目で<code>name</code>に文字列"Tanaka"が代入されます。</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+<span class="hll">  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tanaka"</span>
+</span>  <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="nb">name</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><img src="05.png" alt="値渡し②"></p>
+
+<ul class="ng-scope">
+<li>次にこの<code>name</code>を引数としてメソッドrenameを呼び出します。<strong>このとき<code>name</code>の中に入っている値がコピーされます。</strong>この場合、文字列"Tanaka"の値がコピーされます。</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tanaka"</span>
+<span class="hll">  <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span>  <span class="nb">puts</span> <span class="nb">name</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><img src="06.png" alt="値渡し③"></p>
+
+<ul class="ng-scope">
+<li>コピーされた文字列"Tanaka"はメソッドrenameの変数<code>name</code>に代入されます。よって、引数<code>name</code>とメソッドで使われる変数<code>name</code>の中身の値は同じになり、メソッドに値を渡すことができました。</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll">  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+</span>    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tanaka"</span>
+  <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="nb">name</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><img src="07.png" alt="値渡し④"></p>
+
+<ul class="ng-scope">
+<li>メソッド内の変数<code>name</code>の値を変えても、この変数と引数の変数<code>name</code>は別物であるため引数の変数<code>name</code>には影響を与えません。</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+<span class="hll">    <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">"</span>
+</span>  <span class="k">end</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tanaka"</span>
+  <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="nb">name</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><img src="08.png" alt="値渡し⑤"></p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">よって、変数<code>name</code>にMr.をつけるメソッド<code>rename</code>は以下のようにすれば期待通りに動くようになります。<br>
+分かりやすいように引数の変数名は<code>name</code>、メソッドで引数を受け取ったときの変数名を<code>a_name</code>とします。("a_name"の"a_"はargument:引数の略)</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>sample.rbを以下のように書き直し、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="n">a_name</span><span class="p">)</span>
+    <span class="n">a_name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="n">a_name</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">return</span> <span class="n">a_name</span>
+  <span class="k">end</span>
+
+  <span class="nb">name</span> <span class="o">=</span> <span class="s2">"Tanaka"</span>
+  <span class="nb">name</span> <span class="o">=</span> <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="nb">name</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">今回はちゃんと<strong>Mr.Tanaka</strong>と表示されたと思います。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>$ ruby sample.rb
+Mr.Tanaka
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">詳しく見ていきましょう。</p>
+
+<p class="ng-scope">メソッド<code>rename</code>では引数から受け取った<code>a_name</code>にMr.をつけた文字列を返り値としてメソッドの呼び出し元に返します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span><span class="n">a_name</span><span class="p">)</span>
+    <span class="n">a_name</span> <span class="o">=</span> <span class="s2">"Mr.</span><span class="si">#{</span><span class="n">a_name</span><span class="si">}</span><span class="s2">"</span> <span class="c1"># a_nameにMr.をつけた文字列をa_name自身に代入</span>
+<span class="hll">    <span class="k">return</span> <span class="n">a_name</span>           <span class="c1"># a_nameを返り値として返す</span>
+</span>  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以前は<code>rename(name)</code>と、単にメソッド<code>rename</code>を呼び出しただけでしたが、今回は<code>name = rename(name)</code>とメソッドからの返り値を<code>name</code>に代入しています。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll">  <span class="nb">name</span> <span class="o">=</span> <span class="n">rename</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span> <span class="c1"># nameにrenameメソッドの返り値を代入</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで、<code>name</code>の値が、メソッド<code>rename</code>によってMr.をつけた文字列になります。</p>
+
+<p class="ng-scope">上記のメソッドと引数に関する解説動画を用意しましたので、以下の動画を参考にしてみてください。それでもよくわからない場合は、遠慮なくメンターに質問しましょう！</p>
+
+<iframe class="ng-scope" src="index_1.html" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>
+
+<h2 id="23" class="ng-scope">引数のドリルに挑戦しよう</h2>
+
+<p class="ng-scope">ここまでメソッドと引数、返り値などの概念を扱ってきましたが、「正直まだよくわからない・・・」という方も居ると思います。しかし、これらの概念はプログラミングにおいてとても重要です。ぜひここで覚えていただきたいので、演習を用意しました。本章からは少し話が逸れますが、後で混乱することのないよう、ぜひ挑戦してみてください。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/250">引数に関する問題に挑戦する</a></p>
+
+<h2 id="24" class="ng-scope">配列オブジェクトpostsを引数として渡そう</h2>
+
+<p class="ng-scope">だいぶ遠回りしてしまいましたが、ここで、reviewApp.rbに戻りましょう。今回やりたいことは、<strong>配列オブジェクトpostsに個別のレビューのハッシュオブジェクトpostを保存する</strong>ということでした。さっそく、引数を使って配列オブジェクトpostsをレビューを書くメソッドの<code>post_review</code>内で扱えるようにしましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">post_review</span> <span class="c1"># ここで引数を受け取るようにする</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># 引数で受け取った配列オブジェクトにpostを追加</span>
+    <span class="c1">## コードを書く</span>
+
+    <span class="c1"># postを追加した配列オブジェクトを返り値として返す</span>
+    <span class="c1">## コードを書く</span>
+  <span class="k">end</span>
+
+  <span class="c1">## 以下省略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メソッドの呼び出し元は配列オブジェクトpostsを渡すようにします。メソッド<code>post_review</code>では<code>a_posts</code>という名前の変数で引数である配列オブジェクトpostsを受け取るようにしましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題14：post_reviewメソッドの最後で配列オブジェクトpostsにレビューのハッシュオブジェクトpostを追加するようにしましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：reviewApp.rb</h5>
+    <h5>ヒント：引数を使ってpost_reviewメソッドに配列オブジェクトpostsを渡しましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order=" 3"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="108" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-149" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-149" name="check-149" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">引数を使ってpost_reviewメソッド内で配列オブジェクトpostsを扱うことができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-150" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-150" name="check-150" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトpostsに書いたレビューのハッシュオブジェクトを追加できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="25" class="ng-scope">書いたレビューの数を表示しよう</h2>
+
+<p class="ng-scope">配列オブジェクトに要素を追加しても今は中身を出力をしていないのでちゃんと追加されているかわかりません。そこでメニュー画面に「書いたレビューの数」を表示しましょう。今まで<strong>レビュー数：0</strong>と表示していましたがここの0を書き換えましょう。</p>
+
+<p class="ng-scope"><strong>レビュー数 = 配列オブジェクトpostsの要素数</strong>です。この要素数を0の代わりに表示するだけです。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題15：書いたレビューの数をメニュー画面で「レビュー数：1」のように表示させましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：reviewApp.rb</h5>
+    <h5>ヒント：配列オブジェクトの要素数はlengthメソッドで取得することができます</h5>
+    <curriculum-question-container class="ng-scope" data-order="4"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="109" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-151" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-151" name="check-151" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">lengthメソッドを使ってレビュー数を表示することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<hr class="ng-scope">
+
+<h2 id="26" class="ng-scope">STEP6完成ソースコード</h2>
+
+<p class="ng-scope">これでSTEP6は終了です。ここまでのreviewApp.rbのソースコードをのせておきます。比較して確認してみてください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c1"># メソッドの定義</span>
+  <span class="k">def</span> <span class="nf">post_review</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># 配列オブジェクトに追加</span>
+    <span class="n">a_posts</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+
+    <span class="c1"># a_postsをメソッドの呼び出し元に返す</span>
+    <span class="k">return</span> <span class="n">a_posts</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">read_reviews</span>
+    <span class="c1"># レビューを読む</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">end_program</span>
+    <span class="nb">exit</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">exception</span>
+    <span class="nb">puts</span> <span class="s2">"入力された値は無効な値です"</span>
+  <span class="k">end</span>
+
+  <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span>             <span class="c1"># 配列オブジェクトpostsの生成</span>
+
+  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="c1"># メニューの表示</span>
+    <span class="nb">puts</span> <span class="s2">"レビュー数：</span><span class="si">#{</span><span class="n">posts</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"[0]レビューを書く"</span>
+    <span class="nb">puts</span> <span class="s2">"[1]レビューを読む"</span>
+    <span class="nb">puts</span> <span class="s2">"[2]アプリを終了する"</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+    <span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+      <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>  <span class="c1"># post_reviewメソッドの呼び出し</span>
+    <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span>
+      <span class="n">read_reviews</span>                <span class="c1"># read_reviewsメソッドの呼び出し</span>
+    <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">then</span>
+      <span class="n">end_program</span>                 <span class="c1"># end_programメソッドの呼び出し</span>
+    <span class="k">else</span>
+      <span class="n">exception</span>                   <span class="c1"># exceptionメソッドの呼び出し</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">■ 処理の流れ</h3>
+
+<p class="ng-scope">ここで処理の流れをおさらいします。</p>
+
+<ul class="ng-scope">
+<li>2行目から35行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post_review</span>
+      <span class="c1"># レビューの投稿</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">read_reviews</span>
+      <span class="c1"># レビューの閲覧</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">end_program</span>
+      <span class="c1"># プログラムの終了</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">exception</span>
+      <span class="c1"># エラー処理</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">いままで通りメソッドの定義をします。今回<code>post_review</code>メソッドだけ大幅に処理の内容が変わりましたが、このメソッドについてはあとで説明します。</p>
+
+<ul class="ng-scope">
+<li>37行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>37</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">レビューの内容を保存するための配列オブジェクト<code>posts</code>を定義します。<br>
+  ここでポイントとなるのは定義する場所です。各メソッドの中でも、while文の中でも、while文のあとでもありません。</p>
+
+<ul class="ng-scope">
+<li><p>各メソッドの中で定義すると、使えるのがそのメソッドの中のみになってしまいます。今回は様々なメソッドやその外側で使用したいので各メソッドの中では定義しません。</p></li>
+<li>
+<p>while文の中で定義すると繰り返すたびに配列が初期化(最初の何も入っていない状態)されてしまうため、while文の中でも定義できません。</p>
+
+<div class="code-frame" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>37
+38
+39
+40</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span> <span class="c1"># 繰り返す度に配列オブジェクトが初期化される</span>
+    <span class="c1"># 処理</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+</li>
+<li><p>while文のあとだと、そもそもすべての処理が終わっているので定義しても意味がないですね。</p></li>
+</ul>
+
+<p class="ng-scope">そこで、定義するのは<strong>各メソッド内ではなく、かつwhile文のブロックより前</strong>ということになります。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="c1"># 省略</span>
+
+    <span class="k">def</span> <span class="nf">exception</span>
+      <span class="nb">puts</span> <span class="s2">"入力された値は無効な値です"</span>
+    <span class="k">end</span>
+
+<span class="hll">    <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span>
+</span>
+    <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+
+    <span class="c1"># 省略</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul class="ng-scope">
+<li>39行目から56行目</li>
+</ul>
+
+<p class="ng-scope">基本的な処理は変わりません。<br>
+  <code>「メニューの表示」 → 「ターミナルからの入力」 → 「入力に応じた処理」</code><br>
+  という流れをwhile文の中で繰り返しています。</p>
+
+<p class="ng-scope">ただし、メニューで「【0】レビューを書く」を選択したときだけ処理が変わります。</p>
+
+<ul class="ng-scope">
+<li>47行目から48行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>47
+48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+      <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メニューで「【0】レビューを書く」を選択すると条件分岐によって48行目の<code>post_review</code>メソッドの呼び出しが行われます。このとき<strong>引数で配列オブジェクトの変数posts</strong>をpost_reviewメソッドに渡します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span> <span class="c1"># postsを引数としてpost_reviewメソッドに渡す</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">引数として渡された配列オブジェクトpostsはpost_reviewメソッドの変数に代入されます。</p>
+
+<ul class="ng-scope">
+<li>2行目</li>
+</ul>
+
+<p class="ng-scope">再び、2行目に処理が戻ってきます。定義したpost_reviewメソッドが呼ばれたためです。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post_review</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">post_reviewメソッドは引数を受け取ります。先ほど、48行目でこのpost_reviewメソッドが呼ばれたときに引数として変数<code>posts</code>が渡されました。この変数postsの中にはレビューを管理するための配列オブジェクトが入っています。</p>
+
+<p class="ng-scope">引数として渡された変数postsの中に入っていた、レビューを管理するための配列オブジェクトはpost_reviewメソッドの変数<code>a_posts</code>に代入され、メソッド内で使用できるようになります。</p>
+
+<ul class="ng-scope">
+<li>
+<p>48行目</p>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span> <span class="c1"># postsを引数としてpost_reviewメソッドに渡す</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+</li>
+<li>
+<p>2行目</p>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">post_review</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span> <span class="c1"># 渡されたpostsの中の配列オブジェクトが変数a_postに代入される</span>
+    <span class="c1"># 変数a_postsとして、引数の配列オブジェクトをメソッド内で使える</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul>
+<li>4行目から16行目</li>
+</ul>
+</li>
+</ul>
+
+<p class="ng-scope">4行目から16行目では今までと同様にレビューの情報を持つハッシュオブジェクトを生成し、ターミナルからレビューを入力させる処理を行います。また、入力が終わったレビュー情報をターミナルに表示させます。</p>
+
+<ul class="ng-scope">
+<li>19行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>19</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">a_posts</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">19行目では、生成したレビューのハッシュオブジェクト<code>post</code>を引数で受け取った配列オブジェクトa_postsに追加します。これで配列a_postsの最後にいま入力したレビューのハッシュオブジェクトが入りました。</p>
+
+<ul class="ng-scope">
+<li>22行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>22</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">return</span> <span class="n">a_posts</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">変数a_postsには入力したレビューのハッシュオブジェクトが新しく追加された配列オブジェクトが入っています。これをメソッドの呼び出し元に返してあげます。メソッドの最後で、メソッドの呼び出し元に値を返すときには<code>return</code>を使います。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>22</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">return</span> <span class="err">メソッドの呼び出し元に返す値</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">今回は新しく書いたレビューを追加した配列オブジェクトである<code>a_posts</code>をreturnで返すようにします。このreturnで返す値を<strong>返り値</strong>といいました。</p>
+
+<ul class="ng-scope">
+<li>48行目</li>
+</ul>
+
+<p class="ng-scope">メソッド内の処理がすべて終わると、プログラムではメソッドを呼び出した部分に処理が戻ります。post_reviewメソッドを呼び出したのは48行目でした。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">post_reviewメソッドは返り値を返すので、変数postsにはその返り値が代入されます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="err">の返り値</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">post_reviewメソッドの返り値は、新しく書いたレビューを追加した配列オブジェクトでした。この配列オブジェクトは元は変数postに代入されていたものなので、結果として<strong>postsには新しく書いたレビューが1つ追加された配列オブジェクト</strong>が代入されることになります。</p>
+
+<p class="ng-scope">具体的な例として、すでに「るろうに剣心」と「君に届け」のレビューを書いたあとの状態で、新しく「アバター」のレビューを書く処理の流れを追ってみます。</p>
+
+<p class="ng-scope">最初の段階では配列オブジェクトの変数<code>posts</code>には「るろうに剣心」と「君に届け」のレビューのハッシュオブジェクトが入っています。</p>
+
+<ul class="ng-scope">
+<li>
+<p>post_reviewメソッドの呼び出し</p>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>47
+48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1"># 元のpostsには「るろうに剣心」と「君に届け」のレビューのハッシュオブジェクトが入っていた</span>
+  <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+</li>
+<li>
+<p>post_reviewメソッド</p>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">post_review</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+    <span class="c1"># a_postsは「るろうに剣心」と「君に届け」の入っている配列オブジェクト</span>
+    <span class="c1"># (48行目で引数として渡された変数postsに代入されていた配列オブジェクト)</span>
+
+    <span class="c1"># 新たに「アバター」のレビューを投稿</span>
+
+    <span class="c1"># 「アバター」のレビューを配列オブジェクトに追加</span>
+    <span class="n">a_post</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+
+    <span class="c1"># メソッドの呼び出し元に新しく書いたレビューを追加した配列オブジェクトを返す</span>
+    <span class="k">return</span> <span class="n">a_post</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+</li>
+<li>
+<p>post_reviewメソッドの返り値を代入</p>
+
+<div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>48
+49
+50</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+  <span class="c1"># 「アバター」のレビューが新しく追加された配列オブジェクトを変数postsに代入</span>
+  <span class="c1"># postsには「るろうに剣心」と「君に届け」と「アバター」のレビュー情報が入った</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+</li>
+</ul>
+
+<p class="ng-scope">こうして、結果として変数postsに新しくレビューのハッシュオブジェクトを追加することができました。</p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">このようなソースコードが書けたらSTEP7へ進みましょう。</p>
+
+<h1 id="27" class="ng-scope">STEP7 : レビューを読めるようにしよう</h1>
+
+<p class="ng-scope">いよいよ最後のSTEPです。このSTEPでは今まで保留していた「レビューを読む」プログラムを実装していきたいと思います。</p>
+
+<h2 id="28" class="ng-scope">このSTEPでできるようになること</h2>
+
+<ul class="ng-scope">
+<li><strong>配列に対して繰り返し処理を行えるようになる</strong></li>
+<li><strong>配列から要素を取り出せるようになる</strong></li>
+</ul>
+
+<p class="ng-scope">もう一度「レビューを読む」の流れを見ていきましょう。</p>
+
+<p class="ng-scope"><strong>メニュー画面</strong></p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>レビュー数：3
+[0]レビューを書く
+[1]レビューを読む
+[2]アプリを終了する
+# 入力待ち
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>[1]レビューを読むを入力後</strong></p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>[0]：時をかける少女のレビュー
+[1]：トレモロのレビュー
+[2]：るろうに剣心のレビュー
+
+見たいレビューの番号を入力してください：
+# 入力待ち
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>[2]：るろうに剣心のレビューを入力後</strong></p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>ジャンル : マンガ
+---------------------------
+タイトル : るろうに剣心
+---------------------------
+感想 :
+映画もいいけどやっぱりマンガが最高！
+---------------------------
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">まず、見たいレビューの順番を入力してそのレビューを表示させるようにしましょう。</p>
+
+<h2 id="29" class="ng-scope">配列から要素を取り出そう</h2>
+
+<p class="ng-scope">STEP6でレビューを配列で管理することを学びました。ここではその配列から<strong>選んだ順番の要素を取得</strong>できるようにしましょう。</p>
+
+<p class="ng-scope">配列は<strong>順番でオブジェクトを管理している</strong>ことはSTEP6で学びましたね。配列は順番を指定することでオブジェクトを取得することができます。以下の書き方で配列オブジェクトから指定した順番の要素を取得できます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">配列オブジェクト</span><span class="o">[</span><span class="err">順番</span><span class="p">(</span><span class="err">数値</span><span class="p">)</span><span class="o">]</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">配列オブジェクトに続けて<strong>[](大括弧)とその中に取得したいオブジェクトの順番</strong>を指定します。</p>
+
+<p class="ng-scope"><i class="icon pen"></i>　<strong>sample.rbで以下の配列オブジェクトanimalsから「いぬ」を取り出してputsメソッドで表示してみましょう。</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"いぬ"</span><span class="p">,</span> <span class="s2">"ねこ"</span><span class="p">,</span> <span class="s2">"ねずみ"</span><span class="o">]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">できましたか？おそらくみなさん以下のように書いたのではないでしょうか。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"いぬ"</span><span class="p">,</span> <span class="s2">"ねこ"</span><span class="p">,</span> <span class="s2">"ねずみ"</span><span class="o">]</span>
+  <span class="nb">puts</span> <span class="n">animals</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">しかしanimals[1]で取得できるのは「ねこ」でした。</p>
+
+<p class="ng-scope"><strong>実は配列の順番は0から始まります</strong>。つまりanimals[1]は配列animalsの2番目のオブジェクトを取得しているということになります。よって「いぬ」を取得する正解は<code>aminals[0]</code>です。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"いぬ"</span><span class="p">,</span> <span class="s2">"ねこ"</span><span class="p">,</span> <span class="s2">"ねずみ"</span><span class="o">]</span>
+  <span class="nb">puts</span> <span class="n">animals</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>                    <span class="c1"># =&gt; "いぬ"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="110" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-152" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-152" name="check-152" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトから指定した順番の要素を取得するには<code>配列オブジェクト[順番]</code></span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-153" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-153" name="check-153" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトの順番は0から始まる(一番最初の要素を取得するには<code>配列オブジェクト[0]</code>)</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="30" class="ng-scope">指定した順番のレビューを表示させるようにしましょう</h2>
+
+<p class="ng-scope">では、実際に「レビューを読む」を実装していきましょう。レビューを読むのメソッド<code>read_reviews</code>に書き足していきます。ここで作る機能は以下です。</p>
+
+<p class="ng-scope"><strong>見たいレビューの番号を入力させる</strong></p>
+
+<p class="ng-scope">メニューで[1]:レビューを読むを入力後</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  見たいレビューの番号を入力してください：
+  # 入力待ち
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>その番号のレビューのジャンル、タイトル、感想を表示する</strong></p>
+
+<p class="ng-scope">レビューの番号を入力後</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>ジャンル : マンガ
+---------------------------
+タイトル : るろうに剣心
+---------------------------
+感想 : 映画もいいけどやっぱりマンガが最高！
+---------------------------
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><i class="icon attention"></i> <strong>配列の要素数よりも大きい数字を入力してしまうと要素がなくエラーしてしまいます。</strong>例えば3つしか要素の無い配列オブジェクトに対して<code>配列オブジェクト[4]</code>などとすると、5番目の要素はないためエラーになります。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題16：メニューで"[1]:レビューを読む"を選んでから、配列オブジェクトpostsに保存してあるレビューの順番のいずれかを入力した時に、その入力した順番のレビューを表示させるようにしましょう</h3>
+  <div class="challenge_box">
+
+<div class="code-frame" data-lang="ターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>レビュー数：3
+[0]レビューを書く
+[1]レビューを読む
+[2]アプリを終了する
+1 # 1を入力
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<div class="code-frame" data-lang="ターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>見たいレビューの番号を入力してください：
+# 入力待ち
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<div class="code-frame" data-lang="ターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>ジャンル : マンガ
+---------------------------
+タイトル : るろうに剣心
+---------------------------
+感想 :
+映画もいいけどやっぱりマンガが最高！
+---------------------------
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+    <h5>作業ファイル：reviewApp.rb</h5>
+    <h5>ヒント：変更する部分はメソッドreadReviewsだけです</h5>
+    <curriculum-question-container class="ng-scope" data-order="5"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="111" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-154" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-154" name="check-154" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列オブジェクトpostsから指定した順番の要素を取り出して扱うことが出来た</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="112" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-155" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-155" name="check-155" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">配列で要素数より大きい順番の要素を取得しようとするとエラーになる</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="31" class="ng-scope">レビューの一覧を表示しよう</h2>
+
+<p class="ng-scope">いよいよ最後の実装です。このままでは配列の何番目に何のレビューが入ってるかわかりません。そこで「レビューを読む」を選択したら<strong>レビューの一覧が表示</strong>されるようにしましょう。<br>
+レビューの一覧ではそのレビューの「タイトル」とそのレビューの「順番」を表示させるようにします。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>[0]：時をかける少女のレビュー
+[1]：トレモロのレビュー
+[2]：るろうに剣心のレビュー
+
+見たいレビューの番号を入力してください：
+# 入力待ち
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">レビューの一覧の表示をするには<strong>配列オブジェクトpostsの要素すべてに表示の処理を行う</strong>必要があります。</p>
+
+<h2 id="32" class="ng-scope">配列オブジェクトの要素すべてに共通の処理を行おう</h2>
+
+<p class="ng-scope">配列の要素すべてに対して共通の処理を行うには<strong>配列の繰り返し</strong>を使います。繰り返しのためのメソッドは<strong>eachメソッド</strong>です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_138"></i> eachメソッド</h3>
+
+<p class="ng-scope">配列オブジェクトに対してeachメソッドを実行すると、<strong>配列に含まれる要素を順に取り出して</strong>繰り返し処理が行われます。すなわち、<strong>配列の要素の数だけ処理が行われます。</strong><br>
+eachメソッドの使い方は以下のように配列オブジェクトに使います。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">配列オブジェクト</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="err">変数</span><span class="o">|</span>
+    <span class="c1"># 処理</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>変数には繰り返しごとに配列の要素が代入されていきます</strong>。試しに以下のソースコードを実行してみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"いぬ"</span><span class="p">,</span> <span class="s2">"ねこ"</span><span class="p">,</span> <span class="s2">"ねずみ"</span><span class="o">]</span>
+  <span class="n">animals</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">animal</span><span class="o">|</span>
+    <span class="nb">puts</span> <span class="n">animal</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上のコードでは配列オブジェクトanimalsの要素を１つずつ変数animalに入れて<code>puts animal</code>の処理を行っています。配列の要素["いぬ", "ねこ", "ねずみ"]のすべてが出力されていたと思います。ちゃんと要素の数だけ繰り返されているかも以下のプログラムで確認しましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>以下のソースコードをsample.rbに書き、実行してみましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">animals</span> <span class="o">=</span> <span class="o">[</span><span class="s2">"いぬ"</span><span class="p">,</span> <span class="s2">"ねこ"</span><span class="p">,</span> <span class="s2">"ねずみ"</span><span class="o">]</span>
+  <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">animals</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">animal</span><span class="o">|</span>
+    <span class="nb">puts</span> <span class="n">animal</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="n">number</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="k">end</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2">回繰り返しました"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ちゃんと「3回繰り返しました」と出力されましたね。要素数も3つなので要素の数だけ繰り返しているのがわかります。</p>
+
+<p class="ng-scope">eachメソッドに関して、以下の動画を見て確認しましょう。</p>
+
+<iframe class="ng-scope" src="index_2.html" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="113" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-156" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-156" name="check-156" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">eachメソッドは配列オブジェクトの要素を1つずつ取り出して共通の処理を行うメソッド</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="33" class="ng-scope">「レビューを読む」を入力したらレビューの一覧を表示させよう</h2>
+
+<p class="ng-scope">メニューで"[1]レビューを読む"を入力したらレビューの一覧を表示させてから見たいレビューの番号を入力させるようにしましょう。レビューの一覧は以下のように<br>
+<strong>[順番]："タイトル"のレビュー</strong><br>
+というフォーマットで表示させましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>[0]：時をかける少女のレビュー
+[1]：トレモロのレビュー
+[2]：るろうに剣心のレビュー
+
+見たいレビューの番号を入力してください：
+# 入力待ち
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題17：メニューで"[1]レビューを読む"を入力したら「レビューの一覧を表示させてから」見たいレビューの番号を入力させるようにしましょう</h3>
+  <div class="challenge_box">
+
+    <div class="code-frame" data-lang="ターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    
+    [0]：時をかける少女のレビュー
+    [1]：トレモロのレビュー
+    [2]：るろうに剣心のレビュー
+
+    見たいレビューの番号を入力してください：
+    # 入力待ち
+    
+    
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+    <h5>作業ファイル：reviewApp.rb</h5>
+    <h5>ヒント：配列オブジェクトpostsにeachメソッドを使って繰り返し処理を行い、全ての要素を表示させましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order="6"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="114" action="http://master.tech-camp.in/curriculums/154#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-157" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-157" name="check-157" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">eachメソッドを使って配列オブジェクトpostsの各要素の情報を表示させることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="34" class="ng-scope">STEP7完成ソースコード</h2>
+
+<p class="ng-scope">これでSTEP7は終了です。完成のreviewApp.rbのソースコードをのせておきます。比較して確認してみてください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1"># メソッドの定義</span>
+  <span class="k">def</span> <span class="nf">post_review</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+    <span class="c1"># 変数の定義</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+    <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="c1"># 配列オブジェクトに追加</span>
+    <span class="n">a_posts</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+
+    <span class="c1"># a_postsをメソッドの呼び出し元に返す</span>
+    <span class="k">return</span> <span class="n">a_posts</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">read_reviews</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+    <span class="c1"># リストの表示</span>
+    <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">a_posts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span>
+      <span class="nb">puts</span> <span class="s2">"[</span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2">]：</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="s2">のレビュー"</span>
+      <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">end</span>
+
+    <span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">見たいレビューの番号を入力してください："</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+    <span class="c1"># レビューの取得</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="n">a_posts</span><span class="o">[</span><span class="n">input</span><span class="o">]</span>
+
+    <span class="c1"># レビューの描画</span>
+    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">end_program</span>
+    <span class="nb">exit</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">exception</span>
+    <span class="nb">puts</span> <span class="s2">"入力された値は無効な値です"</span>
+  <span class="k">end</span>
+
+  <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span>             <span class="c1"># 配列オブジェクトpostsの生成</span>
+
+  <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+    <span class="c1"># メニューの表示</span>
+    <span class="nb">puts</span> <span class="s2">"レビュー数：</span><span class="si">#{</span><span class="n">posts</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"[0]レビューを書く"</span>
+    <span class="nb">puts</span> <span class="s2">"[1]レビューを読む"</span>
+    <span class="nb">puts</span> <span class="s2">"[2]アプリを終了する"</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+
+    <span class="k">if</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">then</span>
+      <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>  <span class="c1"># post_reviewメソッドの呼び出し</span>
+    <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">then</span>
+      <span class="n">read_reviews</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span> <span class="c1"># read_reviewsメソッドの呼び出し</span>
+    <span class="k">elsif</span> <span class="n">input</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">then</span>
+      <span class="n">end_program</span>         <span class="c1"># end_programメソッドの呼び出し</span>
+    <span class="k">else</span>
+      <span class="n">exception</span>           <span class="c1"># exceptionメソッドの呼び出し</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">■ 処理の流れ</h3>
+
+<p class="ng-scope">最後に全体の処理の流れをおさらいします。</p>
+
+<ul class="ng-scope">
+<li>2行目から52行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post_review</span>
+      <span class="c1"># レビューの投稿</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">read_reviews</span>
+      <span class="c1"># レビューの閲覧</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">end_program</span>
+      <span class="c1"># プログラムの終了</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">exception</span>
+      <span class="c1"># エラー処理</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ソースコードの開始である、2行目から52行目まででプログラムで使用するメソッドをすべて定義します。これで52行目以降で、いま定義したメソッドを自由に使うことができます。</p>
+
+<ul class="ng-scope">
+<li>54行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>54</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="o">[]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メニューの表示やレビューの投稿、表示といったメインの処理があるwhile文より前で、複数のレビューを管理するための配列オブジェクト<code>posts</code>を定義します。</p>
+
+<ul class="ng-scope">
+<li>56行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>56</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">while</span> <span class="kp">true</span> <span class="k">do</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">アプリケーションのメインの処理である<br>
+  <code>「メニューの表示」 → 「ターミナルからの入力」 → 「入力に応じた処理」</code><br>
+  という流れは「プログラムを終了」するまで繰り返し続けます。</p>
+
+<p class="ng-scope">そのためこれらの処理のかたまりをwhile文で囲み、条件式をtrueにすることで<code>exit</code>メソッドが呼ばれるまで繰り返し続けるようにします。exitメソッドはメニューで「2」を入力(プログラムの終了を選択)すると呼ばれます。</p>
+
+<ul class="ng-scope">
+<li>58行目から61行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>58
+59
+60
+61</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="nb">puts</span> <span class="s2">"レビュー数：</span><span class="si">#{</span><span class="n">posts</span><span class="o">.</span><span class="n">length</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"[0]レビューを書く"</span>
+    <span class="nb">puts</span> <span class="s2">"[1]レビューを読む"</span>
+    <span class="nb">puts</span> <span class="s2">"[2]アプリを終了する"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メニューの表示を行います。また、今まで投稿したレビューの数を配列の<code>length</code>メソッドを使って表示します。</p>
+
+<ul class="ng-scope">
+<li>62行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>62</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メニューのうち、どれを選択するかを<code>gets</code>メソッドを使ってターミナルから入力させます。</p>
+
+<ul class="ng-scope">
+<li>64行目から72行目</li>
+</ul>
+
+<p class="ng-scope">ターミナルから入力した値によって処理を分岐させます。処理の分岐には<code>if文</code>を使います。</p>
+
+<p class="ng-scope">2を入力したときは<code>end_program</code>メソッドを呼び出し、その中でexitメソッドを使いプログラムを終了させます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>46
+47
+48</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">end_program</span>
+      <span class="nb">exit</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">無効な値の場合は<code>exception</code>メソッドを呼び出し、無効な値であることを知らせます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>50
+51
+52</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">exception</span>
+      <span class="nb">puts</span> <span class="s2">"入力された値は無効な値です"</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul class="ng-scope">
+<li>65行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>65</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ターミナルで「0」を入力した場合、レビューを書くためのメソッド<code>post_review</code>を呼び出します。このとき引数としてレビューを管理する配列オブジェクト<code>posts</code>を渡します。</p>
+
+<ul class="ng-scope">
+<li>2行目から23行目</li>
+</ul>
+
+<p class="ng-scope">post_reviewメソッドが呼ばれた場合、ターミナルからユーザーに対して新しくレビューを書くように促します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">post_review</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+      <span class="c1"># 変数の定義</span>
+      <span class="n">post</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="nb">puts</span> <span class="s2">"ジャンルを入力してください："</span>
+      <span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+      <span class="nb">puts</span> <span class="s2">"タイトルを入力してください："</span>
+      <span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span>  <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+      <span class="nb">puts</span> <span class="s2">"感想を入力してください："</span>
+      <span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">chomp</span>
+      <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+
+      <span class="c1"># レビューの描画</span>
+      <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+      <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+      <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">作成されたレビューは引数として渡された配列オブジェクトの最後に追加されます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>19</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">a_posts</span> <span class="o">&lt;&lt;</span> <span class="n">post</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">新しく書いたレビューが追加された配列オブジェクトをメソッドの呼び出し元に返します。メソッドの呼び出し元では変数postsにこの返り値を代入します。これにより新しいレビューが追加された配列オブジェクトをpostsに代入することができます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>22</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">return</span> <span class="n">a_posts</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>65</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_review</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul class="ng-scope">
+<li>67行目</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>67</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">read_reviews</span><span class="p">(</span><span class="n">posts</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ターミナルで「1」を入力した場合、レビューを閲覧するためのメソッド<code>read_reviews</code>を呼び出します。このとき引数としてレビューを管理する配列オブジェクト<code>posts</code>を渡します。</p>
+
+<ul class="ng-scope">
+<li>25行目から44行目</li>
+</ul>
+
+<p class="ng-scope">read_reviewsメソッドが呼び出されると、まず引数として渡した配列オブジェクトに入っているすべてのレビューを一覧で表示します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>25
+26
+27
+28
+29
+30
+31</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="k">def</span> <span class="nf">read_reviews</span><span class="p">(</span><span class="n">a_posts</span><span class="p">)</span>
+      <span class="c1"># リストの表示</span>
+      <span class="n">number</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">a_posts</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span>
+        <span class="nb">puts</span> <span class="s2">"[</span><span class="si">#{</span><span class="n">number</span><span class="si">}</span><span class="s2">]：</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="s2">のレビュー"</span>
+        <span class="n">number</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">何番目に書いたレビューかわかるように番号用の変数<code>number</code>を定義します。<br>
+  配列オブジェクトのすべての要素に対して繰り返し処理を行うには<code>each</code>メソッドを使います。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="err">配列オブジェクト</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="err">要素</span><span class="o">|</span>
+      <span class="c1"># 要素を一つずつ取り出して処理を行う</span>
+    <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">次に、詳細を見たいレビューの番号をターミナルから入力させます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>33
+34</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">見たいレビューの番号を入力してください："</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="nb">gets</span><span class="o">.</span><span class="n">to_i</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">入力された値の順番のレビューを配列オブジェクトから取り出します。配列オブジェクトから特定の順番の要素を取り出すのは<code>配列オブジェクト[順番]</code>という書き方をするのでした。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>38</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">post</span> <span class="o">=</span> <span class="n">a_posts</span><span class="o">[</span><span class="n">input</span><span class="o">]</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで変数<code>post</code>には指定した番号のレビューのハッシュオブジェクトが代入されています。あとは詳細を表示させるだけです。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviewApp.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>40
+41
+42
+43</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="n">line</span>   <span class="o">=</span> <span class="s2">"---------------------------"</span>
+    <span class="nb">puts</span> <span class="s2">"ジャンル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:genre</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"タイトル : </span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:title</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+    <span class="nb">puts</span> <span class="s2">"感想 :</span><span class="se">\n</span><span class="si">#{</span><span class="n">post</span><span class="o">[</span><span class="ss">:review</span><span class="o">]</span><span class="si">}</span><span class="se">\n</span><span class="si">#{</span><span class="n">line</span><span class="si">}</span><span class="s2">"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これですべての処理の流れは終了です。よくわからなかった場所があった方は各STEPに戻って処理の流れを再確認してください。</p>
+
+<hr class="ng-scope">
+
+<h1 id="35" class="ng-scope">完成</h1>
+
+<p class="ng-scope">以上ですべての実装は終わりました。70行程度のソースコードの量ですが立派にアプリケーションとして機能していると思います。このアプリケーションが作れれば基本は押さえられています。今後さらに発展的なアプリケーションの開発ができるでしょう。</p>
+
+<h2 id="36" class="ng-scope">アプリケーションが完成した後</h2>
+
+<p class="ng-scope">これで一応は完成しましたが、まだまだこのアプリケーションには改善の余地があります。<br>
+例を挙げると以下のような部分です。</p>
+
+<ul class="ng-scope">
+<li>入力する項目を増やす。</li>
+<li>レビューが1つも書かれていないときに「レビューを読む」を選べなくする。</li>
+<li>「見たいレビューの番号を入力してください：」で書いたレビュー数より大きい番号を入力したら再入力させる。</li>
+<li>レビューの描画を別メソッドとして分ける。</li>
+</ul>
+
+<p class="ng-scope">もちろんこれらの改善をすべて行う必要はありません。さらにここではこれらの解答は教えません。しかし自分で考えてプログラムを組むことは非常にレベルアップに繋がります。ぜひとも余力がある人は挑戦して頂きたいと思います。</p>
+
+<h1 id="37" class="ng-scope">最後に</h1>
+
+<p class="ng-scope">以上でRuby-3は終了です。お疲れ様でした。<br>
+このカリキュラムで学んだことを活かして、次は今まで学んだRubyの基礎文法を確認するための<a href="http://master.tech-camp.in/curriculums/106">Rubyドリル1</a>に進んでください。</p>
+
+<p class="ng-scope">→ <a href="http://master.tech-camp.in/curriculums/106">Rubyドリル1</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"><div class="ng-scope">
+  <p>テストを受けた回数：<span class="ng-binding">1回</span></p>
+  <p>最高得点：<span class="ng-binding">100点</span></p>
+  <!-- ngIf: curriculum.short_test.has_passed --><div class="ng-scope" ng-if="curriculum.short_test.has_passed">
+    <p>合否：<span class="pass">合格</span></p>
+  </div><!-- end ngIf: curriculum.short_test.has_passed -->
+  <!-- ngIf: !curriculum.short_test.has_passed -->
+</div></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap class="fixed-side" style="width: 270px;" id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents1" ng-click="clickContent(content.h1.id)">STEP5 : レビューを書いた後メニューに戻るようにしよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents2" ng-click="clickContent(h2.id)">このSTEPでできるようになること</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding current" id="contents3" ng-click="clickContent(h2.id)">ループ処理をする</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">繰り返し処理をしましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">whileで繰り返し処理をしてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">ループ処理をしましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">メニュー画面をexitするまでループさせましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">STEP5完成ソースコード</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents9" ng-click="clickContent(content.h1.id)">STEP6 : レビューを複数書けるようにしよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">このSTEPでできるようになること</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">複数の情報を扱おう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">配列オブジェクト</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">配列オブジェクトを生成してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">配列オブジェクトに要素を追加してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">配列の要素の数をカウントしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">レビューの情報を配列オブジェクトで管理しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents17" ng-click="clickContent(h2.id)">配列オブジェクトpostsを生成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents18" ng-click="clickContent(h2.id)">配列オブジェクトpostsにレビューの情報postを追加しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents19" ng-click="clickContent(h2.id)">違うスコープの変数を使うには</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents20" ng-click="clickContent(h2.id)">引数でメソッドに変数を渡してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents21" ng-click="clickContent(h2.id)">引数と引数を入れる変数の関係①</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents22" ng-click="clickContent(h2.id)">引数と引数を入れる変数②</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents23" ng-click="clickContent(h2.id)">引数のドリルに挑戦しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents24" ng-click="clickContent(h2.id)">配列オブジェクトpostsを引数として渡そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents25" ng-click="clickContent(h2.id)">書いたレビューの数を表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents26" ng-click="clickContent(h2.id)">STEP6完成ソースコード</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents27" ng-click="clickContent(content.h1.id)">STEP7 : レビューを読めるようにしよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents28" ng-click="clickContent(h2.id)">このSTEPでできるようになること</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents29" ng-click="clickContent(h2.id)">配列から要素を取り出そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents30" ng-click="clickContent(h2.id)">指定した順番のレビューを表示させるようにしましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents31" ng-click="clickContent(h2.id)">レビューの一覧を表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents32" ng-click="clickContent(h2.id)">配列オブジェクトの要素すべてに共通の処理を行おう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents33" ng-click="clickContent(h2.id)">「レビューを読む」を入力したらレビューの一覧を表示させよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents34" ng-click="clickContent(h2.id)">STEP7完成ソースコード</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents35" ng-click="clickContent(content.h1.id)">完成</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents36" ng-click="clickContent(h2.id)">アプリケーションが完成した後</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents37" ng-click="clickContent(content.h1.id)">最後に</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">34 / 34<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/154">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

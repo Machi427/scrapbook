@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>レイアウト問題を通してデザインの幅を広げよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    HTML・CSS問題<small class="ng-binding">〜レイアウト問題を通してデザインの幅を広げよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    アメリカからカナダに渡っているロッキー山脈のうち、カナダ側にある部分をカナディアン・ロッキーといいます。カナダ有数の観光名所であり、湖と雪と自然が織りなす鮮やかなコントラストは、観光客たちの心を惹きつけてやみません。<a class="ng-binding" href="https://www.flickr.com/photos/73230975@N03/6919731305" target="_top">Peggy2012CREATIVELENZ - Our breathtaking Canadian Rockies!</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">HTML・CSS問題(全4問)</h1>
+
+<p class="ng-scope">簡単なレイアウト問題を通じて腕試ししてみましょう。</p>
+
+<h1 id="2" class="ng-scope">この章の対象者</h1>
+
+<p class="ng-scope">この章では<strong>Lesson3の<a href="http://master.tech-camp.in/curriculums/8">HTML-CSS-2</a>を終了された方を対象</strong>に構成されています。<br>
+終了していない方はLesson3の<a href="http://master.tech-camp.in/curriculums/8">HTML-CSS-2</a>を終えてから、この章に挑戦してみてください。</p>
+
+<h2 id="3" class="ng-scope">事前準備</h2>
+
+<p class="ng-scope">以下のリンクからhtml_css_question_1.zipをダウンロードし解凍してください。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/filedownload/8" target="_top">html_css_question_1.zip</a></p>
+
+<p class="ng-scope">そして、中に「h_c_q_1.html」「h_c_q_2.html」「h_c_q_3.html」「h_c_q_4.html」「style1.css」「style2.css」「style3.css」「style4.css」が入っていることを確認してください。</p>
+
+<p class="ng-scope">4問の問題を、それぞれの番号が振られたhtml/cssファイルにて解いていただきます。</p>
+
+<p class="ng-scope">h_c_q_1.htmlを開くと、以下のようになっています。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">html_css_question_1.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"style1.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>html_question<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;/header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;footer&gt;</span>
+    <span class="nt">&lt;/footer&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h2 id="4" class="ng-scope">問題の取り組み方</h2>
+
+<p class="ng-scope">style.cssには、要素にデフォルトで付いているスタイルを解除するスタイルが既に書かれています。</p>
+
+<p class="ng-scope">必要に応じて、問題番号の振られたhtml、及びcssに追記する形で問題に取り組んでください。</p>
+
+<h2 id="5" class="ng-scope"><strong>問題1：基本レイアウトを作成しよう</strong></h2>
+
+<p class="ng-scope">以下の図の指示に従ってhtmlファイルとcssファイルを編集し、レイアウトを完成させてください。</p>
+
+<p class="ng-scope">なお、要素の背景色は何色でも構いません。</p>
+
+<p class="ng-scope"><img src="001.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>ヒント：</strong></p>
+
+<p class="ng-scope">・要素の横幅は、何も指定しない場合どうなるでしょうか？</p>
+
+<p class="ng-scope">・div class="contents"は中央寄せにしましょう。</p>
+
+<p class="ng-scope">作業ファイル：style1.css<br>
+目標時間：10分</p>
+
+<p class="ng-scope"><curriculum-question-answer-form class="ng-scope" data-order="0"><div style="" class="hint_group ng-hide" ng-show="assignment.hints.length > 0">
+  <h4>
+    <i class="icon information"></i><span class="ng-binding">問題1：基本レイアウトを作成しよう</span>
+  </h4>
+  <button class="hint_button" ng-click="show_hint_modal(assignment)">ヒントを見る</button>
+</div>
+<form action="http://master.tech-camp.in/curriculums/24" accept-charset="UTF-8" class="submit_answer ng-pristine ng-valid" ng-submit="submitAnswer($event, assignment)">
+  <div class="left_content">
+    <label for="user_answer[file]">課題提出</label>
+    <div class="btn_upload">
+      ファイルを選択<input name="user_answer[file]" onchange="uv.style.display='inline-block'; uv.value = this.value;" required="" type="file"><input value="" class="btn_value" disabled="" id="uv" type="text">
+    </div>
+    <input class="btn_submit btn_submit" name="commit" ng-disabled="form.$invalid" value="提出する" type="submit">
+  </div>
+  <div class="right_content fadeIn" id="answer1" ng-show="assignment.is_answered">
+    <span class="answered">この課題は提出済みです</span><a href="http://master.tech-camp.in/curriculums/72" ng-href="/curriculums/72" target="_brank">この課題の解答はこちら</a>
+  </div>
+</form></curriculum-question-answer-form></p>
+
+<hr class="ng-scope">
+
+<h2 id="6" class="ng-scope"><strong>問題2：要素を横に並べよう</strong></h2>
+
+<p class="ng-scope">問題1で作った基本レイアウトを使って、以下の図のようなレイアウトを作ってみましょう。</p>
+
+<p class="ng-scope">ここから先は、htmlファイルとcssファイル両方を編集しなければいけません。</p>
+
+<p class="ng-scope">&lt;contents&gt;の中身となる要素は全て&lt;div&gt;要素で作りましょう。</p>
+
+<p class="ng-scope"><img src="002.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>ヒント：</strong></p>
+
+<p class="ng-scope">・floatした要素の次に置いた要素は、floatを解除する必要があります。</p>
+
+<p class="ng-scope">作業ファイル：h_c_q_2.html/style2.css<br>
+目標時間：15分</p>
+
+<p class="ng-scope"><curriculum-question-answer-form class="ng-scope" data-order="1"><div style="" class="hint_group ng-hide" ng-show="assignment.hints.length > 0">
+  <h4>
+    <i class="icon information"></i><span class="ng-binding">問題2：要素を横に並べよう</span>
+  </h4>
+  <button class="hint_button" ng-click="show_hint_modal(assignment)">ヒントを見る</button>
+</div>
+<form action="http://master.tech-camp.in/curriculums/24" accept-charset="UTF-8" class="submit_answer ng-pristine ng-valid" ng-submit="submitAnswer($event, assignment)">
+  <div class="left_content">
+    <label for="user_answer[file]">課題提出</label>
+    <div class="btn_upload">
+      ファイルを選択<input name="user_answer[file]" onchange="uv.style.display='inline-block'; uv.value = this.value;" required="" type="file"><input value="" class="btn_value" disabled="" id="uv" type="text">
+    </div>
+    <input class="btn_submit btn_submit" name="commit" ng-disabled="form.$invalid" value="提出する" type="submit">
+  </div>
+  <div class="right_content fadeIn" id="answer1" ng-show="assignment.is_answered">
+    <span class="answered">この課題は提出済みです</span><a href="http://master.tech-camp.in/curriculums/73" ng-href="/curriculums/73" target="_brank">この課題の解答はこちら</a>
+  </div>
+</form></curriculum-question-answer-form></p>
+
+<hr class="ng-scope">
+
+<h2 id="7" class="ng-scope"><strong>問題3：テキストのあるレイアウトを作ろう</strong></h2>
+
+<p class="ng-scope">問題1で作った基本レイアウトを使って、以下の図のようなレイアウトを作ってみましょう。</p>
+
+<p class="ng-scope"><img src="003.png" alt="投稿画面"></p>
+
+<p class="ng-scope">以下のhtmlを参考にして進めると良いでしょう。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">html_css_question_3.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"style3.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>html_question<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;/header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>見出し1<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。
+        <span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>見出し2<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。これはサンプルテキストです。
+        <span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;footer&gt;</span>
+    <span class="nt">&lt;/footer&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><strong>ヒント：</strong></p>
+
+<p class="ng-scope">・marginとpaddingを使い分けましょう。</p>
+
+<p class="ng-scope">・line-heightは、テキストの行間を調節するプロパティです。</p>
+
+<p class="ng-scope">・ブロック要素とテキストとでは、中央寄せの方法が違います。</p>
+
+<p class="ng-scope">・contentsクラスの中のdiv要素は、それぞれクラスを指定して別のスタイルを適用させましょう。</p>
+
+<p class="ng-scope">作業ファイル：h_c_q_3.html/style3.css<br>
+目標時間：15分</p>
+
+<p class="ng-scope"><curriculum-question-answer-form class="ng-scope" data-order="2"><div style="" class="hint_group ng-hide" ng-show="assignment.hints.length > 0">
+  <h4>
+    <i class="icon information"></i><span class="ng-binding">問題3：テキストのあるレイアウトを作ろう</span>
+  </h4>
+  <button class="hint_button" ng-click="show_hint_modal(assignment)">ヒントを見る</button>
+</div>
+<form action="http://master.tech-camp.in/curriculums/24" accept-charset="UTF-8" class="submit_answer ng-pristine ng-valid" ng-submit="submitAnswer($event, assignment)">
+  <div class="left_content">
+    <label for="user_answer[file]">課題提出</label>
+    <div class="btn_upload">
+      ファイルを選択<input name="user_answer[file]" onchange="uv.style.display='inline-block'; uv.value = this.value;" required="" type="file"><input value="" class="btn_value" disabled="" id="uv" type="text">
+    </div>
+    <input class="btn_submit btn_submit" name="commit" ng-disabled="form.$invalid" value="提出する" type="submit">
+  </div>
+  <div style="" class="right_content fadeIn ng-hide" id="answer1" ng-show="assignment.is_answered">
+    <span class="answered">この課題は提出済みです</span><a href="http://master.tech-camp.in/curriculums/74" ng-href="/curriculums/74" target="_brank">この課題の解答はこちら</a>
+  </div>
+</form></curriculum-question-answer-form></p>
+
+<hr class="ng-scope">
+
+<h2 id="8" class="ng-scope"><strong>問題4：ヘッダーを固定しよう</strong></h2>
+
+<p class="ng-scope">問題3のヘッダーを、下にスクロールしても動かないようにしましょう。</p>
+
+<p class="ng-scope">また、文字の量が多くなった時は背景が自動的に伸びるようにしましょう。</p>
+
+<p class="ng-scope">これも良く見るレイアウトです。</p>
+
+<p class="ng-scope">&lt;文の量が少ない時&gt;</p>
+
+<p class="ng-scope"><img src="004.png" alt="投稿画面"></p>
+
+<p class="ng-scope">&lt;文の量が多い時&gt;</p>
+
+<p class="ng-scope"><img src="005.png" alt="投稿画面"></p>
+
+<p class="ng-scope"><strong>ヒント：</strong></p>
+
+<p class="ng-scope">・<strong>positionプロパティ</strong>について、調べてみましょう。</p>
+
+<p class="ng-scope">・要素を固定すると、固定した要素の高さ分だけ表示が上にずれてしまいます。</p>
+
+<p class="ng-scope">・要素の高さは、どのように決まるのでしょうか。</p>
+
+<p class="ng-scope">作業ファイル：h_c_q_4.html/style4.css<br>
+目標時間：15分</p>
+
+<p class="ng-scope"><curriculum-question-answer-form class="ng-scope" data-order="3"><div style="" class="hint_group ng-hide" ng-show="assignment.hints.length > 0">
+  <h4>
+    <i class="icon information"></i><span class="ng-binding">問題4：ヘッダーを固定しよう</span>
+  </h4>
+  <button class="hint_button" ng-click="show_hint_modal(assignment)">ヒントを見る</button>
+</div>
+<form action="http://master.tech-camp.in/curriculums/24" accept-charset="UTF-8" class="submit_answer ng-pristine ng-valid" ng-submit="submitAnswer($event, assignment)">
+  <div class="left_content">
+    <label for="user_answer[file]">課題提出</label>
+    <div class="btn_upload">
+      ファイルを選択<input name="user_answer[file]" onchange="uv.style.display='inline-block'; uv.value = this.value;" required="" type="file"><input value="" class="btn_value" disabled="" id="uv" type="text">
+    </div>
+    <input class="btn_submit btn_submit" name="commit" ng-disabled="form.$invalid" value="提出する" type="submit">
+  </div>
+  <div style="" class="right_content fadeIn ng-hide" id="answer1" ng-show="assignment.is_answered">
+    <span class="answered">この課題は提出済みです</span><a href="http://master.tech-camp.in/curriculums/75" ng-href="/curriculums/75" target="_brank">この課題の解答はこちら</a>
+  </div>
+</form></curriculum-question-answer-form></p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 460px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">HTML・CSS問題(全4問)</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">この章の対象者</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">事前準備</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">問題の取り組み方</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">問題1：基本レイアウトを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">問題2：要素を横に並べよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">問題3：テキストのあるレイアウトを作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">問題4：ヘッダーを固定しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope ng-hide">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 0<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a class="ng-hide" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/24">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>Gitを利用してアプリケーションを作成してみよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    はじめてのGit<small class="ng-binding">〜Gitを利用してアプリケーションを作成してみよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    イギリスの首都ロンドンを象徴する時計台であるビッグ・ベン。映画ピーターパンでおなじみのこの時計台は夜になると時計の文字盤がライトアップされ、とても美しく彩られます。実はビッグ・ベンは愛称で、正式名称は「エリザベス・タワー」です。<a class="ng-binding" href="https://www.flickr.com/photos/bencremin/12248498595" target="_top">Ben Cremin - Big Ben at Night</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<h3 class="ng-scope">実践的なGitの利用法を習得する</h3>
+
+<p class="ng-scope">実際にGitを利用しながらアプリケーションを開発することで、Gitの利点を体感すると同時にGitの実践的利用法について学びましょう。</p>
+
+<h1 id="2" class="ng-scope">本章の概要</h1>
+
+<p class="ng-scope">本章では復習も兼ねて、Lesson4で作成したPictweetをGitを利用しつつ再び作成していただきます。</p>
+
+<p class="ng-scope">まずはSourcetreeを利用し、アプリケーション本体のディレクトリに対するローカルリポジトリを作成します。アプリケーションに機能を付け加える場合は、masterブランチとは別に開発用ブランチを作成し、その上で開発するようにします。変更の差分を管理できるので、ひとつコードを書き進める度にコミットしていきましょう。コードをチェックし問題がなければ、masterブランチに開発用ブランチをマージすることで、変更分を適用します。</p>
+
+<p class="ng-scope"><strong>ブランチを作成する → 変更をコミットする → masterブランチにマージする</strong>という手順を繰り返すことで、開発を進めていきます。</p>
+
+<h1 id="3" class="ng-scope">Gitを使った開発管理</h1>
+
+<h2 id="4" class="ng-scope">目次</h2>
+
+<h4 class="ng-scope">アプリケーションの雛形を作成しよう</h4>
+
+<h4 class="ng-scope">ローカルリポジトリを作成しよう</h4>
+
+<h4 class="ng-scope">開発用ブランチを作成しよう</h4>
+
+<h4 class="ng-scope">コミットをしてみよう</h4>
+
+<h4 class="ng-scope">以前のコミットまで戻ってみよう</h4>
+
+<h2 id="5" class="ng-scope"><strong>アプリケーションの雛形を作成しよう</strong></h2>
+
+<p class="ng-scope">Lesson4で作成したPictweetをもう一度作成してみます。その際、前章で学習したGitを利用しつつ開発していきましょう。</p>
+
+<p class="ng-scope">アプリケーションの開発を始める際は、Railsが利用可能なRubyのバージョンを利用しているディレクトリにて<code>rails new</code>コマンドを利用します。</p>
+
+<p class="ng-scope">早速、新規アプリケーションを<strong>pictweet2</strong>という名前で作成しましょう。<code>-d</code>コマンドをつけて、mysqlでの開発に切り替えることを忘れないでください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> アプリケーション「Pictweet2」の雛形を作成しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c">#projectsディレクトリまで移動</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/
+  <span class="c">#rails newコマンドでアプリケーションの雛形を作成</span>
+  <span class="nv">$rails</span> new pictweet2 -d mysql
+  <span class="c">#cdコマンドで、pictweet2のディレクトリに移動</span>
+  <span class="nv">$cd</span> pictweet2
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">pictweet2のディレクトリに移動できていれば、アプリケーションの雛形を作ることは成功です。</p>
+
+<p class="ng-scope">続いて、mysqlのエラーを回避するために一度Gemfileを書き換えます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> アプリケーション「Pictweet2」のGemfileを下記のように変更してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">pictweet/Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1">#7行目付近、mysql2の行を以下のように変更</span>
+  <span class="n">gem</span> <span class="s1">'mysql2'</span><span class="p">,</span> <span class="s1">'0.3.18'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">続いて、アプリケーションのデータベース(DB)を作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> アプリケーション「Pictweet2」のDBを作成しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c">#pictweet2ディレクトリまで移動</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/pictweet2
+  <span class="c"># gemをインストール</span>
+  <span class="nv">$ </span>bundle install
+  <span class="c">#rake db:createコマンドでデータベースを作成</span>
+  <span class="nv">$rake</span> db:create
+  <span class="c">#エラーが出なければ作成成功</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>rake db:create</code>コマンドを実行してもエラーが出なければDBは無事に作成できていますが、念のためサーバーを立ち上げてアプリケーションのトップページにアクセスできるか確認しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> サーバーを立ち上げlocalhost:3000にアクセスしましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c">#pictweet2ディレクトリまで移動</span>
+  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/pictweet2
+  <span class="c">#rails sコマンドでサーバーを立ち上げる</span>
+  <span class="nv">$ </span>rails s
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この後、ブラウザからlocalhost:3000にアクセスし、Railsのデフォルトのトップページが表示されれば成功です。</p>
+
+<p class="ng-scope"><img src="100e9ee1781652317f03a6a829cdb912.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//100e9ee1781652317f03a6a829cdb912.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1571" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2214" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2214" name="check-2214" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Pictweet2の雛形を作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope"><strong>ローカルリポジトリを作成しよう</strong></h2>
+
+<p class="ng-scope">続いて、新規作成したアプリケーションの雛形を管理するためのローカルリポジトリを作成します。ローカルリポジトリは、SourceTreeを利用して作成できます。ローカルリポジトリを作成できたら、最初のコミットをしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Pictweet2のローカルリポジトリを作成しましょう</h3>
+
+<p class="ng-scope">SourceTreeを開いている状態でcommand + nキーを押し、上部バーにある「+ New Repository」ボタンを押します。「Create local repository」を選択し、以下のように入力したら「Create」を押します。</p>
+
+<p class="ng-scope"><img src="9a45e6fb606aca9fc603c3bced862924.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//9a45e6fb606aca9fc603c3bced862924.png"></p>
+
+<p class="ng-scope">ローカルリポジトリを作成できたら、続いて現在のアプリケーションの中身をコミットします。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1572" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2215" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2215" name="check-2215" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ローカルリポジトリを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope"><strong>コミットしよう</strong></h2>
+
+<p class="ng-scope">ローカルリポジトリを作成したので、アプリケーションのファイルに変更があった場合は差分を検知できるようになりました。検知した変更を記録していくことで、安全にアプリケーションの開発をすることができます。検知した変更を記録することを、コミットと言いました。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> sourcetreeを利用し、現在のアプリケーションの全ファイルをコミットしましょう</h3>
+
+<p class="ng-scope">作成したローカルリポジトリを開くと、大量の作業コピーができています。これは、監視対象のファイルをコミットしていないためです。まずは全てのファイルをコミットします。</p>
+
+<p class="ng-scope">コミットメッセージは「first commit」などで良いでしょう。書き終えたら、「コミット」ボタンを押します。</p>
+
+<p class="ng-scope"><img src="52855627b0ba6a78df812abd3fc1e2ee.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//52855627b0ba6a78df812abd3fc1e2ee.png"></p>
+
+<p class="ng-scope">以下のようにコミットメッセージが表示されれば成功です。</p>
+
+<p class="ng-scope"><img src="f7f4154e6119be6d70f2ff95f16e9e50.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//f7f4154e6119be6d70f2ff95f16e9e50.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1573" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2216" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2216" name="check-2216" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">最初のコミットができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope"><strong>開発用ブランチを作成しよう</strong></h2>
+
+<p class="ng-scope">アプリケーションに機能を実装していく際は、<strong>ブランチ</strong>を作成してその上で作業を進めるのが一般的です。ここでも、ブランチを作成して機能を実装していきましょう。</p>
+
+<p class="ng-scope">これから、<strong>Gemfile</strong>を編集する、という実装を行います。実際の開発で利用するGemを追加するためです。この実装のためのブランチを作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Gemfile実装のためのブランチを作成しましょう</h3>
+
+<p class="ng-scope">ブランチを作成するには、SourceTreeの上部メニューにある<strong>「Branch」</strong>というボタンを押します。詳しくは、前章を確認してください。</p>
+
+<p class="ng-scope">ブランチ名は<strong>add_gems</strong>にしましょう。Gemfileに利用するgemを追加するためのブランチだからです。</p>
+
+<p class="ng-scope">SourceTreeの左部メニューにある<strong>ブランチ</strong>欄に、add_gemsという名前が追加されていれば成功です。</p>
+
+<p class="ng-scope"><img src="14df929e5ce86ea9028e73f09233df7d.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//14df929e5ce86ea9028e73f09233df7d.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1574" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2217" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2217" name="check-2217" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ブランチを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope"><strong>差分をコミットしよう</strong></h2>
+
+<p class="ng-scope">ここでは、Gemfileへの変更をコミットしてみましょう。</p>
+
+<p class="ng-scope">まずは、Gemfileに今回利用するGemを追記します。追記するのは、Lesson4でPictweetを作成した時に利用したGemと同じものです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Gemfileに利用するGemを追記しましょう</h3>
+
+<p class="ng-scope">下記ディレクトリにある<strong>Gemfile</strong>を、以下の指示にしたがって編集してください。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> pictweet
+    <ul>
+      <li class="t-file"> Gemfile</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">pictweet2/Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="c1">#9行目付近、sass-railsの横の数字を以下のように変更</span>
+  <span class="n">gem</span> <span class="s1">'sass-rails'</span><span class="p">,</span> <span class="s1">'~&gt; 4.0.2'</span>
+  <span class="c1">#末尾に以下を追記</span>
+  <span class="n">gem</span> <span class="s1">'pry-rails'</span>
+  <span class="n">gem</span> <span class="s1">'compass-rails'</span><span class="p">,</span><span class="s1">'~&gt; 2.0'</span>
+  <span class="n">gem</span> <span class="s1">'sprockets'</span><span class="p">,</span> <span class="s1">'2.11.0'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">※その後、必ずGemfileを保存してください。</p>
+
+<p class="ng-scope">すると、<strong>SourceTree</strong>のPictweet2のローカルリポジトリにおいて作業コピー欄の中身が増えているはずです。こちらの変更を<strong>index</strong>に移動し、コミットメッセージを書いてコミットしてみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Gemfileへの変更をコミットしましょう</h3>
+
+<p class="ng-scope">コミットメッセージには「利用するgemを追加」などと書き、「コミット」ボタンを押しましょう。</p>
+
+<p class="ng-scope">SourceTreeからコミットができたでしょうか？</p>
+
+<p class="ng-scope"><img src="d76033818f1ae6d5f185dd33250c73ea.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//d76033818f1ae6d5f185dd33250c73ea.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1575" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2218" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2218" name="check-2218" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">変更をコミットできた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope"><strong>ブランチをマージしよう</strong></h2>
+
+<p class="ng-scope">コミットができたら、こちらのブランチでの作業は終了です。エラーが出ていないことを確認して、<strong>ブランチをマージしましょう。</strong>作業用ブランチをmasterブランチにマージすることで、変更した内容をmasterブランチに適用することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> add_gemsブランチをmasterブランチにマージしましょう</h3>
+
+<p class="ng-scope">まずはSourceTree左部メニューの「ブランチ」欄にある「master」をダブルクリックし、ブランチをmasterに切り替えます。</p>
+
+<p class="ng-scope">続いて、add_gemsブランチ上で右クリックを押し、「add_gemsをmasterにマージする」という選択肢を押します。</p>
+
+<p class="ng-scope"><img src="800f61b1384bb0f182ddc671b1e28420.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//800f61b1384bb0f182ddc671b1e28420.png"></p>
+
+<p class="ng-scope">すると、ブランチがマージされます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1576" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2219" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2219" name="check-2219" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">開発用ブランチをmasterブランチにマージできた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">マージされたブランチは必要ないので、削除してしまいましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> マージが終わったブランチを削除しましょう</h3>
+
+<p class="ng-scope">削除したいブランチ、今回の場合は「add_gems」ブランチを右クリックし、出てきた選択肢のうち「add_gems」を削除を選択します。</p>
+
+<p class="ng-scope"><img src="c06beccd3ce5a08185694cb69a044222.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//c06beccd3ce5a08185694cb69a044222.png"></p>
+
+<p class="ng-scope">すると、ブランチが削除されます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1577" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2220" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2220" name="check-2220" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">マージが終わったブランチを削除できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope"><strong>以前のコミットまで戻ってみよう</strong></h2>
+
+<p class="ng-scope">Gitを利用してコミットをしておけば、特定のコミットまでリポジトリの状態を戻すことができます。これにより、安全に実装を進めることができます。ここでは一度、Pictweet2の<strong>Gemfile</strong>を編集する前の状態にリポジトリの状態を戻してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Gemfileを編集する以前の状態まで、リポジトリの状態を戻しましょう</h3>
+
+<p class="ng-scope">SourceTreeにて、<strong>Pictweet2</strong>のリポジトリを開きます。左上にある時計のアイコンをクリックすると、コミット一覧が出てきます。</p>
+
+<p class="ng-scope">ここで、「その時点に戻りたいコミット」を選択し右クリックを押します。今回は、Gemfileを変更する前のコミットである「first commit」を選択しましょう。すると以下のような選択肢が出てくるので、「このコミットまで元に戻す」を選択します。</p>
+
+<p class="ng-scope"><img src="dd2819e6bf1f07570c4fbd6e3d83a9ad.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//dd2819e6bf1f07570c4fbd6e3d83a9ad.png"></p>
+
+<p class="ng-scope">ここで更に「Soft」「Mixed」「Hard」という3つの選択肢が出てきます。ここでは、「mixed」を選択しましょう。</p>
+
+<p class="ng-scope"><img src="ba49158e82421daca4434b36633cc837.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ba49158e82421daca4434b36633cc837.png"></p>
+
+<p class="ng-scope">すると、リポジトリの状態が選択したコミットにおける状態まで戻り、ファイルには変更が加えられている状態になります。ここから再度ファイルを修正し、新たなコミットを作成することができます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1578" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2221" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2221" name="check-2221" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">以前のコミットまでブランチの状態を巻き戻すことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">Lesson4を、Gitを用いて復習してみよう</h2>
+
+<p class="ng-scope">ここまで、Pictweetを再度開発する場合を考え、実際の開発におけるGitの利用方法を解説してきました。この後も、追加したい機能ごとにブランチを作成し、実装、ブランチのマージを繰り返していきます。</p>
+
+<p class="ng-scope">以下にPictweetを開発する際の機能の一覧を示します。ブランチを作成する際の参考にしてください。細かい作業に関してはLesson4を確認しつつ進めましょう。</p>
+
+<h4 class="ng-scope">投稿の一覧機能</h4>
+
+<h4 class="ng-scope">新規投稿機能</h4>
+
+<h4 class="ng-scope">投稿のページネーション</h4>
+
+<h4 class="ng-scope">ユーザーのログイン機能</h4>
+
+<h4 class="ng-scope">ユーザーページ(ユーザーごとの投稿の一覧)</h4>
+
+<h4 class="ng-scope">投稿の削除機能</h4>
+
+<h4 class="ng-scope">投稿の編集機能</h4>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1579" action="http://master.tech-camp.in/curriculums/295#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2222" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-2222" name="check-2222" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gitを利用しつつPictweet2を作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="13" class="ng-scope">今後のカリキュラムの進め方に関して</h1>
+
+<p class="ng-scope">Pictweet2を一通り実装し終えたら、続いて「Lesson5 もう一度Moooviを作成しよう」に取り組みましょう。</p>
+
+<p class="ng-scope">※すでに「Lesson5 もう一度Moooviを作成しよう」に取り組まれた方は、「応用編 Lesson1 Railsアプリケーション3」に進んでください。</p>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/21">Lesson5 もう一度Moooviを作成しよう</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">本章の概要</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">Gitを使った開発管理</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">目次</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">アプリケーションの雛形を作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">ローカルリポジトリを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">コミットしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">開発用ブランチを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">差分をコミットしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">ブランチをマージしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">以前のコミットまで戻ってみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">Lesson4を、Gitを用いて復習してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents13" ng-click="clickContent(content.h1.id)">今後のカリキュラムの進め方に関して</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 9<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a class="ng-hide" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/295">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>最低限の文法を身につけよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual1.jpg');">
+  <h1 class="ng-binding">
+    HTMLとCSSの文法<small class="ng-binding">〜最低限の文法を身につけよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    映画「ローマの休日」にて、オードリー・ヘップバーン演ずる王女がジェラートを食べるシーンで有名なスペイン広場。現在は景観保護の観点から、スペイン広場でジェラートを食べることは禁止されているそうです。<a class="ng-binding" href="https://www.flickr.com/photos/koreanet/16535840779" target="_top">Alessandro Capotondi - Piazza di Spagna</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<h3 class="ng-scope">HTML/CSSの基礎的な知識を身に着ける</h3>
+
+<p class="ng-scope">HTML/CSSのファイルの作成方法、HTML/CSSの基礎文法やその他知っておくと便利なこと、HTMLファイルからCSSファイルを読み込む方法などについて、学習しましょう。</p>
+
+<h2 id="2" class="ng-scope">本章の概要</h2>
+
+<p class="ng-scope">本章では実際にHTMLとCSSのファイルを作成し、そこに書き込んでいくことで、HTML/CSSについてそれぞれ以下のような項目を学習します。</p>
+
+<h3 class="ng-scope">HTML</h3>
+
+<ul class="ng-scope">
+<li>HTMLの構造について</li>
+<li>属性について</li>
+<li>ブラウザにHTMLを表示させるまで</li>
+<li>HTMLの箱について</li>
+<li>段落の作り方</li>
+</ul>
+
+<h3 class="ng-scope">CSS</h3>
+
+<ul class="ng-scope">
+<li>CSSのポイント</li>
+<li>CSSをHTMLに読み込ませるまで</li>
+<li>セレクタについて</li>
+<li>idセレクタ、classセレクタについて</li>
+<li>文字色を変えてみる</li>
+</ul>
+
+<p class="ng-scope">上記の内容を勉強することで、次章以降で実践的に行っていくhtml/cssの学習の準備をします。</p>
+
+<h1 id="3" class="ng-scope">HTMLの基本</h1>
+
+<p class="ng-scope">HTMLはブラウザにどんな要素があるかを示す言語です。<strong>.html</strong>という拡張子のファイルにHTMLの文法にそって記述していきます。HTMLを書き込んだこのファイルをブラウザに読み込ませることで、HTMLが「見た目」に変換され表示されます。</p>
+
+<h2 id="4" class="ng-scope">HTMLの基本記述を理解しよう</h2>
+
+<h3 class="ng-scope">HTMLを書く前に</h3>
+
+<p class="ng-scope">HTMLを書く前にまずある程度の文法について理解しておきましょう。本項では、HTMLの一番の基本となる<strong>開始タグ</strong>と<strong>閉じタグ</strong>、そして<strong>HTMLの要素のタイプ</strong>について学びます。</p>
+
+<p class="ng-scope">前の章で、<strong>HTMLは箱を定義するものだ</strong>という説明をしました。実はここでいう箱とは、もう少し詳しく言うと</p>
+
+<p class="ng-scope"><strong>「この箱に入っているテキストはWebページの中でどのような役割を果たすのか」</strong></p>
+
+<p class="ng-scope">ということを表す箱なのです。以下の図を見てください。</p>
+
+<p class="ng-scope"><img src="html03.png" alt=""></p>
+
+<p class="ng-scope">こちらは実際のHTMLの例です。開始タグと書かれた下に<strong>h1</strong>と書かれていますね。この部分が、この箱の「役割」を示します。つまり、この箱に入ったテキストは<strong>h1</strong>という役割を持っている、ということになります(h1が何なのかは後述します)。</p>
+
+<p class="ng-scope">基本的には、「開始タグ」から「終了タグ」の中に要素のタイプ(見出し(h1)、段落(p)、リスト(li)など)を入れます。このセットで、ひとつの箱の完成です。</p>
+
+<h3 class="ng-scope">HTMLタグを詳しく見る</h3>
+
+<p class="ng-scope">さて、HTMLタグについて詳しくみてみましょう。なお、役割を示す要素のタイプについて、今はひとつひとつの意味を知らなくても大丈夫です。</p>
+
+<p class="ng-scope"><img src="html04.png" alt=""></p>
+
+<p class="ng-scope">開始タグから説明していきます。</p>
+
+<h3 class="ng-scope">開始タグ</h3>
+
+<p class="ng-scope">開始タグは、タグの始点（&lt;）からタグの終点（&gt;）の中に、要素のタイプ（ここではh1）が入っています。要素の開始地点を示します。</p>
+
+<h3 class="ng-scope">終了タグ</h3>
+
+<p class="ng-scope">終了タグはほぼ開始タグと同じ書き方ですが、唯一違うのは要素のタイプの前にスラッシュ(/)を入れることです。これによって、要素の終了地点を示します。</p>
+
+<p class="ng-scope">HTMLの要素は基本的に開始タグから始まり、終了タグで終了します。以下は、その例です。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">htmlの要素の例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;h1&gt;</span>見出し<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>段落<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">中に入っているテキストをより明確にするために、以下のように段落をつけて書く場合もあります。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">htmlの要素の例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;h1&gt;</span>
+  見出し
+<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;p&gt;</span>
+  段落
+<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これなら、<strong>h1という要素の中に「見出し」という文字が入っていること</strong>、そして<strong>pという要素の中に「段落」という文字が入っている</strong>ことがわかりやすいですね。</p>
+
+<p class="ng-scope">また以下のように、終了タグが必要ない要素も存在します。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">終了タグが必要無い要素の例</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;br&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"hoge.png"</span> <span class="na">alt=</span><span class="s">"hogehoge"</span><span class="nt">&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2245" action="http://master.tech-camp.in/curriculums/447#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3169" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3169" name="check-3169" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">開始タグ、終了タグ、要素のタイプといった、HTMLの基本文法を把握した</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope">HTMLファイルを作成しよう</h2>
+
+<p class="ng-scope">ここまでを把握したら、早速HTMLを書いていくファイルを作成します。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> 以下の指示に従い、「test.html」という名前のファイルを新規作成、デスクトップに保存しましょう</p>
+
+<h4 class="ng-scope">1.Sublime textを起動します</h4>
+
+<p class="ng-scope">controlキー + spaceキーで<strong>スポットライト検索</strong>を呼び出し、「sublimetext」と入力すると早いはずです。</p>
+
+<h4 class="ng-scope">2.ファイルを新規作成します</h4>
+
+<p class="ng-scope">commandキー + n を押すと、ファイルを新規作成できます</p>
+
+<h4 class="ng-scope">3.test.htmlという名前でファイルを保存します</h4>
+
+<p class="ng-scope">commandキー + s を押すと、ファイル保存のためのポップアップが出ます。下図に従って、ファイルを保存してください。</p>
+
+<p class="ng-scope"><img src="5a4594e927a14e4e3f65a0dab11eed2d.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//5a4594e927a14e4e3f65a0dab11eed2d.png"></p>
+
+<p class="ng-scope">作成できたら、以下のHTMLをそのままコピーし貼り付けてください。</p>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    Hello, world!
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">貼り付けたら、command + s を押して忘れずに上書き保存をしましょう。</p>
+
+<p class="ng-scope">これが、基本となるHTMLになります。<br>
+HTMLを書くときは、はじめにこのコードを使いましょう。<br>
+本章のコードは、この中の「body」要素の中に追記していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>HTMLをブラウザで確認してみましょう</h3>
+
+<p class="ng-scope">今作ったHTMLをブラウザに反映させてみましょう。いくつか方法がありますが、一番簡単な方法は以下の動画のように<strong>Finder</strong>からhtmlファイルをブラウザ上にドラッグ＆ドロップすることです。</p>
+
+<p class="ng-scope"><img src="a12c82a78c6a91d692de429e39fd325e.gif" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//a12c82a78c6a91d692de429e39fd325e.gif"></p>
+
+<p class="ng-scope">htmlファイルをDesktopに保存していれば、上記の動画のような操作でうまくいくはずです。</p>
+
+<p class="ng-scope">今後も同じような形で随時確認をするので、こちらの操作は覚えておきましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2246" action="http://master.tech-camp.in/curriculums/447#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3170" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3170" name="check-3170" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">test.htmlを作成できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">HTMLの構造を理解しよう</h2>
+
+<p class="ng-scope">本項では、基礎的なHTMLの構造を学びます。HTMLは大きく分けると<strong>head要素</strong>と<strong>body要素</strong>という部分で構成されています。</p>
+
+<p class="ng-scope">head要素は、メタ情報と呼ばれるサイト自体に関する情報を定義する部分です。こちらで定義したものは見た目には大きく影響しません。</p>
+
+<p class="ng-scope">body要素は、箱の構成やテキストなど、実際に見た目に大きく反映されるものを定義していく部分です。</p>
+
+<h3 class="ng-scope">HTMLファイルの構造</h3>
+
+<p class="ng-scope">HTMLファイルは、基本的に以下のような構造になっています。<br>
+<img src="html05.png" alt=""></p>
+
+<ul class="ng-scope">
+<li>html要素は、HTML文章の始まりと終わりを示しています。</li>
+<li>head要素は、ページを閲覧する人が知る必要のないHTML文章の情報を記述するものです。例えば、言語の種類などです。 <strong>ここに書かれたコードはブラウザ内には表示されません。</strong>
+</li>
+<li>body要素の開始タグと閉じタグのあいだには、HTMLを記述していきます。 ここに記述されたものがブラウザ内に表示されます。</li>
+</ul>
+
+<p class="ng-scope">以下、その他重要な内容について説明します。ただし、今はほとんど「決まり文句として書くのだ」という認識で十分です。</p>
+
+<p class="ng-scope"><strong>&lt;!DOCTYPE HTML&gt;について</strong></p>
+
+<p class="ng-scope">この &lt;!DOCTYPE HTML&gt; は、この文章がHTML文章であることを宣言する要素です。<br>
+HTMLを書くときには、必要になるものです。</p>
+
+<p class="ng-scope">記述をしない場合、レイアウトが崩れたり、表示がされない場合があります。</p>
+
+<p class="ng-scope"><strong>&lt;meta charset="UTF-8" /&gt;について</strong></p>
+
+<p class="ng-scope">meta要素は、文章に関する情報を指定する時に使用します。<br>
+また、<code>charset=</code>に続く文字はの文書の「文字コード」を指定します。<br>
+文字コードとは、「この文章は日本語で書かれています」ということを指定するものです。<br>
+他にもSHIFT-JISなどがありますが、主流はUTF-8なので、UTF-8を指定しましょう。</p>
+
+<p class="ng-scope">記述しない場合、文章が文字化けをしてしまって読めなくなってしまいます。</p>
+
+<h3 class="ng-scope">HTML要素の属性とは</h3>
+
+<p class="ng-scope">meta要素に関する説明の際に出てきた<strong>属性</strong>について学びましょう。<br>
+属性とは、HTML要素の役割を細かく定義するための付加的な情報のことです。属性を含むHTMLタグは、以下の図のような構成になっています。</p>
+
+<p class="ng-scope"><img src="html06.png" alt=""></p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">では実際にコードを見てみましょう。今ここで登場する要素名を覚える必要はありません。要素に対してどのように属性を記述するかを学びましょう。</p>
+
+<h3 class="ng-scope">例1 リンクを作成するa要素の場合</h3>
+
+<p class="ng-scope">例えばa要素は「クリックされると別のページに移動させる」という役割を持つ文字を作成する要素です。ということは、この要素自体が別ページのURLを持っていなければいけません。こんな時に属性を利用します。</p>
+
+<p class="ng-scope"><img src="html07.png" alt=""></p>
+
+<p class="ng-scope">上記の図のように、a要素は「href」という属性を持ち、その値がリンク先のURLになります。これがなければ、リンクさせることができません。</p>
+
+<h3 class="ng-scope">例2 画像を表示するimg要素の場合</h3>
+
+<p class="ng-scope">img要素は、画像を表示するための要素です。ということは、画像自体の在り処をimg要素自身が持っている必要がありますね。こんな時も、属性を利用します。</p>
+
+<p class="ng-scope"><img src="html08.png" alt=""></p>
+
+<p class="ng-scope">img要素は、srcという要素に画像の在り処を示す値を持っています。<br>
+また、altという属性も持ちます。このように、特定の要素は属性を何個ももつことがあります。</p>
+
+<p class="ng-scope">属性の記入方法は以下です。</p>
+
+<ul class="ng-scope">
+<li>属性名は開始タグの中で、要素名の後に半角スペースで区切って記述します</li>
+<li>基本的に属性値は「=」の後に、""(ダブルクォーテーション)で囲んで記述します</li>
+<li>複数の属性を記述するには、半角スペースで区切って記述します</li>
+</ul>
+
+<p class="ng-scope">属性に関しては次の章以降でも登場するので、そちらで具体的な使い方について学びましょう。</p>
+
+<p class="ng-scope">また、HTMLでは属性を定義することで要素に役割を与えたり、情報を送信したり出来ます。こちらについてはLesson4などで詳しく説明します。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2247" action="http://master.tech-camp.in/curriculums/447#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3171" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3171" name="check-3171" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">head要素は、ユーザーには見せる必要のないサイトの情報を記録しておく場所</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3172" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3172" name="check-3172" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">body要素は、ユーザーが実際に目にする内容を作っていく場所</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope">サイトの情報を書いていこう</h2>
+
+<p class="ng-scope">ここからは、実際にHTMLを書きブラウザに情報を反映させるところまでを学習します。</p>
+
+<p class="ng-scope">より詳しく解説するために、HTMLファイル上にメモを残せるようにしましょう。ただ文字を書くだけではテキストとして認識されてしまうので、メモとして機能するよう(HTMLとしては反映されないよう)工夫をする必要があります。</p>
+
+<p class="ng-scope">そこで、<strong>コメントアウト</strong>を利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_237"></i> コメントアウト</h3>
+
+<p class="ng-scope">コメントアウトとは、htmlに記述しても反映されない文字のことです。</p>
+
+<p class="ng-scope">上記のtest.htmlの中身にある<strong><code>&lt;!-- --&gt;</code></strong>に囲まれた部分がコメントアウトとなります。主に、メモを残しておく時などに使います。</p>
+
+<p class="ng-scope">今後、本教材のコードの例の中でコメントアウトを見かけた時は、コードの説明をしているものと思ってください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlにコメントアウトしたメモを残しましょう</h3>
+
+<p class="ng-scope">test.htmlを以下のように編集してください。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="hll"><span class="c">&lt;!--これからhtmlの要素について学びます--&gt;</span>
+</span><span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    Hello, world!
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この状態で保存をしてブラウザでhtmlを確認しても、変化がないことがわかります。</p>
+
+<p class="ng-scope">また実際にコメントアウトを利用する際は<strong><code>command + /</code></strong>のショートカットキーを利用します。範囲選択中に<strong><code>command + /</code></strong>を押すことで、選択範囲を全てコメントアウトすることができます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2248" action="http://master.tech-camp.in/curriculums/447#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3173" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3173" name="check-3173" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">コメントアウトを試すことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">head要素</h3>
+
+<p class="ng-scope">続いてhead要素について学習します。先ほど作成したtest.htmlをもう一度確認しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="hll"><span class="nt">&lt;head&gt;</span>
+</span><span class="hll">  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+</span><span class="hll">  <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+</span><span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">3行目 ~ 6行目は、<strong>head要素</strong>に含まれていることがわかります。こちらは、閲覧する人に見せる必要のないサイトの情報を定義する場所になります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_238"></i> head要素</h3>
+
+<p class="ng-scope">以下のとおり、headタグの間にまた別のタグを書いてサイトの情報を定義していきます。</p>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+  <span class="c">&lt;!-- ここから --&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+  <span class="c">&lt;!-- ここまでにhead要素を書きます --&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">サイトの情報（タイトルや説明など）を記述することができますが、<strong>ブラウザ内には表示されません。</strong></p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th>要素名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title要素</td>
+<td>サイトのタイトルを付ける</td>
+</tr>
+<tr>
+<td>meta要素</td>
+<td>文章の情報を保存し、ブラウザや検索エンジン（Googleなど）に知らせるため</td>
+</tr>
+<tr>
+<td>link要素</td>
+<td>スタイルシートを指定する</td>
+</tr>
+<tr>
+<td>script要素</td>
+<td>JavaScriptを指定する</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">例えば、サイトのタイトルを変えてみましょう。そのためには、<strong>head要素内のtitleタグの中に、サイト名を書きます。</strong><br>
+自分の自己紹介のサイトなので、自分の名前をサイト名にしてもいいですし、自分の好きな言葉をサイト名にしても構いません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlのページタイトルを変えてみましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;title&gt;</span>サイト名を入れてみましょう<span class="nt">&lt;/title&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">test.htmlを保存してもう一度ブラウザのタブの部分を見てみましょう。以下の画像の部分に、titleタグの中に入れた文字が表示されていれば成功です。</p>
+
+<p class="ng-scope"><img src="cap01.png" alt=""></p>
+
+<h2 id="8" class="ng-scope">ブラウザに文字を表示させよう</h2>
+
+<p class="ng-scope">ではまず、単純に文字をブラウザに表示してみましょう。そのためには、body要素の中に要素を書いていきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_239"></i> body</h3>
+
+<p class="ng-scope">HTMLの、文字を表示させるためのコンテンツなどを入れる場所です。<br>
+これから書いていくHTMLの要素は、このbodyの中に書いていきましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;title&gt;</span>サイト名<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+  <span class="c">&lt;!-- 主にここからコードを追記していきます --&gt;</span>
+
+
+
+  <span class="c">&lt;!-- ここまでの間にコードを書きます --&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlの&lt;body&gt;と&lt;/body&gt;の間を、以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;body&gt;</span>
+    HTMLを勉強中！
+  <span class="nt">&lt;/body&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">test.htmlを保存しブラウザで確認すると、表示されている文章が「Hello, world!」から「HTMLを勉強中！」に変わっているのが確認できるでしょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2249" action="http://master.tech-camp.in/curriculums/447#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3174" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3174" name="check-3174" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「HTMLを勉強中！」という文字を表示することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">しかし、このまま文字を書き込んでいくだけでは普段見ているような綺麗なサイトのレイアウトを実現することができません。</p>
+
+<p class="ng-scope">実は、webサイトを形作るためにはいくつかのルールとコツがあります。</p>
+
+<h2 id="9" class="ng-scope">HTMLのコツを知ろう</h2>
+
+<p class="ng-scope">続いて本項では、HTMLの概念についてざっくりお伝えしておきます。HTML/CSSについて学ぶ上で、常に以下の2つのポイントを念頭に置くと良いでしょう。</p>
+
+<p class="ng-scope"><strong>1. HTMLとは左上に重力のある積み木である</strong></p>
+
+<p class="ng-scope"><strong>2. 積み木の一つ一つは中身によって大きさの変わる箱であり、入れ子構造になっている</strong></p>
+
+<p class="ng-scope">1, 2について、例を交えつつ解説していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon attention"></i>まだ勉強していない <code>CSS</code>や、htmlの要素が出てきますが、まずイメージをつかんでいただくためなのでここでは特に覚える必要はありません。</h3>
+
+<p class="ng-scope">はじめの章で出てきた以下の図を念頭に置きつつ読み進めましょう。</p>
+
+<p class="ng-scope"><img src="f0aaf278699724ca746a4240aca8ec2a.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//f0aaf278699724ca746a4240aca8ec2a.png"></p>
+
+<p class="ng-scope">まず以下の例ですが、htmlのbody要素の中に「box1」「box2」「box3」という名のついた箱を定義しています(名前は<code>class</code>という属性によってつけることができます)。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+  <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+<span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box1"</span><span class="nt">&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box2"</span><span class="nt">&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box3"</span><span class="nt">&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span>    <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">このままでは箱になんの装飾もしていないので、ブラウザ上では何も見えません。この段階では、 <strong>箱はHTMLとしては存在しているけど、見えない状態</strong>です。</p>
+
+<p class="ng-scope">以下のように、<code>CSS</code> によって箱の大きさを決めたり、色を決めたりすることで初めて視認することができます。widthは横幅の指定、heightは高さの指定、background-colorは背景色の指定です。opacityは、要素の透明度です。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="css"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nc">.box1</span><span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.box2</span><span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nc">.box3</span><span class="p">{</span>
+    <span class="k">width</span><span class="o">:</span> <span class="m">120px</span><span class="p">;</span>
+    <span class="k">height</span><span class="o">:</span> <span class="m">120px</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+    <span class="k">opacity</span><span class="o">:</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">;</span>
+  <span class="p">}</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上記のようなcssファイルは、htmlのhead要素に以下のように書くことで読み込むことができます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+  <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+<span class="hll">      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+</span>    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box1"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box2"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box3"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">すると、ブラウザに以下のような箱が出現します。ブラウザの左上が起点となって、box1,2,3が積まれているのがわかります。</p>
+
+<p class="ng-scope"><img src="015.png" alt=""></p>
+
+<p class="ng-scope">箱の一つ一つは、主にブロック要素と呼ばれるものになります。先ほどの例では文字を直接body要素の中に書き込んでいましたが、本来であれば、ブロック要素の中に文字を設置するのが普通です。箱の中に文字を入れると、文字は箱の中いっぱいに広がります。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+  <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box1"</span><span class="nt">&gt;</span>
+        text text text text
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box2"</span><span class="nt">&gt;</span>
+        テキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box3"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><img src="016.png" alt=""></p>
+
+<p class="ng-scope">また、箱の中に箱を入れることもできます。外側の箱のことを <strong>親要素</strong>、内側に入っている箱のことを <strong>子要素</strong>と呼び表します。その場合は以下のように、親要素の開始タグと閉じタグの間に、子要素の開始タグと閉じタグを含めます。以下の例ではbox2という名前のついた箱の中にbox3という箱が入っていますが、これをわかりやすくするために <strong>インデント</strong>をしています。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+  <span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+      <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;title&gt;&lt;/title&gt;</span>
+      <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box1"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+<span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box2"</span><span class="nt">&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box3"</span><span class="nt">&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span>    <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">すると、ブラウザ上では以下のように表示されます。 <strong>子要素の位置は、親要素の左上になっていることに注目してください。</strong></p>
+
+<p class="ng-scope"><img src="017.png" alt=""></p>
+
+<p class="ng-scope">普段良く見るサイトのレイアウトは、すべて2つのポイントによって成り立っています。例えば、TECH::CAMPのホームページの一部に関しては以下のような箱の入れ子によって成り立っています。</p>
+
+<p class="ng-scope"><img src="018.png" alt=""></p>
+
+<p class="ng-scope">HTMLに関する2つのコツに関しては以上です。HTMLが箱の入れ子によって成り立っていることが理解できれば、あとは以下のような点を学ぶだけでwebページのレイアウトを完成させることができます。</p>
+
+<ol class="ng-scope">
+<li>箱同士を横並びにする方法</li>
+<li>箱自体、もしくは箱の中にある文字を中央寄せにする方法</li>
+</ol>
+
+<p class="ng-scope">これらは後の章で出てくるものですが、とても大切になるので特に注意して読みましょう。</p>
+
+<h3 class="ng-scope">HTMLの箱の種類〜ブロック要素とインライン要素</h3>
+
+<p class="ng-scope"><strong>HTMLの箱は、大きく分けて2種類あります。「ブロック要素」と「インライン要素」です。</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlの&lt;body&gt;と&lt;/body&gt;の間を、以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>サイト名<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>ここに文字を書きます。<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上のように書いた&lt;h1&gt;&lt;/h1&gt;と&lt;p&gt;&lt;/p&gt;は、<strong>ブロック要素</strong>と呼ばれる箱です。</p>
+
+<p class="ng-scope">HTMLにはブロック要素とインライン要素が存在します。<br>
+サイトのレイアウトをするときに重要となるので、このブロック要素とインライン要素を覚えておきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_240"></i> ブロック要素</h3>
+
+<p class="ng-scope">ブロック要素は、言葉の通り「一つのブロック」として扱われます。基本的には、CSSで高さと横幅を指定することになります。<br>
+CSSで何も指定していない場合、ウィンドウの左右いっぱいに表示され、なおかつ上下に改行が入ります。<br>
+長方形の長い箱とおぼえておくとよいでしょう。<br>
+ブロック要素を作るHTML要素の1つに、 <strong>div要素</strong>があります。(下記サンプル参照)</p>
+
+<p class="ng-scope">レイアウトを作るときによく使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_241"></i> インライン要素</h3>
+
+<p class="ng-scope">インライン要素は、テキストを装飾するときによく使います。テキストの一部を囲い、そこに役割を与えます。あくまでも文字の一部の範囲指定なので、インライン要素は連続して横に並びます。<br>
+インライン要素を作るHTML要素の1つに、 <strong>span要素</strong>があります。(下記サンプル参照)</p>
+
+<p class="ng-scope">以下のサンプルを見て、ブロック要素とインライン要素の違いを確認してみましょう。</p>
+
+<iframe class="ng-scope" src="index_1.html" allowfullscreen="allowfullscreen" frameborder="0" height="300" width="100%"></iframe>
+
+<h2 id="10" class="ng-scope">基礎的なHTML要素を知ろう</h2>
+
+<p class="ng-scope">Webサイトでよく使われるブロック要素が、p要素です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_242"></i> p要素</h3>
+
+<p class="ng-scope">paragraphの略で、段落を示すブロック要素です。文章を書く際、段落を作る時に使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>h1要素の下にp要素を使ってサイトの説明を書いてみましょう</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>このサイトは、●●です。<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ブラウザで確認してみると、ただ文章を書いた時となにも変わらない結果のように見えるかもしれません。しかし、この文章は<strong>ブロック要素の中に入っています。</strong>これで、p要素自体にCSSを当て、この文章に背景色をつけたり、別の要素から幅をとったり、様々なレイアウトを実現することができるようになります。</p>
+
+<p class="ng-scope">今はピンとこないかもしれませんが、次章から実践でどんどん使っていくなかで便利さを実感できるでしょう。</p>
+
+<h3 class="ng-scope">HTMLの基礎はここまでです</h3>
+
+<p class="ng-scope">ここまでで、HTMLについての最低限の知識に触れることができました。次は、CSSの基礎知識について見ていきましょう。</p>
+
+<h1 id="11" class="ng-scope">CSSを学習するにあたって</h1>
+
+<p class="ng-scope">ここからは、<strong>CSS</strong>について学習します。<br>
+CSSとは、HTMLファイルで作られた骨組みを装飾するものです。要素の高さや大きさ、背景色、並び方、テキストの色やフォント、アニメーションなどを設定できます。</p>
+
+<h3 class="ng-scope">学習のポイント</h3>
+
+<h4 class="ng-scope">1.暗記する必要はない</h4>
+
+<p class="ng-scope">ここでは<strong>「htmlで作成した骨組みをcssで装飾する」というやり方と概念さえ把握すれば、装飾の種類にどんなものがあるかといったことは暗記する必要はありません。</strong>それらは、少し調べればすぐに見つかるためです。</p>
+
+<h4 class="ng-scope">2.実践が全て</h4>
+
+<p class="ng-scope">HTML/CSSは実践が全てです。本章では基礎知識に留めますが、次章以降では実際にサイトを作っていきます。また、最後に課題を用意しました。どんどん実践して、技術を身につけていきましょう。</p>
+
+<p class="ng-scope">では、早速学習を始めていきましょう。</p>
+
+<h2 id="12" class="ng-scope">HTMLにCSSを読み込んでみよう</h2>
+
+<p class="ng-scope">HTMLの文章にCSSを適用するためには、まずcssを記入するファイルを作成する必要があります。</p>
+
+<p class="ng-scope"><img src="html09.png" alt=""></p>
+
+<p class="ng-scope">HTMLでは拡張子が.htmlでしたが、CSSは<strong>.css</strong>になります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlと同じディレクトリに、新しくstyle.cssという名前のファイルを作成しましょう</h3>
+
+<p class="ng-scope">今回はDesktopにtest.htmlがあるので、同じくDesktopに<strong>style.css</strong>というファイルを作成しましょう。</p>
+
+<p class="ng-scope">続いて、test.htmlにstyle.cssを読み込みます。<br>
+そのためには、htmlの &lt;head&gt; タグ内に &lt;link&gt;というタグを設置します。linkタグのrel属性に<code>stylesheet</code>を、href属性に読み込みたいファイルの名前を書くことで、そのhtmlにCSSを読み込むことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlにスタイルシート（style.css）を読み込んでみましょう</h3>
+
+<p class="ng-scope">以下のタグを、test.htmlの &lt;head&gt; タグ内に書きましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">test.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">記述を終えたら、必ず<code>command+s</code>を入力してファイルを上書き保存しましょう。</p>
+
+<h2 id="13" class="ng-scope">セレクタを理解しよう</h2>
+
+<p class="ng-scope">これから、style.cssにCSSを記述していきます。<br>
+CSSを使ってHTML文章を装飾していく上で基本になるのは、「セレクタ」です。  セレクタは「CSSを適用したいhtml要素を選択するため」のものです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_243"></i> セレクタ</h3>
+
+<p class="ng-scope">セレクタの構造は、セレクタ/プロパティ/値からなっています。</p>
+
+<p class="ng-scope"><img src="html10.png" alt=""></p>
+
+<p class="ng-scope">基本の形は「セレクタ { プロパティ: 値; }」となり、セレクタ構造を示すために<strong>{}</strong>を、プロパティの値を指定する場合は、 <strong>:</strong>を使い、値の最後には <strong>;</strong>を書きます。</p>
+
+<h3 class="ng-scope">【例】 <strong>HTMLのpの文字色を赤に変えたい場合</strong>
+</h3>
+
+<p class="ng-scope">具体的なプロパティについては後程詳しく説明します。</p>
+
+<p class="ng-scope"><img src="html11.png" alt=""></p>
+
+<p class="ng-scope">CSSは、読みやすくするため以下のように段を組んで書くことが一般的です。</p>
+
+<p class="ng-scope"><img src="html12.png" alt=""></p>
+
+<p class="ng-scope">またHTML同様、半角で書きましょう。</p>
+
+<h2 id="14" class="ng-scope">その他のセレクタを理解しよう</h2>
+
+<p class="ng-scope">ここまで、ある要素に対してプロパティを適用する方法を学びました。しかし、同じ要素が複数ある場合に、特定の要素にのみプロパティを適用したい場合はどうすれば良いでしょうか。そういった場合、要素に<code>id</code>や<code>class</code>といった属性値を付与し、その値で要素を特定する、という方法を取ります。要素にアダ名をつけるようなイメージです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_244"></i> idセレクタ</h3>
+
+<p class="ng-scope">HTMLの特定の要素にID属性をつけ、それを目印にして、スタイルを適用するものです。HTMLでは<code>id="xxx"</code>とID名(xxx)をつけ、CSSでは、<code>#xxx</code>とシャープの後にID名を指定します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_245"></i> classセレクタ</h3>
+
+<p class="ng-scope">全てのhtmlタグには<code>class</code>という属性を付与することができます。これは、あるhtml要素に対してつける識別子です。<br>
+class属性は、HTMLの文章の中で何度も使うことができます。<br>
+HTMLでは、class="xxx"(xxx)と書きますが、CSSでは、「.xxx」とピリオドの後にclass名を指定します。</p>
+
+<h3 class="ng-scope">基本的にはclassを利用する</h3>
+
+<p class="ng-scope">特定の要素にスタイルを適用したい場合、基本的にはその要素にclassで名前をつけて、cssファイルでclassを指定して装飾をしていきます。idを利用しないのは、idだと1箇所しか指定できないためです。同じ指定をしたい要素が複数ある時に使い勝手が良くありません。</p>
+
+<h3 class="ng-scope">classセレクタとidセレクタが必要な理由</h3>
+
+<p class="ng-scope">このように、HTML中に数ある要素から選択したい要素を特定し、それぞれに対してCSSを当てるためにclassセレクタとidセレクタがあります。<br>
+複数の要素に一括でCSSを当てたいときはclassセレクタ、HTML中に一つしかない要素に当てたいときはidセレクタを使うのが良いでしょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>test.htmlのpにclass属性を加え、titleというclass名をつけましょう。</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>サイト名<span class="nt">&lt;/p&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h2 id="15" class="ng-scope">テキストを変化させるプロパティを利用してみよう</h2>
+
+<p class="ng-scope">ここまで、<strong>CSSを特定のHTMLに適用する方法</strong>と<strong>セレクタやプロパティなどのCSSの文法</strong>について学びました。本章の仕上げに、現在<strong>test.html</strong>にあるp要素の中身のテキストの色を、CSSを利用して変更してみましょう。</p>
+
+<h2 id="16" class="ng-scope">文字色を変えてみよう</h2>
+
+<p class="ng-scope">あるhtml要素の中に入っているテキストの文字色を変えるためには<code>color</code>プロパティを利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_246"></i> colorプロパティ</h3>
+
+<p class="ng-scope">文字の色は<em>カラー名,hex,rgb,cmyk,rgba</em>などで指定することができます。<br>
+一般的に使用されているのは、カラー名,hex,rgb,rgbaです。</p>
+
+<p class="ng-scope">指定したcolorプロパティは、その子要素まで適用されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <strong>p要素の中身の文字を赤くしてみましょう</strong>
+</h3>
+
+<div class="code-frame ng-scope" data-lang="css"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">cssを保存し、もう一度ブラウザでtest.htmlを表示してみましょう。以下のような結果になったでしょうか(ブラウザでtest.htmlを開きっぱなしの場合、リロードをする必要があります)。</p>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>以下の「Result」「HTML」「css」を切り替えると、それぞれ「ブラウザの表示」html」「css」を確認することができます。</strong></p>
+
+<iframe class="ng-scope" src="index_3.html" allowfullscreen="allowfullscreen" frameborder="0" height="300" width="100%"></iframe>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2242" action="http://master.tech-camp.in/curriculums/447#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3166" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3166" name="check-3166" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">p要素の中身のテキストを赤色にすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"><div class="ng-scope">
+  <p>テストを受けた回数：<span class="ng-binding">1回</span></p>
+  <p>最高得点：<span class="ng-binding">80点</span></p>
+  <!-- ngIf: curriculum.short_test.has_passed --><div class="ng-scope" ng-if="curriculum.short_test.has_passed">
+    <p>合否：<span class="pass">合格</span></p>
+  </div><!-- end ngIf: curriculum.short_test.has_passed -->
+  <!-- ngIf: !curriculum.short_test.has_passed -->
+</div></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap class="fixed-side" style="width: 220px;" id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding current" id="contents2" ng-click="clickContent(h2.id)">本章の概要</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">HTMLの基本</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">HTMLの基本記述を理解しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">HTMLファイルを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">HTMLの構造を理解しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">サイトの情報を書いていこう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">ブラウザに文字を表示させよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">HTMLのコツを知ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">基礎的なHTML要素を知ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents11" ng-click="clickContent(content.h1.id)">CSSを学習するにあたって</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">HTMLにCSSを読み込んでみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">セレクタを理解しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">その他のセレクタを理解しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">テキストを変化させるプロパティを利用してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">文字色を変えてみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">7 / 7<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/447">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

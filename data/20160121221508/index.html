@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>基本機能の実装</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発2 第3章<small class="ng-binding">〜基本機能の実装〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ルーヴル・ピラミッド。パリのルーヴル美術館のメインエントランスとして使用されており、ガラスと金属で制作されたピラミッドはパリのランドマークになりつつあります。ピラミッドの地下には逆ピラミッドがあり、小説『ダヴィンチ・コード』では上向きのピラミッドは男性を、下向きのピラミッドは女性を意味しており、性の調和を暗示するものだと言われています。<a class="ng-binding" href="https://www.flickr.com/photos/henry_marion/16823024062/" target="_top">Henry_Marion - Pyramide du Louvre</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習目標</h1>
+
+<p class="ng-scope">今までに学習したことを使い、アプリケーションを開発できるようになる。</p>
+
+<h1 id="2" class="ng-scope">学習の進め方</h1>
+
+<p class="ng-scope">基本的に全て課題形式になっているので、ヒントや過去の学習を参考にして進めてみてください。</p>
+
+<p class="ng-scope">詰まったら模範解答と照らしあわせて少しずつ理解していきましょう。</p>
+
+<h1 id="3" class="ng-scope">トップページ</h1>
+
+<p class="ng-scope">トップページでは、スクレイピングで追加した作品を、追加された順に20件表示します。</p>
+
+<p class="ng-scope"><img src="01.png" alt=""></p>
+
+<h2 id="4" class="ng-scope">コントローラーで最新順の作品データを取得しよう</h2>
+
+<p class="ng-scope">最新順にデータを取得するにはどうしたらいいでしょうか。<br>
+ActiveRecordには順番を指定する<code>orderメソッド</code>、取得する件数を指定する<code>limitメソッド</code>があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_390"></i> orderメソッド</h3>
+
+<p class="ng-scope"><code>orderメソッド</code>は、データベースからデータ取得時にデータをどう並び替えるかというのが指定できます。<br>
+例えば、「id順に並べたいとき」や「作成日順に並べたい」ときに使います。</p>
+
+<p class="ng-scope">引数には並び替える基準のカラムと、<strong>DESC(降順)</strong>か<strong>ASC(昇順)</strong>のどちらかの2つを指定することにより順番を指定して取得することができます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">モデル名</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s1">'カラム名 順序'</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>実行例</strong></p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">実行例</th>
+<th style="text-align: center;">詳細</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">User.order('id DESC')</td>
+<td style="text-align: center;">idを降順でユーザデータ取得</td>
+</tr>
+<tr>
+<td style="text-align: center;">User.order('id ASC')</td>
+<td style="text-align: center;">idを昇順でユーザデータ取得</td>
+</tr>
+</tbody>
+</table>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_391"></i> limitメソッド</h3>
+
+<p class="ng-scope"><code>limitメソッド</code> はデータをいくつ取得するかというのが指定できるメソッドで、<br>
+引数には取得したい件数を指定します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">モデル名</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="err">取得件数</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><strong>実行例</strong></p>
+
+<p class="ng-scope">ユーザを10件取得する</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">User</span><span class="o">.</span><span class="n">limit</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題1：app/contorllers/products_controller.rbのindexアクションに、productsテーブルから最新順に作品データを20件取り出す処理を書いて下さい</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/contorllers/products_controller.rb</h5>
+    <curriculum-question-container class="ng-scope" data-order="1"><button style="" class="answer" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button style="" class="solve ng-binding ng-hide" ng-click="solve()" ng-hide="isSolved">残り時間 9分 59秒</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="386" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-532" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-532" name="check-532" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">productsテーブルから<strong>最新順</strong>に作品データを<strong>20件</strong>取り出せた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">以下のようにトップページに作品が表示されるようになったでしょうか。</p>
+
+<p class="ng-scope"><img src="07.png" alt="トップページ"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="387" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-533" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-533" name="check-533" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">orderメソッドは、取得する順番を指定できるメソッドのこと</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-534" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-534" name="check-534" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">limitメソッドは、取得する件数を指定できるメソッドのこと</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope">トップページの作品一覧でタイトルを表示しよう</h2>
+
+<p class="ng-scope">画像は作品それぞれの画像になっていますが、作品タイトルがすべて<strong>「タイトル」</strong>になっています。このままでは作品タイトルがわからないので現在、「タイトル」となっているところをそれぞれの作品名にしましょう。</p>
+
+<p class="ng-scope"><img src="08.png" alt="タイトル"></p>
+
+<h3 class="ng-scope">
+<i class="icon files"></i> 編集するファイル</h3>
+
+<p class="ng-scope">この作品のビューはRailsアプリケーションのディレクトリのどこにあるでしょうか。<br>
+コントローラーは<code>products_controller</code>なので「mooovi」&gt;「app」&gt;「views」&gt;「products」のフォルダの中にビューのファイルが入っています。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+mooovi
+<ul>
+<li class="t-folder"> apps
+  <ul>
+    <li class="t-folder"> views
+      <ul>
+        <li class="t-folder"> products </li>
+          <ul>
+          <li class="t-file"> index.html.erb </li>
+          <li class="t-file"> search.html.erb </li>
+          <li class="t-file"> show.html.erb </li>
+          </ul>
+      </ul>
+      <ul>
+        <li class="t-folder"> reviews </li>
+          <ul>
+            <li class="t-file"> new.html.erb </li>
+          </ul>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope">productsフォルダの中にはビューのファイルが2つ入ってます。この中でトップの作品一覧を表示しているビューは<code>index.html.erb</code>です。</p>
+
+<p class="ng-scope">ではこのファイルを編集して「タイトル」の部分にそれぞれの作品の作品名を表示させるようにしましょう。<br>
+<img src="05.png" alt="問題2"></p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題2：app/views/products/index.html.erbファイルを編集して作品タイトルを表示させてみましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/views/products/index.html.erb</h5>
+    <curriculum-question-container class="ng-scope" data-order="2"><button style="" class="answer" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button style="" class="solve ng-binding ng-hide" ng-click="solve()" ng-hide="isSolved">残り時間 9分 59秒</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="388" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-535" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-535" name="check-535" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">作品タイトルを表示させることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">以下のように作品ごとに作品タイトルが表示されるようになったでしょうか。</p>
+
+<p class="ng-scope"><img src="09.png" alt="作品タイトルの表示"></p>
+
+<h1 id="6" class="ng-scope">作品ページ</h1>
+
+<p class="ng-scope">トップページの作品をクリックしたら、作品ページへリンクします。</p>
+
+<p class="ng-scope">作品ページは以下のようなページです。</p>
+
+<p class="ng-scope"><img src="04.png" alt=""></p>
+
+<h2 id="7" class="ng-scope">作品の情報を取得しよう</h2>
+
+<p class="ng-scope">まずは、コントローラーから編集していきましょう。</p>
+
+<p class="ng-scope">作品ページを扱うアクションで作品のidを受け取り、そのidにあたる作品情報をデータベースから１件取得します。<br>
+idに当たる作品情報を１件取得するメソッドが、<code>findメソッド</code>です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_392"></i> findメソッド</h3>
+
+<p class="ng-scope"><strong>findメソッド</strong>は引数に指定したidにあたる作品情報を<strong>1件だけ</strong>取得します。<br>
+もし、そのidにあたる作品が存在しない場合、エラーが発生します。</p>
+
+<h4 class="ng-scope">【例】</h4>
+
+<p class="ng-scope">idが5のユーザを取得する</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1"># idが5のUserモデルのインスタンスが取得</span>
+<span class="c1"># or</span>
+<span class="c1"># idが5のUserモデルのインスタンスがない場合エラー</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="389" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-536" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-536" name="check-536" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">findメソッドは、特定のidにあたるデータを1件取得する</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope">作品ページで呼び出されるアクションを探す</h2>
+
+<p class="ng-scope">トップページの作品をクリックしたあと、作品ページに遷移します。その際、どんなHTTPリクエストが呼ばれているでしょうか。完成版のmoooviでトップページの作品をクリックしてそのURLを見てみましょう。</p>
+
+<p class="ng-scope"><a href="http://mooovi.tech-camp.in/">映画レビューアプリケーションmooovi</a></p>
+
+<p class="ng-scope"><strong>※Basic認証が掛かっています。<br>
+ユーザ名: tcamp<br>
+パスワード: master</strong></p>
+
+<p class="ng-scope"><img src="11.png" alt="作品ページURL"></p>
+
+<p class="ng-scope">上の画像では作品ページのURLは<strong>mooovi.tech-camp.in/products/20</strong>となっています。mooovi.tech-camp.inの部分はサイトのホスト名なので大事なのはパスの「/products/20」です。では、このページを表示するアクションを調べるためにルーティングを見て行きましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_393"></i> rake routesコマンド</h3>
+
+<p class="ng-scope">rake routesコマンドはそのアプリケーションでアクセスできる<strong>HTTPリクエストの一覧</strong>を見ることのできるコマンドです。このコマンドを使うとHTTPリクエストのメソッド(GET, POSTなど)とパス、それに対応するコントローラーとアクション名が確認できます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> moooviのディレクトリでrake routesコマンドを使ってみましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">cd</span> ~/projects/mooovi
+  <span class="c"># 「mooovi」ディレクトリに移動</span>
+
+  <span class="nv">$ </span>bundle <span class="nb">exec </span>rake routes
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以下のようにターミナルに表示されたでしょうか。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>            Prefix Verb URI Pattern                                 Controller#Action
+   search_products GET  /products/search<span class="o">(</span>.:format<span class="o">)</span>                  products#search
+           product GET  /products/:id<span class="o">(</span>.:format<span class="o">)</span>                     products#show
+              root GET  /                                           products#index
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="390" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-537" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-537" name="check-537" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rake routesコマンドでHTTPリクエストの一覧を表示できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">いろいろと情報が表示されていますが今のところは5行目の以下の文だけ見てみましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>product GET  /products/:id<span class="o">(</span>.:format<span class="o">)</span>                     products#show
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">一番最初に表示されている「product」については今は気にしなくて大丈夫です。</p>
+
+<p class="ng-scope">GETとはHTTPリクエストの種類のことですね。<br>
+そのあとに続いて<strong>/products/:id(.:format)</strong>と表示されています。これは先ほどの作品ページのURLにあった「/products/20」と対応しています。<br>
+/products/:id(.:format)にある<strong>:id</strong>とは<strong>任意の作品id</strong>ということです。上の例ではこの作品idは20でした。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>/products/:id<span class="o">(</span>.:format<span class="o">)</span>
+<span class="c"># :idは作品ページで表示される作品のidが該当する(例: 20)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ターミナルの一番右には<strong>products#show</strong>と表示されています。これは<strong>productsコントローラー</strong>の<strong>showというアクション</strong>が呼ばれるという意味です。<strong>/products/:id(.:format)</strong>のURLに<strong>GET</strong>でHTTPリクエストが送られると呼ばれます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>products#show
+<span class="c"># productsコントローラのshowアクションが呼ばれる</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">つまり、rake routesコマンドで表示された文は以下のような意味を持っています。このあたりの流れが不安な方は<a href="http://master.tech-camp.in/curriculums/12#3" target="_top">参考カリキュラム</a>をご覧ください。</p>
+
+<p class="ng-scope"><img src="12.png" alt="URL"></p>
+
+<p class="ng-scope">ではこのHTTPリクエストによって送られたidの取得方法を見ていきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_394"></i> params[:id]</h3>
+
+<p class="ng-scope">HTTPリクエストが送られると、パス(/products/20)から作品idを取得することができます。<br>
+作品idはパラメータとして自動的にparamsというハッシュ型の変数に格納されコントローラーに送られます。またこの時キーは<strong>/products/:id</strong>の<strong>id</strong>になり、バリューはアクセスしたパスの:idの箇所に一致する数字になります。</p>
+
+<h4 class="ng-scope">【例】</h4>
+
+<p class="ng-scope">/products/20にアクセスした場合paramsという変数は以下のようになります。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">puts</span> <span class="n">params</span>
+<span class="c1"># { id: 20 }</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">そして、ハッシュから指定したキーのバリューを取得したい際は、以下のようにします。<a href="http://master.tech-camp.in/curriculums/153#term_60" target="_top">参考カリキュラム</a></p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">puts</span> <span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span>
+<span class="c1"># 20</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="391" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-538" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-538" name="check-538" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rake routesコマンドを使うとアプリケーションで使えるHTTPリクエストとそれに対応するコントローラのアクションの一覧が表示される</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope">作品ページで呼び出されるアクションを編集しよう</h2>
+
+<p class="ng-scope">これで作品ページが表示されるときに<strong>productsコントローラーのshowアクション</strong>が呼び出されることがわかりました。ではshowアクションに作品ページで表示する作品情報を取得する処理を追加しましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題3：products_controller.rbのshowアクションに、productsテーブルから該当するidの作品情報を取得し`@product`の変数へ代入する処理を書いて下さい</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/products_controller.rb</h5>
+    <h5>ヒント：パス/products/:id内の:idにあたる数字（作品のid）はコントローラー内でparams[:id]とすると取得できます</h5>
+    <curriculum-question-container class="ng-scope" data-order="3"><button style="" class="answer" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button style="" class="solve ng-binding ng-hide" ng-click="solve()" ng-hide="isSolved">残り時間 30分 00秒</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="392" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-539" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-539" name="check-539" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">トップページの作品をクリックで、作品ページが表示されるようになった。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">以下のように表示されれば成功です。</p>
+
+<p class="ng-scope"><img src="13.png" alt="作品ページ"></p>
+
+<h1 id="10" class="ng-scope">検索機能</h1>
+
+<p class="ng-scope">いよいよレビューを投稿する機能を作っていきましょう。この映画レビューサイトではまず、投稿したい作品を検索して選びます。<strong>作品名</strong>で検索できる検索機能を実装します。</p>
+
+<p class="ng-scope"><img src="02.png" alt=""></p>
+
+<h2 id="11" class="ng-scope">コントローラーで検索結果の作品データを取得しよう</h2>
+
+<p class="ng-scope">入力されたキーワードが作品タイトルに含まれている作品の検索をします。</p>
+
+<p class="ng-scope">作品タイトルにキーワードが含まれている作品を取得するには<code>LIKE句</code>というものを使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_395"></i> LIKE句</h3>
+
+<p class="ng-scope">LIKE句は、あいまいな文字列の検索をすることができるもので、whereメソッドと一緒に使います。</p>
+
+<p class="ng-scope">あいまいな文字列の検索とはどういうことか。<br>
+例えば、1文字目に'a'という文字列が入ったデータや最後の文字に'b'が入っているデータ、文字列の途中に'c'が入ったデータなどを検索したい時に、あいまい文字列というものを使って検索することです。</p>
+
+<h3 class="ng-scope">あいまい文字列について</h3>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">文字列</th>
+<th style="text-align: center;">意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">%</td>
+<td style="text-align: center;">任意の文字列(空白文字列含む)</td>
+</tr>
+<tr>
+<td style="text-align: center;">_</td>
+<td style="text-align: center;">任意の1文字</td>
+</tr>
+</tbody>
+</table>
+
+<h3 class="ng-scope">実行サンプル</h3>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">実行例</th>
+<th style="text-align: center;">詳細</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">where('title LIKE(?)', "a%")</td>
+<td style="text-align: center;">aから始まるタイトル</td>
+</tr>
+<tr>
+<td style="text-align: center;">where('title LIKE(?)', "%b")</td>
+<td style="text-align: center;">bで終わるタイトル</td>
+</tr>
+<tr>
+<td style="text-align: center;">where('title LIKE(?)', "%c%")</td>
+<td style="text-align: center;">cが含まれるタイトル</td>
+</tr>
+<tr>
+<td style="text-align: center;">where('title LIKE(?)', "d_")</td>
+<td style="text-align: center;">dで始まる2文字のタイトル</td>
+</tr>
+<tr>
+<td style="text-align: center;">where('title LIKE(?)', "_e")</td>
+<td style="text-align: center;">eで終わる2文字のタイトル</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="393" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-540" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-540" name="check-540" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">あいまい検索をするときはLIKE句を使う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="12" class="ng-scope">検索したときに呼ばれるメソッド</h2>
+
+<p class="ng-scope">moooviの右上の投稿するボタンから投稿画面に移動して、実際に作品を検索してみましょう。<br>
+すると、検索キーワードが消えますが作品は表示されません。まだ検索機能を実装していないので当然ですね。検索したあとのURLを見てみてください。</p>
+
+<p class="ng-scope"><img src="87d6ef222b067e92856ec2dc3af35e50.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//87d6ef222b067e92856ec2dc3af35e50.png"></p>
+
+<p class="ng-scope">URLが変わりましたね。<code>/products/search?utf8=✓&amp;keyword=美女</code>になっています。ではrake routesコマンドでこのURLがどのコントローラーのアクションに対応しているか確認してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> rake routesコマンドで「/products/search?utf8=✓&amp;keyword=」のURLがどのコントローラーのアクションに対応しているか確認しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>bundle <span class="nb">exec </span>rake routes
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>            Prefix Verb URI Pattern                                 Controller#Action
+   search_products GET  /products/search<span class="o">(</span>.:format<span class="o">)</span>                  products#search
+           product GET  /products/:id<span class="o">(</span>.:format<span class="o">)</span>                     products#show
+              root GET  /                                           products#index
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">4行目の以下の部分の表示が<code>/products/search?utf8=✓&amp;keyword=</code>に対応している文ですね。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>                search_products GET  /products/search<span class="o">(</span>.:format<span class="o">)</span>                 products#search
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これを見ると<strong>productsコントローラーのsearchアクション</strong>が呼ばれていることがわかりました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="394" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-541" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-541" name="check-541" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rake routesコマンドでHTTPリクエスト「/search?utf8=✓&amp;keyword=」に対応するコントローラとアクションがわかった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">productsコントローラーのsearchアクションを編集しよう</h2>
+
+<p class="ng-scope">ではproductsコントローラーのsearchアクションに入力された検索キーワードであいまい検索をして、その結果を返す処理を追加しましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題4：products_controller.rbのsearchアクションに、productsテーブルのタイトルからキーワードで検索した作品データを`20件`取り出し、`@products`変数に入れる処理を書いて下さい</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/products_controller.rb</h5>
+    <h5>ヒント：フォームに入力した文字はコントローラー内でparams[:keyword]で取得します</h5>
+    <h5>ヒント：取得するデータ数を制限するにはlimitメソッドを使います</h5>
+    <curriculum-question-container class="ng-scope" data-order="4"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="395" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-542" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-542" name="check-542" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">映画の作品データを検索することができるようになった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これでレビューを投稿する準備が整いました。</p>
+
+<h1 id="14" class="ng-scope">投稿機能</h1>
+
+<p class="ng-scope">続いて、以下のようなレビュー投稿画面をつくるためにReviewモデルとapp/views/reviews/new.html.erbに入力フォームを作成していきます。</p>
+
+<p class="ng-scope"><img src="03.png" alt=""></p>
+
+<p class="ng-scope">現段階では投稿画面に遷移してもReviewモデルがないためにエラー画面が表示されてしまいます。</p>
+
+<h2 id="15" class="ng-scope">レビューのモデルReviewを生成しよう</h2>
+
+<p class="ng-scope">まずはレビューのモデルを生成しましょう。モデル名は<code>Review</code>にします。必要なカラムはなんでしょうか。レビューの投稿画面を見てみましょう。<a href="http://mooovi.tech-camp.in/entry/20" target="_top">mooovi投稿画面</a></p>
+
+<p class="ng-scope"><img src="45269f075f33c2f14d93e5753c40eddb.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//45269f075f33c2f14d93e5753c40eddb.png"></p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">この画面から必要なカラムを考えてみましょう。入力する箇所は<strong>ニックネーム</strong>と<strong>評価(10段階評価)</strong>と<strong>レビューの内容</strong>ですね。この他に必要な情報は<strong>どの映画のレビューか</strong>という情報です。これらをカラムとして保存してみましょう。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: left;">カラム名</th>
+<th style="text-align: left;">データ型</th>
+<th style="text-align: left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">nickname</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">ニックネーム</td>
+</tr>
+<tr>
+<td style="text-align: left;">rate</td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;">評価</td>
+</tr>
+<tr>
+<td style="text-align: left;">review</td>
+<td style="text-align: left;">text</td>
+<td style="text-align: left;">レビュー</td>
+</tr>
+<tr>
+<td style="text-align: left;">product_id</td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;">作品id</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">どの映画のレビューか、という情報はProductモデルのidがあれば十分です。よって作品idとして<code>product_id</code>をカラムにします。</p>
+
+<p class="ng-scope">ではこのカラムを持ったモデル<strong>Review</strong>を作成しましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題5：Reviewモデルを作成し、必要なカラムを持ったテーブルを作成してください。</h3>
+
+  <div class="challenge_box">
+    <h5>作業ファイル：ターミナル, db/migrate/(作成したマイグレーションファイル)</h5>
+    <h5>ヒント：rails g modelコマンドでモデルを作成します（モデル名は単数形）</h5>
+    <h5>ヒント：マイグレーションファイルにカラムを作成するための記述をします</h5>
+    <h5>ヒント：bundle exec rake db:migrateコマンドでマイグレーションファイルの実行をします</h5>
+    <curriculum-question-container class="ng-scope" data-order="5"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope">以上の問題ができたら、実際にreviewsテーブルが作成されているか確認してみましょう。</p>
+
+<p class="ng-scope"><img src="70ea041c381f656411481de68227f021.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//70ea041c381f656411481de68227f021.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="396" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-543" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-543" name="check-543" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Reviewモデルの作成ができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="16" class="ng-scope">投稿フォームを作ってみよう</h2>
+
+<p class="ng-scope">　レビューを保存するテーブルができました。次はレビューを投稿するためのフォームを作っていきます。今回フォームに入力したデータは検索フォームと異なりReviewモデルのインスタンスとしてreviewsテーブルに保存します。その時は<code>form_for</code>ヘルパーメソッドを使います。<br>
+　また、ルーティングを簡単に作成するために<code>resources</code>メソッドを使って定義します。さらに今回は、どのproductsに対するreviewなのかをパスから簡単に判別できるようにresourcesメソッドを<code>ネスト</code>させます。</p>
+
+<p class="ng-scope">今、投稿画面にアクセスすると「Routing Error」が表示されます。これはまだ投稿画面のルーティングを設定していないためです。これからルーティングを設定していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> config/routes.rbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>TechReviewSite::Application.routes.draw <span class="k">do</span>
+<span class="hll">  get <span class="s1">'products/:product_id/reviews/new'</span> <span class="o">=</span>&gt; <span class="s1">'reviews#new'</span>
+</span><span class="hll">  post <span class="s1">'products/:product_id/reviews'</span> <span class="o">=</span>&gt; <span class="s1">'reviews#create'</span>
+</span>
+  resources :products, only: :show <span class="k">do</span>
+    collection <span class="k">do</span>
+      get <span class="s1">'search'</span>
+    end
+  end
+  root <span class="s1">'products#index'</span>
+
+end
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで投稿画面は表示されるようになりました。<br>
+ただこのように <strong>パス</strong> と <strong>アクション</strong> を自分で考えて定義していくのは冗長ですね。今回は<code>resources</code>というメソッドを使ってルーティングを生成していきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_396"></i> resourcesメソッド</h3>
+
+<p class="ng-scope">resourcesメソッドに対象となるリソース名(コントローラー名)を指定するだけで、<a href="http://master.tech-camp.in/curriculums/16#term_245">Railsのリソースの7つのアクション</a>で記載した7つのアクション名に対してのルーティングが自動的に設定されます。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:books</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ターミナルにて <code>bundle exec rake routes</code> コマンドを実行すると以下のように7つのルーティングが設定されているのが確認できます。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> Prefix Verb   URI Pattern               Controller#Action
+    books GET    /books<span class="o">(</span>.:format<span class="o">)</span>          books#index
+          POST   /books<span class="o">(</span>.:format<span class="o">)</span>          books#create
+ new_book GET    /books/new<span class="o">(</span>.:format<span class="o">)</span>      books#new
+edit_book GET    /books/:id/edit<span class="o">(</span>.:format<span class="o">)</span> books#edit
+     book GET    /books/:id<span class="o">(</span>.:format<span class="o">)</span>      books#show
+          PATCH  /books/:id<span class="o">(</span>.:format<span class="o">)</span>      books#update
+          PUT    /books/:id<span class="o">(</span>.:format<span class="o">)</span>      books#update
+          DELETE /books/:id<span class="o">(</span>.:format<span class="o">)</span>      books#destroy
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">またcontrollerで<code>before_action</code>の編集をした時と同様に、resourcesメソッドでもexceptやonlyオプションを組み合わせて特定のアクションを指定することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> config/route.rbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>TechReviewSite::Application.routes.draw <span class="k">do</span>
+<span class="hll">  resources :reviews, only: <span class="o">[</span>:new, :create<span class="o">]</span>
+</span>
+  resources :products, only: :show <span class="k">do</span>
+    collection <span class="k">do</span>
+      get <span class="s1">'search'</span>
+    end
+  end
+  root <span class="s1">'products#index'</span>
+
+end
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> bundle exec rake routesコマンドでルーティングを確認しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rake routes
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>         Prefix Verb URI Pattern                Controller#Action
+<span class="hll">        reviews POST /reviews<span class="o">(</span>.:format<span class="o">)</span>         reviews#create
+</span><span class="hll">     new_review GET  /reviews/new<span class="o">(</span>.:format<span class="o">)</span>     reviews#new
+</span>search_products GET  /products/search<span class="o">(</span>.:format<span class="o">)</span> products#search
+        product GET  /products/:id<span class="o">(</span>.:format<span class="o">)</span>    products#show
+           root GET  /                          products#index
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このようにresourcesメソッドを使えばRailsの規則に適ったルーティングを定義することができます。</p>
+
+<p class="ng-scope">ここで3行目に注目してください。<strong>/reviews/new</strong> はreviewの新規作成のページへのパスになります。<br>
+しかしこのままではどのproductに対するreviewなのかということを表す情報がありません。これはresourcesメソッドをネストさせる(入れ子構造にする)ことによって取得することが出来ます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_397"></i> resourcesメソッドのネスト</h3>
+
+<p class="ng-scope">resourcesメソッドのネストは以下のように書きます。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">resources</span> <span class="ss">:books</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:reviews</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">bundle exec rake routesコマンドを実行すると以下のように表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>          Prefix Verb   URI Pattern                                Controller#Action
+    book_reviews GET    /books/:book_id/reviews<span class="o">(</span>.:format<span class="o">)</span>          reviews#index
+                 POST   /books/:book_id/reviews<span class="o">(</span>.:format<span class="o">)</span>          reviews#create
+ new_book_review GET    /books/:book_id/reviews/new<span class="o">(</span>.:format<span class="o">)</span>      reviews#new
+edit_book_review GET    /books/:book_id/reviews/:id/edit<span class="o">(</span>.:format<span class="o">)</span> reviews#edit
+     book_review GET    /books/:book_id/reviews/:id<span class="o">(</span>.:format<span class="o">)</span>      reviews#show
+                 PATCH  /books/:book_id/reviews/:id<span class="o">(</span>.:format<span class="o">)</span>      reviews#update
+                 PUT    /books/:book_id/reviews/:id<span class="o">(</span>.:format<span class="o">)</span>      reviews#update
+                 DELETE /books/:book_id/reviews/:id<span class="o">(</span>.:format<span class="o">)</span>      reviews#destroy
+           books GET    /books<span class="o">(</span>.:format<span class="o">)</span>                           books#index
+                 POST   /books<span class="o">(</span>.:format<span class="o">)</span>                           books#create
+        new_book GET    /books/new<span class="o">(</span>.:format<span class="o">)</span>                       books#new
+       edit_book GET    /books/:id/edit<span class="o">(</span>.:format<span class="o">)</span>                  books#edit
+            book GET    /books/:id<span class="o">(</span>.:format<span class="o">)</span>                       books#show
+                 PATCH  /books/:id<span class="o">(</span>.:format<span class="o">)</span>                       books#update
+                 PUT    /books/:id<span class="o">(</span>.:format<span class="o">)</span>                       books#update
+                 DELETE /books/:id<span class="o">(</span>.:format<span class="o">)</span>                       books#destroy
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">では、ルーティングを定義してきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> config/routes.rbを以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">TechReviewSite</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:products</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="ss">:show</span> <span class="k">do</span>
+<span class="hll">    <span class="n">resources</span> <span class="ss">:reviews</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="o">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:create</span><span class="o">]</span>
+</span>    <span class="n">collection</span> <span class="k">do</span>
+      <span class="n">get</span> <span class="s1">'search'</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="n">root</span> <span class="s1">'products#index'</span>
+
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">4行目にある<strong>collection</strong> というのは、Rails7つのアクション以外のアクション名を定義する時に使います。<br>
+ここは少し発展的な内容なので、今は理解していなくても問題ありません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> bundle exec rake routesコマンドでルーティングを確認してみましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="bashh">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>            Prefix Verb URI Pattern                                 Controller#Action
+<span class="hll">   product_reviews POST /products/:product_id/reviews(.:format)     reviews#create
+</span><span class="hll">new_product_review GET  /products/:product_id/reviews/new(.:format) reviews#new
+</span>   search_products GET  /products/search(.:format)                  products#search
+           product GET  /products/:id(.:format)                     products#show
+              root GET  /                                           products#index
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでどのproductに対するreviewなのかということがパスから判断できるようになりました。</p>
+
+<p class="ng-scope">では最後にビューのフォームを編集していきます。<br>
+今回入力フォームから送られたデータはReviewモデルのインスタンスとしてreviewsテーブルに保存します。その時はform_forというヘルパーメソッドを使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_398"></i> form_for</h3>
+
+<p class="ng-scope">form_forは、特定のモデルを編集・追加するためのフォームを生成するヘルパーメソッドです。<br>
+特定のテーブルにレコードだけを新規作成、更新するときに利用します。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="err">モデルクラスのインスタンス</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+…
+<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">このようにあるモデルのインスタンスをform_forの引数にします。form_tagでは送信先のurlを直接引数に定義していました。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">search.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">&lt;</span>%= form_tag('/products/search', method: :get) do %&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">form_forは引数のインスタンスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれます。</p>
+
+<p class="ng-scope">次にform_for内でフォームを作るメソッドについて見てきます。</p>
+
+<p class="ng-scope">form_for内で使うメソッドは、<code>f.htmlタグ名 :カラム名</code>の形で指定します。<br>
+例えば、以下のヘルパーメソッドを見てください。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:name</span> <span class="cp">%&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">こちらは、次のようなhtmlに変換されます。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"モデル名_name"</span> <span class="na">name=</span><span class="s">"モデル名[name]"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">size=</span><span class="s">"モデルで設定したsize"</span><span class="nt">&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">form_for内におけるメソッドはformに使用するhtmlタグの数だけあります。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th>メソッド</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>f.label</td>
+<td>labelのlabelタグを表示　</td>
+</tr>
+<tr>
+<td>f.text_field</td>
+<td>textのinputタグを表示</td>
+</tr>
+<tr>
+<td>f.date_select</td>
+<td>モデルで設定したフィールドをselectタグで選べるようにして表示</td>
+</tr>
+<tr>
+<td>f.check_box</td>
+<td>checkboxのinputタグを表示</td>
+</tr>
+<tr>
+<td>f.number_field</td>
+<td>numberのinputタグを表示</td>
+</tr>
+<tr>
+<td>f.submit</td>
+<td>submitのinputタグを表示</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope">基本的にhtmlのformを知っていたら推測できるようなメソッドが用意されています。ここで全てのメソッドを覚えるのは大変なので、必要なときに<a href="http://railsdoc.com/form">railsの公式ドキュメント</a>を確認してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_399"></i> form_forとform_tag</h3>
+
+<p class="ng-scope"><code>form_for</code> と <code>form_tag</code> どちらを使うべきかは、基本的にモデルの有無で判断します。入力フォームで入力するデータのモデルがあれば <code>form_for</code> を使い、入力するデータが特にモデルを持っていなければ <code>form_tag</code> を使います。</p>
+
+<ul class="ng-scope">
+<li>form_for: モデルがあるデータを扱うときに使う。(投稿フォームなど)</li>
+<li>
+<a href="http://master.tech-camp.in/curriculums/15#term_203">form_tag</a>: 単にデータを特定のアクションに送りたい時に使う。（検索フォームなど）</li>
+</ul>
+
+<h4 class="ng-scope">form_for</h4>
+
+<p class="ng-scope">今回は、レビュー投稿画面views/reviews/new.html.erbに常に新規作成されたReviewクラスのインスタンスを渡します。<br>
+フォームに入力された値は、投稿ボタンを押した瞬間にReviewクラスの新規インスタンスにそれぞれの属性の値としてセットされ、インスタンスはそのままreviewsテーブルに保存されます。<br>
+このような関係を簡単に実現してくれるのが<code>form_for</code> です。以下のコードをご覧ください。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row form"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-12"</span><span class="nt">&gt;</span>
+<span class="hll">    <span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="n">current_user</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+</span>      <span class="nt">&lt;h2&gt;</span>登録情報<span class="nt">&lt;/h2&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-lg-6"</span><span class="nt">&gt;</span>
+<span class="hll">          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:full_name</span><span class="p">,</span> <span class="ss">placeholder</span><span class="p">:</span> <span class="s2">"フルネーム"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"form-control"</span> <span class="cp">%&gt;</span>
+</span>        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+<span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"送信"</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s2">"btn btn-primary withripple"</span> <span class="cp">%&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/154#term_69">eachメソッド</a>や<a href="http://master.tech-camp.in/curriculums/20#term_254">mapメソッド</a>のように3行目で<code>|変数|</code> で変数を定義しており、さらに7行目と11行目で<code>f. ~</code> としている部分で、属性値をセットしている様子が直感的にわかります。このように、「モデルの新規インスタンスに値を追加して保存」したい場合は<code>form_for</code> を利用します。</p>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/curriculums/15#term_203">form_tag</a></h4>
+
+<p class="ng-scope">一方でRails2-3で実装した<a href="http://master.tech-camp.in/curriculums/19">検索機能</a>のように、「となりのトトロ」と入力すると、モデルを介さずにコントローラーにてproductsテーブルから該当する情報を引用し、結果をビューに表示しました。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> views/reviews/new.html.erbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre></div></td>
+<td class="code">
+<div class="highlight"><pre> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"main_cnt_wrapper"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"yjContentsBody"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"yjContainer"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"yjGuid"</span><span class="nt">&gt;&lt;a</span> <span class="na">id=</span><span class="s">"yjContentsStart"</span> <span class="na">name=</span><span class="s">"yjContentsStart"</span><span class="nt">&gt;&lt;/a&gt;&lt;img</span> <span class="na">alt=</span><span class="s">"ここから本文です"</span> <span class="na">height=</span><span class="s">"1"</span> <span class="na">src=</span><span class="s">"http://i.yimg.jp/yui/jp/tmpl/1.1.0/audionav.gif"</span> <span class="na">width=</span><span class="s">"1"</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"yjMain"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;article</span> <span class="na">class=</span><span class="s">"section"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"header header--section"</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">"text-middle"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"icon-movie color-gray-light"</span><span class="nt">&gt;&lt;/i&gt;</span>投稿
+              <span class="nt">&lt;/h2&gt;</span>
+            <span class="nt">&lt;/header&gt;</span>
+            <span class="nt">&lt;div&gt;</span>
+              <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"listview js-lazy-load-images"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;li</span> <span class="na">style=</span><span class="s">"margin-bottom: 15px"</span><span class="nt">&gt;</span>
+                  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"listview__element--right-icon"</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>
+                    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box"</span><span class="nt">&gt;</span>
+                      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box__cell w80"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"thumbnail thumbnail--photo"</span><span class="nt">&gt;</span>
+                          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"thumbnail__figure"</span> <span class="na">style=</span><span class="s">"background-image: url(&lt;%= @product.image_url %&gt;);"</span><span class="nt">&gt;&lt;/div&gt;</span>
+                        <span class="nt">&lt;/div&gt;</span>
+                      <span class="nt">&lt;/div&gt;</span>
+                      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"box__cell pl1em"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"text-middle text-break color-sub"</span><span class="nt">&gt;</span>
+                          <span class="err">&lt;</span>%= @product.title %&gt;
+                        <span class="nt">&lt;/h3&gt;</span>
+                        <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-xsmall"</span><span class="nt">&gt;</span>
+                        <span class="nt">&lt;/p&gt;</span>
+                        <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"text-xsmall opacity-60"</span><span class="nt">&gt;&lt;/p&gt;</span>
+                      <span class="nt">&lt;/div&gt;</span>
+                    <span class="nt">&lt;/div&gt;</span>
+                  <span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+              <span class="nt">&lt;/ul&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+<span class="hll">          <span class="err">&lt;</span>%= form_for [@product, @review] do |f| %&gt;
+</span><span class="hll">          <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"margin: 8px 0"</span><span class="nt">&gt;</span>
+</span><span class="hll">            <span class="err">&lt;</span>%= f.label :nickname, style: { 'margin-right' =&gt; 8 } %&gt;
+</span><span class="hll">            <span class="err">&lt;</span>%= f.text_field :nickname, placeholder: 'nickname', value: '' %&gt;
+</span><span class="hll">          <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"margin: 8px 0"</span><span class="nt">&gt;</span>
+</span><span class="hll">            <span class="err">&lt;</span>%= f.label :評価, style: { 'margin-right' =&gt; 8 } %&gt;
+</span><span class="hll">            <span class="err">&lt;</span>%= f.number_field :rate, placeholder: '評価', value: 1, max: 10, min: 1, html: { class: "search__query", style: 'text-align: right;' } %&gt;
+</span><span class="hll">          <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"margin: 8px 0"</span><span class="nt">&gt;</span>
+</span><span class="hll">            <span class="err">&lt;</span>%= f.text_area :review, placeholder: 'レビューを書いてね！', style: 'width: 100%;height: 300px;' %&gt;
+</span><span class="hll">          <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row"</span><span class="nt">&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col10 push1"</span><span class="nt">&gt;</span>
+</span><span class="hll">              <span class="err">&lt;</span>%= button_tag type: "submit", class: "btn btn--block" do %&gt;
+</span><span class="hll">              投稿する<span class="nt">&lt;i</span> <span class="na">class=</span><span class="s">"icon-arrow-right"</span><span class="nt">&gt;&lt;/i&gt;</span>
+</span><span class="hll">              <span class="err">&lt;</span>% end %&gt;
+</span><span class="hll">            <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/div&gt;</span>
+</span><span class="hll">          <span class="err">&lt;</span>% end %&gt;
+</span>        <span class="nt">&lt;/article&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"yjSub"</span><span class="nt">&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">37行目のform_forの引数が配列になっています。配列の１つ目の要素のインスタンスのidがパスの<code>:product_id</code>に入ります。今回はパスのネストが２段階なので、form_forの引数のインスタンスは２つです。つまり、resourcesメソッドを3回ネストさせた場合、form_forの引数のインスタンスは３つになります。</p>
+
+<h4 class="ng-scope">【例】resourcesメソッドを３回ネストした場合</h4>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">resources</span> <span class="ss">:users</span> <span class="k">do</span>
+  <span class="n">resources</span> <span class="ss">:products</span> <span class="k">do</span>
+    <span class="n">resources</span> <span class="ss">:reviews</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">reviews_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">new</span>
+  <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+  <span class="vi">@product</span> <span class="o">=</span> <span class="no">Product</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="vi">@review</span> <span class="o">=</span> <span class="no">Review</span><span class="o">.</span><span class="n">new</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">&lt;</span>%= form_for ( [@user, @product, @review ] ) do |f| %&gt;
+  （中略）
+<span class="err">&lt;</span>% end %&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">送られるリクエスト</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c"># HTTPメソッド</span>
+POST
+<span class="c"># パス</span>
+/users/4/product/2/reviews
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで投稿画面が完成しました。</p>
+
+<h2 id="17" class="ng-scope">試しにレビューを投稿してみよう</h2>
+
+<p class="ng-scope">試しに、いまの段階でフォームに値を入力して投稿ボタンを押してみましょう。</p>
+
+<p class="ng-scope"><img src="15.png" alt="投稿"></p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope">投稿ボタンを押すと以下のようなエラー画面になったと思います。</p>
+
+<p class="ng-scope"><img src="16.png" alt="投稿"></p>
+
+<p class="ng-scope"><strong>Template is missing</strong> となっていますね。RailsではHTTPリクエストを送ったあと、レスポンスとして <strong>ビュー</strong> を返します。<br>
+レビューの投稿では <strong>reviewsコントローラのcreateアクション</strong> が呼び出されます。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">mooovi
+<ul>
+  <li class="t-folder"> apps
+  <ul>
+    <li class="t-folder"> views
+      <ul>
+        <li class="t-folder"> products </li>
+          <ul>
+            <li class="t-file"> index.html.erb </li>
+            <li class="t-file"> search.html.erb </li>
+            <li class="t-file"> show.html.erb </li>
+          </ul>
+      </ul>
+      <ul>
+        <li class="t-folder"> reviews </li>
+        <ul>
+          <li class="t-file"> new.html.erb </li>
+        </ul>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope">しかし、ディレクトリを見るとわかるようにreviewsコントローラーのビューの中に<strong>create.html.erb</strong>はありません。つまり、<strong>createアクションに対応したビューが存在しない</strong>ということです。そのため「ビューがない」という意味で"Template is missing"というエラーになってしまったのです。</p>
+
+<h2 id="18" class="ng-scope">投稿が完了したらトップページに移動しよう</h2>
+
+<p class="ng-scope">そこで、投稿されたらトップページへ遷移するようにしましょう。<br>
+このようにアクセスしたページとは違うページへ移動することを<code>リダイレクト</code>と言います。リダイレクトをする場合はアクションのビューが呼ばれません。そのため、ビューが無くてもエラーがでません。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_400"></i> リダイレクト</h3>
+
+<p class="ng-scope">本来アクセスしたページとは別のページへ移動することを言います。</p>
+
+<p class="ng-scope">railsでは<code>redirect_to</code>というメソッドでリダイレクトさせることができ、actionオプションを使用することで特定のアクションを指定することができます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">redirect_to</span> <span class="ss">action</span><span class="p">:</span> <span class="err">アクション名</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">という書き方ができます。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題6：createアクションですべての処理が終わった後、トップページにリダイレクトする処理を書いて下さい</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/reviews_controller.rb</h5>
+    <h5>ヒント：redirect_toメソッドでコントローラーとアクションを指定しましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order="6"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="397" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-544" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-544" name="check-544" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">保存後、トップページにリダイレクトするようになった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="398" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-545" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-545" name="check-545" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">リダイレクトをさせるときはredirect_toを使う</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="19" class="ng-scope">コントローラーで投稿データをデータベースに保存しよう</h2>
+
+<p class="ng-scope">reviewsコントローラーのcreateアクションでフォームから送られてきた値を使ってReviewモデルを作成する処理を書きましょう。これでレビューが投稿できるようになります。form_forから送られてきたパラメーターは<code>require</code>メソッドを使ってデータを取得します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_401"></i> requireメソッド</h3>
+
+<p class="ng-scope">form_forに入力されたデータはparamsの中に以下のような形でコントローラーに送られます。</p>
+
+<h5 class="ng-scope">【例】</h5>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">&lt;</span>%= form_for(@book) do |f| %&gt;
+  <span class="err">&lt;</span>%= f.text_field :name %&gt;
+  <span class="err">&lt;</span>%= f.text_area :detail %&gt;
+<span class="err">&lt;</span>% end %&gt;
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>params
+<span class="c"># { book: { name: "入力された名前", detail: "入力された詳細" } }</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">キーはform_forの引数にあるインスタンスの モデル名(book) になり、バリューはカラム名と入力された値のハッシュです。<br>
+paramsからキーがbookのバリューを取得し、createアクションの引数に渡せるようにストロングパラメーターを定義するには以下のようにします。</p>
+
+<h5 class="ng-scope">【例】</h5>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">books_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">params</span>
+<span class="c1"># { book: { name: "入力された名前", detail: "入力された詳細" } }</span>
+<span class="n">params</span><span class="o">.</span><span class="n">require</span><span class="p">(</span><span class="ss">:book</span><span class="p">)</span>
+<span class="c1"># =&gt; { name: "入力された名前", detail: "入力された詳細" }</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題7：reviews_controller.rbのcreateアクションでレビューデータを受け取り、データベースのReviewsテーブルに保存する処理を書いて下さい</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/reviews_controller.rb</h5>
+    <h5>ヒント：Reviewクラスにcreateメソッドを実行しましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order="7"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope">ここまで出来たら、実際に投稿してデータが保存されているか確認してみましょう。</p>
+
+<p class="ng-scope">まずはレビューを投稿しましょう。</p>
+
+<p class="ng-scope"><img src="f6dd8cf3b3b8560c91d07fdb7675254e.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//f6dd8cf3b3b8560c91d07fdb7675254e.png"></p>
+
+<p class="ng-scope">次に、reviewsテーブルに投稿した情報が保存されているか確認しましょう。</p>
+
+<p class="ng-scope"><img src="30f9527cdf9eb11c76993f17c370df01.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//30f9527cdf9eb11c76993f17c370df01.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="399" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-546" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-546" name="check-546" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">レビューを投稿することができるようになった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="20" class="ng-scope">作品ページから投稿するボタンを作ろう</h2>
+
+<p class="ng-scope">今までの実装でヘッダーの右の「投稿する」ボタンからはレビューを投稿できるようになりました。しかし、いちいち作品を検索して選ぶのは大変ですね。せっかくトップ画面に作品の一覧が並んでいるのでここで作品を選んでレビューを投稿したいです。そこで<strong>作品ページからレビューを投稿できる</strong>ようにしましょう。</p>
+
+<p class="ng-scope">作品ページに移動してください。</p>
+
+<p class="ng-scope"><img src="06.png" alt=""></p>
+
+<p class="ng-scope">作品ページの右下に「この作品を投稿する」というリンクがあります。いまはクリックしても何も起きないですね。ビューを編集してこのリンクを押すとその作品のレビュー投稿画面に遷移する実装をしましょう。</p>
+
+<p class="ng-scope"><img src="17.png" alt="この作品を投稿する"></p>
+
+<p class="ng-scope">作品ページのビューはproductsコントローラのビューのディレクトリに入っています。</p>
+
+<ul class="filetree ng-scope">
+<li class="t-folder">
+mooovi
+<ul>
+<li class="t-folder"> apps
+  <ul>
+    <li class="t-folder"> views
+      <ul>
+        <li class="t-folder"> products </li>
+          <ul>
+          <li class="t-file"> show.html.erb </li>
+          </ul>
+      </ul>
+    </li>
+  </ul>
+</li>
+</ul>
+
+<p></p>
+</li>
+<br>
+</ul>
+
+<p class="ng-scope">作品ページでは<strong>productsコントローラーのshowアクション</strong>が呼ばれるのでビューはそれに対応する<strong>show.html.erb</strong>です。このファイルを編集してレビュー投稿画面に遷移するようにしましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題8：作品ページの「この作品を投稿する」というリンクをクリックするとその作品のレビュー投稿画面に遷移するように実装しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/views/products/show.html.erb</h5>
+    <h5>ヒント：productsコントローラーのshowアクションで定義した@productを使いましょう</h5>
+    <h5>ヒント：newアクションに対応するパスはrake routesコマンドで確認しましょう</h5>
+    <curriculum-question-container class="ng-scope" data-order="8"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="400" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2211" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2211" name="check-2211" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">レビュー投稿画面に遷移できるようになった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="21" class="ng-scope">書いたレビューを表示しよう</h1>
+
+<p class="ng-scope">レビューは書けるようになりましたが、肝心のレビューがどこにも表示されていません。作品ページに移動してみてください。</p>
+
+<p class="ng-scope"><img src="18.png" alt="レビュー一覧"></p>
+
+<p class="ng-scope">「みんなのレビュー」というところにレビューが表示されていますね。いまは<strong>テスト太郎</strong>というユーザーが<strong>面白い！</strong>とレビューしています。これはサンプルのレビューです。ここを本当のレビューを表示させるようにしましょう。</p>
+
+<h2 id="22" class="ng-scope">アソシエーションを設定しよう</h2>
+
+<p class="ng-scope">レビューのモデルReviewと作品のモデルProductの間に<strong>アソシエーション</strong>を設定しましょう。ReviewモデルとProductモデルの間には以下のような関係があります。</p>
+
+<p class="ng-scope"><strong>① 1つの作品(Productモデル)は複数のレビューを持っている</strong></p>
+
+<p class="ng-scope">様々なユーザーが作品についてのレビューを書くため、1つの作品は複数のレビューを持っています。</p>
+
+<p class="ng-scope"><strong>② 1つのレビュー(Reviewモデル)は1つの作品に属している</strong></p>
+
+<p class="ng-scope">レビューはある特定の1つの作品についてのものなので、1つのレビューはただ1つの作品と紐づいています。</p>
+
+<p class="ng-scope"><img src="19.png" alt="アソシエーション"></p>
+
+<p class="ng-scope">以上より、ProductモデルとReviewモデルの間には<strong>1対多の関係</strong>があります。</p>
+
+<p class="ng-scope">では、この関係をProductモデルとReviewモデルに記述しましょう。アソシエーションの記述は<strong>belongs_to</strong>や<strong>has_many</strong>を宣言しました。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題9：1対多のアソシエーションをProductモデルとReviewモデルで宣言しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/models/product.rb, app/models/review.rb</h5>
+    <h5>ヒント：has_many,belongs_toをそれぞれ指定しましょう<a href="http://master.tech-camp.in/curriculums/462#term_236" target="_top">参考カリキュラム</a>
+</h5>
+    <curriculum-question-container class="ng-scope" data-order="9"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="401" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-548" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-548" name="check-548" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ProductモデルとReviewモデル間のリレーションを宣言できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これでアソシエーションを宣言できました。rails cで確認してみましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rails c
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の流れをrails cで試してProductモデルとReviewモデルのアソシエーションを確認しましょう。</h3>
+
+<ul class="ng-scope">
+<li>ReviewモデルからProductモデルを取得できるか確認</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">review</span> <span class="o">=</span> Review.first <span class="c"># 一番最初のレビューを取得</span>
+  review.product
+  <span class="o">=</span>&gt; その作品情報が表示されるか
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<ul class="ng-scope">
+<li>ProductモデルからReviewモデルを取得できるか確認</li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">review</span> <span class="o">=</span> Review.first <span class="c"># 一番最初のレビューを取得</span>
+  <span class="nv">product</span> <span class="o">=</span> review.product <span class="c"># productを変数に入れる</span>
+  product.reviews
+  <span class="o">=</span>&gt; その作品のレビューの一覧が表示されるか
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="402" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-549" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-549" name="check-549" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ReviewモデルからProductモデルを取得できた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-550" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-550" name="check-550" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ProductモデルからReviewモデルを取得できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="23" class="ng-scope">作品ページにレビューの一覧を表示しよう</h2>
+
+<p class="ng-scope">では、作品ページでレビューの一覧を表示しましょう。今のままではサンプルのレビューが表示された状態です。作品ページのHTMLが書いてあるのは<strong>app/views/products/show.html.erb</strong>なのでshow.html.erbを編集しましょう。</p>
+
+<p class="ng-scope">erbファイルはHTML内でerb記法を用いることによりRubyを書くことができるのでアソシエーションを使うことができます。show.html.erb内でアソシエーションを使って作品のレビューの一覧を取得し、それらを表示しましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題10：作品ページでレビューの一覧が表示されるようにshow.html.erbを編集しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/views/products/show.html.erb</h5>
+    <h5>ヒント：１つのレビューを表す&lt;li&gt;&lt;/li&gt;をeachメソッドを使用して@product.reviewsの数だけ繰り返し表示します<a href="http://master.tech-camp.in/curriculums/154#term_76">参考カリキュラム</a>
+</h5>
+    <curriculum-question-container class="ng-scope" data-order="10"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope">編集できたら、作品のレビューが表示されるか確認してみましょう。</p>
+
+<p class="ng-scope"><img src="ce3ab09286145b7ce5b59162d7827be2.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ce3ab09286145b7ce5b59162d7827be2.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="403" action="http://master.tech-camp.in/curriculums/19#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-551" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-551" name="check-551" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">作品ページにレビューの一覧を表示させることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これで基本的な映画レビューアプリケーションの機能は完成しました。次の章で応用の機能(ランキングなど)を実装していきましょう。</p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap class="fixed-side" style="width: 220px;" id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents1" ng-click="clickContent(content.h1.id)">学習目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">学習の進め方</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">トップページ</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">コントローラーで最新順の作品データを取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">トップページの作品一覧でタイトルを表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">作品ページ</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">作品の情報を取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">作品ページで呼び出されるアクションを探す</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">作品ページで呼び出されるアクションを編集しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents10" ng-click="clickContent(content.h1.id)">検索機能</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">コントローラーで検索結果の作品データを取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">検索したときに呼ばれるメソッド</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding current" id="contents13" ng-click="clickContent(h2.id)">productsコントローラーのsearchアクションを編集しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents14" ng-click="clickContent(content.h1.id)">投稿機能</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">レビューのモデルReviewを生成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">投稿フォームを作ってみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents17" ng-click="clickContent(h2.id)">試しにレビューを投稿してみよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents18" ng-click="clickContent(h2.id)">投稿が完了したらトップページに移動しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents19" ng-click="clickContent(h2.id)">コントローラーで投稿データをデータベースに保存しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents20" ng-click="clickContent(h2.id)">作品ページから投稿するボタンを作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents21" ng-click="clickContent(content.h1.id)">書いたレビューを表示しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents22" ng-click="clickContent(h2.id)">アソシエーションを設定しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents23" ng-click="clickContent(h2.id)">作品ページにレビューの一覧を表示しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">20 / 20<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">質問受付中</div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/19">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding">質問受付中</span></div></div></body>
+</html>

@@ -1,0 +1,5 @@
+/* ::::: http://fiddle.jshell.net/css/result-light.css ::::: */
+
+.clearfix::after { content: ""; clear: both; display: block; }
+div { background-color: rgb(255, 235, 235); }
+img, p { float: left; width: 40%; }

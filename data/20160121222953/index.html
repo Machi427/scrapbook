@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>はじめに</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    JavaScript基礎<small class="ng-binding">〜はじめに〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    マーブルカテドラルは、チリとアルゼンチンにまたがるパタゴニアに位置するへネラル・カネーラ湖の中央部にある洞窟です。長い年月をかけて、湖水によって侵食されたその形は、美しすぎるほどに美しく、訪れた人達の心を奪います。<a class="ng-binding" href="https://www.flickr.com/photos/jvieras/8413127928/in/photolist-ejFm3n-ecpxkU-7PB7ZQ-dPrtPN-7EBpf5" target="_top">Javier Vieras - Cavernas de Marmol</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">JavaScriptとは</h1>
+
+<p class="ng-scope">今まで扱ってきたRailsは、サーバで動くプログラムでした。Railsで作られたアプリケーションは、ブラウザからリクエストを受け取り、サーバでそれに応じた処理をし、レスポンス（HTML）をブラウザに返して表示させる、という流れで動いていました。</p>
+
+<p class="ng-scope"><img src="f97c971d1c3236fe3f66d92799f1d77e.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//f97c971d1c3236fe3f66d92799f1d77e.png"></p>
+
+<p class="ng-scope">JavaScriptは、サーバでなく、ブラウザで動くプログラムです。ブラウザにサーバとやりとりさせることなく、HTMLの要素に変化を加えたりすることができます。</p>
+
+<p class="ng-scope"><img src="39e1b83c7096b8764425f76fc4fb3440.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//39e1b83c7096b8764425f76fc4fb3440.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1533" action="http://master.tech-camp.in/curriculums/287#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2167" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2167" name="check-2167" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">JavaScriptはブラウザ上で動くプログラムである。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="2" class="ng-scope">JavaScriptで出来ること</h1>
+
+<h2 id="3" class="ng-scope">計算や条件分岐</h2>
+
+<p class="ng-scope">JavaScriptはRubyと同様にプログラミング言語の一つです。Rubyのように、計算や条件分岐や繰り返し等を行うことができます。今までは、ただのHTMLを画面に表示していただけでしたが、JavaScriptを取り入れることによって、表示しながらも、色々な処理を行うことができるようになります。</p>
+
+<h2 id="4" class="ng-scope">HTML要素の操作</h2>
+
+<p class="ng-scope">JavaScriptはブラウザに組み込まれている唯一のプログラミング言語であり、ブラウザ上の要素、HTMLやCSSを操作することができます。これにより「ボタンがクリックされたらメニューを表示する」や、「スクロールに応じて要素を表示する」といった処理を行うことができます。</p>
+
+<p class="ng-scope">TECH::MASTERにおいてもこれは使われています。例えば、TECH::MASTERのカリキュラム内の画像をクリックすると、画像が拡大されて表示されます。これは、「画像がクリックされたら拡大して表示する」といったプログラムがブラウザ上で動いているためであり、JavaScriptによって実装されています。</p>
+
+<h2 id="5" class="ng-scope">サーバとの通信</h2>
+
+<p class="ng-scope">JavaScriptは、それ単体でサーバと通信することができます。ブラウザ上の表示をそのままで、すなわち、ページ遷移することなく、サーバにリクエストを送り、レスポンスを得ることができます。</p>
+
+<p class="ng-scope">例を挙げます。PicTweetでは、新しい呟きを投稿すると、そのリクエストがサーバに届き、サーバでツイートを作成し、投稿完了ページをレスポンスとしてブラウザに返していました。<br>
+これに対して、Twitterでは、新しい呟きを投稿しても、ページは一切遷移しません。しかし、確かに呟きは保存されており、新しい呟きが画面に表示されます。</p>
+
+<p class="ng-scope"><img src="8d37d282c2dbc13f7e44dc8023779f05.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//8d37d282c2dbc13f7e44dc8023779f05.png"></p>
+
+<p class="ng-scope">ここでは、以下のことが行われています。<br>
+・JavaScriptがサーバにリクエストを送る<br>
+・サーバでリクエストに応じてツイートを作成する<br>
+・その結果（生成できたツイート）をレスポンスとしてJavaScriptに返す<br>
+・JavaScriptがHTMLを操作してその呟きを画面に追加する</p>
+
+<p class="ng-scope">このように、ブラウザとサーバの通信とは別に、JavaScriptが行う通信のことを非同期通信と呼び、これを実現する仕組みをAjaxと呼びます。</p>
+
+<p class="ng-scope"><img src="411212efe3753ce3ea423d21ee24f91b.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//411212efe3753ce3ea423d21ee24f91b.png"></p>
+
+<p class="ng-scope">ページ遷移は、全てのHTML、CSSをもう一度読み込み直すため、時間がかかります。今回のように、何らかの操作（呟きの投稿）の前と後で、大して画面に差が無い場合は、ページ遷移して一から読み込み直すよりも、ページ遷移せずにJavaScriptで変更箇所のHTMLを操作してしまった方がユーザにとって快適です。そういった点が評価され、Ajaxは広く使われています。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1534" action="http://master.tech-camp.in/curriculums/287#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2168" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2168" name="check-2168" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">JavaScriptはRubyと同様にプログラミング言語の一つである。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2169" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2169" name="check-2169" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">JavaScriptはHTMLの要素に変化を加えることができる。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2170" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2170" name="check-2170" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">JavaScriptは単体でサーバと通信することができ、これを非同期通信と呼ぶ。また、非同期通信を実現する仕組みをAjaxと呼ぶ。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="6" class="ng-scope">カリキュラムの目的</h1>
+
+<p class="ng-scope">JavaScriptはとても便利な一方で、奥が深く、使いこなせるようになるまでには十分量の学習が必要となります。</p>
+
+<p class="ng-scope">このカリキュラムでは、Railsを学ぶwebアプリケーションコースの発展カリキュラムとして、JavaScriptの必要最低限の基礎を学び、実際にwebアプリケーションに取り入れることができるようになるまでをサポートします。</p>
+
+<p class="ng-scope">それにより、簡単な機能の実現ができるようになるとともに、JavaScriptの基礎を理解することで、カリキュラム以上の発展的な内容に関しても、自分で調べることで解決できるようになることを目的としています。</p>
+
+<h1 id="7" class="ng-scope">各カリキュラムで学ぶこと</h1>
+
+<h2 id="8" class="ng-scope">「基礎文法を学ぼう」</h2>
+
+<p class="ng-scope">上述の通り、JavaScriptはRubyと同様にプログラミング言語の一つです。<br>
+Rubyがそうであったように、ルールが存在し、決められた文法に従って書かなければ動きません。</p>
+
+<p class="ng-scope">このカリキュラムでは、必要最低限の文法を学びます。</p>
+
+<h2 id="9" class="ng-scope">「WebページでJavaScriptを使ってみよう」</h2>
+
+<p class="ng-scope">実際にRailsアプリケーションにJavaScriptを取り入れて、簡単な機能を実装します。</p>
+
+<h2 id="10" class="ng-scope">「jQueryでタブメニューを作ろう」</h2>
+
+<p class="ng-scope">jQueryはJavaScriptのライブラリであり、使うことによって、より簡単に、より豊かな効果をページにもたらすことができます。<br>
+そんな大変便利なjQueryを使って簡単なタブメニュー機能を実装します。</p>
+
+<h2 id="11" class="ng-scope">「Ajaxで非同期通信をしよう」</h2>
+
+<p class="ng-scope">Ajaxを用いて、非同期通信によるメモアプリを実装します。</p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">JavaScriptとは</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">JavaScriptで出来ること</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">計算や条件分岐</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">HTML要素の操作</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">サーバとの通信</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">カリキュラムの目的</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents7" ng-click="clickContent(content.h1.id)">各カリキュラムで学ぶこと</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">「基礎文法を学ぼう」</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">「WebページでJavaScriptを使ってみよう」</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">「jQueryでタブメニューを作ろう」</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">「Ajaxで非同期通信をしよう」</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">4 / 4<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/287">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

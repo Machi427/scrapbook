@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>発展学習</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul></li></ul></div></div></div><div class=""></div><!-- ngView:  --><div class="ng-scope" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Railsアプリケーション開発1 第6章<small class="ng-binding">〜発展学習〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    2001年に公開された「千と千尋の神隠し」に出てきそうな、九份。夜には赤ちょうちんがどこも光っていてとってもいい雰囲気です。<a class="ng-binding" href="https://www.flickr.com/photos/dulun/7654074156/" target="_top">Blowing Puffer Fish - 台北縣瑞芳鎮 / Ruifang - 九份老街</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<h3 class="ng-scope">一通りの機能が実装できるだけの技術力を身に着ける</h3>
+
+<p class="ng-scope">Railsをもっと詳しく扱うことができるように、追加機能を実装しながら理解を深めていきましょう。</p>
+
+<h1 id="2" class="ng-scope">学習課題</h1>
+
+<p class="ng-scope">5章までで基本的なRailsアプリケーションを作成することができました。この章では作成した<strong>PicTweet</strong>に機能を追加して、更なる学習を行なっていきます。</p>
+
+<h1 id="3" class="ng-scope">Level0：開発の準備をしよう</h1>
+
+<h2 id="4" class="ng-scope">必要なファイルを準備する</h2>
+
+<p class="ng-scope">本セクションでの学習を始める前に、必要なファイルの準備を行ないましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> リンク先のファイルをダウンロードして「application.html.erb」を置き換えましょう</h3>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/1" target="_top">application.html.erb</a></h4>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> views
+        <ul>
+          <li class="t-folder"> layouts
+            <ul>
+              <li class="t-file"> application.html.erb</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> リンク先のファイルをダウンロードして「style.scss」と「setting.css」を下記のディレクトリに配置してください</h3>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/2" target="_top">style.scss</a></h4>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/3" target="_top">setting.css</a></h4>
+
+<p class="ng-scope"><strong>※ファイルを追加する際、既に同じ名前のファイルが存在する場合は上書き保存してください</strong></p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> stylesheets
+            <ul>
+              <li class="t-file"> style.scss</li>
+              <li class="t-file"> setting.css</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> リンク先のファイルをダウンロードして「arrow_top.png」を下記のディレクトリに配置してください</h3>
+
+<h4 class="ng-scope"><a href="http://master.tech-camp.in/filedownload/9" target="_top">arrow_top.png</a></h4>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app
+    <ul>
+      <li class="t-folder"> assets
+        <ul>
+          <li class="t-folder"> images
+            <ul>
+              <li class="t-file"> arrow_top.png</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="334" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-477" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-477" name="check-477" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">必要なファイルを準備することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="5" class="ng-scope">デバッグツールの使い方を学習する</h2>
+
+<p class="ng-scope">pry-railsというデバッグツールの使い方を学習しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_329"></i> pry-rails</h3>
+
+<p class="ng-scope">pry-railsはRails向けに開発されたデバッグツールです。デバッグツールとは、作業の際にバグの有無を確認したり、処理を止めてソースコードが正しいかを確認する際に使用するツールです。デバッグツールを使いこなすことで、より開発がしやすくなります。</p>
+
+<p class="ng-scope">pry-railsはGemとして提供されており、本開発では最初にGemのインストールを行なった際にインストールしてあります。またGemをインストールした時はrails sをし直しサーバーを立ち上げ直す必要があります。それはインストールしたGemが反映されるタイミングがサーバーを立ち上げるときだからです。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>41</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">gem</span> <span class="s1">'pry-rails'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">pry-railsの機能の中で最も使用するのは<strong>binding.pry</strong>という機能です。これは、<code>binding.pry</code>という文字列をソースコードの中に記述することで、<code>binding.pry</code>という文字列が存在する部分でRailsの処理を止めることが出来るというものです。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controlers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+<span class="hll">      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+</span>    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">new</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">create</span>
+      <span class="no">Tweet</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">tweet_params</span><span class="p">)</span>
+      <span class="nb">binding</span><span class="o">.</span><span class="n">pry</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nf">tweet_params</span>
+      <span class="n">params</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:image</span><span class="p">,</span> <span class="ss">:text</span><span class="p">)</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">以上のように<code>binding.pry</code>という文字列を記述した上でローカルサーバーを立ち上げます。<code>binding.pry</code>を記述したのはツイートを作成する部分の処理です。つまり、PicTweetでツイートの投稿を行なうと処理が止まります。</p>
+
+<p class="ng-scope">処理が止まると、以下のような画面がターミナルに表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  Started POST <span class="s2">"/tweets"</span> <span class="k">for</span> ::1 at 2012-03-22 09:18:00 +0900
+  Processing by TweetsController#create as HTML
+    Parameters: <span class="o">{</span><span class="s2">"utf8"</span><span class="o">=</span>&gt;<span class="s2">"✓"</span>, <span class="s2">"authenticity_token"</span><span class="o">=</span>&gt;<span class="s2">"FONntu/x3bU5uJ6hJmWtv792TnR7qaOUL7Vv42ObM8OBm3ETF61mgvbaXzEwrby2RDlxQmZApmmR5KpuIgC+tQ=="</span>, <span class="s2">"name"</span><span class="o">=</span>&gt;<span class="s2">"hoge"</span>, <span class="s2">"image"</span><span class="o">=</span>&gt;<span class="s2">"http://sample.jpg"</span>, <span class="s2">"text"</span><span class="o">=</span>&gt;<span class="s2">"Hello World!"</span><span class="o">}</span>
+    User Load <span class="o">(</span>0.3ms<span class="o">)</span>  SELECT  <span class="sb">`</span>users<span class="sb">`</span>.* FROM <span class="sb">`</span>users<span class="sb">`</span> WHERE <span class="sb">`</span>users<span class="sb">`</span>.<span class="sb">`</span>id<span class="sb">`</span> <span class="o">=</span> <span class="m">6</span>  ORDER BY <span class="sb">`</span>users<span class="sb">`</span>.<span class="sb">`</span>id<span class="sb">`</span> ASC LIMIT 1
+  Unpermitted parameters: utf8, authenticity_token, name
+     <span class="o">(</span>0.1ms<span class="o">)</span>  BEGIN
+    SQL <span class="o">(</span>0.2ms<span class="o">)</span>  INSERT INTO <span class="sb">`</span>tweets<span class="sb">`</span> <span class="o">(</span><span class="sb">`</span>image<span class="sb">`</span>, <span class="sb">`</span>text<span class="sb">`</span>, <span class="sb">`</span>created_at<span class="sb">`</span>, <span class="sb">`</span>updated_at<span class="sb">`</span><span class="o">)</span> VALUES <span class="o">(</span><span class="s1">'http://sample.jpg'</span>, <span class="s1">'Hello World!'</span>, <span class="s1">'2015-03-31 05:32:52.087499'</span>, <span class="s1">'2015-03-31 05:32:52.087499'</span><span class="o">)</span>
+     <span class="o">(</span>0.4ms<span class="o">)</span>  COMMIT
+
+  From: /Users/hoge/projects/pictweet/app/controllers/tweets_controller.rb @ line <span class="m">12</span> TweetsController#create:
+
+      10: def create
+      11:   Tweet.create<span class="o">(</span>tweet_params<span class="o">)</span>
+   <span class="o">=</span>&gt; 12:   binding.pry
+      13: end
+
+  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span><span class="c">#&lt;TweetsController&gt;)&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここでは、この時点での変数の値を出力したりすることが出来ます。仮に実装を行なった際にエラーが出た場合、複数個の<code>binding.pry</code>を記述することで処理が正しく行われているのかを確認することができます。</p>
+
+<p class="ng-scope"><code>binding.pry</code>で処理を止めた際には、コンソールとほぼ同じことができるので、変数を出力したい際などには出力したい変数を入力することで内容を出力できます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  From: /Users/hoge/projects/pictweet/app/controllers/tweets_controller.rb @ line <span class="m">12</span> TweetsController#create:
+
+      10: def create
+      11:   Tweet.create<span class="o">(</span>tweet_params<span class="o">)</span>
+   <span class="o">=</span>&gt; 12:   binding.pry
+      13: end
+
+  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span><span class="c">#&lt;TweetsController&gt;)&gt; tweet_params</span>
+  Unpermitted parameters: utf8, <span class="nv">authenticity_token</span>
+  <span class="o">=</span>&gt; <span class="o">{</span><span class="s2">"name"</span><span class="o">=</span>&gt;<span class="s2">"hoge"</span>, <span class="s2">"image"</span><span class="o">=</span>&gt;<span class="s2">"http://images.sample.jpg"</span>, <span class="s2">"text"</span><span class="o">=</span>&gt;<span class="s2">"Hello World!"</span><span class="o">}</span>
+  <span class="o">[</span>2<span class="o">]</span> pry<span class="o">(</span><span class="c">#&lt;TweetsController&gt;)&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">処理を再開させたい場合には<code>exit</code>というコマンドを入力します。<code>exit</code>コマンドを入力すると止まっていた処理が再開し、処理が再開されます。また、<code>exit!</code>とコマンドを入力するとローカルサーバーを終了させることもできます。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  From: /Users/hoge/projects/pictweet/app/controllers/tweets_controller.rb @ line <span class="m">12</span> TweetsController#create:
+
+      10: def create
+      11:   Tweet.create<span class="o">(</span>tweet_params<span class="o">)</span>
+   <span class="o">=</span>&gt; 12:   binding.pry
+      13: end
+
+  <span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span><span class="c">#&lt;TweetsController&gt;)&gt; tweet_params</span>
+  Unpermitted parameters: utf8, <span class="nv">authenticity_token</span>
+  <span class="o">=</span>&gt; <span class="o">{</span><span class="s2">"name"</span><span class="o">=</span>&gt;<span class="s2">"hoge"</span>, <span class="s2">"image"</span><span class="o">=</span>&gt;<span class="s2">"http://images.sample.jpg"</span>, <span class="s2">"text"</span><span class="o">=</span>&gt;<span class="s2">"Hello World!"</span><span class="o">}</span>
+  <span class="o">[</span>2<span class="o">]</span> pry<span class="o">(</span><span class="c">#&lt;TweetsController&gt;)&gt; exit</span>
+    Rendered tweets/create.html.erb within layouts/application <span class="o">(</span>0.0ms<span class="o">)</span>
+  Completed <span class="m">200</span> OK in 356078ms <span class="o">(</span>Views: 69.0ms <span class="p">|</span> ActiveRecord: 3.0ms<span class="o">)</span>
+
+
+  Started GET <span class="s2">"/assets/setting-6304eaa3803ad71fa1d106214a7dcf02.css?body=1"</span> <span class="k">for</span> ::1 at 2012-03-22 09:18:00 +0900
+
+
+  Started GET <span class="s2">"/assets/users-bfd9b813b3d5121ad480bb8a65fd9bbc.css?body=1"</span> <span class="k">for</span> ::1 at 2012-03-22 09:18:00 +0900
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="335" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-478" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-478" name="check-478" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">pry-railsの使い方を学習することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">binding.pryを利用して<code>params</code>を取得する</h2>
+
+<p class="ng-scope">では、binding.pryを使ったデバックを体験するために、実際にbinding.pryを利用して処理を止め、<strong>ビューから送られてくるパラメータ</strong>である<code>params</code>を表示してみましょう。</p>
+
+<p class="ng-scope"><code>params</code>についてわからなければ、<a href="http://master.tech-camp.in/terms">用語一覧集:params</a>を参照してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweetsコントローラーを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">all</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">new</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">create</span>
+      <span class="no">Tweet</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">tweet_params</span><span class="p">)</span>
+<span class="hll">      <span class="nb">binding</span><span class="o">.</span><span class="n">pry</span>
+</span>    <span class="k">end</span>
+
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nf">tweet_params</span>
+      <span class="n">params</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:image</span><span class="p">,</span> <span class="ss">:text</span><span class="p">)</span>
+    <span class="k">end</span>
+
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> localhost:3000/tweetsにアクセスし、「投稿する」ボタンを押してください</h3>
+
+<p class="ng-scope">ローカルサーバーを立ち上げていない場合はターミナルで<code>rails s</code>コマンドを実行してから<a href="http://localhost:3000/tweets">localhost:3000/tweets</a>にアクセスし、右上の「投稿する」ボタンを押してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 項目を入力して「SENT」ボタンを押してください</h3>
+
+<p class="ng-scope">「imageURL」「text」各欄を入力し、「SENT」ボタンを押してください。すると、ページ遷移せずに現在の画面にとどまり続けます。</p>
+
+<p class="ng-scope"><img src="288984b774ade9bb7eb76029e8178680.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//288984b774ade9bb7eb76029e8178680.png"></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> サーバーを立ち上げているターミナル画面を開き、<code>params</code>と入力してください</h3>
+
+<p class="ng-scope">この時、サーバーを立ち上げているターミナル(<code>rails s</code>コマンドを実行したターミナル画面)を見ると、以下のようにコマンドが入力できるようになっています。</p>
+
+<p class="ng-scope"><img src="011.png" alt="binding.pry1"></p>
+
+<p class="ng-scope">中断した部分までで定義されている変数やメソッドを呼び出すことができるので、<code>params</code>と入力しましょう。以下のようなハッシュが表示されれば成功です。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>TweetsController<span class="o">)</span>&gt; params
+<span class="c">#paramsと入力し、実行</span>
+<span class="o">=</span>&gt; <span class="o">{</span><span class="s2">"utf8"</span><span class="o">=</span>&gt;<span class="s2">"✓"</span>,
+ <span class="s2">"authenticity_token"</span><span class="o">=</span>&gt;<span class="s2">"/3QchQigdEcpc2VaOn+6IGIV14x1iJ5bDsM7GI5NA6k="</span>,
+ <span class="s2">"image"</span><span class="o">=</span>&gt;<span class="s2">"http://sample/aaaabbbbccc.jpg"</span>,
+ <span class="s2">"text"</span><span class="o">=</span>&gt;<span class="s2">"hello!"</span>,
+ <span class="s2">"action"</span><span class="o">=</span>&gt;<span class="s2">"create"</span>,
+ <span class="s2">"controller"</span><span class="o">=</span>&gt;<span class="s2">"tweets"</span><span class="o">}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">投稿フォームではhtmlのinput要素を使います。<br>
+「SENT」ボタンが押されリクエストされると、input要素の属性としてname="〇〇"と書いた部分が<code>params</code>内のキーに、入力欄に入力された文字がそのキーの値になり送信されます。</p>
+
+<p class="ng-scope"><code>binding.pry</code>で処理を中断している間はその時点で使える変数やメソッドを呼び出せるので、<code>params</code>はこのcreateアクションの中で使うことができるハッシュのようなもの、ということになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルから<code>params[:text]</code>と入力し、実行してください</h3>
+
+<p class="ng-scope">続いて、<code>params</code>はハッシュなのでのキーを指定してそのキーの値を表示してみます。そのままターミナルに<code>params[:text]</code>と入力し、実行してください。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="o">[</span>1<span class="o">]</span> pry<span class="o">(</span>TweetsController<span class="o">)</span>&gt; params<span class="o">[</span>:text<span class="o">]</span>
+<span class="c">#params[:text]と入力し、実行</span>
+<span class="o">=</span>&gt; <span class="s2">"hello!"</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">このように、先ほど投稿ページの「text」欄で入力したテキストが表示されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナル上で<code>exit</code>コマンドを実行してください</h3>
+
+<p class="ng-scope">このままではいつまで経っても、サーバーの処理が<code>binding.pry</code>で中断されたままです。<br>
+<code>exit</code>コマンドを実行し、処理を再開しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>TweetController&gt;exit
+<span class="c">#処理を再開</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 先ほどtweetsコントローラーに追記した<code>binding.pry</code>を削除してください。</h3>
+
+<p class="ng-scope"><strong>binding.pryが残っていると、また同じ操作をした際に処理が中断してしまいます。</strong>忘れずに消去しておきましょう。</p>
+
+<h2 id="7" class="ng-scope">params/ストロングパラメーターに関する解説動画を見よう</h2>
+
+<p class="ng-scope">paramsやストロングパラメーターに関しては処理の流れが複雑ですので、以下の動画を見て学習内容を整理しましょう！</p>
+
+<iframe class="ng-scope" src="index_1.html" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>
+
+<iframe class="ng-scope" src="index_2.html" allowfullscreen="" frameborder="0" height="315" width="420"></iframe>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="336" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-479" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-479" name="check-479" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">binding.pryを利用し、ビューから送られるparamsを表示できた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="8" class="ng-scope">Level1：ルートパスを追加しよう</h1>
+
+<p class="ng-scope">ツイート一覧のページを、アプリケーションのトップページに設定しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_330"></i> ルートパス</h3>
+
+<p class="ng-scope">ウェブサイトへアクセスする際などに使用するURLには、ホスト名とパスの2つの部分が存在します。「localhost:3000」や「pictweet.me」のように、<strong>パスを付けないホスト名だけのURLのことをルートパス</strong>と言います。</p>
+
+<p class="ng-scope">現在のPicTweetは「/tweets」にアクセスするとツイートの一覧画面が表示されます。今回はルーティングを追記して<strong>ルートパスにアクセスした際にツイート一覧画面が表示</strong>されるようにしましょう。そのためには、routes.rbに<strong>ルートパス専用のルーティングを設定する</strong>必要があります。以下の例のように、<code>root コントローラー名#アクション名</code>と書きます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/routes.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+<span class="hll">    <span class="n">root</span>  <span class="s1">'コントローラー名#アクション名'</span>
+</span>  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題1：ルートパスにアクセスした際にツイート一覧画面が表示されるようにしましょう</h3>
+  <div class="challenge_box">
+  <h5>作業ファイル：config/routes.rb</h5>
+  <h5>ヒント：ルートパスにアクセスした際にツイートの一覧画面を表示するためには、ルートパスに「/tweets」へアクセスした際と同じアクションを定義しましょう。</h5>
+
+  <curriculum-question-container class="ng-scope" data-order="1"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i>ルートパスにアクセスしましょう</h3>
+
+<p class="ng-scope"><a href="http://localhost:3000/">http://localhost:3000</a>にアクセスして、ルートパスががきちんと反映されているか確認しましょう。</p>
+
+<p class="ng-scope">こちらにアクセスすると、<a href="http://localhost:3000/tweets">http://localhost:3000/tweets</a>にアクセスした画面と同じ画面になっているのが確認できます。これは、ルートパスによってtweets_controllerのindexアクションが動いているということです。</p>
+
+<p class="ng-scope"><img src="029.png" alt="ルートパス確認"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="337" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-480" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-480" name="check-480" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">「localhost:3000」にアクセスするとツイート一覧画面が表示されるようになった</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="9" class="ng-scope">Level2：ツイートを最新順に並び替えよう</h1>
+
+<p class="ng-scope">現在のPicTweetは、新しく投稿したツイートが１番下に表示されています。この表示の順番を<strong>最新のツイートが一番上に来るように表示させましょう</strong>。</p>
+
+<p class="ng-scope"><img src="002.png" alt="ツイート最新順説明"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_331"></i> orderメソッド</h3>
+
+<p class="ng-scope"><code>order</code>メソッドは、テーブルから取得してきたインスタンスたちを並び替えるメソッドです。例えば「Contents」という名のテーブルがあり、以下のようにContentクラスからallメソッドを利用して全てのレコードを取得してきたとします。この時、<code>order</code>メソッドを利用して取得してきたレコードを並び変えることができます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/contents_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">index</span>
+    <span class="vi">@contents</span> <span class="o">=</span> <span class="no">Content</span><span class="o">.</span><span class="n">all</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s2">"id DESC"</span><span class="p">)</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>all</code>メソッドを利用した場合、通常であればレコードは<strong>id順に取得</strong>されますが、上記のように<code>order</code>メソッドの引数として<code>("id DESC")</code>とすれば、レコードは<strong>逆順に並び替えられます。</strong><br>
+<code>order</code>メソッドは引数として<code>("テーブルのカラム名 並び替える順序")</code>という形を取ります。並び替える順序には、<code>ASC(昇順)</code>と<code>DESC(降順)</code>の2種類があります。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題2：最新のツイートが一番上に来るように表示させましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/tweets_controller.rb</h5>
+    <h5>ヒント：ツイートが作成された日時は、「created_at」カラムに記録されます。</h5>
+
+    <curriculum-question-container class="ng-scope" data-order="2"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 実際に<a href="http://localhost:3000/">localhost:3000</a>でツイートを投稿して確認してみましょう。</h3>
+
+<p class="ng-scope">この<a href="https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-6/008.jpg" target="_top">サンプル画像</a>のURLを使って投稿してみましょう。</p>
+
+<p class="ng-scope">最新順になっていれば以下の画像のようにトップページの一番上に投稿したツイートが表示されます。</p>
+
+<p class="ng-scope"><img src="032.png" alt="投稿の順番確認"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="338" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-481" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-481" name="check-481" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ツイートを最新順に並べ替えることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="10" class="ng-scope">Level3：ページネーションを実装しよう</h1>
+
+<p class="ng-scope">ツイートの一覧画面に<strong>ページネーションを実装して、1ページに表示されるツイートの数を5件にしましょう</strong>。5件以降は次ページを作成して、そこに表示されるようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_332"></i> ページネーション</h3>
+
+<p class="ng-scope">ページネーションとは<strong>長い文章を複数のページに分割</strong>して、各ページへのリンクを並べアクセスしやすくすることです。検索サイトのGoogleなども検索結果の表示にはページネーションを使用しています。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<p class="ng-scope"><img src="001.png" alt="ページネーション"></p>
+
+<h3 class="ng-scope">
+<i class="icon dashboard"></i> 作業内容</h3>
+
+<h5 class="ng-scope">１．Gemをインストールしてサーバーを立ち上げ直す</h5>
+
+<h5 class="ng-scope">２．コントローラーファイルを編集する</h5>
+
+<h5 class="ng-scope">３．ビューファイルを編集する</h5>
+
+<h2 id="11" class="ng-scope">1.Gemをインストールしてサーバーを立ち上げ直す</h2>
+
+<p class="ng-scope">ページネーションを実装する際には「kaminari」というGemをインストールして使用します。またGemをインストールした後は<code>rails s</code>をし直し、サーバーを立ち上げ直す必要があります。インストールしたGemが反映されるタイミングがサーバーを立てるときだからです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_333"></i> kaminari</h3>
+
+<p class="ng-scope">kaminariはRubyのGemの一種です。このGemをインストールすることによって、<strong>簡単にページネーションを実装する</strong>ことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の指示に従い、kaminariをインストールしてください</h3>
+
+<h3 class="ng-scope">①Gemfileの最後の行に下記の記述を追記してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">gem</span> <span class="s1">'kaminari'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">②bundle installを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c">#現在のディレクトリが~/projects/pictweetであることを確認</span>
+  <span class="nv">$ </span>bundle install
+  <span class="c">#bundle install の実行</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">③ローカルサーバーを再起動してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails s
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h2 id="12" class="ng-scope">2.コントローラーファイルを編集する</h2>
+
+<p class="ng-scope">1ページに表示されるツイートの情報を5件にするということは、コントローラーからビューに送るツイート情報も5件のみになります。その数を制御するために、kaminariをインストールすると使える2つのメソッドを利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_334"></i> kaminari:pageメソッド</h3>
+
+<p class="ng-scope">kaminariを導入すると、モデルクラスにpageメソッドが定義されます。このメソッドは、ページネーションにおけるページ数を指定します。<br>
+ビューのリクエストの際<code>params</code>の中にpageというキーが追加されて、その値がビューで指定したページ番号となります。なので、pageの引数は<code>params[:page]</code>となります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_335"></i> kaminari:perメソッド</h3>
+
+<p class="ng-scope">perメソッドもpageメソッドと同様、kaminariというgemをインストールすることで利用できるメソッドです。1ページあたりに表示する件数を指定します。perメソッドに引数として渡した数字が、ページネーションが実装されたビューで1ページあたりに表示する件数になります。</p>
+
+<p class="ng-scope">上記2つのメソッドは、良く以下のように使われます。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">変数名</span> <span class="o">=</span> <span class="err">クラスを利用して取得したレコードのインスタンス</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">per</span><span class="p">(</span><span class="err">ここに</span><span class="mi">1</span><span class="err">ページで表示したい件数を入力</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">さて、今回ページネーションを実装したいのはindexアクションのビューであり、コントローラーで定義しビューに渡すのはtweetsテーブルのレコードです。こちらを踏まえた上で、下記の問題に取り組みましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題3：「page」と「per」メソッドを利用して@tweetsを定義しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/tweets_controller.rb</h5>
+    <h5>ヒント：当該ファイルに既にある、@tweetsへ代入している箇所(右辺)を書き換えましょう。orderメソッドの後ろに書き加える形です。</h5>
+
+    <curriculum-question-container class="ng-scope" data-order="3"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<h2 id="13" class="ng-scope">3.ビューファイルを編集する</h2>
+
+<p class="ng-scope">ページネーションを実装する際にはコントローラーだけでなくビューにも編集を加える必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_336"></i> kaminari:paginateメソッド</h3>
+
+<p class="ng-scope">ページネーションのリンクを表示したいときに使用するメソッドです。kaminariをインストールすると利用できます。paginateメソッドの引数は、コントローラーで定義した変数を指定します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の指示に従って、index.html.erbを編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/tweets/index.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents row"</span><span class="nt">&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="n">render</span> <span class="ss">partial</span><span class="p">:</span> <span class="s1">'tweet'</span><span class="p">,</span> <span class="ss">collection</span><span class="p">:</span> <span class="vi">@tweets</span> <span class="cp">%&gt;</span>
+<span class="hll">  <span class="cp">&lt;%=</span> <span class="n">paginate</span><span class="p">(</span><span class="vi">@tweets</span><span class="p">)</span> <span class="cp">%&gt;</span>
+</span><span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで、ページネーションを実装することができました。</p>
+
+<p class="ng-scope"><i class="icon attention"></i>このときデータベースのtweetsテーブルにレコードが６個以上ないとページネーションが表示されません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> tweetsテーブルにレコードを６個以上作成しましょう。</h3>
+
+<p class="ng-scope">tweetsテーブルにレコードが6つ以上あるか確認してください。なければ、レコード数が6個以上になるようレコードを作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <a href="http://localhost:3000/">http://localhost:3000/</a> にアクセスしましょう</h3>
+
+<p class="ng-scope">下の方に、以下のようにページネーションが表示されていれば成功です。</p>
+
+<p class="ng-scope"><img src="016.png" alt="pagination"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="339" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-482" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-482" name="check-482" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ツイート一覧画面にページネーションを実装することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="14" class="ng-scope">Level4：ログイン機能を作ろう</h1>
+
+<p class="ng-scope">Twitterなどのウェブサイトにはログイン機能があります。この機能はサインアップしたユーザーに対してアカウントを発行し、そのアカウントで情報を管理することができる機能です。Railsの場合、<strong>ログイン機能は「devise」というGemを使用することで簡単に実装</strong>することができます。</p>
+
+<p class="ng-scope">今回はログイン機能を実装することで、<strong>ログインしたユーザーのみがツイートの投稿を行える</strong>ようにします。ツイートの<strong>閲覧に関してはログインにかかわらずできる</strong>ようにします。</p>
+
+<ul class="ng-scope">
+<li><strong>ツイート閲覧時</strong></li>
+</ul>
+
+<p class="ng-scope"><img src="004.png" alt="ログイン機能説明1"></p>
+
+<ul class="ng-scope">
+<li><strong>ツイート投稿時</strong></li>
+</ul>
+
+<p class="ng-scope"><img src="003.png" alt="ログイン機能説明2"></p>
+
+<h3 class="ng-scope">
+<i class="icon dashboard"></i> 作業内容</h3>
+
+<h5 class="ng-scope">１．Gemをインストールしてサーバーを立ち上げ直す</h5>
+
+<h5 class="ng-scope">２．コマンドを利用してdeviseをインストールする</h5>
+
+<h5 class="ng-scope">３．コマンドを利用してUsersモデルを作成する</h5>
+
+<h5 class="ng-scope">４．未ログイン時にはログインと新規登録ボタンを表示する</h5>
+
+<h5 class="ng-scope">５．コントローラーにリダイレクトを設定する</h5>
+
+<h2 id="15" class="ng-scope">1.Gemをインストールしてサーバーを立ち上げ直す</h2>
+
+<p class="ng-scope">ログイン機能を実装する際には「devise」というGemをインストールして使用します。またGemをインストールした後は<code>rails s</code>をし直しサーバーを立ち上げ直す必要があります。これはインストールしたGemが反映されるタイミングがサーバーを立てるときだからです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_337"></i> devise</h3>
+
+<p class="ng-scope">deviseは、ログイン機能を簡単に作成することができるGemです。ログイン機能をGem無しで実装するのは非常に大変です。しかし、このGemを使うことで比較的簡単に実装することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の指示に従い、deviseをインストールしてください</h3>
+
+<h3 class="ng-scope">①Gemfileの最後の行に下記の記述を追記してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">gem</span> <span class="s1">'devise'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">②bundle installを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span><span class="nb">pwd</span>
+  <span class="c">#現在のディレクトリが~/projects/pictweetであることを確認</span>
+  <span class="nv">$ </span>bundle install
+  <span class="c">#bundle install の実行</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">③ローカルサーバーを再起動してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails s
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h2 id="16" class="ng-scope">2.コマンドを利用してdeviseの設定ファイルを作成する</h2>
+
+<p class="ng-scope">deviseを使用するためには、Gemのインストールに加えて<strong>devise専用のコマンドを利用して設定ファイルを作成する</strong>必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルから下記のコマンドを実行しましょう。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails g devise:install
+  <span class="c"># deviseの設定ファイルを作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon newfile"></i> 新規作成されるファイル</h3>
+
+<ul class="ng-scope">
+<li>config/initializers/devise.rb</li>
+<li>config/locales/devise.en.yml</li>
+</ul>
+
+<h2 id="17" class="ng-scope">3.コマンドを利用してUserモデルを作成する</h2>
+
+<p class="ng-scope">deviseを利用する際にはアカウントを作成するための<strong>Userモデルを新しく作成</strong>します。作成には通常のモデルの作成方法ではなく、<strong>deviseのモデルの作成用コマンド</strong>を使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_338"></i> rails g devise コマンド</h3>
+
+<p class="ng-scope">deviseで、ログイン機能をつける概念のモデルを作成する際に利用するコマンドです。モデルに加えて、ログイン機能のために必要なカラムが追加されるマイグレーションファイルなどが生成されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 下記の指示に従い、ログイン機能を持つuserクラスを作成してください</h3>
+
+<h3 class="ng-scope">①rails g deviseコマンドでuserモデルを作成してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails g devise user
+  <span class="c"># deviseコマンドでモデルを作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon newfile"></i> 新規作成されるファイル</h3>
+
+<ul class="ng-scope">
+<li>app/models/user.rb</li>
+<li>db/migrate/2014XXXXXXXXXX_devise_create_users.rb</li>
+<li>test/fixtures/users.yml</li>
+<li>test/models/user_test.rb</li>
+</ul>
+
+<h3 class="ng-scope">②rake db:migrateを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rake db:migrate
+  <span class="c"># 作成されたマイグレーションファイルを実行</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> SequelProを開き、usersテーブルが作成されているか確認してください</h3>
+
+<p class="ng-scope">以下のように、usersテーブルが作成されていれば成功です。</p>
+
+<p class="ng-scope"><img src="017.png" alt="user_idにid保存"></p>
+
+<p class="ng-scope"><i class="icon attention"></i>マイグレーションファイルを実行してもusersテーブルが表示されない場合は、データベース選択から<code>「データベースを再読み込み」</code>を押すか、左下の<code>再読み込みボタン</code>を押してみましょう。</p>
+
+<h2 id="18" class="ng-scope">未ログイン時にはログインと新規登録ボタンを表示する</h2>
+
+<p class="ng-scope">誰かが未ログイン時にツイート一覧画面を表示した際に、ヘッダーに投稿ボタンの代わりにログインと新規登録ボタンを表示するようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_339"></i> Rubyタグ</h3>
+
+<p class="ng-scope"><code>&lt;%=</code>と<code>%&gt;</code>で囲まれた部分をRubyタグと言います。Rubyタグは拡張子が「erb」のビューファイルで使用することが出来ます。Rubyタグを使用して記述されたコードはビューファイルが読み込まれる際に<strong>HTMLコードとなって読み込まれ</strong>ます。また<code>-%&gt;</code>のように閉じるタグに<code>-</code>をつける形もあります。このようにすることで、余計な改行を取り除くことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_340"></i> link_toメソッド</h3>
+
+<p class="ng-scope"><code>link_to</code>はRubyタグの中で使用することが出来るメソッドです。このメソッドは引数を指定することで様々なリンクを生成します。</p>
+
+<p class="ng-scope">通常HTMLコード内でリンクを生成する際には<code>aタグ</code>を使用します。<code>link_to</code>メソッドを使って記述を行なうと、<strong>HTMLコードが読み込まれる際に<code>aタグ</code>に変換</strong>されるので、サイトを表示した際には<code>aタグ</code>と同様に、リンクとして表示されます。今回の実装で追加するログインや新規登録ボタンもこのメソッドを利用して生成します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">sample.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'ツイート一覧へ'</span><span class="p">,</span> <span class="s1">'/tweets'</span> <span class="cp">%&gt;</span>
+  # link_toメソッドを使ってリンクを生成
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">また、htmlの要素に指定できる<code>class</code>などの属性は、以下の例のように続けて<code>class: 'sample'</code>などと書くことで付与することができます。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">sample.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s1">'ツイート一覧へ'</span><span class="p">,</span> <span class="s1">'/tweets'</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'sample'</span> <span class="cp">%&gt;</span>
+  # 作成したaタグに`class="sample"`属性を付与
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>link_to</code>メソッドがビューファイルとして読み込まれる際には、以下の様なHTMLコードになります。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">sample.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"sample"</span> <span class="na">href=</span><span class="s">"/tweets"</span><span class="nt">&gt;</span>ツイート一覧へ<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_341"></i> user_signed_in?</h3>
+
+<p class="ng-scope">deviseでログイン機能を実装すると、<code>user_signed_in?</code>というメソッドを使用することができます。これは、ユーザーがサインインしているかどうか検証するメソッドです。<br>
+サインインしている場合には<code>true</code>を返し、サインインしていない場合には<code>false</code>を返します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">sample.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">user_signed_in?</span> <span class="cp">%&gt;</span>
+    # ユーザーがサインインしている場合に実行する処理
+  <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>user_signed_in?</code>が返す値は最終的に<code>true</code>か<code>false</code>になるので、上記の例のようにif文または、unless文とともに使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_342"></i> prefix</h3>
+
+<p class="ng-scope">Prefixとは、ルーティングのパスが入る変数のことです。コントローラやビューなどで呼び出すことで、prefixに入っているパスやURL情報を取得できるようになります。Prefixは、routes.rbの各リクエストにオプションとして設定しますが、記述によっては自動的に作成される場合もあります。</p>
+
+<p class="ng-scope">これを確認するには、ターミナルから<code>rake routes</code>コマンドを実行します。すると、以下のような表示になります。</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">【例】ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c">#rake routesコマンドの実行</span>
+<span class="nv">$rake</span> routes
+<span class="c">#実行結果</span>
+
+                  Prefix Verb   URI Pattern                    Controller#Action
+        new_user_session GET    /users/sign_in<span class="o">(</span>.:format<span class="o">)</span>       devise/sessions#new
+            user_session POST   /users/sign_in<span class="o">(</span>.:format<span class="o">)</span>       devise/sessions#create
+    destroy_user_session DELETE /users/sign_out<span class="o">(</span>.:format<span class="o">)</span>      devise/sessions#destroy
+           user_password POST   /users/password<span class="o">(</span>.:format<span class="o">)</span>      devise/passwords#create
+       new_user_password GET    /users/password/new<span class="o">(</span>.:format<span class="o">)</span>  devise/passwords#new
+      edit_user_password GET    /users/password/edit<span class="o">(</span>.:format<span class="o">)</span> devise/passwords#edit
+                         PATCH  /users/password<span class="o">(</span>.:format<span class="o">)</span>      devise/passwords#update
+                         PUT    /users/password<span class="o">(</span>.:format<span class="o">)</span>      devise/passwords#update
+cancel_user_registration GET    /users/cancel<span class="o">(</span>.:format<span class="o">)</span>        devise/registrations#cancel
+       user_registration POST   /users<span class="o">(</span>.:format<span class="o">)</span>               devise/registrations#create
+   new_user_registration GET    /users/sign_up<span class="o">(</span>.:format<span class="o">)</span>       devise/registrations#new
+  edit_user_registration GET    /users/edit<span class="o">(</span>.:format<span class="o">)</span>          devise/registrations#edit
+                         PATCH  /users<span class="o">(</span>.:format<span class="o">)</span>               devise/registrations#update
+                         PUT    /users<span class="o">(</span>.:format<span class="o">)</span>               devise/registrations#update
+                         DELETE /users<span class="o">(</span>.:format<span class="o">)</span>               devise/registrations#destroy
+                    root GET    /                              tweets#index
+              tweets_new GET    /tweets/new<span class="o">(</span>.:format<span class="o">)</span>          tweets#new
+                  tweets POST   /tweets<span class="o">(</span>.:format<span class="o">)</span>              tweets#create
+                         GET    /users/:id<span class="o">(</span>.:format<span class="o">)</span>           users#show
+                         DELETE /tweets/:id<span class="o">(</span>.:format<span class="o">)</span>          tweets#destroy
+                         GET    /tweets/:id/edit<span class="o">(</span>.:format<span class="o">)</span>     tweets#edit
+                         PATCH  /tweets/:id<span class="o">(</span>.:format<span class="o">)</span>          tweets#update
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上記の表示でわかる通り、Prefixが設定されている場合は表の一番左に示されます。</p>
+
+<p class="ng-scope">deviseを導入した場合、ユーザーの新規登録やログインに関するprefixは予め決まっており、以下のようになります。</p>
+
+<h3 class="ng-scope">【例】deviseによって設定されるprefixの一部</h3>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: left;">リクエスト</th>
+<th style="text-align: left;">prefix</th>
+<th style="text-align: left;">パス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">devise/sessions#new</td>
+<td style="text-align: left;">new_user_session</td>
+<td style="text-align: left;">/users/sign_in</td>
+</tr>
+<tr>
+<td style="text-align: left;">devise/sessions#create</td>
+<td style="text-align: left;">user_session</td>
+<td style="text-align: left;">/users/sign_in</td>
+</tr>
+<tr>
+<td style="text-align: left;">devise/sessions#destroy</td>
+<td style="text-align: left;">destroy_user_session</td>
+<td style="text-align: left;">/users/sign_out</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope">実際にprefixを利用する場合は、<code>new_user_session_path</code>のように、最後に<code>_path</code>とつける必要があります。</p>
+
+<p class="ng-scope">ここまでの説明を踏まえて、以下の問題に挑戦しましょう。ヘッダー部分のhtmlは、全てのビューの共通のテンプレートであるapplication.html.erbに書きます。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題4：ログインしている時とそうでない時で表示するビューを変更しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/views/layouts/application.html.erb</h5>
+    <h5>ヒント：下記の例をもとに、user_signed_in?メソッドを利用してください。</h5>
+    【例】
+      <div class="code-frame" data-lang="rhtml">
+<div class="code-lang"><span class="bold">application.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>    <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"header"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"header__bar row"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"grid-6"</span><span class="nt">&gt;&lt;a</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>PicTweet<span class="nt">&lt;/a&gt;&lt;/h1&gt;</span>
+        <span class="cp">&lt;%</span> <span class="k">if</span> <span class="err">ユーザーがサインインしている場合</span> <span class="cp">%&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"user_nav grid-6"</span><span class="nt">&gt;</span>
+            <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"ログアウト"</span><span class="p">,</span> <span class="n">destroy_user_session_path</span><span class="p">,</span> <span class="nb">method</span><span class="p">:</span> <span class="ss">:delete</span> <span class="cp">%&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"post"</span> <span class="na">href=</span><span class="s">"/tweets/new"</span><span class="nt">&gt;</span>投稿する<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="cp">&lt;%</span> <span class="err">サインインしていない場合</span> <span class="cp">%&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"grid-6"</span><span class="nt">&gt;</span>
+            <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"ログイン"</span><span class="p">,</span> <span class="n">new_user_session_path</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'post'</span> <span class="cp">%&gt;</span>
+            <span class="cp">&lt;%=</span> <span class="n">link_to</span> <span class="s2">"新規登録"</span><span class="p">,</span> <span class="n">new_user_registration_path</span><span class="p">,</span> <span class="ss">class</span><span class="p">:</span> <span class="s1">'post'</span> <span class="cp">%&gt;</span>
+          <span class="nt">&lt;/div&gt;</span>
+        <span class="cp">&lt;%</span> <span class="err">閉じタグ</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/header&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+    <curriculum-question-container class="ng-scope" data-order="4"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> <a href="http://localhost:3000/">localhost:3000</a>でログインしている時としていない時でヘッダー部分の表示が変わることを確認しましょう</h3>
+
+<h4 class="ng-scope">ログインしていない時</h4>
+
+<p class="ng-scope">「ログイン」「新規作成」ボタンの２つが表示されていることが確認できます。</p>
+
+<p class="ng-scope"><img src="008.png" alt="008"></p>
+
+<h4 class="ng-scope">ログインしている時</h4>
+
+<p class="ng-scope">「ログアウト」「投稿する」ボタンの２つが表示されていることが確認できます。</p>
+
+<p class="ng-scope"><img src="009.png" alt="009"></p>
+
+<h2 id="19" class="ng-scope">コントローラーにリダイレクトを設定する</h2>
+
+<p class="ng-scope">上記の作業で未ログインユーザーがツイートの一覧画面を表示しても投稿ボタンが表示されなくなりました。しかし、未ログインユーザーであっても直接<code>/tweets/new</code>というパスにアクセスすることで投稿ができてしまいます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> localhost:3000/tweets/newにアクセスしましょう</h3>
+
+<p class="ng-scope">ログインしてない状態でも<a href="http://localhost:3000/tweets/new">localhost:3000/tweets/new</a>にアクセスできるのが確認できます。</p>
+
+<p class="ng-scope"><img src="033.png" alt="アクセス可能"></p>
+
+<p class="ng-scope">そこで、未ログインユーザーが投稿画面など直接アクセスしてきた際にはルートパスに遷移するように設定を行ないます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_343"></i> unless文</h3>
+
+<p class="ng-scope">ここまで条件分岐にはif文を使用してきましたが、似た制御構造を持つものとしてunless文があります。unless文は条件式が偽(false)の場合の処理を記述するのに使われます。今回はユーザーがログインしていない場合の条件分岐にunless文を使用してみましょう。以下は最も基本的なunless文の書き方です。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">unless</span> <span class="err">条件式</span>
+    <span class="c1"># 条件式が偽(false)のときに実行する処理</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">また条件分岐の中が一行で記述できる場合は、if/unless文は以下のように一行で記述することができます。記述が簡単で見やすくなるので、一行で記述できる場合は一行で記述しましょう。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nb">puts</span> <span class="s1">'ログインをしてください'</span> <span class="k">unless</span> <span class="n">user_signed_in?</span>
+  <span class="c1"># 以下と同義</span>
+
+  <span class="k">unless</span> <span class="n">user_signed_in?</span>
+    <span class="nb">puts</span> <span class="s1">'ログインをしてください'</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_344"></i> redirect_toメソッド</h3>
+
+<p class="ng-scope">redirect_toメソッドはアクションを行った後に特定のページやアクションを実行することができます。<br>
+また下記の例のように<code>action: :index</code>は引数で、引数の括弧<code>()</code>は省略できます。また<strong>ハッシュ</strong>の形式で引数を渡すことができます。<br>
+今回はindexアクションを強制的に実行させるために、<code>redirect_to action: :index</code>を記述します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">per</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s2">"created_at DESC"</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nf">move_to_index</span>
+<span class="hll">      <span class="n">redirect_to</span> <span class="ss">action</span><span class="p">:</span> <span class="ss">:index</span>
+</span>      <span class="c1"># indexアクションを強制的に実行する</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_345"></i> before_action</h3>
+
+<p class="ng-scope">Railsではコントローラーで<strong>before_action :メソッド名</strong>を宣言することで、コントローラーのアクションが実行される前に、そのメソッドが実行されます。<br>
+またRailsのコントローラーのフィルターオプション<strong>only</strong>や<strong>except</strong>を使うことにより、before_actionを実行することをアクションごとに制限をかけることができます。</p>
+
+<h3 class="ng-scope">【例】indexアクション以外でbefore_actionを実行したい場合</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+<span class="hll">    <span class="n">before_action</span> <span class="ss">:hoge</span><span class="p">,</span> <span class="ss">except</span><span class="p">:</span> <span class="ss">:index</span>
+</span>    <span class="c1"># indexアクション以外が実行される前にhogeが実行される。</span>
+
+    <span class="k">def</span> <span class="nf">index</span>
+      <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">per</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s2">"created_at DESC"</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="kp">private</span>
+    <span class="k">def</span> <span class="nf">hoge</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題5：ログインしていないときに新規投稿しようとすると、indexアクションにリダイレクトされるようにしましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：app/controllers/tweets_controller.rb</h5>
+    <h5>ヒント：before_actionは全てのアクションの実行前に強制的に実行されるメソッドを設定します。</h5>
+
+ <div class="code-frame" data-lang="ruby">
+<div class="code-lang"><span class="bold">tweets_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">TweetsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+
+  <span class="n">before_action</span> <span class="ss">:move_to_index</span><span class="p">,</span> <span class="n">index</span><span class="err">アクションの場合は実行しない条件をつける</span>
+
+  <span class="k">def</span> <span class="nf">index</span>
+    <span class="vi">@tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:page</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">per</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="s2">"created_at DESC"</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">new</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">create</span>
+    <span class="no">Tweet</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">tweet_params</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kp">private</span>
+  <span class="k">def</span> <span class="nf">tweet_params</span>
+    <span class="n">params</span><span class="o">.</span><span class="n">permit</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="ss">:image</span><span class="p">,</span> <span class="ss">:text</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">move_to_index</span>
+    <span class="c1"># ログインしていなかった場合、「index」アクションを実行する</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+  
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+    <curriculum-question-container class="ng-scope" data-order="5"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="340" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-483" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-483" name="check-483" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ログイン機能を実装することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="20" class="ng-scope">Level5：ログイン・サインアップ画面のビューを変更しよう</h1>
+
+<p class="ng-scope">deviseを使用してログイン機能を実装すると自動的にログイン画面とサインアップ画面が生成されます。今回はこれらの画面にPicTweetのレイアウトを適用させていきます。</p>
+
+<h3 class="ng-scope">
+<i class="icon dashboard"></i> 作業内容</h3>
+
+<h5 class="ng-scope">１．devise用のビューファイルを作成する</h5>
+
+<h5 class="ng-scope">２．ログイン・サインアップ画面のビューファイルを編集する</h5>
+
+<h2 id="21" class="ng-scope">devise用のビューファイルを作成する</h2>
+
+<p class="ng-scope">deviseでログイン機能を実装すると、ログイン・サインアップ画面は自動的に生成されますがビューファイルとしては生成されません。これは、deviseのGem内に存在するビューファイルを読み込んでいるためです。</p>
+
+<p class="ng-scope">ビューファイルに変更を加えるためには、<strong>deviseのコマンドを利用してビューファイルを生成</strong>する必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 下記のコマンドを実行し、devise用のビューファイルを生成してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails g devise:views
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon newfile"></i> 新規作成されるファイル</h3>
+
+<ul class="ng-scope">
+<li>
+<code>app/views/devise</code>以下のディレクトリにあるビューファイル各種</li>
+</ul>
+
+<h2 id="22" class="ng-scope">ログイン・サインアップ画面のビューファイルを編集する</h2>
+
+<p class="ng-scope">上記の作業でdevise用のビューファイルを生成することが出来ました。今度は生成されたビューファイルを編集してレイアウトを変更していきます。</p>
+
+<ul class="ng-scope">
+<li>サインアップ画面は<code>app/views/devise/registrations/new.html.erb</code>、ログイン画面のビューは<code>app/views/devise/sessions/new.html.erb</code>というビューファイルが対応しています。</li>
+</ul>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 上記2つのファイルを、それぞれ以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/devise/registrations/new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll">  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents row"</span><span class="nt">&gt;</span>
+</span>    <span class="nt">&lt;h2&gt;</span>Sign up<span class="nt">&lt;/h2&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="n">resource_name</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">registration_path</span><span class="p">(</span><span class="n">resource_name</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">devise_error_messages!</span> <span class="cp">%&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span> <span class="cp">%&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span>
+<span class="hll">        <span class="cp">&lt;%</span> <span class="k">if</span> <span class="vi">@validatable</span> <span class="cp">%&gt;</span>
+</span>        <span class="nt">&lt;em&gt;</span>(<span class="cp">&lt;%=</span> <span class="vi">@minimum_password_length</span> <span class="cp">%&gt;</span> characters minimum)<span class="nt">&lt;/em&gt;</span>
+        <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">autocomplete</span><span class="p">:</span> <span class="s2">"off"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password_confirmation</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">autocomplete</span><span class="p">:</span> <span class="s2">"off"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"actions"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"Sign up"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+<span class="hll">  <span class="nt">&lt;/div&gt;</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/devise/sessions/new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="hll">  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents row"</span><span class="nt">&gt;</span>
+</span>    <span class="nt">&lt;h2&gt;</span>Log in<span class="nt">&lt;/h2&gt;</span>
+
+    <span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="n">resource_name</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">session_path</span><span class="p">(</span><span class="n">resource_name</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">autofocus</span><span class="p">:</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">autocomplete</span><span class="p">:</span> <span class="s2">"off"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="cp">&lt;%</span> <span class="k">if</span> <span class="n">devise_mapping</span><span class="o">.</span><span class="n">rememberable?</span> <span class="cp">-%&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:remember_me</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="hll">          <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">check_box</span> <span class="ss">:remember_me</span> <span class="cp">%&gt;</span>
+</span>        <span class="nt">&lt;/div&gt;</span>
+      <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">-%&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"actions"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"Log in"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+<span class="hll">  <span class="nt">&lt;/div&gt;</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i>  これらのソースコードは非常に長いので、打ち間違いを防ぐためにコピー&amp;ペーストをしてもかまいません。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 変更できたか確認しましょう</h3>
+
+<p class="ng-scope"><a href="http://localhost:3000/users/sign_in">localhost:3000/users/sign_in</a>にアクセスし、<br>
+以下の画面になっていることを確認しましょう。</p>
+
+<p class="ng-scope"><img src="022.png" alt="confirm_sign_in_view"></p>
+
+<p class="ng-scope"><a href="http://localhost:3000/users/sign_up">localhost:3000/users/sign_up</a>にアクセスし、<br>
+以下の画面になっていることを確認しましょう。</p>
+
+<p class="ng-scope"><img src="023.png" alt="confirm_sign_in_view"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="341" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-484" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-484" name="check-484" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ログイン・サインアップ画面のビューを変更することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="23" class="ng-scope">Level6：サインアップ時にニックネームを登録しよう</h1>
+
+<p class="ng-scope">現在、サインアップ時に登録する情報はメールアドレスとパスワードの2つです。これに加えて<strong>ニックネームを登録</strong>出来るようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon dashboard"></i> 作業内容</h3>
+
+<h5 class="ng-scope">１．ユーザーテーブルにカラムを追加する</h5>
+
+<h5 class="ng-scope">２．登録画面のビューを編集する</h5>
+
+<h5 class="ng-scope">３．ストロングパラメーターを編集する</h5>
+
+<h2 id="24" class="ng-scope">1.ユーザーテーブルにカラムを追加する</h2>
+
+<p class="ng-scope">ニックネームを登録するために、usersテーブルにニックネームを保存するためのカラムを追加します。追加したカラムに、サインアップ時に登録するニックネームを保存します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_346"></i> カラムを追加するマイグレーションファイルの作成</h3>
+
+<p class="ng-scope">カラムを追加するマイグレーションファイルを作成するためには、下記のコマンドを実行します。</p>
+
+<p class="ng-scope"><strong>$ rails g migration Addカラム名To追加先テーブル名 追加するカラム名:型</strong></p>
+
+<p class="ng-scope">例えば、userの自己紹介を保存するためのカラム、introductionカラムをusersテーブルにtext型で追加したいとします。その時は、以下の例のように書きます。</p>
+
+<p class="ng-scope">【例】</p>
+
+<div class="code-frame ng-scope" data-lang="bash">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nv">$ </span>rails g migration AddIntroductionToUsers introduction:text
+  <span class="c"># usersテーブルにintroductionカラムをtext型で追加するマイグレーションファイルの作成</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この時、「Add」「Introduction」「To」「Users」と、単語の頭文字が大文字になっていることに注目してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_347"></i> スネークケースとキャメルケース</h3>
+
+<p class="ng-scope">プログラムが単語の区切りを認識する際、2通りの方法があります。それらをそれぞれ「スネークケース、キャメルケース」と呼びます。<br>
+スネークケースは、例えば「sample_hoge_huga」のように<strong>「_」で単語を区切る方法</strong>です。対してキャメルケースは、「SampleHogeHuga」のように<strong>単語の頭文字を大文字にすることで単語を区切ります</strong>。</p>
+
+<p class="ng-scope">では、問題に移りましょう。</p>
+
+<div class="challenge ng-scope">
+  <h3>
+<i class="icon crown"></i> 問題6：usersテーブルに、nicknameカラムをstring型で追加しましょう</h3>
+  <div class="challenge_box">
+    <h5>作業ファイル：なし</h5>
+    <h5>ヒント1：マイグレーションファイルを作成しても、実行しなければカラムは追加されません。</h5>
+    <h5>ヒント2：もし誤ったマイグレーションファイルを実行してしまった場合は<a href="http://master.tech-camp.in/curriculums/13#term_180">ロールバック</a>しましょう。</h5>
+
+    <curriculum-question-container class="ng-scope" data-order="6"><button style="" class="answer ng-hide" ng-click="show_answer()" ng-show="isSolved">解答と解説を見る</button><button class="solve ng-binding" ng-click="solve()" ng-hide="isSolved">課題を解く</button><button style="" class="solved ng-hide" ng-click="solved()" ng-show="isSolving">解けた</button>
+</curriculum-question-container>
+  </div>
+</div>
+
+<p class="ng-scope"><i class="icon attention"></i><code>Addカラム名To追加先テーブル</code>の<strong>カラム名</strong>の部分は、必ずしも厳密なカラム名を入力する必要はありません。<br>
+今回はnicknameというカラムを追加するので今回は<strong>Nickname</strong>と記述しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 実際にカラムが追加されたか確認しましょう</h3>
+
+<p class="ng-scope">SequelProを起動し、usersテーブルを開きます。一番右にスクロールして新しく追加されたnicknameカラムを確認します。</p>
+
+<p class="ng-scope"><img src="6ffcb6fb023e808d4f321286cbfd7ae7.gif" alt="nickname"></p>
+
+<h2 id="25" class="ng-scope">2.登録画面のビューを編集する</h2>
+
+<p class="ng-scope">これでDB側の準備は整ったので、続いてユーザーの新規登録画面に<strong>ニックネームを登録するためのフォームを追加</strong>します。ユーザーの新規登録画面のビューは、<code>app/views/devise/registrations/new.html.erb</code>です。その際、オプションをつけることで入力できる文字数を6文字以下にします。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_348"></i>text_field:maxlengthオプション</h3>
+
+<p class="ng-scope">maxlengthは、text_fieldというinputタグを生成するヘルパーメソッドにつけることができるオプションです。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/devise/registrations/new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:nickname</span><span class="p">,</span> <span class="ss">autofocus</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">maxlength</span><span class="p">:</span> <span class="s2">"6"</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">この場合、生成されたフォームに7文字以上入力すると、エンターキーを押した瞬間に6文字までカットされます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/views/devise/registrations/new.html.erbを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml">
+<div class="code-lang"><span class="bold">app/views/devise/registrations/new.html.erb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents row"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Sign up<span class="nt">&lt;/h2&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">form_for</span><span class="p">(</span><span class="n">resource</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="n">resource_name</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">registration_path</span><span class="p">(</span><span class="n">resource_name</span><span class="p">))</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
+      <span class="cp">&lt;%=</span> <span class="n">devise_error_messages!</span> <span class="cp">%&gt;</span>
+
+<span class="hll">      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+</span><span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:nickname</span> <span class="cp">%&gt;</span> <span class="nt">&lt;em&gt;</span>(6 characters maximum)<span class="nt">&lt;/em&gt;&lt;br</span> <span class="nt">/&gt;</span>
+</span><span class="hll">        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">text_field</span> <span class="ss">:nickname</span><span class="p">,</span> <span class="ss">autofocus</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="ss">maxlength</span><span class="p">:</span> <span class="s2">"6"</span> <span class="cp">%&gt;</span>
+</span><span class="hll">      <span class="nt">&lt;/div&gt;</span>
+</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:email</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">email_field</span> <span class="ss">:email</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password</span> <span class="cp">%&gt;</span>
+        <span class="cp">&lt;%</span> <span class="k">if</span> <span class="vi">@validatable</span> <span class="cp">%&gt;</span>
+        <span class="nt">&lt;em&gt;</span>(<span class="cp">&lt;%=</span> <span class="vi">@minimum_password_length</span> <span class="cp">%&gt;</span> characters minimum)<span class="nt">&lt;/em&gt;</span>
+        <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">autocomplete</span><span class="p">:</span> <span class="s2">"off"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"field"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">label</span> <span class="ss">:password_confirmation</span> <span class="cp">%&gt;</span><span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">password_field</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">autocomplete</span><span class="p">:</span> <span class="s2">"off"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"actions"</span><span class="nt">&gt;</span>
+        <span class="cp">&lt;%=</span> <span class="n">f</span><span class="o">.</span><span class="n">submit</span> <span class="s2">"Sign up"</span> <span class="cp">%&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 登録画面のビューを確認してみましょう</h3>
+
+<p class="ng-scope"><a href="http://localhost:3000/users/sign_up">localhost:3000/users/sign_up</a>にアクセスして、nicknameを入力するフォームができていることを確認しましょう。</p>
+
+<p class="ng-scope"><img src="034.png" alt="ビューの確認"></p>
+
+<h2 id="26" class="ng-scope">3.ストロングパラメーターを編集する</h2>
+
+<p class="ng-scope">サインアップ時に入力する情報はパラメーターとしてサーバーに送信されます。通常のリクエストの場合は、コントローラーの記述してあるストロングパラメーターで受け取れるパラメーターを制限します。</p>
+
+<p class="ng-scope">しかし、deviseでログイン機能を実装した場合のパラメーターの受け取り方は通常とは異なります。ログイン時に送られてくるパラメーターを制限するストロングパラメーターは、deviseのGem内に記述されているため編集することはできません。今回追加したニックネームを受け取れるようにするには、deviseが提供しているconfigure_permitted_parametersメソッドを利用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_349"></i> configure_permitted_parametersメソッド</h3>
+
+<p class="ng-scope">deviseでは初期状態でサインアップ時にメールアドレスとパスワードのみを受け取るようにストロングパラメーターが設定してあるので、追加したキーのパラメーターは許可されていません。追加のパラメーターを許可したい場合は、<code>application_controller</code>において<code>before_action</code>に<code>configure_permitted_parametersメソッド</code>を設定します。</p>
+
+<h3 class="ng-scope">【例】</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+    <span class="c1"># Prevent CSRF attacks by raising an exception.</span>
+    <span class="c1"># For APIs, you may want to use :null_session instead.</span>
+    <span class="n">protect_from_forgery</span> <span class="ss">with</span><span class="p">:</span> <span class="ss">:exception</span>
+    <span class="n">before_action</span> <span class="ss">:configure</span><span class="err">_</span><span class="n">permitted</span><span class="err">_</span><span class="n">parameters</span><span class="p">,</span> <span class="k">if</span><span class="p">:</span> <span class="ss">:devise_controller?</span>
+
+    <span class="k">def</span> <span class="nf">configure</span><span class="err">_</span><span class="n">permitted</span><span class="err">_</span><span class="n">parameters</span>
+<span class="hll">      <span class="n">devise_parameter_sanitizer</span><span class="o">.</span><span class="n">for</span><span class="p">(:</span><span class="err">ストロングパラメーターを追加したいアクション名</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="p">:</span><span class="err">「ここに追加するキー名」</span>
+</span>    <span class="k">end</span>
+  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">今回は、<strong>sign_upアクションに対してnicknameというキーのパラメーターを追加で許可</strong>します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/controllers/application_controllerを以下のように編集してください。</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">app/controllers/application_controller.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+    <span class="c1"># Prevent CSRF attacks by raising an exception.</span>
+    <span class="c1"># For APIs, you may want to use :null_session instead.</span>
+    <span class="n">protect_from_forgery</span> <span class="ss">with</span><span class="p">:</span> <span class="ss">:exception</span>
+<span class="hll">    <span class="n">before_action</span> <span class="ss">:configure</span><span class="err">_</span><span class="n">permitted</span><span class="err">_</span><span class="n">parameters</span><span class="p">,</span> <span class="k">if</span><span class="p">:</span> <span class="ss">:devise_controller?</span>
+</span>
+<span class="hll">    <span class="k">def</span> <span class="nf">configure</span><span class="err">_</span><span class="n">permitted</span><span class="err">_</span><span class="n">parameters</span>
+</span><span class="hll">      <span class="n">devise_parameter_sanitizer</span><span class="o">.</span><span class="n">for</span><span class="p">(</span><span class="ss">:sign_up</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="ss">:nickname</span>
+</span><span class="hll">    <span class="k">end</span>
+</span>  <span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">ここまで書けたら、実際にユーザーを作成してニックネームが登録できるか確かめてみましょう</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> pictweetのトップページから、新規でユーザーを作成してみましょう。</h3>
+
+<p class="ng-scope"><a href="http://localhost:3000/users/sign_up">localhost:3000/users/sign_up</a>にアクセスして、nicknameを保存しましょう。</p>
+
+<p class="ng-scope"><img src="020.png" alt="registration_nickname"></p>
+
+<p class="ng-scope">きちんと保存できているかどうかSequelProで確認してみましょう。</p>
+
+<p class="ng-scope"><img src="035.png" alt="confirm_nickname"></p>
+
+<p class="ng-scope">保存できていることを確認したら次へ進みましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="342" action="http://master.tech-camp.in/curriculums/16#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_02"></i>課題チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-485" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-485" name="check-485" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">サインアップ時にニックネームを登録することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"><div class="ng-scope">
+  <p>テストを受けた回数：<span class="ng-binding">1回</span></p>
+  <p>最高得点：<span class="ng-binding">40点</span></p>
+  <!-- ngIf: curriculum.short_test.has_passed -->
+  <!-- ngIf: !curriculum.short_test.has_passed --><div class="ng-scope" ng-if="!curriculum.short_test.has_passed">
+    <p>合否：<span class="unpass">不合格</span></p>
+  </div><!-- end ngIf: !curriculum.short_test.has_passed -->
+</div></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 295px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">学習課題</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">Level0：開発の準備をしよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">必要なファイルを準備する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">デバッグツールの使い方を学習する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">binding.pryを利用してparamsを取得する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">params/ストロングパラメーターに関する解説動画を見よう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents8" ng-click="clickContent(content.h1.id)">Level1：ルートパスを追加しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents9" ng-click="clickContent(content.h1.id)">Level2：ツイートを最新順に並び替えよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents10" ng-click="clickContent(content.h1.id)">Level3：ページネーションを実装しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">1.Gemをインストールしてサーバーを立ち上げ直す</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">2.コントローラーファイルを編集する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">3.ビューファイルを編集する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents14" ng-click="clickContent(content.h1.id)">Level4：ログイン機能を作ろう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents15" ng-click="clickContent(h2.id)">1.Gemをインストールしてサーバーを立ち上げ直す</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents16" ng-click="clickContent(h2.id)">2.コマンドを利用してdeviseの設定ファイルを作成する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents17" ng-click="clickContent(h2.id)">3.コマンドを利用してUserモデルを作成する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents18" ng-click="clickContent(h2.id)">未ログイン時にはログインと新規登録ボタンを表示する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents19" ng-click="clickContent(h2.id)">コントローラーにリダイレクトを設定する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents20" ng-click="clickContent(content.h1.id)">Level5：ログイン・サインアップ画面のビューを変更しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents21" ng-click="clickContent(h2.id)">devise用のビューファイルを作成する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents22" ng-click="clickContent(h2.id)">ログイン・サインアップ画面のビューファイルを編集する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents23" ng-click="clickContent(content.h1.id)">Level6：サインアップ時にニックネームを登録しよう</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents24" ng-click="clickContent(h2.id)">1.ユーザーテーブルにカラムを追加する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents25" ng-click="clickContent(h2.id)">2.登録画面のビューを編集する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents26" ng-click="clickContent(h2.id)">3.ストロングパラメーターを編集する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() --><p class="terms ng-scope" ng-if="showTroubleShooting()">
+    エラーが解決できない時：<br><a href="http://master.tech-camp.in/curriculums/25" target="_brank">トラブルシューティング</a>
+  </p><!-- end ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">9 / 9<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/16">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

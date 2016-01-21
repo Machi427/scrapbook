@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="ja" xml:lang="ja" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>attr_accessor (Module) - Rubyリファレンス</title>
+<meta name="description" content="attr_accessorメソッドは、クラスやモジュールにインスタンス変数を読み書きするためのアクセサメソッドを定義します。引数には、インスタンス変数名をシンボルか文字列で指定します（複数指定できます）。戻り値はnilです。">
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+
+<div id="container">
+<div id="system_menu">
+<p class="wiki_menu">
+Rubyリファレンス:
+<a href="http://ref.xaio.jp/ruby">ホーム</a></p>
+<form action="http://ref.xaio.jp/wikis/2/entries/search" class="search_menu">
+<p>
+<input name="q" value="" size="20" class="search_text" type="text">
+<input value="検索" class="search_submit" type="submit">
+</p>
+</form>
+
+<p class="account_menu">
+<a href="http://ref.xaio.jp/top/login">ログイン</a></p>
+
+</div>
+
+
+
+<div class="article_title">
+<h1>attr_accessor (Module)</h1>
+<p>
+<a href="http://ref.xaio.jp/wikis/2/entries/440/edit" rel="nofollow">編集</a> &nbsp;
+<a href="http://ref.xaio.jp/wikis/2/entries/440/versions" rel="nofollow">履歴</a>
+</p>
+</div>
+
+
+
+
+<div class="article_body">
+<p class="crumb"><a href="http://ref.xaio.jp/ruby/classes">標準クラス・モジュール</a> &gt; <a href="http://ref.xaio.jp/ruby/classes/module">Module</a> &gt; <strong>attr_accessor</strong></p>
+
+<p class="visibility">private</p>
+
+<pre class="format">attr_accessor(<var>name</var>, ...)</pre>
+
+<p><code><strong>attr_accessor</strong></code>メソッドは、クラスやモジュールにインスタンス変数を読み書きするためのアクセサメソッドを定義します。引数には、インスタンス変数名をシンボルか文字列で指定します（複数指定できます）。戻り値は<code>nil</code>です。</p>
+
+<p>次の例では、<code>Book</code>クラスにメソッド<code>title</code>、 <code>title=</code>、<code>price</code>、 <code>price=</code>を定義しています。</p>
+
+<pre class="sample">class Book
+  attr_accessor :title, :price
+  
+  def initialize(title, price)
+    @title = title; @price = price
+  end
+end
+ 
+book = Book.new("Programming Ruby", 1980)
+puts book.title
+book.price = 2000
+puts book.price</pre>
+
+<pre class="result">Programming Ruby
+2000</pre>
+
+<p>上記の例は、次のように記述するのと同じことです。</p>
+
+<pre class="sample without_result">class Book
+  def title
+    @title
+  end
+  def title=(val)
+    @title = val
+  end
+  def price
+    @price
+  end
+  def price=(val)
+    @price = val
+  end
+  （後略）</pre>
+
+<h2 id="h-563210672">関連項目</h2>
+
+<ul>
+  <li><code><a href="http://ref.xaio.jp/ruby/classes/module/attr">attr</a></code> : インスタンス変数のアクセサを定義する。 </li>
+  <li><code><a href="http://ref.xaio.jp/ruby/classes/module/attr_reader">attr_reader</a></code> : インスタンス変数の読み出し専用アクセサを定義する。</li>
+  <li><code><a href="http://ref.xaio.jp/ruby/classes/module/attr_writer">attr_writer</a></code> : インスタンス変数の書き込み専用アクセサを定義する。</li>
+</ul>
+
+<p class="footer"><a href="http://ref.xaio.jp/ruby/about">このサイトについて</a>  <a href="http://ref.xaio.jp/ruby/legend">記事の読み方</a>  <a href="http://ref.xaio.jp/ruby/references">参考文献</a></p>
+</div>
+
+
+<p class="system_footer">Sponsored by <a class="external" href="http://www.oiax.jp/">Oiax Inc.</a> / Powered by Ruby on Rails and AmiWiki</p>
+</div>
+
+
+
+</body>
+</html>

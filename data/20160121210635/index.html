@@ -1,0 +1,3920 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title></title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('6126930390_b67992894f_o.jpg');">
+  <h1 class="ng-binding">
+    HTMLとCSSを使ってウェブサイトを作ってみよう2<small class="ng-binding">〜〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ピサの斜塔は、イタリアのピサ市にあるピサ大聖堂の鐘楼であり、世界遺産「ピサのドゥオモ広場」を構成する観光スポットである。高さは地上55.86m、階段は296段あり、重量は14,453t、地盤にかかる平均応力は50.7tf/m2と見積もられている。一時傾斜の増大と倒壊の危惧があったがその後の処置により、当分問題ないと判断されている。<a class="ng-binding" href="https://www.flickr.com/photos/ninara/20362265679" target="_top">ninara - ピサの斜塔</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<h3 class="ng-scope">基本的なHTML/CSSの使い方を身につける</h3>
+
+<h3 class="ng-scope">Hair Oliveを完成させる</h3>
+
+<h1 id="2" class="ng-scope">本章を学習するにあたって</h1>
+
+<p class="ng-scope">本章では、前章で学んだことを踏まえてブロック要素の中身を記述するHTML/CSSに関して学習します。</p>
+
+<h2 id="3" class="ng-scope">学習の流れ</h2>
+
+<p class="ng-scope">最終的にはこちらで用意したWebサイト、 <strong><em>Hair Olive</em></strong> を完成させていただきます。<br>
+<strong><em>Hair Olive</em></strong> は以下のようなWebサイトになります。</p>
+
+<p class="ng-scope"><img src="ec35fafea51171683fb2a21dcb59d495.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ec35fafea51171683fb2a21dcb59d495.png"></p>
+
+<p class="ng-scope">最終的には、こちらのWebサイトを作ることができるようにHTML/CSSを学習していきます。</p>
+
+<h2 id="4" class="ng-scope">前章までの流れ</h2>
+
+<p class="ng-scope">前章はindex.htmlとstyle.cssにコードを記述していました。<br>
+前章までの内容は以下のようになっています。</p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">HTMLファイル、CSSファイルは引き続きこちらを編集していきましょう。</p>
+
+<p class="ng-scope">前章までの <strong><em>Hair Olive</em></strong> のWebサイトは、以下のようにブロック要素が配置されていました。</p>
+
+<p class="ng-scope"><img src="f5f6c3373857735f1aeca9c30ec8b878.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//f5f6c3373857735f1aeca9c30ec8b878.png"></p>
+
+<p class="ng-scope">本章では、このように配置されたブロック要素の中身を完成させていきます。<br>
+ブロックの中身を作成していく順番としては以下のようになります。</p>
+
+<ol class="ng-scope">
+<li>タイトルと見出し</li>
+<li>ナビゲーションバー</li>
+<li>左ブロック</li>
+<li>右ブロック</li>
+<li>フッター</li>
+</ol>
+
+<p class="ng-scope">この流れに沿って、 <strong><em>Hair Olive</em></strong> を作っていきましょう。</p>
+
+<h2 id="5" class="ng-scope">タイトルと見出しを作ろう</h2>
+
+<p class="ng-scope"><strong><em>Hair Olive</em></strong> のタイトルと見出し部分を見てみましょう。</p>
+
+<p class="ng-scope"><img src="10b38a64eb01b18ab88f2387c159eff3.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//10b38a64eb01b18ab88f2387c159eff3.png"></p>
+
+<p class="ng-scope">こちらの「Hair Olive」という文字は、このWebサイトの大見出しとなっています。このような見出しを表示するときはh要素で記述します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_211"></i> h要素</h3>
+
+<p class="ng-scope">headingの略で、見出しとして使われるブロック要素です。h1, h2, h3, h4, h5, h6と６つのh要素があり、これらは見出しの内容によって使い分けます。h1要素が一番大きな見出しで、h6要素に近づくにつれて小さな見出しになっていきます。</p>
+
+<p class="ng-scope">「Hair Olive」という文字は、このWebサイトのタイトル（大見出し）になっているので、「Hair Olive」という文字にh1要素をつけます。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">また、その下にある「美しさを引き出すヘアスタイルのご提案」という文字を見てみましょう。<br>
+こちらは、タイトルと見出しのブロックの中で文章になっています。<br>
+文章はp要素で記述します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_212"></i> p要素</h3>
+
+<p class="ng-scope">paragraphの略で、段落を示すブロック要素です。文章を書く際や、段落を作る時に使います。</p>
+
+<p class="ng-scope">では、h要素とp要素を用いて見出しとタイトルの中身を記述していきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+以下の画像のように、文字が表示されているのが確認できます。</p>
+
+<p class="ng-scope"><img src="032305718472ac9808b382642ec98631.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//032305718472ac9808b382642ec98631.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2226" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3150" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3150" name="check-3150" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">タイトルと見出しの内容を記述することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">また、「Hair Olive」という文字は、通常とは違うフォントが使用されています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_213"></i> font-familyプロパティ</h3>
+
+<p class="ng-scope">ワードなどで使用しているフォントを指定することができます。ただし、自分のPCにしか入ってないフォントを指定しても、他のユーザーは見ることができません。</p>
+
+<p class="ng-scope">指定できるフォントには種類があり、サンセリフ体<code>sans-serif</code>、セリフ体<code>serif</code>、等幅フォント<code>monospace</code>、装飾体<code>fantasy</code>、手書き体<code>cursive</code>の5種類があります。<br>
+今回使うのは<code>fantasy</code>です。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">それに加え、p要素で囲った文章はサブタイトルとなっているのでわかりづらいですが、ここの文字のサイズが通常よりも大きくなっています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_214"></i> font-sizeプロパティ</h3>
+
+<p class="ng-scope">文字の大きさを指定するには、font-sizeプロパティを使用します。<br>
+単位はpx,em,%の３種類を主に使います。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th>指定方法</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>px　　　</td>
+<td>ピクセル単位での大きさ指定。</td>
+</tr>
+<tr>
+<td>em　　　</td>
+<td>1文字分を表している単位です。フォントサイズを指定しなければブラウザの初期設定の16px分の大きさになります。</td>
+</tr>
+<tr>
+<td>%　　　　</td>
+<td>１文字分のサイズを％で指定できます。16pxで100%であれば100%は16pxとなります。</td>
+</tr>
+</tbody>
+</table>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">文字サイズは、bodyに指定すると文章全体の文字サイズを変更することができます。<br>
+ただし、h1,h2,h3,h4,h5,h6,tableなどでは、ブラウザ内臓のCSSが読み込まれているので、そちらが優先されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nc">.title</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="hll"><span class="nc">.heading-sentence</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+以下の画像のようにh1要素のフォントとp要素の文字の大きさが変わっていることが確認できるはずです。</p>
+
+<p class="ng-scope"><img src="6bf13eb3bd8765843d1715a1a937f0ee.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//6bf13eb3bd8765843d1715a1a937f0ee.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2227" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3151" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3151" name="check-3151" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">タイトルと見出しの装飾ができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">ナビゲーションバーを作成しよう</h2>
+
+<p class="ng-scope">最終目標である <strong><em>Hair Olive</em></strong> を見てみましょう。<br>
+ページの上の方にナビゲーションバーがついています。</p>
+
+<p class="ng-scope"><img src="06c370f356f1799622278bbdbf83f029.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//06c370f356f1799622278bbdbf83f029.png"></p>
+
+<p class="ng-scope">このナビゲーションバーを見てみると、要素が横に並んでリストのような構造になっています。<br>
+このようなリスト構造を作成するには以下の３つの要素を使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_215"></i> ul要素</h3>
+
+<p class="ng-scope">順序のないリストを示すブロック要素です。li要素と組み合わせて使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_216"></i> ol要素</h3>
+
+<p class="ng-scope">順序のあるリストを示すブロック要素です。こちらも、li要素と組み合わせて使用します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_217"></i> li要素</h3>
+
+<p class="ng-scope">リストの項目を示すブロック要素です。ul要素、またはol要素の間に記述します。</p>
+
+<p class="ng-scope">これらの要素をHTML内で組み合わせて使うことによって、リスト構造を表示することができます。<br>
+では、実際に使ってみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+下記の画像のようにリスト構造になっていると思います。</p>
+
+<p class="ng-scope"><img src="ff4f7e0159c92811fd5aa3bf13bdf7fe.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ff4f7e0159c92811fd5aa3bf13bdf7fe.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2228" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3152" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3152" name="check-3152" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ナビゲーションバーの内容を記述することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">では、実際の <strong><em>Hair Olive</em></strong> のような横並びで、箇条書きマークを表示しないようにしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_218"></i> list-styleプロパティ</h3>
+
+<p class="ng-scope">リストのスタイルを変更することができます。li要素の箇条書きのマークを変更したりすることができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nt">ul</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_219"></i> floatプロパティ</h3>
+
+<p class="ng-scope">指定された要素を左または右に寄せて配置することができるプロパティでした。</p>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、ブラウザで確認してみましょう。<br>
+以下のように、リスト構造が横並びで表示されていることが確認できます。</p>
+
+<p class="ng-scope"><img src="144717f5e8e06a97e82a047ea64f9f2f.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//144717f5e8e06a97e82a047ea64f9f2f.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2230" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3154" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3154" name="check-3154" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ナビゲーションバーの装飾をすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope">左ブロックを作成しよう</h2>
+
+<p class="ng-scope">最終目標である <strong><em>Hair Olive</em></strong> を見てみましょう。<br>
+ページの左の方にブロックがあります。</p>
+
+<p class="ng-scope"><img src="548b9ab4ef8866ef3fc4d58de9dc8e32.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//548b9ab4ef8866ef3fc4d58de9dc8e32.png"></p>
+
+<p class="ng-scope">こちらを見てみると、このブロックは２つの要素で構成されています。</p>
+
+<p class="ng-scope"><img src="486ac7a51532468dab398333b1cbe7b5.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//486ac7a51532468dab398333b1cbe7b5.png"></p>
+
+<p class="ng-scope">これらの要素を１つ１つ作っていきましょう。</p>
+
+<p class="ng-scope">まずは赤い枠で囲った上の要素を作成していきましょう。<br>
+赤い枠で囲った上の要素を見てみると、「新着情報」という文字が書かれています。<br>
+こちらは、この要素内の小見出しにあたるものです。<br>
+HTMLで見出しを作成するときはh要素を使うのでした。小見出しはh2要素で作成します。</p>
+
+<p class="ng-scope">次に、その下のニュース欄を見てみましょう。こちらは以下のような表構造になっています。</p>
+
+<p class="ng-scope"><img src="3704b97c2abe44b6fe942179e76dd27d.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//3704b97c2abe44b6fe942179e76dd27d.png"></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_220"></i> table要素</h3>
+
+<p class="ng-scope">表を作成するブロック要素です。この要素と以下に記述するth要素、tr要素、td要素を組み合わせることによって、表構造を作成することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_221"></i> th要素</h3>
+
+<p class="ng-scope">表の見出しを作成するブロック要素です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_222"></i> tr要素</h3>
+
+<p class="ng-scope">表の横方向の一行を定義するブロック要素です。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_223"></i> td要素</h3>
+
+<p class="ng-scope">表のデータを入れるブロック要素です。</p>
+
+<hr class="ng-scope">
+
+<p class="ng-scope">以上の要素を組み合わせて表構造を作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>新着情報<span class="nt">&lt;/h2&gt;</span>
+<span class="hll">        <span class="nt">&lt;table&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;tr&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;th&gt;</span>日にち<span class="nt">&lt;/th&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;th&gt;</span>ニュース<span class="nt">&lt;/th&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/tr&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;tr&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;td&gt;</span>2014/10/06<span class="nt">&lt;/td&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;td&gt;</span>【新規のお客さま限定】<span class="nt">&lt;strong&gt;</span>10％OFF<span class="nt">&lt;/strong&gt;</span>キャンペーン<span class="nt">&lt;/td&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/tr&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;tr&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;td&gt;</span>2014/10/03<span class="nt">&lt;/td&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;td&gt;</span>うれしい<span class="nt">&lt;em&gt;</span>ポイントアップキャンペーン<span class="nt">&lt;/em&gt;&lt;/td&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/tr&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;tr&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;td&gt;</span>2014/09/27<span class="nt">&lt;/td&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;td&gt;</span>2015年成人式 ご予約承ります<span class="nt">&lt;/td&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/tr&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;/table&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、ブラウザで確認してみましょう。<br>
+以下のような画像になっていることが確認できるはずです。</p>
+
+<p class="ng-scope"><img src="158373a49db765a850ce5a9b7bd4d067.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//158373a49db765a850ce5a9b7bd4d067.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2231" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3155" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3155" name="check-3155" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">左ブロックの上の要素の内容を記述することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">では、次にこちらのレイアウトを綺麗にしていきましょう。<br>
+ブラウザに表示されている表をみると、上下が詰まっているように見えて少し窮屈な感じがします。<br>
+こちらの上限の間隔を調整していきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_224"></i> line-heightプロパティ</h3>
+
+<p class="ng-scope">行間の高さを指定することができるプロパティです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nt">td</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">padding-left</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">line-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集して保存したら、ブラウザで確認してみましょう。<br>
+以下のように表構造の行間の高さが広くなっていることが確認できます。</p>
+
+<p class="ng-scope"><img src="cfb78dd15ef8defc35c310e5e68f6a38.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//cfb78dd15ef8defc35c310e5e68f6a38.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2232" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3156" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3156" name="check-3156" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">左ブロックの上の要素の装飾をすることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">次に作成するのは、以下の画像の緑の枠で囲っている左ブロックの下の要素です。</p>
+
+<p class="ng-scope"><img src="486ac7a51532468dab398333b1cbe7b5.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//486ac7a51532468dab398333b1cbe7b5.png"></p>
+
+<p class="ng-scope">「スタイリスト紹介」という文字は、さきほどと同じように小見出しになっていることがわかります。こちらはh2要素で記述すれば問題なさそうです。</p>
+
+<p class="ng-scope">次に、下の緑の枠で囲った要素を見てみましょう。<br>
+こちらは画像が表示されています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_225"></i> img要素</h3>
+
+<p class="ng-scope">img要素を使うと、Webサイトで画像を表示させることができます。<br>
+画像がどこにあるのかという場所を指定する <strong><em>src属性</em></strong> 、画像が表示されなかった場合に代替テキストなどを表示するための <strong><em>alt属性</em></strong> を指定して使います。</p>
+
+<p class="ng-scope">画像を表示するには、表示したい画像がどこにあるかという情報を指定しなければなりません。<br>
+では、現在index.htmlとstyle.cssがあるファイル内に、自分が表示させたい画像を配置しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ファイル内に画像を配置しましょう</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> hair olive
+    <ul>
+      <li class="t-file"> index.html</li>
+      <li class="t-file"> style.css</li>
+      <li class="t-file"> sample.jpg　←　画像を配置</li>
+     <li class="t-file"> sample.jpg　←　画像を配置</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><i class="icon attention"></i> sample.jpgという画像名ですが、こちらの画像名はご自身の画像によって変わります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>新着情報<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;table&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>日にち<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>ニュース<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/06<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>【新規のお客さま限定】<span class="nt">&lt;strong&gt;</span>10％OFF<span class="nt">&lt;/strong&gt;</span>キャンペーン<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/03<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>うれしい<span class="nt">&lt;em&gt;</span>ポイントアップキャンペーン<span class="nt">&lt;/em&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/09/27<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2015年成人式 ご予約承ります<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+
+<span class="hll">        <span class="nt">&lt;h2&gt;</span>スタイリスト紹介<span class="nt">&lt;/h2&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;ul&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;li&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="err"> </span><span class="s">"yuito.JPG"</span> <span class="na">alt=</span><span class="s">"ゆいと"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>ゆいと<span class="nt">&lt;/h4&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/li&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;li&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"abe.JPG"</span> <span class="na">alt=</span><span class="s">"あべ"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>あべ<span class="nt">&lt;/h4&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/li&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;/ul&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+画像が表示されていますが、以下の画像のように必要以上に大きく表示されてしまっています。</p>
+
+<p class="ng-scope"><img src="76a434694287a60f1134bc7bb4da7134.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//76a434694287a60f1134bc7bb4da7134.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2233" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3157" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3157" name="check-3157" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">左ブロックの下の要素の内容を記述することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これは、画像の幅や高さを指定していないので、意図せず大きく表示されてしまうからです。<br>
+では、CSSを適用させて画像を任意の幅で表示してみましょう。<br>
+これは、以前学習したwidthプロパティとheightプロパティを使えば良さそうです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">td</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nc">.stylist-image</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで表示してみましょう。<br>
+以下の画像のように、表示したい画像が任意の幅と高さで表示されていることが確認できます。</p>
+
+<p class="ng-scope"><img src="08cdb7e96e70e2709e37798f4935a402.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//08cdb7e96e70e2709e37798f4935a402.png"></p>
+
+<p class="ng-scope">画像の幅や高さを任意のものに指定することが出来ましたが、画像の下のスタイリストの名前の表示が左側に寄ってしまい、不恰好になっています。</p>
+
+<p class="ng-scope"><img src="8efe0e5d13ce9d68778881b5b9132a7e.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//8efe0e5d13ce9d68778881b5b9132a7e.png"></p>
+
+<p class="ng-scope">これを中央に寄せるためにCSSを適用しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_226"></i> text-alignプロパティ</h3>
+
+<p class="ng-scope">文字の開始位置を指定するときに使用します。<br>
+開始位置の指定はleft(左から)/center(中央)/right(右)の３つがあります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">td</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.stylist-image</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nc">.stylist-name</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+</span><span class="hll">  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+以下の画像のように、スタイリストの名前が中央寄せになっていることが確認できます。<br>
+<img src="e179f6a2253afe0ccbb52e451f9eec04.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//e179f6a2253afe0ccbb52e451f9eec04.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2234" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3158" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3158" name="check-3158" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">左ブロックの下の要素の装飾をすることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="8" class="ng-scope">右ブロックを作成しよう</h2>
+
+<p class="ng-scope">次は、Webページの右のブロックを作成していきましょう。</p>
+
+<p class="ng-scope"><img src="740719afcb1a8e06f11e8213b8665b1c.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//740719afcb1a8e06f11e8213b8665b1c.png"></p>
+
+<p class="ng-scope">こちらを見てみると３つの要素で構成されています。</p>
+
+<p class="ng-scope"><img src="7012c635116bc8deb4b85e9dbdfcc103.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//7012c635116bc8deb4b85e9dbdfcc103.png"></p>
+
+<p class="ng-scope">最初に赤い枠で囲った箇所を実装しましょう。</p>
+
+<p class="ng-scope">「recommend」という文字は、この枠内の見出し、つまり小見出しになっています。<br>
+こちらは先ほどならったh要素を用いて実装すればよさそうです。</p>
+
+<p class="ng-scope">その下の文書を見てみましょう。<br>
+ここでは、「=&gt;詳しくはこちらから」という箇所が、他のページやWebサイトに遷移するようになっています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_227"></i> a要素</h3>
+
+<p class="ng-scope">囲った文章をクリックすると、特定のページに遷移するように設定できます。<br>
+aタグのhref属性に対して、遷移させたいページのURLを指定します。</p>
+
+<p class="ng-scope">ここでは、tech-campのWebサイトに遷移させてみましょう。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>index.htmlを以下のように編集しましょう</strong></p>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>新着情報<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;table&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>日にち<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>ニュース<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/06<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>【新規のお客さま限定】<span class="nt">&lt;strong&gt;</span>10％OFF<span class="nt">&lt;/strong&gt;</span>キャンペーン<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/03<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>うれしい<span class="nt">&lt;em&gt;</span>ポイントアップキャンペーン<span class="nt">&lt;/em&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/09/27<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2015年成人式 ご予約承ります<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+
+        <span class="nt">&lt;h2&gt;</span>スタイリスト紹介<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="err"> </span><span class="s">"yuito.JPG"</span> <span class="na">alt=</span><span class="s">"ゆいと"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>ゆいと<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"abe.JPG"</span> <span class="na">alt=</span><span class="s">"あべ"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>あべ<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+<span class="hll">        <span class="nt">&lt;h3&gt;</span>recommend<span class="nt">&lt;/h3&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;p&gt;</span>
+</span><span class="hll">          15周年記念キャンペーン
+</span><span class="hll">          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://tech-camp.in"</span><span class="nt">&gt;</span>⇒詳しくはこちら<span class="nt">&lt;/a&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;/p&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザでページ遷移してみましょう。<br>
+「=&gt;詳しくはこちらから」をクリックすると、tech-campのサイトに遷移することが確認できます。<br>
+<i class="icon attention"></i> 文字の色に関しては後ほど学習するので、今は気にしなくて大丈夫です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2235" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3159" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3159" name="check-3159" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">右ブロックの上の要素の内容を記述することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">次に、a要素の文字の色を変えてみましょう。<br>
+a要素の4つの状態に対して文字色を指定することができます。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th>要素</th>
+<th>状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>link</td>
+<td>遷移先のWebサイトに訪問したことがないリンク。</td>
+</tr>
+<tr>
+<td>visited</td>
+<td>遷移先のWebサイトに訪問したことがあるリンク。</td>
+</tr>
+<tr>
+<td>hover</td>
+<td>現在マウスを置いているリンク 。</td>
+</tr>
+<tr>
+<td>active</td>
+<td>現在クリックなどをして選択しているリンク。</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope">使い方としては以下のようになります。</p>
+
+<h4 class="ng-scope">【例】</h4>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">sample.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>a:link{
+  color : red;
+}
+// まだクリックしたことがないリンクを赤い文字にする
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">では、実際に使ってみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span>   <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">td</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.stylist-image</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nt">a</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="hll"><span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+リンクの文字が赤くなっていることが確認できるはずです。また、リンクの上にマウスを置くと青くなることが確認できます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2236" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3160" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3160" name="check-3160" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">右ブロックの上の要素の装飾をすることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">次は、緑の枠で囲ってあるブロックを作成していきましょう。</p>
+
+<p class="ng-scope"><img src="7012c635116bc8deb4b85e9dbdfcc103.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//7012c635116bc8deb4b85e9dbdfcc103.png"></p>
+
+<p class="ng-scope">こちらの「アプリで簡単予約」という文字は、緑の枠で囲っているブロック要素の見出しになります。<br>
+こちらも先ほど同様、h要素で記述してあげればよさそうです。</p>
+
+<p class="ng-scope">次に、「App Store」と「Google Play」があります。<br>
+こちらも先ほどと同様、a要素で記述してあげればよさそうです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>新着情報<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;table&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>日にち<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>ニュース<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/06<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>【新規のお客さま限定】<span class="nt">&lt;strong&gt;</span>10％OFF<span class="nt">&lt;/strong&gt;</span>キャンペーン<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/03<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>うれしい<span class="nt">&lt;em&gt;</span>ポイントアップキャンペーン<span class="nt">&lt;/em&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/09/27<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2015年成人式 ご予約承ります<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+
+        <span class="nt">&lt;h2&gt;</span>スタイリスト紹介<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="err"> </span><span class="s">"yuito.JPG"</span> <span class="na">alt=</span><span class="s">"ゆいと"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>ゆいと<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"abe.JPG"</span> <span class="na">alt=</span><span class="s">"あべ"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>あべ<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>recommend<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          15周年記念キャンペーン
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://tech-camp.in"</span><span class="nt">&gt;</span>⇒詳しくはこちら<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+
+<span class="hll">        <span class="nt">&lt;h3&gt;</span>アプリで簡単予約<span class="nt">&lt;/h3&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;p&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://itunes.apple.com"</span><span class="nt">&gt;</span>App Store<span class="nt">&lt;/a&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://store.google.com"</span><span class="nt">&gt;</span>Google Play<span class="nt">&lt;/a&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;/p&gt;</span>
+</span>      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+
+  <span class="nt">&lt;footer&gt;</span>
+  <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集して保存したら、実際にブラウザで確認してみましょう。<br>
+以下の画像のようになっていることが確認できます。</p>
+
+<p class="ng-scope"><img src="d872bd9c3ff26d0c83dade5466caa326.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//d872bd9c3ff26d0c83dade5466caa326.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2237" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3161" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3161" name="check-3161" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">右ブロックの真ん中の要素の内容を記述することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">最後に青い枠で囲っているブロック要素を記述していきましょう。</p>
+
+<p class="ng-scope"><img src="7012c635116bc8deb4b85e9dbdfcc103.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//7012c635116bc8deb4b85e9dbdfcc103.png"></p>
+
+<p class="ng-scope">こちらの「お問い合わせ」という文字は、このブロック要素の見出しとなっていますね。<br>
+先ほど同様、h要素で囲えばいいでしょう。</p>
+
+<p class="ng-scope">その下には、お問い合わせフォームがあります。<br>
+こちらはどのように作成するのでしょうか。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_228"></i> form要素</h3>
+
+<p class="ng-scope">form要素は、「アンケートフォーム」や「お問い合わせフォーム」を表すブロック要素です。HTMLだけでは、何らかの情報を送信することができません。Ruby on RailsやPHPなどと組み合わせて、フォームから情報を送信することが可能になります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_229"></i> input要素</h3>
+
+<p class="ng-scope">フォームの入力欄や実行ボタンなどを作成することができる要素です。<br>
+input要素にはtype属性というものがあり、それを指定することによって様々な種類のフォーム部品を作り出すことができます。<br>
+input要素はtype属性、name属性など様々な属性があり、それらを組み合わせることによって複雑な処理を行うことができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_230"></i> type属性</h3>
+
+<p class="ng-scope">そのinput要素がどんな種類のフォームにするか指定します。</p>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th>指定</th>
+<th>フォーム部品</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td>１行のテキスト入力欄を作成します</td>
+</tr>
+<tr>
+<td>textarea</td>
+<td>複数行のテキスト入力欄を作成します</td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>チェックボックスを複数作成することができます</td>
+</tr>
+<tr>
+<td>radio</td>
+<td>複数の中から１つしか選択できない、ラジオボタンを作ります</td>
+</tr>
+<tr>
+<td>submit</td>
+<td>送信ボタンを作ります</td>
+</tr>
+</tbody>
+</table>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_231"></i> name属性</h3>
+
+<p class="ng-scope">入力された情報に固有の名前をつけることができます。<br>
+name属性に関しては、後にあるRailsの章で詳しく説明します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_232"></i> value属性</h3>
+
+<p class="ng-scope">こちらはフォームの種類によって挙動が変わってくる属性になります。<br>
+type="text"の場合、そのテキスト入力欄に初期値をつけることができます。<br>
+type = "button" の場合、ボタンに文字をつけることができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_233"></i> placeholder属性</h3>
+
+<p class="ng-scope">テキストなどの入力欄に文字を表示することができます。</p>
+
+<p class="ng-scope"><i class="icon attention"></i> value属性とplaceholder属性は似ていますが、実際には違うことを行っています。<br>
+value属性は実際の文字を入力しているだけになりますが、placeholderは仮の文字を表示しているだけになります。<br>
+この後詳しく学習するので、ここでは深く考えず先に進みましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_234"></i> label要素</h3>
+
+<p class="ng-scope">フォームの構成部品（一行テキストボックス・チェックボックス・ラジオボタン等）と、 その項目名（ラベル）を明確に関連付けるための要素です。</p>
+
+<p class="ng-scope">フォームの部品とテキストを一緒に<label>タグで囲むことにより関連付けが行われ、テキストをクリックするだけでチェックボックスにチェックを入れることができるようになります。</label></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_235"></i> select要素</h3>
+
+<p class="ng-scope">メニュー（セレクトボックス）を作成するときに使用します。メニューの選択肢は、select要素内に配置するoption要素で作成します。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_236"></i> option要素</h3>
+
+<p class="ng-scope">メニューの選択肢を作成するときに使用します。この要素内の文字列が、メニューの選択肢として表示されます。この要素は、select要素の間に記述します。</p>
+
+<p class="ng-scope">では実際に記述してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>新着情報<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;table&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>日にち<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>ニュース<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/06<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>【新規のお客さま限定】<span class="nt">&lt;strong&gt;</span>10％OFF<span class="nt">&lt;/strong&gt;</span>キャンペーン<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/03<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>うれしい<span class="nt">&lt;em&gt;</span>ポイントアップキャンペーン<span class="nt">&lt;/em&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/09/27<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2015年成人式 ご予約承ります<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+
+        <span class="nt">&lt;h2&gt;</span>スタイリスト紹介<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="err"> </span><span class="s">"yuito.JPG"</span> <span class="na">alt=</span><span class="s">"ゆいと"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>ゆいと<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"abe.JPG"</span> <span class="na">alt=</span><span class="s">"あべ"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>あべ<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>recommend<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          15周年記念キャンペーン
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://tech-camp.in"</span><span class="nt">&gt;</span>⇒詳しくはこちら<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;h3&gt;</span>アプリで簡単予約<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://itunes.apple.com"</span><span class="nt">&gt;</span>App Store<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://store.google.com"</span><span class="nt">&gt;</span>Google Play<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+
+<span class="hll">        <span class="nt">&lt;h3&gt;</span>お問い合わせ<span class="nt">&lt;/h3&gt;</span>
+</span><span class="hll">        <span class="nt">&lt;form&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"名前を入力してください"</span><span class="nt">&gt;&lt;br&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;textarea</span> <span class="na">placeholder=</span><span class="s">"予約日時やご要望をお書きください"</span><span class="nt">&gt;&lt;/textarea&gt;&lt;br&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;label&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"RadioGroup1"</span> <span class="na">value=</span><span class="s">"0"</span><span class="nt">&gt;</span>　男性
+</span><span class="hll">          <span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;label&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"RadioGroup1"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;</span>　女性
+</span><span class="hll">          <span class="nt">&lt;/label&gt;</span>
+</span><span class="hll">          アンケートにご協力ください。
+</span><span class="hll">          <span class="nt">&lt;label&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"Checkbox"</span> <span class="na">value=</span><span class="s">"チェックボックス"</span><span class="nt">&gt;</span>
+</span><span class="hll">            このサイトは役立った <span class="nt">&lt;/label&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;select&gt;</span>
+</span><span class="hll">              <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"student"</span><span class="nt">&gt;</span>学生<span class="nt">&lt;/option&gt;</span>
+</span><span class="hll">              <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"businessperson"</span><span class="nt">&gt;</span>社会人<span class="nt">&lt;/option&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;/select&gt;</span>
+</span><span class="hll">            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"予約メールを送る"</span><span class="nt">&gt;</span>
+</span><span class="hll">          <span class="nt">&lt;/form&gt;</span>
+</span>        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;footer&gt;</span>
+    <span class="nt">&lt;/footer&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集して保存したら、実際にブラウザで確認してみましょう。<br>
+以下のようにフォームが表示されているのが確認できます。</p>
+
+<p class="ng-scope"><img src="5a1b6db431e1589c4ad431b49200bec6.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//5a1b6db431e1589c4ad431b49200bec6.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2238" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3162" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3162" name="check-3162" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">右ブロックの下の要素の内容を記述することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope">フッターを作成しよう</h2>
+
+<p class="ng-scope">最終目標である <strong><em>Hair Olive</em></strong> を見てみましょう。<br>
+ページの一番下に著作権情報が書かれているフッターがあります。</p>
+
+<p class="ng-scope"><img src="d76e7b915c794b9d6c9168b198fa6588.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//d76e7b915c794b9d6c9168b198fa6588.png"></p>
+
+<p class="ng-scope">最後にこちらを記述していきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> index.htmlを以下のように編集しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="html">
+<div class="code-lang"><span class="bold">index.html</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"style.css"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Hair OLIVE<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;header&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"title"</span><span class="nt">&gt;</span>Hair OLIVE<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"heading-sentence"</span><span class="nt">&gt;</span>美しさを引き出すヘアスタイルのご提案。<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"navbar"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li&gt;</span>ABOUT - ご紹介<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>HOW TO - ご利用方法<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>MENU - メニュー・料金<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>STYLIST - スタイリスト一覧<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li&gt;</span>CONTACT - お問い合わせ・アクセス<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/header&gt;</span>
+
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"contents"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"clearfix"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"left-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h2&gt;</span>新着情報<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;table&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;th&gt;</span>日にち<span class="nt">&lt;/th&gt;</span>
+            <span class="nt">&lt;th&gt;</span>ニュース<span class="nt">&lt;/th&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/06<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>【新規のお客さま限定】<span class="nt">&lt;strong&gt;</span>10％OFF<span class="nt">&lt;/strong&gt;</span>キャンペーン<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/10/03<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>うれしい<span class="nt">&lt;em&gt;</span>ポイントアップキャンペーン<span class="nt">&lt;/em&gt;&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+          <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2014/09/27<span class="nt">&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;</span>2015年成人式 ご予約承ります<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;/table&gt;</span>
+
+        <span class="nt">&lt;h2&gt;</span>スタイリスト紹介<span class="nt">&lt;/h2&gt;</span>
+        <span class="nt">&lt;ul&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="err"> </span><span class="s">"yuito.JPG"</span> <span class="na">alt=</span><span class="s">"ゆいと"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>ゆいと<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+          <span class="nt">&lt;li&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"abe.JPG"</span> <span class="na">alt=</span><span class="s">"あべ"</span> <span class="na">class=</span><span class="s">"stylist-image"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h4</span> <span class="na">class=</span><span class="s">"stylist-name"</span><span class="nt">&gt;</span>あべ<span class="nt">&lt;/h4&gt;</span>
+          <span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;/ul&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"right-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h3&gt;</span>recommend<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          15周年記念キャンペーン
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://tech-camp.in"</span><span class="nt">&gt;</span>⇒詳しくはこちら<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;h3&gt;</span>アプリで簡単予約<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+           <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://itunes.apple.com"</span><span class="nt">&gt;</span>App Store<span class="nt">&lt;/a&gt;</span>
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://store.google.com"</span><span class="nt">&gt;</span>Google Play<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;h3&gt;</span>お問い合わせ<span class="nt">&lt;/h3&gt;</span>
+        <span class="nt">&lt;form&gt;</span>
+          <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"名前を入力してください"</span><span class="nt">&gt;&lt;br&gt;</span>
+          <span class="nt">&lt;textarea</span> <span class="na">placeholder=</span><span class="s">"予約日時やご要望をお書きください"</span><span class="nt">&gt;&lt;/textarea&gt;&lt;br&gt;</span>
+          <span class="nt">&lt;label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"RadioGroup1"</span> <span class="na">value=</span><span class="s">"0"</span><span class="nt">&gt;</span>　男性
+          <span class="nt">&lt;/label&gt;&lt;br&gt;</span>
+          <span class="nt">&lt;label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"radio"</span> <span class="na">name=</span><span class="s">"RadioGroup1"</span> <span class="na">value=</span><span class="s">"1"</span><span class="nt">&gt;</span>　女性
+          <span class="nt">&lt;/label&gt;</span>
+          アンケートにご協力ください。
+          <span class="nt">&lt;label&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">name=</span><span class="s">"Checkbox"</span> <span class="na">value=</span><span class="s">"チェックボックス"</span><span class="nt">&gt;</span>
+            このサイトは役立った <span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;select&gt;</span>
+              <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"student"</span><span class="nt">&gt;</span>学生<span class="nt">&lt;/option&gt;</span>
+              <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"businessperson"</span><span class="nt">&gt;</span>社会人<span class="nt">&lt;/option&gt;</span>
+            <span class="nt">&lt;/select&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"予約メールを送る"</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;/form&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;footer&gt;</span>
+<span class="hll">      <span class="nt">&lt;p&gt;</span>Copyright(C) Hair OLIVE ALL RIGHTS RESERVED.<span class="nt">&lt;/p&gt;</span>
+</span>    <span class="nt">&lt;/footer&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+  <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集して保存したら、実際にブラウザで確認してみましょう。<br>
+ページの一番下に、著作権情報が表示されてますが、文字が左側によって表示されてしまっています。</p>
+
+<p class="ng-scope"><img src="d32a8c04708461ab2d2f95cd5c9e0c4d.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//d32a8c04708461ab2d2f95cd5c9e0c4d.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2239" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3163" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3163" name="check-3163" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">フッターの内容を記述することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">文字を中央寄せにするには、text-aline要素を記述するのでした。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように変更しましょう</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">150px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#CCCCCC</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#C0C0C0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">50px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#A9A9A9</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">320px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">gray</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">td</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.stylist-image</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.stylist-name</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="nt">footer</span> <span class="p">{</span>
+</span><span class="hll">  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span></pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集を保存したら、実際にブラウザで確認してみましょう。<br>
+フッターの文字が中央寄せになっていることが確認できます。</p>
+
+<p class="ng-scope"><img src="ecc4b33568b22f341d10ddcf3b928a63.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ecc4b33568b22f341d10ddcf3b928a63.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2240" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3164" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3164" name="check-3164" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">フッターを装飾することができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">こちらでほとんどの実装が終わりました。<br>
+あとは背景色や余白などを微調整をして、Hair Oliveを完成させましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> style.cssを以下のように書き換えてください</h3>
+
+<div class="code-frame ng-scope" data-lang="css">
+<div class="code-lang"><span class="bold">style.css</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f0f0f0</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">color</span><span class="o">:</span> <span class="m">#333</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h1</span><span class="o">,</span><span class="nt">h2</span><span class="o">,</span><span class="nt">h3</span><span class="o">,</span><span class="nt">h4</span><span class="o">,</span><span class="nt">h5</span><span class="o">,</span><span class="nt">h6</span><span class="o">,</span><span class="nt">p</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">header</span> <span class="p">{</span>
+  <span class="k">margin-top</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">960px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.contents</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">10px</span> <span class="k">auto</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">960px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.navbar</span><span class="p">{</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">930px</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="k">auto</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">15px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.left-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">400px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">640px</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.right-content</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">370px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">280px</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">right</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#f9f9f9</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.clearfix</span><span class="nd">:after</span> <span class="p">{</span>
+  <span class="k">content</span><span class="o">:</span> <span class="s2">""</span><span class="p">;</span>
+  <span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span>
+  <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="nt">ul</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">list-style</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">ul</span> <span class="nt">li</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">td</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.stylist-image</span> <span class="p">{</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">a</span><span class="nd">:hover</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.title</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="k">fantasy</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.heading-sentence</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.stylist-name</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span><span class="p">;</span>
+  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">footer</span> <span class="p">{</span>
+  <span class="k">text-align</span><span class="o">:</span> <span class="k">center</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">編集して保存したら、実際にブラウザで表示してみましょう。<br>
+<strong><em>Hair Olive</em></strong>が完成していることが確認できます。</p>
+
+<p class="ng-scope"><img src="bddeb0839fe5366fe2926cdf728fca4c.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//bddeb0839fe5366fe2926cdf728fca4c.png"></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="2241" action="http://master.tech-camp.in/curriculums/441#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-3165" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-3165" name="check-3165" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Hair Oliveを完成させることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope">
+<i class="icon world"></i> コラム：卒業生のサービス紹介②</h2>
+
+<p class="ng-scope">こちらのコラムでは、TECH::CAMPを卒業した方が実際に運営しているサービスをご紹介します。ご覧いただければ、TECH::CAMPで学習した知識でどんなことができるかがわかるはずです。これからオリジナルのアプリケーションを作成したい方は、ぜひ参考にしてみてください！</p>
+
+<h4 class="ng-scope">食べる、歴史体験</h4>
+
+<p class="ng-scope"><img src="de8aaf0d21a8e981988702d9a2e9d82f.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//de8aaf0d21a8e981988702d9a2e9d82f.png"></p>
+
+<h5 class="ng-scope">サービス名：<a href="http://www.歴食.jp/#/home">歴食</a>
+</h5>
+
+<h5 class="ng-scope">製作者/期：吉本明宏さん/11期1ヶ月コース</h5>
+
+<h5 class="ng-scope">製作期間：1ヶ月</h5>
+
+<p class="ng-scope"><a href="http://www.歴食.jp/#/home">歴食</a>は、歴史上の有名人が愛した食を紹介するサイトです。歴史上のエピソードと共に縁のある食べ物を紹介しているのですが、そのエピソードがどれもとても面白く読み応えのあるものとなっています。店舗の検索機能も充実しており、現在地から近くにある「歴食を楽しめる店」を探すこともできます。</p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"><div class="ng-scope">
+  <p>テストを受けた回数：<span class="ng-binding">1回</span></p>
+  <p>最高得点：<span class="ng-binding">80点</span></p>
+  <!-- ngIf: curriculum.short_test.has_passed --><div class="ng-scope" ng-if="curriculum.short_test.has_passed">
+    <p>合否：<span class="pass">合格</span></p>
+  </div><!-- end ngIf: curriculum.short_test.has_passed -->
+  <!-- ngIf: !curriculum.short_test.has_passed -->
+</div></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">本章を学習するにあたって</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">学習の流れ</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">前章までの流れ</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">タイトルと見出しを作ろう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">ナビゲーションバーを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">左ブロックを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">右ブロックを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">フッターを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">
+ コラム：卒業生のサービス紹介②</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">15 / 15<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">質問受付中</div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/441">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding">質問受付中</span></div></div></body>
+</html>

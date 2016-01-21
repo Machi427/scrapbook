@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>引数を使いこなそう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    Rubyドリル~引数について~<small class="ng-binding">〜引数を使いこなそう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ギリシャには多数のアクロポリスがありますが、アテナイのアクロポリスは一般的に「アクロポリス」で通じる点に意義があります。2007年3月26日、アクロポリスは正式にヨーロッパの文化遺産リストに卓越した遺産として発表されました。<a class="ng-binding" href="https://www.flickr.com/photos/42903611" target="_top"> - Acropolis of Athens</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController">
+
+<h1 id="1" class="ng-scope">Ruby ドリル0(全4問)</h1>
+
+<p class="ng-scope">プログラミングの概念の中でも特にわかりづらい<code>引数</code>ついて、 実際に問題を解いていくことで理解を深めましょう。</p>
+
+<h1 id="2" class="ng-scope">この章の対象者</h1>
+
+<p class="ng-scope">この章では<strong>Lesson2の<a href="http://master.tech-camp.in/curriculums/154">Rubyでアプリケーションを作る2</a>のSTEP6までを終了された方向け</strong>に構成されています。</p>
+
+<h1 id="3" class="ng-scope">事前説明</h1>
+
+<p class="ng-scope">まずはメソッド(関数)や引数に関しておさらいしておきましょう。</p>
+
+<h2 id="4" class="ng-scope">メソッド(関数)について</h2>
+
+<p class="ng-scope">sample.rbというrubyファイルにコードを書いていくという前提で話を進めていきます。</p>
+
+<p class="ng-scope">メソッド(関数)とは、<code>きまった処理のかたまり</code>です。以下のように、rubyファイル(sample.rb)上に定義します。定義されただけでは、何も起こりません。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">say_hello</span>
+  <span class="nb">puts</span> <span class="s2">"hello！"</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">メソッドは、定義されたあと呼び出されて初めて実行されます。sample.rbを以下のように編集したとしましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">say_hello</span>
+  <span class="nb">puts</span> <span class="s2">"hello！"</span>
+<span class="k">end</span>
+
+<span class="n">say_hello</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">いま、sample.rbを実行すると以下の結果が得られます。</p>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  #rubyファイルの実行
+  ＄ ruby sample.rb
+  #実行結果
+  hello!
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h2 id="5" class="ng-scope">なぜ引数が必要なのか？</h2>
+
+<p class="ng-scope">問題に入る前に、まずは何故引数が必要なのか、ということについて解説します。</p>
+
+<p class="ng-scope">まずは、引数の無いメソッドについて考えてみましょう。先ほど出てきたメソッドは引数を持ちません。sample.rbを実行すると、<code>say_hello</code>メソッドは決まった処理をし、常に<code>hello!</code>という文字列を出力します。</p>
+
+<p class="ng-scope">しかし、これでは様々な言葉を出力したい場合にその分だけRubyファイルを用意しなければいけなくなってしまいます。</p>
+
+<p class="ng-scope">それではコードの記述量やファイルの量が増え、管理がしづらくなってしまいます。そこで、関数を<strong>呼び出す際に</strong>どんなことを出力させるか決める、という方法をとります。そのために、<code>引数</code>を利用します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">sample.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">say_something</span><span class="p">(</span><span class="n">something</span><span class="p">)</span>
+       <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">something</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+
+  <span class="n">say_something</span><span class="p">(</span><span class="s2">"hello!"</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">上記のコードでは、<code>say_someting</code>メソッドを呼び出す際に引数として文字列"hello"を渡しています。渡された引数は<code>something</code>という変数に代入され、<code>say_something</code>メソッドの中で利用されます。</p>
+
+<p class="ng-scope">つまり、1行目の<code>def say_something(something)</code>という記述は、</p>
+
+<p class="ng-scope"><strong>say_somethingメソッドに引数として渡されてきたオブジェクトは、say_somethingメソッドの中ではsomethingとして扱うよ</strong></p>
+
+<p class="ng-scope">という宣言のようなものなのです。(あくまでイメージです)</p>
+
+<p class="ng-scope">これならば、”hello”の部分を変えれば一つの関数で無限の出力結果を得ることができます。</p>
+
+<p class="ng-scope">ここで、絶対に覚えておきたいポイントがあります。それは以下の2つです。</p>
+
+<h4 class="ng-scope">①メソッドとは、材料(引数)を渡すと何かを返してくれるものである</h4>
+
+<h4 class="ng-scope">②メソッドが引数を受け取る時、その名前はなんでも良い</h4>
+
+<p class="ng-scope">特に②に関して良く勘違いがあるのですが、<strong>メソッド定義時に書く引数の受け取り方は、普通の変数の名前を決めるのと同様、なんでも構いません。</strong>その際は、どんな値を受け取るのかわかりやすい名前をつけることをおすすめします。「a」や「abc」などといった適当な名前をつけてしまうと、コードが理解しづらくなるからです。</p>
+
+<h1 id="6" class="ng-scope">問題</h1>
+
+<p class="ng-scope">では、ここからは実際に引数を利用した関数を作成し、実際に実行して挙動を試していただきます。</p>
+
+<p class="ng-scope">まずはじめに、プログラムを書いていくファイルを作成してください。</p>
+
+<p class="ng-scope"><i class="icon pen"></i> <strong>コードを書いていくためのファイルを作成しましょう</strong></p>
+
+<p class="ng-scope">Desktop上に、argument_test.rbというファイルを作成してください。</p>
+
+<p class="ng-scope">ファイルの作成の仕方は、<a href="http://master.tech-camp.in/curriculums/2">プログラミングをはじめよう</a>を参照してください。</p>
+
+<p class="ng-scope">ファイルが作成できたら、本章の問題はすべてargument_test.rbに追記か、上書きしていきましょう。</p>
+
+<p class="ng-scope">邪魔になれば、コメントアウト(ソースコードを無効にする処理)をしておけばOKです。(コメントアウトしたい部分を選択中に<code>commandキーと / キーを同時に押します</code>)</p>
+
+<h2 id="7" class="ng-scope"><strong>問題1</strong></h2>
+
+<p class="ng-scope">基本的な引数を扱う問題です。</p>
+
+<h3 class="ng-scope">問題</h3>
+
+<p class="ng-scope">(1)はじめに「何か値を入力してください・・・」と表示され、ユーザーが値を入力すると語尾に「!」をつけた形で出力するプログラムを作成してください。その際、ユーザーが入力した値を引数として受け取るメソッドを必ず書いてください。</p>
+
+<h3 class="ng-scope">定義する変数</h3>
+
+<p class="ng-scope">stringという変数に、<code>gets</code>メソッドを利用して値を定義してください。</p>
+
+<h3 class="ng-scope">実行結果</h3>
+
+<h4 class="ng-scope">例：プログラム実行時に「こんにちは」と入力した場合</h4>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  #デスクトップに移動
+  $cd Desktop
+  #Rubyファイルを実行
+  $ruby argument_test.rb
+  何か値を入力してください・・・
+  こんにちは
+  こんにちは！
+  $
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">プログラムのひな形</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">argument_test.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">puts_something</span> <span class="c1">#引数を受け取る処理を書きます</span>
+  <span class="c1">#ここに処理を書きます</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="s2">"何か値を入力してください・・・"</span>
+  <span class="c1">#getsメソッドを利用した変数の定義をした後、メソッドを呼び出してください</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/251">問題1解説</a></p>
+
+<h2 id="8" class="ng-scope"><strong>問題2</strong></h2>
+
+<p class="ng-scope">メソッドには、複数の引数を渡すこともできます。その際は、渡す部分とメソッドの定義部分にそれぞれ以下のように引数を並べます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">argument_test.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">hoge</span><span class="p">,</span> <span class="n">fuga</span><span class="p">)</span>
+    <span class="c1">#何らかの処理</span>
+  <span class="k">end</span>
+  <span class="c1">#メソッドの呼び出し</span>
+  <span class="nb">test</span><span class="p">(</span><span class="n">piyo</span><span class="p">,</span> <span class="n">mogo</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">渡された引数は順番で判断されます。すなわち、最初に渡されている引数が受け取り側の最初の変数に代入され、以降<code>,</code>で区切った分が順番に代入されていきます。この時、<strong>呼び出し側と定義側で引数の数が一致していないとエラーになります。</strong>気をつけましょう。</p>
+
+<h3 class="ng-scope">問題</h3>
+
+<p class="ng-scope">(1)ユーザーが数字を2つ渡すと、それらを掛け算した結果を返すプログラムを作ってください。</p>
+
+<h3 class="ng-scope">定義する変数</h3>
+
+<p class="ng-scope">2つの<strong>数字</strong>を、それぞれ<code>num1</code>, <code>num2</code>という変数に<code>gets</code>メソッドを利用して定義してください。</p>
+
+<h3 class="ng-scope">実行結果</h3>
+
+<h4 class="ng-scope">例：5と6を入力した場合</h4>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  #デスクトップに移動
+  $cd Desktop
+  #Rubyファイルを実行
+  $ruby argument_test.rb
+  最初の数字を入力してください
+  5
+  2番目の数字を入力してください
+  6
+  5と6をかけた答えは30です！
+  $
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/252">問題2解説</a></p>
+
+<h2 id="9" class="ng-scope"><strong>問題3</strong></h2>
+
+<p class="ng-scope">配列オブジェクトを引数として扱う問題です。</p>
+
+<h3 class="ng-scope">
+<i class="icon attention"></i> こちらの問題は、「Rubyでアプリケーションを作る2」のStep7で出てくる「配列オブジェクト」を利用します。Step7に取り組んだ後に挑戦しましょう。</h3>
+
+<h3 class="ng-scope">問題</h3>
+
+<p class="ng-scope">(1)配列を定義し、格納されている要素から任意の順番の要素を取り出すプログラムを作成してください。その際、定義した配列とユーザーが入力する任意の数字を引数としてメソッドに渡しましょう。</p>
+
+<h3 class="ng-scope">定義する変数</h3>
+
+<p class="ng-scope">①fruits_box = ["apple", "orange", "cherry"]</p>
+
+<p class="ng-scope">②ユーザーが入力する数字を、<code>gets</code>メソッドを利用し定義しましょう</p>
+
+<h3 class="ng-scope">実行結果</h3>
+
+<h4 class="ng-scope">例：2番目の要素を取り出したい場合</h4>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  #デスクトップに移動
+  $cd Desktop
+  #Rubyファイルを実行
+  $ruby argument_test.rb
+  何がでるかな？取り出したい要素の順番を入力してください
+  #2を入力
+  2
+  2番目の要素はorangeです！
+  $
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/253">問題3解説</a></p>
+
+<h2 id="10" class="ng-scope"><strong>問題4</strong></h2>
+
+<p class="ng-scope">ハッシュオブジェクト（連想配列）を引数として扱う問題です。</p>
+
+<h3 class="ng-scope">問題</h3>
+
+<p class="ng-scope">(1)ある映画のハッシュを定義し、格納されている「title」(タイトル）・「genre」(ジャンル)・「year」(公開年)の三つの要素の中から一つを取り出すプログラムを作成してください。</p>
+
+<h3 class="ng-scope">定義する変数</h3>
+
+<p class="ng-scope">①movie = {"title" =&gt; "ハリーポッター", "genre" =&gt; "ファンタジー", "year" =&gt; "2001年"}</p>
+
+<p class="ng-scope">②ユーザーが入力するキーを、<code>gets</code>メソッドを利用し定義しましょう</p>
+
+<h3 class="ng-scope">実行結果</h3>
+
+<h4 class="ng-scope">例：「title」の要素を取り出したい場合</h4>
+
+<div class="code-frame ng-scope" data-lang="bashターミナル"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  #デスクトップに移動
+  $cd Desktop
+  #Rubyファイルを実行
+  $ruby argument_test.rb
+  "以下から一つを選んで入力してください。
+    ・title
+    ・genre
+    ・year"
+  #「title」を入力
+  title
+  ハリーポッター
+  $
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<h3 class="ng-scope">解説</h3>
+
+<p class="ng-scope"><a href="http://master.tech-camp.in/curriculums/254">問題4解説</a></p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 460px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">Ruby ドリル0(全4問)</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">この章の対象者</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">事前説明</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents4" ng-click="clickContent(h2.id)">メソッド(関数)について</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">なぜ引数が必要なのか？</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents6" ng-click="clickContent(content.h1.id)">問題</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">問題1</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">問題2</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">問題3</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">問題4</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope ng-hide">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 0<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a class="ng-hide" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a class="ng-hide" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/250">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

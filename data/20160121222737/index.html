@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>アプリをHerokuにアップする</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    作ったアプリをHerokuにアップしよう<small class="ng-binding">〜アプリをHerokuにアップする〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    ストーンヘンジはイギリス南部にある環状列石（ストーンサークル）です。ストーンヘンジが造られたのは約5000年前と言われ、世界でも最も有名な遺跡の一つになっています。ストーンヘンジが造られた目的に関しては宇宙との交信、寺院、天体観測のための施設など様々な説がありますがはっきりとした目的は未だに明らかになっていません。<a class="ng-binding" href="https://www.flickr.com/photos/amylloyd/15492700456" target="_top">Mrs Airwolfhound - Stonehenge</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">Herokuを利用して作ったアプリを公開してみましょう。</p>
+
+<h1 id="2" class="ng-scope">はじめに</h1>
+
+<p class="ng-scope">本章では、作成したアプリケーションをHerokuサーバーにアップロードする為に、以下の手順を追って説明していきます。</p>
+
+<ol class="ng-scope">
+<li><strong>Herokuのユーザー登録</strong></li>
+<li><strong>コマンドラインからHerokuにログインする</strong></li>
+<li><strong>アプリにHeroku用の設定をする</strong></li>
+<li><strong>作成したコードをバージョン管理システムに追加する</strong></li>
+<li><strong>アプリをデプロイする</strong></li>
+<li><strong>データベースに初期値を設定する</strong></li>
+</ol>
+
+<h1 id="3" class="ng-scope">Herokuとは</h1>
+
+<p class="ng-scope">Herokuは他のサーバーと比べて非常に簡単にアプリをアップロードする事ができます。</p>
+
+<p class="ng-scope">本来であれば以下の手順を踏まなければアプリをアップロードする事はできませんでした。</p>
+
+<ol class="ng-scope">
+<li><strong>サーバー用PCやルータなどのハードウェアを購入</strong></li>
+<li><strong>インターネットに接続し、ファイアウォールを設定</strong></li>
+<li><strong>OSをインストール</strong></li>
+<li><strong>データベースをセットアップ</strong></li>
+<li><strong>Rubyなどのアプリケーション実行環境をセットアップ</strong></li>
+</ol>
+
+<p class="ng-scope">このように、用意するだけで非常に時間と費用が掛かってしまいます。</p>
+
+<p class="ng-scope">Herokuはこれらの複雑な設定を最初からセットしてくれているので、簡単にアプリをアップロードする事ができます。</p>
+
+<h1 id="4" class="ng-scope">Herokuの準備</h1>
+
+<h2 id="5" class="ng-scope">Herokuのアカウントを取得する</h2>
+
+<p class="ng-scope">Herokuを利用する為にはアカウントの登録が必要です。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、ユーザー登録をしてください</h3>
+
+<p class="ng-scope">Herokuの<a href="https://signup.heroku.com/identity" target="_top">ユーザー登録画面</a>からアカウントを作成しましょう。</p>
+
+<p class="ng-scope"><img src="01.png" alt="Herokuのユーザー登録"></p>
+
+<p class="ng-scope"><strong>First name(名前)</strong>と<strong>Last name(苗字)</strong>と<strong>Email</strong>を入力後、<strong>Create Free Account</strong>をクリックしてください。</p>
+
+<p class="ng-scope">入力したメールアドレスに登録用URLが記載されたメールが届くので、リンクをクリックしてください。</p>
+
+<p class="ng-scope"><img src="02.png" alt="ユーザー登録メール認証"></p>
+
+<p class="ng-scope">パスワードの設定画面が表示されるので、８文字以上でパスワードを設定してください。</p>
+
+<p class="ng-scope"><img src="03.png" alt="Herokuのパスワード設定"></p>
+
+<p class="ng-scope">パスワード設定後、以下の画面が表示されたらアカウント登録は完了です。</p>
+
+<p class="ng-scope"><img src="04.png" alt="パスワード登録完了画面"></p>
+
+<p class="ng-scope"><strong>Click here to proceed as **</strong>****をクリックしてマイページへ移動しましょう。</p>
+
+<p class="ng-scope">以下のような画面が表示される事を確認してください。</p>
+
+<p class="ng-scope"><img src="05.png" alt="Herokuのマイページ確認"></p>
+
+<p class="ng-scope">これでHerokuのアカウント登録は完了です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="563" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-822" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-822" name="check-822" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Herokuのアカウントを取得することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="6" class="ng-scope">クレジットカードを登録しましょう</h2>
+
+<p class="ng-scope">Herokuは基本的に無料で利用が可能ですが、使用するデータベースの設定がデフォルトで<strong>PostgreSQL</strong>というデータベースになっています。</p>
+
+<p class="ng-scope">しかし、これまでのカリキュラムではMySQLを使用してきたので、データベースはMySQLを使用したいですよね。</p>
+
+<p class="ng-scope">HerokuでMySQLを使用する為にはクレジットカードの登録が必須となっているので、アカウント管理ページの<a href="https://dashboard.heroku.com/account/billing" target="_top">Billing</a>からカード情報を登録しましょう。</p>
+
+<p class="ng-scope">データベースをMySQLに設定する方法は後述します。</p>
+
+<p class="ng-scope">もしクレジットカードを持っていない方、登録をしたくない方はPostgreSQLのままでも利用する事ができるのでこの作業は飛ばしてください。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_458"></i> PostgreSQL</h3>
+
+<p class="ng-scope"><strong>PostgreSQL</strong>とは、MySQLのようなデータベース管理システムの種類のうちの一つです。</p>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>クレジットカードを登録しても実際に課金される事はありません。</strong></p>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>JCBカードでは登録ができません</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、クレジットカードの登録をしてください</h3>
+
+<p class="ng-scope">アカウント管理ページの<a href="https://dashboard.heroku.com/account/billing" target="_top">Billing</a>へ移動し、<strong>Add Credit Card</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="06.png" alt="Heroku -> Billing"></p>
+
+<p class="ng-scope">ポップアップでクレジットカードの登録フォームが現れるので、カード情報を登録してください。</p>
+
+<p class="ng-scope"><img src="f52d8405e760daf959fa196c51e103f5.png" alt="クレジットカード登録画面"></p>
+
+<p class="ng-scope"><strong>Save Details</strong>をクリックして保存しましょう。</p>
+
+<p class="ng-scope">これでクレジットカードの登録は完了です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="564" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-823" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-823" name="check-823" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Herokuにクレジットカードを登録することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="7" class="ng-scope">コマンドラインからHerokuにログインする</h1>
+
+<h2 id="8" class="ng-scope">Heroku Toolbeltをインストールする</h2>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_459"></i> Heroku Toolbelt</h3>
+
+<p class="ng-scope">基本的にHerokuのコントロールはコマンドラインから行うのですが、Heroku Toolbeltをインストールする事によって、その為のHeroku専用コマンドが使えるようになります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下を参考にHeroku Toolbeltをインストールしてください</h3>
+
+<p class="ng-scope"><a href="https://devcenter.heroku.com/articles/getting-started-with-ruby#set-up" target="_top">ダウンロードページ</a>から<code>Mac OS X</code>を選択してダウンロードしましょう。</p>
+
+<p class="ng-scope"><img src="08.png" alt="HerokuToolbeltのインストール1"></p>
+
+<p class="ng-scope"><strong>アプリケーションで開く</strong>で<strong>Installer</strong>を選択し、<strong>OK</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="09.png" alt="HerokuToolbeltのインストール2"></p>
+
+<p class="ng-scope">以下のような画面が現れた場合は、<strong>続ける</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="10.png" alt="HerokuToolbeltのインストール3"></p>
+
+<p class="ng-scope">インストーラーが起動するので<strong>続ける</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="11.png" alt="HerokuToolbeltのインストール4"></p>
+
+<p class="ng-scope"><strong>インストール</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="12.png" alt="HerokuToolbeltのインストール5"></p>
+
+<p class="ng-scope">インストールをする際にパスワードを求められるので、Macのパスワードを入力してください。</p>
+
+<p class="ng-scope"><img src="13.png" alt="HerokuToolbeltのインストール6"></p>
+
+<p class="ng-scope">以下のような画面が表示されたら、インストールが完了しています。</p>
+
+<p class="ng-scope"><img src="14.png" alt="HerokuToolbeltのインストール7"></p>
+
+<p class="ng-scope">これで、Heroku Toolbeltのインストールは完了です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="565" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-824" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-824" name="check-824" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Heroku Toolbeltのインストールをすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="9" class="ng-scope">Herokuにログインしましょう</h2>
+
+<p class="ng-scope">Heroku Toolbeltをインストールしたので、ターミナル上でHerokuのコマンドが使えるようなりました。</p>
+
+<p class="ng-scope">早速ログインをしてみましょう。</p>
+
+<p class="ng-scope">アップロードしたいアプリのディレクトリに移動後<code>heroku login</code>コマンドを実行してください。</p>
+
+<p class="ng-scope">ログイン後、メールアドレスの入力を求められるので、Herokuに登録したメールアドレスを入力してください。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="err">$</span> <span class="n">cd</span> <span class="n">my_app_name</span>                           <span class="c1">#アップロードしたいアプリのディレクトリに移動</span>
+  <span class="err">$</span> <span class="n">heroku</span> <span class="n">login</span>                             <span class="c1">#herokuへログインする為のコマンド</span>
+  <span class="o">=&gt;</span> <span class="no">Enter</span> <span class="n">your</span> <span class="no">Heroku</span> <span class="n">credentials</span><span class="o">.</span>
+  <span class="o">=&gt;</span> <span class="ss">Email</span><span class="p">:</span>                                  <span class="c1">#メールアドレスの入力を求められる</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">パスワードは入力をしても文字は表示されないですが、ちゃんと入力されているので打ち終わったらエンターキーを押してください。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="o">=&gt;</span> <span class="ss">Email</span><span class="p">:</span><span class="n">your</span><span class="o">-</span><span class="n">address</span><span class="vi">@example</span><span class="o">.</span><span class="n">com</span>          <span class="c1">#登録したメールアドレスを入力</span>
+  <span class="o">=&gt;</span> <span class="no">Password</span><span class="p">(</span><span class="n">typing</span> <span class="n">will</span> <span class="n">be</span> <span class="n">hidden</span><span class="p">):</span>        <span class="c1">#パスワードを入力後、エンターキーを押す</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">無事ログインに成功すると<strong>Authentication successful.</strong>と表示されます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="566" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-825" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-825" name="check-825" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">ターミナルからHerokuにログインすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="10" class="ng-scope">アプリにHeroku用の設定をする</h1>
+
+<p class="ng-scope">アプリをHerokuにアップロードする前にHeroku上でちゃんと動作するように設定をする必要があります。</p>
+
+<h3 class="ng-scope">CSSファイルを正しく読み込ませるようにする</h3>
+
+<p class="ng-scope">アプリをアップロードしても静的アセットファイル（画像やCSS）がHeroku上でうまく動作しない場合があるので、<strong>rails_12factor</strong>というGemを入れる必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_460"></i> rails_12factor</h3>
+
+<p class="ng-scope">静的アセットファイルやログの保存先をHeroku用に微調整してくれるGemです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「アプリ名/Gemfile」に下記の記述を行末に追加してください</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> アプリ名
+    <ul>
+      <li class="t-file"> Gemfile</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">group</span> <span class="ss">:production</span><span class="p">,</span> <span class="ss">:staging</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'rails_12factor'</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">また、いつもと同じようにmysqlのバージョンもここで指定しておきましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">gem</span> <span class="s1">'mysql2'</span><span class="p">,</span> <span class="s1">'0.3.18'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Gemfile.lockを削除した後に、ターミナルでbundle installを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでプロダクション環境だけで<strong>rails_12factor</strong>を動かすような設定ができました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="576" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-836" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-836" name="check-836" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">rails_12factorをインストールすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">続けて、<strong>「アプリ名/config/environments/production.rb」</strong>の記述を変更します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「config/environments/production.rb」を以下のように変更してください。元から記述がない場合は追加してください</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> config
+    </li>
+<li class="t-folder"> environments
+      <ul>
+        <li class="t-file"> production.rb</li>
+      </ul>
+    </li>
+  
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">config/environments/production.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">config</span><span class="o">.</span><span class="n">cache_classes</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">config</span><span class="o">.</span><span class="n">serve_static_assets</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">compile</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">config</span><span class="o">.</span><span class="n">assets</span><span class="o">.</span><span class="n">digest</span> <span class="o">=</span> <span class="kp">true</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="577" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-837" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-837" name="check-837" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">config/environments/production.rbファイルを編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これでアプリがHeroku上でちゃんと動作するように設定することができました。</p>
+
+<h3 class="ng-scope">PostgreSQLを使用するための設定をする</h3>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>MySQLを使用する方（PostgreSQLにこだわりのない方）はこの作業は飛ばしてください</strong></p>
+
+<p class="ng-scope">TECH::MASTERに沿ってカリキュラムを進められた皆さんのアプリのデータベースはMySQLになっていると思います。<br>
+今回、プロダクション環境ではデータベースに<code>PostgreSQL</code>を使用したいので、まずはbrewを利用してMacに<code>PostgreSQL</code>をダウンロードします。続いて、<code>Gemfile</code>に<code>pg</code>というGemを追加する必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 「アプリ名/Gemfile」に下記のように追加してください</h3>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> アプリ名
+    <ul>
+      <li class="t-file"> Gemfile</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="n">group</span> <span class="ss">:production</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'rails_12factor'</span>
+  <span class="n">gem</span> <span class="s1">'pg'</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで、brewを利用してpostgreSQLをダウンロードしてください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">brew</span> <span class="n">install</span> <span class="n">postgresql</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルでbundle installを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">bundle</span> <span class="n">install</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="579" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-839" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-839" name="check-839" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">pgをインストールすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これでプロダクション環境ではPostgreSQLを使用するように設定ができました。</p>
+
+<h1 id="11" class="ng-scope">作成したコードをバージョン管理システムに追加する</h1>
+
+<p class="ng-scope"><br> <i class="icon attention"></i>　<strong>ここからはMySQLを使用される方も一緒に作業を進めてください</strong>　<i class="icon attention"></i><br>
+<br><br>
+ここからはGitコマンドを利用していくので、主なGitコマンドの意味を理解しておきましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_461"></i> Gitコマンド</h3>
+
+<table class="ng-scope">
+<thead>
+<tr>
+<th style="text-align: center;">Gitコマンド</th>
+<th style="text-align: center;">意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">git init</td>
+<td style="text-align: center;">リポジトリを作成する</td>
+</tr>
+<tr>
+<td style="text-align: center;">git add ファイル名</td>
+<td style="text-align: center;">管理するファイルを指定する</td>
+</tr>
+<tr>
+<td style="text-align: center;">git commit</td>
+<td style="text-align: center;">ファイルをコミットする</td>
+</tr>
+</tbody>
+</table>
+
+<p class="ng-scope"><br></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_462"></i> git add</h3>
+
+<p class="ng-scope"><code>git add</code>コマンドは<code>git add ファイル名</code>とすることで、コミットしたいファイルを指定することができるのですが、一番最初のコミットなどで全てのファイルを指定したい場合は<code>git add .</code>と入力すると全て指定してくれます。</p>
+
+<p class="ng-scope">また、<code>git add .</code>は<code>add</code>と<code>.</code>の間にスペースがあるので注意してください。</p>
+
+<p class="ng-scope"><code>git add -u</code>で変更したファイルのみを自動的に指定することもできます。</p>
+
+<p class="ng-scope"><br></p>
+
+<p class="ng-scope"><strong>【例】<code>app/controller/top_controller.rb</code>を指定したい場合</strong></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="n">app</span><span class="o">/</span><span class="n">controller</span><span class="o">/</span><span class="n">top_controller</span><span class="o">.</span><span class="n">rb</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Herokuにログインができたら、<code>git init</code>コマンドでカレントディレクトリにGitのリポジトリを作成し、<code>git add</code>コマンドでコミットするファイルの指定をしましょう。</p>
+
+<p class="ng-scope">今回は全てのファイルを指定するので<code>git add .</code>とします。</p>
+
+<p class="ng-scope"><code>add</code>と<code>.</code>の間のスペースに注意してください。<br>
+</p><h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">init</span>
+<span class="o">=&gt;</span> <span class="no">Initialized</span> <span class="n">empty</span> <span class="no">Git</span> <span class="n">repository</span> <span class="k">in</span> <span class="sr">/Users/</span><span class="n">yuya</span><span class="o">/</span><span class="n">herokuapp</span><span class="o">/</span><span class="n">herokutest</span><span class="o">/.</span><span class="n">git</span><span class="o">/</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">最後に<code>git commit -m "init commit"</code>と入力して指定したファイルをコミットしましょう。</p>
+
+<p class="ng-scope"><code>-m</code>はコミットメッセージを指定するオプションです。</p>
+
+<p class="ng-scope"><code>"init commit"</code>の部分は任意の文字で良いですが、今回は分かりやすいように<code>"init commit"</code>としておきましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"init commit"</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="n">master</span> <span class="p">(</span><span class="n">root</span><span class="o">-</span><span class="n">commit</span><span class="p">)</span> <span class="mi">88</span><span class="n">daeb1</span><span class="o">]</span> <span class="n">init</span> <span class="n">commit</span>
+<span class="o">=&gt;</span> <span class="mi">69</span> <span class="n">files</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">1149</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+                    <span class="err">・</span>
+                    <span class="err">・</span>
+<span class="o">=&gt;</span> <span class="n">create</span> <span class="n">mode</span> <span class="mi">100644</span> <span class="n">vendor</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">javascripts</span><span class="o">/.</span><span class="n">keep</span>
+<span class="o">=&gt;</span> <span class="n">create</span> <span class="n">mode</span> <span class="mi">100644</span> <span class="n">vendor</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">stylesheets</span><span class="o">/.</span><span class="n">keep</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これで全ファイルのコミットが完了しました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="567" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-826" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-826" name="check-826" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">主なGitコマンドについて理解することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="568" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-827" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-827" name="check-827" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">git commit -m "init commit"コマンドで全ファイルをコミットすることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="12" class="ng-scope">アプリをデプロイする</h1>
+
+<p class="ng-scope">作成したアプリをHerokuにアップする為に、まずHeroku上にアプリケーションを作成する必要があります。</p>
+
+<p class="ng-scope"><code>heroku create</code>コマンドを入力してHerokuに新しいアプリケーションを作成しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">create</span>
+<span class="o">=&gt;</span> <span class="no">Creating</span> <span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="p">,</span> <span class="n">stack</span> <span class="n">is</span> <span class="n">cedar</span><span class="o">-</span><span class="mi">14</span>
+<span class="o">=&gt;</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">herokuapp</span><span class="o">.</span><span class="n">com</span><span class="o">/</span> <span class="o">|</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">git</span><span class="o">.</span><span class="n">heroku</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">git</span>
+<span class="o">=&gt;</span> <span class="no">Git</span> <span class="n">remote</span> <span class="n">heroku</span> <span class="n">added</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">今回はアプリ名を指定していないので自動的に名前が付けられます。</p>
+
+<p class="ng-scope">この場合、<code>fathomless-fortress-5255</code>がアプリ名で、<code>https://fathomless-fortress-5255.herokuapp.com/</code>があなたのアプリのURLになります。</p>
+
+<p class="ng-scope">もし、アプリ名を指定したい場合は、<code>heroku create アプリ名</code>とすることでアプリ名の指定ができます。</p>
+
+<p class="ng-scope">また、一度名前を指定せずにアプリを作成し、後から名前を変更したい時は<code>heroku rename 新しい名前</code>とすることで名前の変更ができます。</p>
+
+<p class="ng-scope">それでは、URLにアクセスしてアプリケーションが作成されている事を確認しましょう。<br>
+<img src="15.png" alt="Herokuアプリ作成確認画面"><br>
+<form class="ng-pristine ng-valid ng-scope" data-id="569" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-828" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-828" name="check-828" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">heroku createコマンドでHerokuにアプリケーションを作成することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-829" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-829" name="check-829" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">表示されたURLにアクセスして、アプリケーションが作成されていることが確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">データベースをMySQLに変更する</h3>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>PostgreSQLを使用する方はこの作業は飛ばしてください</strong></p>
+
+<p class="ng-scope">Herokuでは、使用するデータベースの設定がデフォルトで<strong>PostgreSQL</strong>というデータベースになっています。</p>
+
+<p class="ng-scope">今回はMySQLを使用したいので、その為の設定を行います。</p>
+
+<p class="ng-scope">まずは、<code>heroku addons:add cleardb</code>を入力して、<strong>ClearDBアドオン</strong>を追加しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_463"></i> ClearDBアドオン</h3>
+
+<p class="ng-scope"><strong>ClearDBアドオン</strong>とは、ClearDBというHerokuとは独立したデータベースサービスが提供している、MySQLを使うためのものです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c1">#以下のコマンドを実行</span>
+<span class="err">$</span> <span class="n">heroku</span> <span class="ss">addons</span><span class="p">:</span><span class="n">add</span> <span class="n">cleardb</span>
+<span class="o">=&gt;</span> <span class="no">Adding</span> <span class="n">cleardb</span> <span class="n">on</span> <span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="p">,</span> <span class="n">v3</span> <span class="p">(</span><span class="n">free</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="no">Use</span> <span class="sb">`heroku addons:docs cleardb`</span> <span class="n">to</span> <span class="n">view</span> <span class="n">documentation</span><span class="o">.</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでデータベースの設定をMySQLにする事ができましたが、Ruby on Railsを使う場合はMySQLのバージョンを対応するGemに合わせる必要があるので設定を変更します。</p>
+
+<p class="ng-scope">アプリケーションのGemfileを確認しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">Gemfile</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="n">gem</span> <span class="s1">'mysql2'</span><span class="p">,</span> <span class="s1">'0.3.18'</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">今回は<code>mysql2</code>となっているのでこちらに書き換える必要がありますね。</p>
+
+<p class="ng-scope"><code>heroku config | grep CLEARDB_DATABASE_URL</code>コマンドを入力すると、自分のデータベース情報が表示されます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">CLEARDB_DATABASE_URL</span>
+<span class="o">=&gt;</span> <span class="ss">CLEARDB_DATABASE_URL</span><span class="p">:</span> <span class="ss">mysql</span><span class="p">:</span><span class="sr">//</span><span class="ss">bb815616ec74c8</span><span class="p">:</span><span class="mi">258</span><span class="n">b770e</span><span class="vi">@us</span><span class="o">-</span><span class="n">cdbr</span><span class="o">-</span><span class="n">iron</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mo">02</span><span class="o">.</span><span class="n">cleardb</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">heroku_821c20450897253?reconnect</span><span class="o">=</span><span class="kp">true</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>mysql://bb815616ec74c8:258b770e@us-cdbr-iron-east-02.cleardb.net/heroku_821c20450897253?reconnect=true</code>これがあなたのデータベース情報です。</p>
+
+<p class="ng-scope">出力されたデータベース情報の<code>mysql</code>の部分を<code>mysql2</code>に変更して、<code>heroku config:set</code>コマンドで設定を上書きします。</p>
+
+<p class="ng-scope">【例】</p>
+
+<p class="ng-scope"><code>heroku config:set DATABASE_URL=mysql2://bb815616ec74c8:258b770e@us-cdbr-iron-east-02.cleardb.net/heroku_821c20450897253?reconnect=true</code></p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="ss">config</span><span class="p">:</span><span class="n">set</span> <span class="no">DATABASE_URL</span><span class="o">=</span><span class="ss">mysql2</span><span class="p">:</span><span class="sr">//</span><span class="ss">bb815616ec74c8</span><span class="p">:</span><span class="mi">258</span><span class="n">b770e</span><span class="vi">@us</span><span class="o">-</span><span class="n">cdbr</span><span class="o">-</span><span class="n">iron</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mo">02</span><span class="o">.</span><span class="n">cleardb</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">heroku_821c20450897253?reconnect</span><span class="o">=</span><span class="kp">true</span>
+<span class="o">=&gt;</span> <span class="no">Setting</span> <span class="n">config</span> <span class="n">vars</span> <span class="ow">and</span> <span class="n">restarting</span> <span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="p">,</span> <span class="n">v4</span>
+<span class="o">=&gt;</span> <span class="ss">DATABASE_URL</span><span class="p">:</span> <span class="ss">mysql2</span><span class="p">:</span><span class="sr">//</span><span class="ss">bb815616ec74c8</span><span class="p">:</span><span class="mi">258</span><span class="n">b770e</span><span class="vi">@us</span><span class="o">-</span><span class="n">cdbr</span><span class="o">-</span><span class="n">iron</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mo">02</span><span class="o">.</span><span class="n">cleardb</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">heroku_821c20450897253?reconnect</span><span class="o">=</span><span class="kp">true</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>DATABASE_URL:</code>以降が上書きしたデータベースの情報になっていれば大丈夫です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="570" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-830" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-830" name="check-830" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">clearDBアドオンを追加することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-831" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-831" name="check-831" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Gemfileを確認し、MySQLのバージョンを合わせることができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>PostgreSQLを使用する方はここから作業を進めてください(またMySQLを使用する方も引き続き以下のカリキュラムを進めてください)</strong></p>
+
+<p class="ng-scope">では、<code>git push heroku master</code>コマンドでアプリをプッシュしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">master</span>
+<span class="o">=&gt;</span> <span class="no">Counting</span> <span class="ss">objects</span><span class="p">:</span> <span class="mi">81</span><span class="p">,</span> <span class="n">done</span><span class="o">.</span>
+<span class="o">=&gt;</span> <span class="no">Delta</span> <span class="n">compression</span> <span class="n">using</span> <span class="n">up</span> <span class="n">to</span> <span class="mi">8</span> <span class="n">threads</span><span class="o">.</span>
+<span class="o">=&gt;</span> <span class="no">Compressing</span> <span class="ss">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">72</span><span class="o">/</span><span class="mi">72</span><span class="p">),</span> <span class="n">done</span><span class="o">.</span>
+<span class="o">=&gt;</span> <span class="no">Writing</span> <span class="ss">objects</span><span class="p">:</span> <span class="mi">100</span><span class="o">%</span> <span class="p">(</span><span class="mi">81</span><span class="o">/</span><span class="mi">81</span><span class="p">),</span> <span class="mi">19</span><span class="o">.</span><span class="mi">58</span> <span class="no">KiB</span> <span class="o">|</span> <span class="mi">0</span> <span class="n">bytes</span><span class="o">/</span><span class="n">s</span><span class="p">,</span> <span class="n">done</span><span class="o">.</span>
+<span class="o">=&gt;</span> <span class="no">Total</span> <span class="mi">81</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">2</span><span class="p">),</span> <span class="n">reused</span> <span class="mi">0</span> <span class="p">(</span><span class="n">delta</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="ss">remote</span><span class="p">:</span> <span class="no">Compressing</span> <span class="n">source</span> <span class="n">files</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="o">.</span>
+                    <span class="err">・</span>
+                    <span class="err">・</span>
+<span class="o">=&gt;</span> <span class="ss">remote</span><span class="p">:</span> <span class="no">Verifying</span> <span class="n">deploy</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="o">.</span>
+<span class="o">=&gt;</span> <span class="no">To</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">git</span><span class="o">.</span><span class="n">heroku</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">git</span>
+<span class="o">=&gt;</span>  <span class="o">*</span> <span class="o">[</span><span class="kp">new</span> <span class="n">branch</span><span class="o">]</span>      <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">最後に<code>heroku run rake db:migrate</code>コマンドでマイグレートをしましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">run</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">migrate</span>
+<span class="o">=&gt;</span> <span class="no">Running</span> <span class="sb">`rake db:migrate`</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">terminal</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">up</span><span class="p">,</span> <span class="n">run</span><span class="o">.</span><span class="mi">5718</span>
+<span class="o">=&gt;</span> <span class="o">==</span> <span class="mi">20150329130914</span> <span class="ss">CreateCompanies</span><span class="p">:</span> <span class="n">migrating</span> <span class="o">==================================</span>
+<span class="o">=&gt;</span> <span class="o">--</span> <span class="n">create_table</span><span class="p">(</span><span class="ss">:companies</span><span class="p">)</span>
+<span class="o">=&gt;</span>    <span class="o">-&gt;</span> <span class="mi">0</span><span class="o">.</span><span class="mo">0027</span><span class="n">s</span>
+<span class="o">=&gt;</span> <span class="o">==</span> <span class="mi">20150329130914</span> <span class="ss">CreateCompanies</span><span class="p">:</span> <span class="n">migrated</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="mo">0032</span><span class="n">s</span><span class="p">)</span> <span class="o">=========================</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>heroku open</code>コマンドでアプリを開いてみましょう。</p>
+
+<p class="ng-scope">自分のアプリが表示されていれば無事アップロードが完了しています。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="571" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-832" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-832" name="check-832" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">git push heroku masterコマンドでHerokuにアプリをデプロイすることができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-833" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-833" name="check-833" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">heroku run rake db:migrateコマンドでマイグレートすることができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-834" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-834" name="check-834" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">heroku openコマンドでHerokuに自分のアプリケーションが公開されていることが確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="13" class="ng-scope">Herokuのデータベースに接続する</h2>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>この作業はMySQLを使用する方のみ行ってください。PostgreSQLの方の接続方法は後述します。</strong></p>
+
+<h3 class="ng-scope">SequelProを使用してデータベースに接続をする</h3>
+
+<p class="ng-scope">Sequel Proでデータベースを見るには、Herokuのデータベース情報が必要になるので<code>heroku config --app アプリケーション名</code>と入力して、データベース情報を確認しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span> <span class="o">--</span><span class="n">app</span> <span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span>
+<span class="o">=&gt;</span> <span class="o">===</span> <span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span> <span class="no">Config</span> <span class="no">Vars</span>
+   <span class="ss">CLEARDB_DATABASE_URL</span><span class="p">:</span>         <span class="ss">mysql</span><span class="p">:</span><span class="sr">//</span><span class="ss">bb815616ec74c8</span><span class="p">:</span><span class="mi">258</span><span class="n">b770e</span><span class="vi">@us</span><span class="o">-</span><span class="n">cdbr</span><span class="o">-</span><span class="n">iron</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mo">02</span><span class="o">.</span><span class="n">cleardb</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">heroku_821c20450897253?reconnect</span><span class="o">=</span><span class="kp">true</span>
+   <span class="ss">DATABASE_URL</span><span class="p">:</span>                 <span class="ss">mysql2</span><span class="p">:</span><span class="sr">//</span><span class="ss">bb815616ec74c8</span><span class="p">:</span><span class="mi">258</span><span class="n">b770e</span><span class="vi">@us</span><span class="o">-</span><span class="n">cdbr</span><span class="o">-</span><span class="n">iron</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mo">02</span><span class="o">.</span><span class="n">cleardb</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">heroku_821c20450897253?reconnect</span><span class="o">=</span><span class="kp">true</span>
+   <span class="ss">HEROKU_POSTGRESQL_SILVER_URL</span><span class="p">:</span> <span class="ss">postgres</span><span class="p">:</span><span class="sr">//</span><span class="ss">ytewoikjmhqwgy</span><span class="p">:</span><span class="no">CkM1ho0I8nuUP6IfVEfzF1kx8w</span><span class="vi">@ec2</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="mi">21</span><span class="o">-</span><span class="mi">73</span><span class="o">-</span><span class="mi">32</span><span class="o">.</span><span class="n">compute</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="n">amazonaws</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">5432</span><span class="o">/</span><span class="n">dbq5mrfm161djq</span>
+   <span class="ss">LANG</span><span class="p">:</span>                         <span class="n">en_US</span><span class="o">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+   <span class="ss">RACK_ENV</span><span class="p">:</span>                     <span class="n">production</span>
+   <span class="ss">RAILS_ENV</span><span class="p">:</span>                    <span class="n">production</span>
+   <span class="ss">RAILS_SERVE_STATIC_FILES</span><span class="p">:</span>     <span class="n">enabled</span>
+   <span class="ss">SECRET_KEY_BASE</span><span class="p">:</span>              <span class="mi">7</span><span class="n">d26b3281be3329e5049160a46611f4b73a717358c8b323967abf9fd5ad0a523a715b615a237d1a830921a344c16e64f9b162cf7de26f7f75ca1c12fca27137d</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">いくつか項目が表示されますが、今回必要な情報は<strong>DATABASE_URL</strong>の部分です。</p>
+
+<p class="ng-scope"><code>mysql2://ユーザー名:パスワード@ホスト名/データベース?reconnect=true</code>となっています。</p>
+
+<p class="ng-scope">この情報をSequelProに入力して、Herokuアプリのデータベースに接続をします。</p>
+
+<p class="ng-scope">接続方法は<strong>「標準」</strong>にしてください。</p>
+
+<p class="ng-scope">【例】</p>
+
+<p class="ng-scope"><img src="16.png" alt="SequelPro接続設定画面"><br>
+以下のように、自分で作成したテーブル表示が以下のようにされている事を確認してください。</p>
+
+<p class="ng-scope"><img src="17.png" alt="SequelProテーブル確認画面"><br>
+<form class="ng-pristine ng-valid ng-scope" data-id="580" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-840" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-840" name="check-840" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">HerokuアプリのMySQLデータベース情報を取得し、Sequel Proで接続することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">PG Commanderを使用してデータベースに接続をする</h3>
+
+<p class="ng-scope"><i class="icon attention"></i><br>
+<strong>この作業はPostgreSQLを使用する方のみ行ってください</strong></p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_464"></i> PG Commander</h3>
+
+<p class="ng-scope">PostgreSQLをGUIで簡単に操作できるツール</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下の手順に従い、PG Commanderをインストールしてください</h3>
+
+<p class="ng-scope">まずPG Commanderのサイトにアクセスして<strong>「Download」</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="18.png" alt="PG Commanderダウンロード1"><br>
+<strong>「アプリケーションで開く」</strong>を選択して<strong>「OK」</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="19.png" alt="PG Commanderダウンロード2"><br>
+インストールが終わったら象さんのアイコンをクリックしてPG Commanderを開いてください。</p>
+
+<p class="ng-scope"><img src="20.png" alt="PG Commanderアイコン"><br>
+以下のような画面が現れる事を確認してください。</p>
+
+<p class="ng-scope"><img src="21.png" alt="PG Commander起動画面"><br>
+<form class="ng-pristine ng-valid ng-scope" data-id="581" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-841" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-841" name="check-841" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">PG Commanderをインストールして開くことができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">確認ができたら、PG Commanderを開たままターミナルを開いてください。</p>
+
+<p class="ng-scope">データベースに接続する為にはHeroku上の自分のアプリのデータベース情報が必要になります。</p>
+
+<p class="ng-scope"><code>heroku config | grep DATABASE_URL</code>というコマンドで自分のデータベース情報を表示する事ができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">DATABASE_URL</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">実行をすると自分のデータベース情報が表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">config</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">DATABASE_URL</span>
+<span class="o">=&gt;</span> <span class="ss">DATABASE_URL</span><span class="p">:</span>                  <span class="ss">postgres</span><span class="p">:</span><span class="sr">//</span><span class="ss">qmugttlrpqjeay</span><span class="p">:</span><span class="no">RvVfZ4wnM_s0SbvOEleT2NG4LZ</span><span class="vi">@ec2</span><span class="o">-</span><span class="mi">54</span><span class="o">-</span><span class="mi">163</span><span class="o">-</span><span class="mi">239</span><span class="o">-</span><span class="mi">102</span><span class="o">.</span><span class="n">compute</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="n">amazonaws</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">5432</span><span class="o">/</span><span class="n">ddisgps57nbkgh</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope"><code>postgres://〜</code>が自分のデータベース情報なのでこの部分を末尾まで選択してコピーをしてください。</p>
+
+<p class="ng-scope">コピーができたら先ほど開いたPG Commanderへ戻って、左下の<strong>「New Favorite」</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="22.png" alt="PG Commander -> New Favorite"><br>
+すると以下のように、自動的に値がセットされていると思います。</p>
+
+<p class="ng-scope">あとは<strong>「Nickname」</strong>にアプリ名など任意の名前を入力し、<strong>「Connect」</strong>をクリックしてください</p>
+
+<p class="ng-scope"><img src="23.png" alt="PG Commander接続設定画面"><br>
+以下のような画面が出たら<strong>「connect」</strong>をクリックしてください。</p>
+
+<p class="ng-scope"><img src="24.png" alt="PG Commander接続設定画面2"><br>
+以下のような画面を確認することができれば接続成功です。</p>
+
+<p class="ng-scope"><img src="25.png" alt="PG Commanderテーブル確認"><br>
+<form class="ng-pristine ng-valid ng-scope" data-id="582" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-842" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-842" name="check-842" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">HerokuアプリのPostgreSQLデータベース情報を取得し、PG Commanderで接続することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="14" class="ng-scope">アプリケーションに変更を加え、プッシュする</h2>
+
+<p class="ng-scope">アプリケーションをアップロードした後も、機能を追加したりしてアップデートをしたいですよね。</p>
+
+<p class="ng-scope">その為にはまず、<code>git add -u</code>コマンドで変更を加えたファイルをコミット対象に指定します。</p>
+
+<p class="ng-scope">その後、<code>git commit -m "update design"</code>コマンドでファイルをコミットしましょう。</p>
+
+<p class="ng-scope"><code>"update design"</code>の部分は任意のもので構いませんが、今回はデザインに変更を加えたと仮定してコミットメッセージは<code>"update design"</code>としています。</p>
+
+<p class="ng-scope">コミットができたら、<code>git push heroku master</code>コマンドでHerokuにプッシュしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="o">-</span><span class="n">u</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"update design"</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">master</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="n">master</span> <span class="mi">6</span><span class="n">b2496a</span><span class="o">]</span> <span class="n">change</span> <span class="n">design</span>
+    <span class="mi">24</span> <span class="n">files</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">704</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">),</span> <span class="mi">9</span> <span class="n">deletions</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
+    <span class="n">create</span> <span class="n">mode</span> <span class="mi">100644</span> <span class="n">app</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">user</span><span class="o">.</span><span class="n">rb</span>
+                    <span class="err">・</span>
+                    <span class="err">・</span>
+    <span class="n">create</span> <span class="n">mode</span> <span class="mi">100644</span> <span class="nb">test</span><span class="o">/</span><span class="n">fixtures</span><span class="o">/</span><span class="n">users</span><span class="o">.</span><span class="n">yml</span>
+    <span class="n">create</span> <span class="n">mode</span> <span class="mi">100644</span> <span class="nb">test</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">user_test</span><span class="o">.</span><span class="n">rb</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">変更を加えた点が反映されているか、アプリケーションのURLにアクセスして確認しましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="572" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-835" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-835" name="check-835" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">アプリのURLにアクセスして、変更が反映されていることが確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="15" class="ng-scope">データベースの初期値を設定する</h1>
+
+<p class="ng-scope">ここまでで、Heroku上でアプリケーションを公開する事はできましたが、作ったアプリにデータベースの初期値が入っている場合、これらのデータをセットする必要があります。</p>
+
+<p class="ng-scope">今回は、<strong>渋谷近辺の上場企業一覧を表示するだけのアプリ</strong>を例に取って解説を進めていきます。</p>
+
+<p class="ng-scope"><img src="26.png" alt="Herokuサンプルアプリ完成画面"><br>
+このアプリは<strong>ログインしているユーザーのみ</strong>渋谷近辺の上場企業一覧を見る事ができます。</p>
+
+<p class="ng-scope">また、ユーザーの新規登録機能は停止しているのでデータベースの初期値にユーザーを追加しておかなければなりません。</p>
+
+<p class="ng-scope">そして、このアプリのデータベースには上場企業の一覧が入っており、ビューでそれらのデータを呼び出しています。</p>
+
+<p class="ng-scope">ですので、この上場企業一覧のデータも初期値として設定する必要があります。</p>
+
+<p class="ng-scope">ではまずデータベースの初期値にユーザーを登録しましょう。</p>
+
+<p class="ng-scope">データベースの初期値を設定するには<code>seeds.rb</code>ファイルを編集する必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_465"></i> seeds.rb</h3>
+
+<p class="ng-scope"><code>seeds.rb</code>はRubyを使って記述されたスクリプトファイルです。</p>
+
+<p class="ng-scope">この中にデータを追加するためのスクリプトを記述し、実行することでデータを追加することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> db/seeds.rbを開き、ファイルを編集してください</h3>
+
+<p class="ng-scope">ユーザーを追加するには以下のように記述します。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">db/seeds.rb</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre>  <span class="no">User</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="ss">email</span><span class="p">:</span> <span class="s1">'tech-camp@gmail.com'</span><span class="p">,</span> <span class="ss">password</span><span class="p">:</span> <span class="s1">'12345678'</span><span class="p">,</span> <span class="ss">nickname</span><span class="p">:</span> <span class="s1">'Mako'</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">今回はメールアドレスとパスワードの他にニックネームを追加しています。</p>
+
+<p class="ng-scope">ではターミナルからgitコマンドで<code>seeds.rb</code>の変更を反映させましょう。</p>
+
+<p class="ng-scope"><code>git add db/seeds.rb</code>とすることで<code>seeds.rb</code>ファイルのみをコミットの対象に指定します。</p>
+
+<p class="ng-scope"><code>git commit -m "add user seeds"</code>コマンドでコミットします。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> ターミナルで以下のコマンドを入力してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="n">db</span><span class="o">/</span><span class="n">seeds</span><span class="o">.</span><span class="n">rb</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"add user seeds"</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="n">master</span> <span class="mi">302</span><span class="n">f295</span><span class="o">]</span> <span class="n">add</span> <span class="n">seeds</span><span class="o">.</span><span class="n">rb</span>
+   <span class="mi">1</span> <span class="n">file</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">2</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">),</span> <span class="mi">7</span> <span class="n">deletions</span><span class="p">(</span><span class="o">-</span><span class="p">)</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">コミットが完了したら<code>git push heroku master</code>コマンドでプッシュしましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">master</span>
+<span class="o">=&gt;</span>                  <span class="err">・</span>
+                    <span class="err">・</span>
+   <span class="ss">remote</span><span class="p">:</span> <span class="no">Verifying</span> <span class="n">deploy</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="o">.</span>
+   <span class="no">To</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">git</span><span class="o">.</span><span class="n">heroku</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">git</span>
+   <span class="mi">9481</span><span class="n">b40</span><span class="o">.</span><span class="n">.</span><span class="mi">302</span><span class="n">f295</span>  <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">最後に<code>heroku run rake db:seed</code>コマンドでセットした初期値を反映させます。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">run</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">seed</span>
+<span class="o">=&gt;</span> <span class="no">Running</span> <span class="sb">`rake db:seed`</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">terminal</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">up</span><span class="p">,</span> <span class="n">run</span><span class="o">.</span><span class="mi">6384</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">これでデータベースの初期値にユーザーを登録することができたので、SequelProでHerokuアプリのデータベースを見てみましょう。</p>
+
+<p class="ng-scope">SequelProに接続してusersテーブルを見てみましょう。</p>
+
+<p class="ng-scope"><img src="27.png" alt="Seedで追加したusersテーブルの情報"><br>
+<code>seeds.rb</code>に記述したユーザーが追加されていますね。</p>
+
+<p class="ng-scope">これでユーザーの登録は完了です。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="573" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-843" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-843" name="check-843" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">seeds.rbを編集することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-844" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-844" name="check-844" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">gitコマンドで編集したseeds.rbプッシュすることができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-845" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-845" name="check-845" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">heroku rub rake db:seedコマンドでseeds.rbを実行することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-846" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-846" name="check-846" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">usersテーブルを確認して、seeds.rbに記述したユーザーのデータが入っていることが確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h3 class="ng-scope">大量のデータベースを初期値に設定する</h3>
+
+<p class="ng-scope">ここまででデータベースの初期値にユーザーを登録することができましたが、肝心の<strong>上場企業一覧のデータベースが存在していない</strong>ため、ログインができても何も表示されません。</p>
+
+<p class="ng-scope"><img src="28.png" alt="データベースのないサンプルアプリ"></p>
+
+<p class="ng-scope">ユーザーを追加した時は追加するレコードの数が少なかったので、<code>seeds.rb</code>に一つずつ書けばよかったですが、上場企業一覧データは大量にあるので一つずつ入力するのは大変です。</p>
+
+<p class="ng-scope"><strong>上場企業一覧のデータ</strong></p>
+
+<p class="ng-scope"><img src="29.png" alt="サンプルアプリのcompaniesテーブル"></p>
+
+<p class="ng-scope">このような場合、データベースをCSV形式でエクスポートして、<code>seeds.rb</code>に取り込みます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_466"></i> CSV形式</h3>
+
+<p class="ng-scope"><strong>CSV(Comma-Separated Values)</strong>とは、データをカンマで区切って並べたファイル形式のことで、多くのデータを交換する際によく使われます。</p>
+
+<p class="ng-scope">ではまず、Sequel Proからデータを全てエクスポートしましょう。</p>
+
+<p class="ng-scope">Sequel Proを開いて、上部のバーの<strong>「ファイル」</strong>から<strong>「エクスポート」</strong>を開いてください。</p>
+
+<p class="ng-scope"><img src="30.png" alt="SequelProからエクスポート"></p>
+
+<p class="ng-scope">ウィンドウが出てくるので、<strong>「CSV」</strong>タブを選択して出力したいテーブルにチェックを入れましょう。</p>
+
+<p class="ng-scope"><img src="31.png" alt="エクスポートするテーブルの選択"></p>
+
+<p class="ng-scope">チェックを入れたら<strong>「エクスポート」</strong>を押してください。</p>
+
+<p class="ng-scope">指定した場所に<code>テーブル名.csv</code>ができていればエクスポートができています。</p>
+
+<p class="ng-scope">エクスポートしたCSVファイルはdbフォルダに移動してください。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> db
+    <ul>
+      <li class="t-file"> companies.csv</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="574" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-847" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-847" name="check-847" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Sequel ProからCSV形式でデータベースをエクスポートすることができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-848" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-848" name="check-848" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">エクスポートしたCSVファイルをdbフォルダに移動することができた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<p class="ng-scope">これでcvsファイルを読み込む準備ができたので、次は<code>seeds.rb</code>にcsvファイルからレコードを一つずつ取り出して、データベースに入れる記述をします。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">seeds.rb"</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">require</span> <span class="s2">"csv"</span>
+
+<span class="n">companies_csv</span> <span class="o">=</span> <span class="no">CSV</span><span class="o">.</span><span class="n">readlines</span><span class="p">(</span><span class="s2">"db/companies.csv"</span><span class="p">)</span>
+<span class="n">companies_csv</span><span class="o">.</span><span class="n">shift</span>
+<span class="n">companies_csv</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+  <span class="no">Company</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="n">row</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span><span class="p">,</span> <span class="ss">url</span><span class="p">:</span> <span class="n">row</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span><span class="p">,</span> <span class="ss">map</span><span class="p">:</span> <span class="n">row</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span><span class="p">)</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">１行目の<code>require "csv"</code>でCSVライブラリを使用できるようにします。</p>
+
+<p class="ng-scope">３行目の<code>readlines</code>はCSVのヘルパーメソッドで、パスで指定されたCSVファイルを読み込み、配列の配列でデータを返してくれます。</p>
+
+<p class="ng-scope">ですので、この時点で<code>companies_csv</code>という変数の中には<code>companies.csv</code>が配列化された状態で入っています。</p>
+
+<p class="ng-scope">また、CSVファイルの最初の一行はカラム名が入っているので４行目の<code>shift</code>で配列の最初の要素を削除しています。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_467"></i> Shiftメソッド</h3>
+
+<p class="ng-scope">shiftメソッドは、配列の最初の要素を削除し、その要素を返します。</p>
+
+<p class="ng-scope">５行目以降ではeachメソッドを使って配列から一つずつ取り出してデータベースに登録をしています。</p>
+
+<p class="ng-scope">今回の場合配列の中の配列の０番目は<code>id</code>、１番目は<code>name</code>、２番目は<code>url</code>、３番目は<code>map</code>に対応しています。</p>
+
+<p class="ng-scope">ではターミナルからgitコマンドで<code>seeds.rb</code>の変更を反映させましょう。</p>
+
+<p class="ng-scope"><code>git add db/seeds.rb db/companies.csv</code>として<code>seeds.rb</code>と<code>companies.csv</code>をコミットの対象に指定します。</p>
+
+<p class="ng-scope"><code>git commit -m "add csv"</code>コマンドでコミットします。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="n">db</span><span class="o">/</span><span class="n">seeds</span><span class="o">.</span><span class="n">rb</span> <span class="n">db</span><span class="o">/</span><span class="n">companies</span><span class="o">.</span><span class="n">csv</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s2">"add csv"</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="n">master</span> <span class="mi">5</span><span class="n">ca635a</span><span class="o">]</span> <span class="n">add</span> <span class="n">csv</span>
+   <span class="mi">2</span> <span class="n">files</span> <span class="n">changed</span><span class="p">,</span> <span class="mi">246</span> <span class="n">insertions</span><span class="p">(</span><span class="o">+</span><span class="p">)</span>
+   <span class="n">create</span> <span class="n">mode</span> <span class="mi">100644</span> <span class="n">db</span><span class="o">/</span><span class="n">companies</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">コミットができたらプッシュをしましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">push</span> <span class="n">heroku</span> <span class="n">master</span>
+<span class="o">=&gt;</span>                  <span class="err">・</span>
+                    <span class="err">・</span>
+   <span class="ss">remote</span><span class="p">:</span> <span class="no">Verifying</span> <span class="n">deploy</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">done</span><span class="o">.</span>
+   <span class="no">To</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">git</span><span class="o">.</span><span class="n">heroku</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fathomless</span><span class="o">-</span><span class="n">fortress</span><span class="o">-</span><span class="mi">5255</span><span class="o">.</span><span class="n">git</span>
+      <span class="mi">5</span><span class="n">ca635a</span><span class="o">.</span><span class="n">.ec2c522</span>  <span class="n">master</span> <span class="o">-&gt;</span> <span class="n">master</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">プッシュが完了したら<code>heroku run rake db:seed</code>コマンドで<code>seeds.rb</code>を実行しましょう。</p>
+
+<div class="code-frame ng-scope" data-lang="ruby">
+<div class="code-lang"><span class="bold">ターミナル</span></div>
+<table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="err">$</span> <span class="n">heroku</span> <span class="n">run</span> <span class="n">rake</span> <span class="ss">db</span><span class="p">:</span><span class="n">seed</span>
+<span class="o">=&gt;</span> <span class="no">Running</span> <span class="sb">`rake db:seed`</span> <span class="n">attached</span> <span class="n">to</span> <span class="n">terminal</span><span class="o">.</span><span class="n">.</span><span class="o">.</span> <span class="n">up</span><span class="p">,</span> <span class="n">run</span><span class="o">.</span><span class="mi">2818</span>
+</pre></div>
+</td>
+</tr></tbody></table>
+</div>
+
+<p class="ng-scope">Sequel Proでテーブルを更新してデータが追加されているか確認しましょう。</p>
+
+<p class="ng-scope"><img src="32.png" alt="Seedで追加したデータベースの確認画面"><br>
+idの数が１０ずつ増えているのはキーの衝突を防ぐための仕様なので気にしなくても大丈夫です。</p>
+
+<p class="ng-scope">ビュー側でもデータが表示されていることが分かります。</p>
+
+<p class="ng-scope"><img src="33.png" alt="サンプルアプリの最終確認画面"><br>
+友人や他の受講者の方に公開してアプリのフィードバックをもらいましょう！</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="575" action="http://master.tech-camp.in/curriculums/167#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-849" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-849" name="check-849" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">seeds.rbにCSVファイルのデータ一つずつ取り出して入れることできた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-850" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-850" name="check-850" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">heroku run rake db:seedコマンドでseeds.rbを実行することができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-851" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-851" name="check-851" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">gitコマンドでseeds.rbとCSVファイルをプッシュすることができた</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-852" ng-repeat="check in checkbox.checks"><input class="ng-pristine ng-untouched ng-valid" id="check-852" name="check-852" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">Sequel Proでテーブルを更新し、データが追加されていることが確認できた</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+</div>
+          <!-- ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">はじめに</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents3" ng-click="clickContent(content.h1.id)">Herokuとは</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents4" ng-click="clickContent(content.h1.id)">Herokuの準備</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">Herokuのアカウントを取得する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">クレジットカードを登録しましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents7" ng-click="clickContent(content.h1.id)">コマンドラインからHerokuにログインする</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents8" ng-click="clickContent(h2.id)">Heroku Toolbeltをインストールする</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">Herokuにログインしましょう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents10" ng-click="clickContent(content.h1.id)">アプリにHeroku用の設定をする</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents11" ng-click="clickContent(content.h1.id)">作成したコードをバージョン管理システムに追加する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents12" ng-click="clickContent(content.h1.id)">アプリをデプロイする</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents13" ng-click="clickContent(h2.id)">Herokuのデータベースに接続する</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents14" ng-click="clickContent(h2.id)">アプリケーションに変更を加え、プッシュする</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents15" ng-click="clickContent(content.h1.id)">データベースの初期値を設定する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">0 / 30<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 0%;">
+      0%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/167">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>

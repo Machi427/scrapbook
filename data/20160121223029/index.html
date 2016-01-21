@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8"><title>WebページでJavaScriptを使ってみよう</title><meta content="authenticity_token" name="csrf-param">
+<meta content="Y2UzkG5GQl5jzIBq3nOdxAEomQen5uuix05BO4pPfYw=" name="csrf-token"><link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48 128x128 256x256">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="ng-scope" ng-app="techMaster"><div class="navbar main_header navbar-fixed-top navbar-default" role="navigation"><div class="container"><div class="navbar-header"><button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="http://master.tech-camp.in/" target="_self"><img src="logo.png"></a></div><div class="navbar-collapse collapse" id="navbar"><ul class="nav navbar-nav navbar-right"><li class="text">終了まであと<i class="limit_time">10</i>日</li><li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" id="profileDropdown" style="padding: 10px 7px; cursor: pointer;"><img class="nav-proimg" src="noimage.png">大宅 誠人</a><ul class="dropdown-menu" id="profileDropdown"><li><a class="mypage-link" href="http://master.tech-camp.in/users/mypage" target="_self">マイページを見る</a></li><li><a href="http://master.tech-camp.in/users" target="_self">十三期生一覧</a></li></ul><div class="popover bottom" id="profilePopover"><div class="arrow"></div><h3 class="popover-title" id="popover-bottom">プロフィールを完成させませんか？<a class="anchorjs-link" href="#popover-bottom"><span class="anchorjs-icon"></span></a></h3><div class="popover-content">「<a href="http://master.tech-camp.in/users/1867/edit" target="_self">プロフィール編集</a>」から、必須の項目を設定しましょう！</div></div></li></ul></div></div></div><!-- ngView:  --><div class="ng-scope" autoscroll="" ng-view=""><curriculum style="display: inline;" class="ng-scope">
+  <div class="container" id="curriculum">
+    <div class="row curriculum-inner">
+      <div class="col-lg-12 main" ng-init="init()">
+        <div ng-show="curriculum.image" class="page-header page" style="background-image: url('main_visual.jpg');">
+  <h1 class="ng-binding">
+    JavaScript基礎<small class="ng-binding">〜WebページでJavaScriptを使ってみよう〜</small>
+  </h1>
+  <!-- ngIf: curriculum.image.description.length --><div style="" class="flickr_attr ng-binding ng-scope" ng-if="curriculum.image.description.length">
+    オソルノ山は、チリの南部にある活発な火山です。その姿が富士山によく似ており、「チリ富士」と呼ばれることもあります。<a class="ng-binding" href="https://www.flickr.com/photos/monchan/8528239762/in/photolist-eBThP-9SpeMw-6A33tM-dZBsyA-dZsrzX" target="_top">Ik T - Mount Osorno</a>
+  </div><!-- end ngIf: curriculum.image.description.length -->
+</div>
+      </div>
+      <div class="col-md-9 col-sm-12" id="curriculumMainContainer">
+        <div class="curriculum_content">
+          <div class="curriculum_text ng-scope" compile-progress-notifier="willCompiledCurriculumText" ng-controller="CurriculumHintController"><h1 id="1" class="ng-scope">学習の目標</h1>
+
+<p class="ng-scope">前の章で、JavaScriptの基本的な文法を学びました。そこで今回は実際にJavaScriptをページに取り入れて、以下のような「ボタンをクリックしたら文字が変わる」といった機能を作ることを通じて、JavaScriptでページに変化を加える基本的な方法を学びます。</p>
+
+<p class="ng-scope"><img src="ff96dd317ae63261f4d82b4d5215b4ff.gif" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ff96dd317ae63261f4d82b4d5215b4ff.gif"></p>
+
+<h1 id="2" class="ng-scope">HTMLにJavaScriptを取り入れる</h1>
+
+<p class="ng-scope">JavaScriptのコードを書いても、実際にそれがページ上で実行されなくては意味がありません。</p>
+
+<p class="ng-scope">JavaScriptのコードは、HTMLファイル内に記載します。HTMLファイル内に、JavaScriptのコードをscriptタグで囲って配置すると、読み込まれたタイミングで実行されます。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span> <span class="c1">// この行が読み込まれた時点で実行される</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    ...
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">scriptタグで囲ったJavaScriptのコードは画面上には出力されないので、bodyタグの中に置いても、headタグの中に置いても構いません。</p>
+
+<p class="ng-scope">しかし、JavaScriptのコードが長くなってくると、HTMLファイルが膨大になりますね。HTMLファイルはあくまでもページに表示される要素の情報を持つというのが一番の役割ですから、JavaScriptはHTMLファイルから分離するのが良いと考えられます。</p>
+
+<p class="ng-scope">そこでここでは、CSSと同様に、JavaScriptだけを記述したファイルを外部に用意し、HTMLで読み込むという方法を用いましょう。</p>
+
+<h2 id="3" class="ng-scope">HTMLからJavaScriptファイルを読み込もう</h2>
+
+<p class="ng-scope">JavaScriptを記述したファイルの拡張子はjsです。<br>
+htmlファイルとjsファイルを作成し、htmlファイルからjsファイルを読み込むようにします。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.jsというファイルを作成し、以下のように記述してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">また、jsファイルと同じディレクトリに、それを読み込むHTMLファイルを作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlというファイルを作成し、以下のように記述してください</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これで空のhtmlファイルを作成することができました。次に、作成したtest.jsを読み込む記述をtest.htmlに書き加えましょう。</p>
+
+<p class="ng-scope">外部のcssファイルを読み込む時は、headタグ内に以下のように記述しましたね。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"stylesheet.css"</span><span class="nt">&gt;</span> <span class="c">&lt;!-- 同じディレクトリのstylesheet.cssファイルを読み込む --&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">外部のjsファイルを読み込む時は、headタグ内に以下のように記述します。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"javascript.js"</span><span class="nt">&gt;&lt;/script&gt;</span> <span class="c">&lt;!-- 同じディレクトリのjavascript.jsファイルを読み込む --&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">では、test.jsを読み込む記述をtest.htmlに記述しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="html"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"test.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">それでは、JavaScriptが読み込まれているか確認しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> test.htmlをChromeで開き、コンソールの出力を確認してください</h3>
+
+<p class="ng-scope">コンソールは<code>command + option + J</code>により立ち上げることができました。コンソールに、以下のように「Hello world」の文字列が出力されていれば、test.jsが読み込まれていたことになりますね。</p>
+
+<p class="ng-scope"><img src="7680e6ac1172176dc9fbcc6c83299d3f.png" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//7680e6ac1172176dc9fbcc6c83299d3f.png"></p>
+
+<p class="ng-scope">今回はコンソールに出力するだけのコードでしたが、これから学んでいく「HTMLの要素に変化を加えるような処理」に関しても、同様にjsファイルに記述することで実行させることができます。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1540" action="http://master.tech-camp.in/curriculums/289#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2179" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2179" name="check-2179" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">HTMLにJavaScriptを取り入れる方法として、scriptタグで囲ってHTMLファイル内に適当な場所に配置するという方法がある。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2180" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2180" name="check-2180" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">HTMLにJavaScriptを取り入れる方法として、CSSと同様に、headタグ内に適切な記述をすることで、外部のJavaScriptファイルを読み込むという方法がある。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="4" class="ng-scope">RailsにJavaScriptを取り入れる</h1>
+
+<p class="ng-scope">htmlファイルに記述することでJavaScriptを読み込ませることができました。しかし<br>
+、Railsカリキュラムを経て、折角Railsでアプリケーションを作れるようになったのですから、RailsアプリケーションにJavaScriptを取り入れたいですね。その方法を学んでいきましょう。</p>
+
+<h2 id="5" class="ng-scope">新規アプリケーションを作成しよう</h2>
+
+<p class="ng-scope">PicTweetの時と全く同じように、新しくアプリケーションを作成しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 適当なディレクトリで以下のコマンドを実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rails new <span class="nb">test</span>-js -d mysql
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、test-jsという名前のアプリケーションが作成されますね。</p>
+
+<h2 id="6" class="ng-scope">ページにアクセスできるようにしよう</h2>
+
+<p class="ng-scope">アプリケーションの作成をしただけでは、ページにアクセスすることはできません。<br>
+以下の手順を追って、ページにアクセスできるようにしましょう。</p>
+
+<p class="ng-scope">① bundle installにより必要なgemをインストールする<br>
+② データベースを作成する<br>
+③ コントローラーを作成し、アクションを定義する<br>
+④ 作成したアクションに対応するビューを作成する<br>
+⑤ 作成したアクションに対応するルーティングを追加する</p>
+
+<p class="ng-scope">まず、①のgemのインストールを行いましょう。rails newによりアプリケーションを作成した直後に、デフォルトで生成されるGemfileに従って既にbundle installがされています。<br>
+そのため、デフォルトでインストールされるgemで問題無ければbundle installを改めて実行する必要はありません。<br>
+PicTweetでは、アプリケーションを作成した後に、使用するgemをGemfileに追記しました。そのgemをインストールするために、bundle installを手動で実行する必要があったのでした。<br>
+さて、今回は特に追記するgemはありませんが、デフォルトでインストールされるgemであるmysql2の最新版(0.4.0)には問題があるため、Gemfileの記述を変更し、低いバージョンを指定する必要があります。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> Gemfileを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c1"># 7行目付近のmysql2の記述を以下のように書き換える</span>
+<span class="n">gem</span> <span class="s1">'mysql2'</span><span class="p">,</span> <span class="s1">'0.3.18'</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、使うmysql2のバージョンを指定することができました。それではbundle installしましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下のコマンドを実行し、gemのインストールをしてください。</h3>
+
+<p class="ng-scope">※なお、以下の操作は全てアプリケーションのディレクトリで行って下さい。</p>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>bundle install
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これによりgemのインストールと、アプリケーションが使用するgemの一覧であるGemfile.lock更新が行われます。</p>
+
+<p class="ng-scope">次に②のデータベースの作成から行いましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下のコマンドを実行し、データベースを作成してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rake db:create
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これによりデータベースが作られました。</p>
+
+<p class="ng-scope">次に、③のコントローラーの作成とアクションの定義を行いましょう。</p>
+
+<p class="ng-scope">今回は、topコントローラーを作成し、indexアクションを定義することで、アプリケーションのトップページを作りましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> 以下のコマンドを実行し、コントローラーを作成してください</h3>
+
+<div class="code-frame ng-scope" data-lang="bash"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nv">$ </span>rails g controller top
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これによりtopコントローラーが作成されました。次に、topコントローラーにindexアクションを作成します。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/controllers/top_controller.rbを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">TopController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">index</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これによりindexアクションが定義されました。</p>
+
+<p class="ng-scope">次に、④のビューの作成を行いましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/views/top/にindex.html.erbを作成してください</h3>
+
+<p class="ng-scope">中身は空で構いません。</p>
+
+<p class="ng-scope">最後に、⑤のルーティングの追加を行いましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> config/routes.rbを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="ruby"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="no">Rails</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">root</span> <span class="s1">'top#index'</span>
+<span class="k">end</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、ルートパス（localhost:3000/）にアクセスされると、topコントローラーのindexアクションが実行され、index.html.erbが表示されるという流れが出来上がりました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1541" action="http://master.tech-camp.in/curriculums/289#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_01"></i>作業チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2181" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2181" name="check-2181" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">トップページにアクセスして、ビューを表示させることができた。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="7" class="ng-scope">ビューからJavaScriptファイルを読み込もう</h2>
+
+<p class="ng-scope">さて、先程は外部のJavaScriptを読み込むといった記述をheadタグ内にしました。<br>
+Railsではどのようにして外部のJavaScriptファイルを読み込めば良いのでしょうか。</p>
+
+<p class="ng-scope">PicTweetで、外部のcssファイルを読み込む方法を学びました。JavaScriptにおいても同様の方法で読み込むことができます。復習も兼ねて、少し詳しく一から説明します。</p>
+
+<p class="ng-scope">Railsにおいてもheadタグ内に記述することで、外部のJavaScriptファイルを読み込むことができます。</p>
+
+<p class="ng-scope">Railsにおけるheadタグはどこにあるのでしょうか。ここで、レイアウトとテンプレートという概念を復習しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_514"></i> レイアウトとテンプレート</h3>
+
+<p class="ng-scope">Railsでは、実際に表示されるHTMLとなるビューは、application.html.erbといったレイアウトと呼ばれるものと、index.html.erbといったテンプレートと呼ばれるもので構成されています。</p>
+
+<p class="ng-scope">テンプレートファイルは、index、show等のアクション毎に存在し、それぞれで表示するHTMLを記述します。<br>
+一方で、レイアウトファイルは、PicTweetのナビゲーションバーや、moooviのランキング表示部分など、多くのページで共通するHTMLを記述します。<br>
+headタグも多くのページで共通する部分と言え、レイアウトファイル内に記述されるのが一般的であり、デフォルトではapplication.html.erbに記述されています。</p>
+
+<p class="ng-scope">application.html.erbは以下のようになっています。</p>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;title&gt;</span>TestJs<span class="nt">&lt;/title&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span>    <span class="s1">'application'</span><span class="p">,</span> <span class="ss">media</span><span class="p">:</span> <span class="s1">'all'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="n">javascript_include_tag</span> <span class="s1">'application'</span><span class="p">,</span> <span class="s1">'data-turbolinks-track'</span> <span class="o">=&gt;</span> <span class="kp">true</span> <span class="cp">%&gt;</span>
+  <span class="cp">&lt;%=</span> <span class="n">csrf_meta_tags</span> <span class="cp">%&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+<span class="cp">&lt;%=</span> <span class="k">yield</span> <span class="cp">%&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">6行目に注目してください。実は、外部のJavaScriptを読み込むという記述は既にされており、この<code>javascript_include_tag</code>という記述によって、app/assets/javascripts/application.jsが読み込まれています。</p>
+
+<p class="ng-scope">デフォルトでは、application.jsの中身は以下のようになっています。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="c1">// This is a manifest file that'll be compiled into application.js, which will include all the files</span>
+<span class="c1">// listed below.</span>
+<span class="c1">//</span>
+<span class="c1">// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,</span>
+<span class="c1">// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.</span>
+<span class="c1">//</span>
+<span class="c1">// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the</span>
+<span class="c1">// compiled file.</span>
+<span class="c1">//</span>
+<span class="c1">// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details</span>
+<span class="c1">// about supported directives.</span>
+<span class="c1">//</span>
+<span class="c1">//= require jquery</span>
+<span class="c1">//= require jquery_ujs</span>
+<span class="c1">//= require turbolinks</span>
+<span class="c1">//= require_tree .</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><code>//</code>はJavaScriptにおけるコメントアウトを表します。そのため、上記の記述は全てJavaScriptとしては実行されません。</p>
+
+<p class="ng-scope">しかし、Railsは上記の記述を読んでおり、<code>//= require ***</code>といった記述を見て、gemの中から、あるいは、app/assets/javascripts/や、vendor/assets/javascripts/以下から、***.js等のJavaScriptファイルを探し、application.jsの中に取り込みます。</p>
+
+<p class="ng-scope">また、<code>require_tree .</code>という記述をすると、application.jsと同じディレクトリ、すなわちapp/assets/javascripts以下の全てのJavaScriptファイルをapplication.jsの中に取り込みます。</p>
+
+<p class="ng-scope">つまりRailsではデフォルトで、全てのページでapp/assets/javascripts/application.jsが読み込まれるようになっていて、application.jsは、そのファイル内でrequireしたJavaScriptファイル、また、同じディレクトリ以下に含まれるJavaScriptファイルにより構成されているということです。</p>
+
+<p class="ng-scope">よって、RailsにJavaScriptを取り入れるには、jsファイルをapp/assets/javascripts/以下に配置するだけで良いということになります。全てのページでそのjsファイルが読み込まれることになります。</p>
+
+<p class="ng-scope">ちなみに、上記のように沢山のJavaScriptファイルをapplication.js一つのファイルにまとめる仕組みをAsset Pipelineと言います。一つのファイルにまとめることで、読み込み速度の向上などが期待されます。</p>
+
+<p class="ng-scope">現状、app/assets/javascripts/以下は以下のようになっていると思います。</p>
+
+<ul class="filetree ng-scope">
+  <li class="t-folder"> app/assets/javascripts/
+    <ul>
+      <li class="t-file"> application.js</li>
+      <li class="t-file"> top.coffee</li>
+    </ul>
+  </li>
+</ul>
+
+<p class="ng-scope">top.coffeeという（ほぼ）空のファイルがあります。coffeeというのは、CoffeeScriptで記述されたファイルのことを表し、CoffeeScriptとは、JavaScriptの表現方法の一つです。</p>
+
+<p class="ng-scope"><code>rails g controller top</code>と実行した時に、topコントローラーに関するscss（cssの表現方法の一つ）、coffeeファイルも同時に作られていたのです。</p>
+
+<p class="ng-scope">今回はCoffeeScriptでなく、通常のJavaScript（生JSと呼んだりします）を記述するので、このファイルは不要となります。また、 <code>同名のCoffeeファイルがあると、JavaScriptファイルが読み込まれなくなるため、top.coffeeは削除してください。</code> </p>
+
+<p class="ng-scope">CoffeeScriptの書き方は、JavaScriptを一通り書けるようになってから学ぶのが良いでしょう。</p>
+
+<p class="ng-scope">それでは、トップページで読み込むJavaScriptファイルを配置しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/assets/javascripts/にtop.jsを作成し、以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">Railsでは、CSSやJavaScriptのファイル名は(表示するビューのコントローラー名).js等とするのが一般的です。</p>
+
+<p class="ng-scope">ファイルを分けても分けなくても、結局application.js、application.cssにまとめられ、全ページで読み込まれてしまいますが、ファイルが分かれていることで管理しやすくなります。</p>
+
+<p class="ng-scope">それでは、先程と同様に、JavaScriptが読み込まれているか確認しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> localhost:3000/にChromeでアクセスし、コンソールの出力を確認してください</h3>
+
+<p class="ng-scope">コンソールは<code>command + option + J</code>により立ち上げることができました。コンソールに「Hello world」の文字列が出力されていれば、top.jsが読み込まれていたことになりますね。</p>
+
+<p class="ng-scope">以上により、RailsアプリケーションにJavaScriptファイルを読み込むことができました。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1542" action="http://master.tech-camp.in/curriculums/289#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2182" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2182" name="check-2182" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">RailsにJavaScriptを取り入れるには、app/assets/javascriptsにjsファイルを置けば良い。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h1 id="8" class="ng-scope">JavaScriptで簡単な機能を実装する</h1>
+
+<p class="ng-scope">それでは、test-jsアプリケーションのトップページに、「ボタンをクリックしたら文字が変わる」という簡単な機能を実装していきましょう。</p>
+
+<p class="ng-scope"><img src="ff96dd317ae63261f4d82b4d5215b4ff.gif" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//ff96dd317ae63261f4d82b4d5215b4ff.gif"></p>
+
+<p class="ng-scope">この機能を実装するためには、「ボタンがクリックされたかどうか」がわからなくてはなりません。ボタンがクリックされたら、「文字を変える」という処理を実行すれば良さそうですね。</p>
+
+<p class="ng-scope">また、なによりもまず、HTML上の「ボタン」をJavaScript上で扱えるようにしなくてはなりません。</p>
+
+<h2 id="9" class="ng-scope">「ボタン」をJavaScript上で扱えるようにしよう</h2>
+
+<p class="ng-scope">ボタンはHTMLの要素です。HTMLの要素をJavaScript上でオブジェクトとして扱えるようにするために、DOMという仕組みを使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_515"></i> DOM</h3>
+
+<p class="ng-scope">DOMは、Document Object Modelの略で、HTMLの一つ一つの要素を、JavaScriptのオブジェクトとして扱えるようにする仕組みです。特にそのHTML一つ一つの要素に対応するオブジェクトのことを、DOMオブジェクトと呼びます。</p>
+
+<p class="ng-scope">実際にボタンをDOMオブジェクトとして取得しましょう。まずは、ビューにボタンを追加しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/views/top/index.html.erbを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">value=</span><span class="s">"ボタン"</span><span class="nt">&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、トップページのビューにボタンが追加されました。</p>
+
+<p class="ng-scope">次に、このボタンをDOMオブジェクトとして取得します。<br>
+DOMオブジェクトとして取得する方法はいくつかありますが、ここではdocumentオブジェクトの<code>querySelector</code>メソッドを使います。documentオブジェクトとは、元から用意されている、そのページのHTML情報を含んでいるオブジェクトです。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_516"></i> querySelectorメソッド</h3>
+
+<p class="ng-scope"><code>querySelector</code>メソッドは引数を持ち、HTML上でその引数で指定したセレクタに合致するもののうち、一番最初に見つかった要素をDOMオブジェクトとして返します。</p>
+
+<p class="ng-scope">moooviのスクレイピングで、Mechanize::Pageオブジェクトに対して用いたatメソッドによく似ています。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> トップページでコンソールを立ち上げ、以下のように実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">返り値として、ボタンのHTMLタグのようなものが得られますね。これがDOMオブジェクトとなっています。</p>
+
+<p class="ng-scope"><code>querySelector</code>メソッドでは、Mechanize::Pageオブジェクトのatメソッドやsearchメソッドと同様に、複雑なセレクタも指定できます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"form .btn"</span><span class="p">);</span> <span class="c1">// formタグ要素の中の、クラスがbtnの要素</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"#footer a.next"</span><span class="p">);</span> <span class="c1">// idがfotterの要素の中の、クラスがnextのaタグ要素</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">さて、<code>querySelector</code>メソッドを使って、ボタンをJavaScript上で取得することができました。次は、「ボタンをクリックしたら」を取得しましょう。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1543" action="http://master.tech-camp.in/curriculums/289#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2201" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2201" name="check-2201" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">DOMは、HTMLの要素をJavaScript上でオブジェクトとして扱うことを可能にする仕組みである。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2202" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2202" name="check-2202" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">querySelectorメソッドを用いて、HTMLの要素をDOMオブジェクトとして取得することができる。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="10" class="ng-scope">「ボタンをクリックしたら」を取得しよう</h2>
+
+<p class="ng-scope">ボタンが「クリックされたかどうか」を取得するために、JavaScriptのイベントと呼ばれる概念を使います。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_517"></i> イベント</h3>
+
+<p class="ng-scope">「クリックする」「マウスを乗せる」など、ブラウザ上で起きる出来事をイベントと呼びます。</p>
+
+<p class="ng-scope">ある要素に対してあるイベントが起きた時になんらかの処理を実行したい場合、イベントリスナーというものを定義し、イベントが起こった時の処理を書きます。イベントリスナーは、DOMオブジェクトの<code>addEventListener</code>メソッドを使って定義することができます。</p>
+
+<h3 class="ng-scope">
+<i class="icon information" id="term_518"></i> addEventListenerメソッド</h3>
+
+<p class="ng-scope"><code>addEventListener</code>メソッドはDOMオブジェクトのメソッドで、以下のようにして実行します。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="p">(</span><span class="nx">DOM</span><span class="err">オブジェクト</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"イベント名"</span><span class="p">,</span> <span class="err">関数</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上記のような記述により、この記述の読み込み以降で「DOMオブジェクト」に「イベント」が起きた時に、「関数」を実行するようになります。</p>
+
+<p class="ng-scope">一つのイベントと一つの関数を紐付ける仕組みのことをイベントリスナと呼びます。<br>
+一つのイベントに複数の関数を紐付ける場合は、関数の数だけイベントリスナが存在します。</p>
+
+<p class="ng-scope"><code>addEventListener</code>は、あるDOMオブジェクトに対して、そのDOMオブジェクトのイベントに関数を紐付ける仕組みであるイベントリスナを追加するメソッドである、ということです。</p>
+
+<p class="ng-scope">なお、<code>addEventListener</code>メソッドが引数として関数を取っていることが奇妙に見えますが、これは前の章で説明したように、JavaScriptでは関数は数値や文字列同様、一つの値であるとみなされていることに因ります。</p>
+
+<p class="ng-scope">では、<code>addEventListener</code>メソッドを用いて、ボタンがクリックされたらコンソールに適当な文字列を出力するようにしてみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/assets/javascripts/top.jsを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+<span class="c1">// ボタンをDOMオブジェクトとして取得し、変数btnに代入する</span>
+
+<span class="kd">function</span> <span class="nx">printHello</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// printHello関数を定義</span>
+
+<span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="nx">printHello</span><span class="p">);</span>
+<span class="c1">// ボタンのDOMオブジェクトであるbtnに対して、</span>
+<span class="c1">// clickイベントとprintHello関数を紐付ける仕組みであるイベントリスナを追加する</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、トップページにてボタンをクリックするとコンソールに「Hello world」と出力されることが期待できます。</p>
+
+<p class="ng-scope">しかし、実際にブラウザでボタンをクリックしてもコンソールに何も表示されません。</p>
+
+<p class="ng-scope">今回コードを記述したtop.jsは、application.jsの中で呼び出されています。<br>
+application.jsは、application.html.erbのheadタグ内に記述されています。</p>
+
+<p class="ng-scope">よって、ブラウザがこのJavaScriptのコードを読み込む時、まだhtmlファイルの内headタグ内までしか読み込まれておらず、bodyタグ内にあるinputタグは読み込まれていなかったのです。</p>
+
+<p class="ng-scope">そのため、<code>querySelector</code>メソッドによりボタンのDOMオブジェクトは取得できず、変数btnの中身はnull（何も無いという意味）となっていたのです。<br>
+nullのプロパティとして<code>addEventListener</code>メソッドが実行されることとなり、コンソールではそれに対するエラーとして以下のように表示されます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nx">Cannot</span> <span class="nx">ready</span> <span class="nx">property</span> <span class="s1">'addEventListener'</span> <span class="nx">of</span> <span class="kc">null</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">この問題を解決するために、上記の一連の処理を、「ページの読み込みが終わったら」実行するようにします。<br>
+「ページの読み込みが終わる」というイベントは、windowオブジェクトのloadイベントに対応します。そこで、windowオブジェクトのloadイベントに対応する関数として上記の一連の処理を定義すれば良いと考えられます。なお、windowオブジェクトは、元から用意されている、ブラウザの情報を持つオブジェクトです。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/assets/javascripts/top.jsを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">printHelloWithButton</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">printHello</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="c1">// 関数内で定義された関数は、関数の中でしか呼び出せないという性質があるだけで、</span>
+  <span class="c1">// 通常の関数同様に呼び出せる</span>
+
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="nx">printHello</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 一連の処理をまとめた関数を作る</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"load"</span><span class="p">,</span> <span class="nx">printHelloWithButton</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、windowオブジェクトのloadイベントが起きたら、つまりページの読み込みが終わったら、<code>printHelloWithButton</code>関数が実行されることになります。<br>
+この時、ページは読み込まれているため、DOMオブジェクトとしてinputタグを取得することができ、イベントリスナを正常に追加することができます。</p>
+
+<p class="ng-scope">実際にトップページにアクセスし、ボタンをクリックすると、コンソールにHello worldの出力がされますね。</p>
+
+<p class="ng-scope"><form class="ng-pristine ng-valid ng-scope" data-id="1544" action="http://master.tech-camp.in/curriculums/289#">
+  <h4 class="ng-binding">
+    <i class="icon check_icon_00"></i>要点チェック
+  </h4>
+  <!-- ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2184" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2184" name="check-2184" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">イベントとは、クリック等の、HTML要素に対して起こる「出来事」のことである。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2185" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2185" name="check-2185" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">イベントリスナとは、DOM要素の一つのイベントと一つの関数を紐付ける仕組みのことである。</span></label><!-- end ngRepeat: check in checkbox.checks --><label class="ng-scope" for="check-2186" ng-repeat="check in checkbox.checks"><input checked="checked" class="ng-pristine ng-untouched ng-valid" id="check-2186" name="check-2186" ng-change="change_checkbox_value(check)" ng-model="check.checked" type="checkbox"><span class="ng-binding" ng-bind-html="check.text">addEventListenerメソッドを用いることにより、DOM要素に対してイベントリスナを追加することができる。</span></label><!-- end ngRepeat: check in checkbox.checks -->
+</form></p>
+
+<h2 id="11" class="ng-scope">コードを見直そう</h2>
+
+<p class="ng-scope">さて、ここで少し上記のコードを見直しましょう。まず、<code>console.log</code>一行のために関数を定義しているのは冗長であると考えられます。</p>
+
+<p class="ng-scope">わざわざ関数として定義しているのは、<code>addEventListener</code>メソッドの第二引数として、関数を指定しなくてはならないからです。</p>
+
+<p class="ng-scope">そこで、<code>addEventListener</code>メソッドの第二引数内で、関数を定義することを考えます。</p>
+
+<p class="ng-scope">以下の例を見て下さい。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">func</span><span class="p">()</span> <span class="p">{}</span>
+<span class="c1">// 何もしないfunc関数</span>
+
+<span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="nx">func</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これはこのようにも書けます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kd">function</span> <span class="nx">func</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><code>addEventListener</code>の第二引数部分に、関数の定義部分を移動しただけですね。</p>
+
+<p class="ng-scope">また、先程は関数を呼び出すために関数名をつけていましたが、以下のように名前（上の例で言えばfunc）を省略することができます。名前の無い関数のことを無名関数と呼びます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{});</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">上の例では関数の中身は何もありませんが、処理がある場合（殆どの場合）は一般に改行を用いて以下のように書きます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 処理</span>
+<span class="p">});</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">この書き方を用いて、top.jsの中身を書き換えてみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/assets/javascripts/top.jsを以下のように編集してください</h3>
+
+<p class="ng-scope">まず、<code>window.addEventListener</code>の第二引数部分を書き換えます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"load"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">printHello</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="nx">printHello</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">次に、<code>btn.addEventListener</code>の第二引数部分を書き換えます。</p>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"load"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Hello world"</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">随分とすっきりとしました。このような書き方もよく使われるので、押さえておきましょう。</p>
+
+<h2 id="12" class="ng-scope">「文字が変わる」を実装しよう</h2>
+
+<p class="ng-scope">ボタンがクリックされた時に、なんらかの処理を実行するようにすることができたので、いよいよ「文字が変わる」処理を実装しましょう。</p>
+
+<p class="ng-scope">まずはビューに変える対象である文字を追加しましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/views/top/index.html.erbを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="rhtml"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>
+  ボタンが・・
+<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"button"</span> <span class="na">value=</span><span class="s">"ボタン"</span><span class="nt">&gt;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">それでは、文字を変える対象であるpタグをDOMオブジェクトとして取得してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> トップページでコンソールを立ち上げ、以下のように実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"p"</span><span class="p">);</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">これにより、pタグをDOMオブジェクトとして取得できました。</p>
+
+<p class="ng-scope">DOMオブジェクトには、<code>innerText</code>プロパティが定義されています。これは、タグで囲まれた中身のテキストに対応しています。</p>
+
+<p class="ng-scope"><code>innerText</code>プロパティを書き換えると、ページの表示も変わります。実際に試してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> トップページでコンソールを立ち上げ、以下のように実行してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"p"</span><span class="p">);</span>
+<span class="nx">p</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="s2">"クリックされた！"</span><span class="p">;</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope"><img src="fbbd23dea82e8f8668c2799c48ffaab6.gif" alt="https://tech-master.s3.amazonaws.com/uploads/curriculums//fbbd23dea82e8f8668c2799c48ffaab6.gif"></p>
+
+<p class="ng-scope">ページの表示が変わりましたね。<br>
+では上記の処理を、ボタンに対するaddEventListenerメソッドの第二引数に記述してみましょう。</p>
+
+<h3 class="ng-scope">
+<i class="icon pen"></i> app/assets/javascripts/top.jsを以下のように編集してください</h3>
+
+<div class="code-frame ng-scope" data-lang="javascript"><table class="highlighttable"><tbody><tr>
+<td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+<td class="code">
+<div class="highlight"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"load"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"input"</span><span class="p">);</span>
+
+  <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"p"</span><span class="p">);</span>
+    <span class="nx">p</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="s2">"クリックされた！"</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+</td>
+</tr></tbody></table></div>
+
+<p class="ng-scope">以上により、「ボタンをクリックしたら文字が変わる」機能の実装は完了です。</p>
+
+<p class="ng-scope">重要なのはDOMとイベントという概念です。DOMオブジェクトには他にも沢山のプロパティがありますから、「クリックしたら画像が変わる」といった処理等も同様にして実装することができます。</p>
+</div>
+          <!-- ngIf: curriculum.short_test --><div ng-if="curriculum.short_test" class="short_test-box ng-scope">
+  <div class="short_test-title">
+    <h4>
+      確認問題
+    </h4>
+    <p>
+      お疲れ様でした！このカリキュラムの終わりに確認問題を解きましょう。
+    </p>
+  </div>
+  <div class="short_test_score" id="shortTestInfo"></div>
+  <div class="short_test-button">
+    <a class="curriculum-short-test-button" ng-click="showShortTest(curriculum.short_test.id)">確認テストに挑戦する！</a>
+  </div>
+</div><!-- end ngIf: curriculum.short_test -->
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12" id="curriculumSideContainer">
+        <curriculum-side-wrap id="sideWrap">
+          <ul style="max-height: 347px;" class="list-group toc-tree" id="curriculumContents">
+  <li class="list-group-item disabled">
+    目次
+  </li>
+  <!-- ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding current" id="contents1" ng-click="clickContent(content.h1.id)">学習の目標</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents2" ng-click="clickContent(content.h1.id)">HTMLにJavaScriptを取り入れる</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents3" ng-click="clickContent(h2.id)">HTMLからJavaScriptファイルを読み込もう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents4" ng-click="clickContent(content.h1.id)">RailsにJavaScriptを取り入れる</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents5" ng-click="clickContent(h2.id)">新規アプリケーションを作成しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents6" ng-click="clickContent(h2.id)">ページにアクセスできるようにしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents7" ng-click="clickContent(h2.id)">ビューからJavaScriptファイルを読み込もう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents --><li class="ng-scope" ng-repeat="content in contents">
+    <a class="content-link ng-binding" id="contents8" ng-click="clickContent(content.h1.id)">JavaScriptで簡単な機能を実装する</a>
+    <ul class="list-group">
+      <!-- ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents9" ng-click="clickContent(h2.id)">「ボタン」をJavaScript上で扱えるようにしよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents10" ng-click="clickContent(h2.id)">「ボタンをクリックしたら」を取得しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents11" ng-click="clickContent(h2.id)">コードを見直そう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index --><li class="ng-scope" ng-repeat="h2 in content.h2 track by $index">
+        <a class="content-link ng-binding" id="contents12" ng-click="clickContent(h2.id)">「文字が変わる」を実装しよう</a>
+      </li><!-- end ngRepeat: h2 in content.h2 track by $index -->
+    </ul>
+  </li><!-- end ngRepeat: content in contents -->
+</ul>
+          <div style="" ng-show="check_count > 0" class="progress_box ng-scope">
+  <!-- ngIf: showTroubleShooting() -->
+  <!-- ngIf: courseId != 9 && courseId != 10 --><p class="terms ng-scope" ng-if="courseId != 9 &amp;&amp; courseId != 10">
+    分からない用語がある時：<br><a href="http://master.tech-camp.in/terms" target="_brank">用語一覧集</a>
+  </p><!-- end ngIf: courseId != 9 && courseId != 10 -->
+  <h4>
+    進捗度<i class="ng-binding" id="numerator">9 / 9<span id="denominaotr"></span></i>
+  </h4>
+  <div class="progress">
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" class="pregress-bar progress-bar-info ng-binding" role="progressbar" style="width: 100%;">
+      100%
+    </div>
+  </div>
+</div>
+          <curriculum-glossary class="ng-hide" ng-show="curriculum.curriculum_type == 2 || curriculum.curriculum_type == 3"></curriculum-glossary>
+          <button class="curriculum-report-button" ng-click="show_curriculum_report()">
+            <img src="idea.svg" height="20px" width="20px">
+            | このカリキュラムへのご要望
+          </button>
+        </curriculum-side-wrap>
+      </div>
+    </div>
+    <ul style="" class="pager" ng-hide="loading">
+  <li class="previous">
+    <a style="" class="" ng-click="go_previous()" ng-show="curriculum.previous_id">前のカリキュラム</a>
+  </li>
+  <li class="next">
+    <a style="" class="" ng-class="{ disable: curriculum.short_test.can_see_next_curriculum == false }" ng-click="go_next()" ng-show="curriculum.next_id">次のカリキュラム</a>
+  </li>
+</ul>
+  </div>
+</curriculum>
+<div style="" class="ng-scope ng-isolate-scope ng-hide" id="loading" ng-show="loading">
+  <svg height="44" stroke="#444" viewBox="0 0 44 44" width="44" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" strole-width="2"><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="0s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle><circle cx="22" cy="22" r="1"><animate attributeName="r" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.165, 0.84, 0.44, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 20"></animate><animate attributeName="stroke-opacity" begin="-0.9s" calcMode="spline" dur="1.8s" keySplines="0.3, 0.61, 0.355, 1" keyTimes="0; 1" repeatCount="indefinite" values="1; 0"></animate></circle></g></svg>
+</div>
+
+<div class="curriculum-image__modal modal ng-scope" id="curriculum-image__modal" role="dialog" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" data-dismiss="modal" ng-click="close()"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="curriculum-image__img__body">
+          <img class="curriculum-image__img zoom-out" id="curriculum-image__img">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div><div class="chat-window ng-scope" ng-controller="SupportChatController" ng-init="init('大宅誠人', '/uploads/noimage.png', 1867, 2988, 0, 'accepted_questions', 'machi4271', '2')"><div aria-hidden="true" aria-labelledby="myLargeModalLabel" class="modal fade" id="chats-modal" role="dialog" tabindex="-1"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="wrapper">
+  <header class="chat-header">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 chat-header-left">
+        <h2>
+          質問チャット
+        </h2>
+        <div class="chat-support-state active in-support ng-binding">
+          <img src="icn_qsupport.png" width="16">質問受付中
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="chat-layout" load-more="load-more">
+    <!-- ngRepeat: message in messages -->
+  </div>
+</div><footer class="chat-footer"><form accept-charset="UTF-8" action="http://master.tech-camp.in/api/chat_messages" class="new_chat_message ng-pristine ng-valid" data-remote="true" enctype="multipart/form-data" id="new_chat_message" method="post" ng_submit="afterSubmitted()"><div style="display: none;"><input name="utf8" value="✓" type="hidden"></div><input id="chat_message_chat_id" name="chat_message[chat_id]" value="2988" type="hidden"><div class="chat-box"><div class="row"><div class="chat-upload col-xs-1"><div class="chat-upload-btn"><img class="chat-upload-icn" src="icn_fileupload.png"><input class="ng-pristine ng-untouched ng-valid" id="chat_message_file" name="chat_message[file]" ng_model="file" onchange="angular.element(this).scope().showSubmitButtonAndHideSkypeButtonAndPreview()" type="file"><div class="chat-uploading-image ng-hide" ng-show="isUploading" ng-style="isUploadingStyle"><div class="image_del ng-hide" ng-click="clearImage()" ng-show="imageDeletable"><img alt="close" src="icon_close_red.svg"></div></div></div></div><div class="chat-textarea col-xs-8"><textarea class="form-control ng-pristine ng-untouched ng-valid" id="chat_message_content" name="chat_message[content]" ng_model="content" placeholder="次のコードの意味がよくわからないので教えていただけないでしょうか？" row="3"></textarea></div><div class="chat-submit col-xs-3"><input style="display: none;" class="submit-btn" id="submit_chat_message" name="commit" value="送信" type="submit"><div class="skype-popup"><a title="" data-original-title="" class="trigger btn btn-default" href="#">Skypeで直接聞く</a><div class="head hide">Skype質問を申請すると<br>担当メンターから着信が届きます。<br>以下の項目をご確認ください。</div><div class="content hide"><p class="ng-binding">あなたのSkypeID:　machi4271<br>質問箇所: <small>※スマートフォン、タブレットでのSkypeはご遠慮ください<br>※通話が始まったらすぐに画面共有をお願いします</small></p><a class="skype-support" href="http://master.tech-camp.in/curriculums/289">Skype質問を申請する</a><div class="close">×</div></div></div></div></div></div></form></footer></div></div></div><div class="chat-dock" ng-click="getMessages(); showModal()">質問サポート<!-- ngIf: unreadSize != 0 --><span class="dock-support-state_text in-support ng-binding"><img class="icn_qsupport" src="icn_qsupport_white.png" width="10">質問受付中</span></div></div></body>
+</html>
